@@ -1,0 +1,51 @@
+<resources>
+    <string name="app_name">Adhell</string>
+    <string name="wait">Wait…</string>
+    <string name="about">App for Samsung smartphones that blocks ads and trackers in Chrome. Website
+        loading increases up to 100%!
+    </string>
+    <string name="isSupported">Wait</string>
+    <string name="only_samsung">Only Samsung</string>
+    <string name="phone_not_supported">This device not supported FOR NOW</string>
+
+    <string name="preference_policy">policy-preference</string>
+    <string name="isPolicyEnabled">isPolicyEnabled</string>
+    <string name="block_enabled">Content blocker enabled. You safe now</string>
+    <string name="block_disabled">Content blocker disabled</string>
+    <string name="enable_blocker">Enable content blocker</string>
+    <string name="disable_blocker">Disable blocker</string>
+    <string name="works_whit_samsung">This device not supported. Works with Samsung only, at least
+        for now
+    </string>
+    <string name="android_version_not_supported">This Android version not supported</string>
+    <string name="please_wait">Please wait… Enabling Adhell</string>
+    <string name="wait_deleting">Please wat… Disabling Adhell</string>
+    <string name="adhell_not_supported">Adhell does not supported on your device yet. We will notify
+        you by email when your device be supported.
+    </string>
+    <string name="yes_notify_me">Yes! Notify Me!</string>
+    <string name="no_thanks">No, Thanks!</string>
+    <string name="thank_you_we_will_notify_you">We will notify you right after add your
+        device to Adhell.
+    </string>
+    <string name="notify_you_2">Your device not supported. But we will notify you at {{email}} when
+        we will add your device to Adhell. Thank you
+    </string>
+    <string name="edit_email">Wrong email? Change it!</string>
+    <string name="edit">Edit</string>
+    <string name="to_enable_adhell">To enable Adhell you
+        need to activate admin mode for app
+    </string>
+    <string name="turn_on_admin">Turn On Admin</string>
+    <string name="knox">To block ads Adhell uses Samsung Firewall, to use it please activate Samsung
+        license. It is free.
+    </string>
+    <string name="activate_knox">Activate Knox</string>
+    <string name="no_internet_connection">It seems that your device is not connected to the
+        internet
+    </string>
+        <string name="failed_to_activate_knox_message">Knox license activation failed
+    </string>
+    <string name="activating_knox_license">"Activating... "</string>
+    <string name="knox_license_activated">Activated</string>
+</resources>
