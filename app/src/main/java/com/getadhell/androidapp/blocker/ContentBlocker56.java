@@ -27,7 +27,7 @@ public class ContentBlocker56 implements ContentBlocker {
 
     @Override
     public boolean enableBlocker() {
-        if (mFirewall.isFirewallEnabled()) {
+        if (isEnabled()) {
             disableBlocker();
         }
         Log.d(LOG_TAG, "Loading block.js");

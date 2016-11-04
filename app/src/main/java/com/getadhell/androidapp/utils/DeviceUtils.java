@@ -8,7 +8,6 @@ import android.util.Log;
 
 import com.getadhell.androidapp.blocker.ContentBlocker;
 import com.getadhell.androidapp.blocker.ContentBlocker20;
-import com.getadhell.androidapp.blocker.ContentBlocker30;
 import com.getadhell.androidapp.blocker.ContentBlocker56;
 
 public class DeviceUtils {
@@ -85,13 +84,15 @@ public class DeviceUtils {
                 case ENTERPRISE_SDK_VERSION_5_1:
                 case ENTERPRISE_SDK_VERSION_5_2:
                 case ENTERPRISE_SDK_VERSION_5_3:
-                    return new ContentBlocker20(context); // works
+                    return new ContentBlocker20(context, 1625); // works
                 case ENTERPRISE_SDK_VERSION_5_4:
+                    return new ContentBlocker20(context, 1625);
                 case ENTERPRISE_SDK_VERSION_5_4_1:
-                    return new ContentBlocker20(context); // works
+                    return new ContentBlocker20(context, 300); // works
                 case ENTERPRISE_SDK_VERSION_5_5:
+                    return new ContentBlocker20(context, 300);
                 case ENTERPRISE_SDK_VERSION_5_5_1:
-                    return new ContentBlocker20(context);
+                    return new ContentBlocker20(context, 300);
                 case ENTERPRISE_SDK_VERSION_5_6:
                     return new ContentBlocker56(context); // works
                 default:

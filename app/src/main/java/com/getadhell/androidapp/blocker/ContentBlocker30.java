@@ -29,9 +29,8 @@ public class ContentBlocker30 implements ContentBlocker {
         Log.d(LOG_TAG, "Entering enableBlocker() method...");
         try {
             Log.d(LOG_TAG, "Check if Adhell enabled. Disable if true");
-            if (isEnabled()) {
-                disableBlocker();
-            }
+            disableBlocker();
+
             Log.d(LOG_TAG, "Loading block list rules");
             List<String> denyList = loadDenyList();
             if (denyList == null) {
@@ -77,7 +76,7 @@ public class ContentBlocker30 implements ContentBlocker {
     private List<String> loadDenyList() {
         List<String> urls = assetsContentBlockProvider.getBlockDb("block.json").urlsToBlock;
         for (int i = 0; i < urls.size(); i++) {
-            urls.set(i, "*" + urls.get(i) + "*");
+            urls.set(i, urls.get(i));
         }
         return urls;
     }

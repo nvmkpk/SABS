@@ -10,39 +10,39 @@ import com.getadhell.androidapp.contentprovider.AssetsContentBlockProvider;
 import java.util.List;
 
 public class ContentBlocker20 implements ContentBlocker {
-    private static final int URL_BLOCK_LIMIT = 1500;
     private final String LOG_TAG = ContentBlocker20.class.getCanonicalName();
+    private int urlBlockLimit = 1625;
     private AssetsContentBlockProvider assetsContentBlockProvider;
     private FirewallPolicy firewallPolicy;
 
-    public ContentBlocker20(Context context) {
+    public ContentBlocker20(Context context, int urlBlockLimit) {
         Log.d(LOG_TAG, "Entering constructor...");
         EnterpriseDeviceManager mEnterpriseDeviceManager = (EnterpriseDeviceManager)
                 context.getSystemService(EnterpriseDeviceManager.ENTERPRISE_POLICY_SERVICE);
         assetsContentBlockProvider = new AssetsContentBlockProvider(context);
         firewallPolicy = mEnterpriseDeviceManager.getFirewallPolicy();
+        if (urlBlockLimit != 0) {
+            this.urlBlockLimit = urlBlockLimit;
+        }
+
+        Log.d(LOG_TAG, "Number of urls to block: " + urlBlockLimit);
         Log.d(LOG_TAG, "Leaving constructor.");
     }
 
     @Override
     public boolean enableBlocker() {
+        disableBlocker();
         Log.d(LOG_TAG, "Entering enableBlocker() method...");
         try {
             Log.d(LOG_TAG, "Check if Adhell enabled. Disable if true");
-            if (isEnabled()) {
-                disableBlocker();
-            }
             Log.d(LOG_TAG, "Loading block list rules");
             List<String> denyList = loadDenyList();
-            boolean isAdded = firewallPolicy.setIptablesRerouteRules(denyList);
-            if (denyList == null) {
-                Log.w(LOG_TAG, "denyList is null");
-            }
+            boolean isAdded = firewallPolicy.addIptablesRerouteRules(denyList);
             Log.d(LOG_TAG, "Re-route rules added: " + isAdded);
             boolean isRulesEnabled = firewallPolicy.setIptablesOption(true);
             Log.d(LOG_TAG, "Rules enabled: " + isRulesEnabled);
             Log.d(LOG_TAG, "Leaving enableBlocker() method");
-            return isAdded;
+            return isRulesEnabled;
         } catch (Throwable e) {
             Log.e(LOG_TAG, "Failed to enable Adhell:", e);
             Log.d(LOG_TAG, "Leaving enableBlocker() method");
@@ -79,10 +79,10 @@ public class ContentBlocker20 implements ContentBlocker {
         List<String> urls = assetsContentBlockProvider.getBlockDb("block.json").urlsToBlock;
         for (int i = 0; i < urls.size(); i++) {
             urls.set(i, urls.get(i) + ":*;127.0.0.1:80");
-            if (i == URL_BLOCK_LIMIT) {
+            if (i == urlBlockLimit) {
                 break;
             }
         }
-        return urls.subList(0, URL_BLOCK_LIMIT);
+        return urls.subList(0, urlBlockLimit);
     }
 }
