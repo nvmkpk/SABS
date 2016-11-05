@@ -52,6 +52,7 @@ public class DeviceUtils {
                 case ENTERPRISE_SDK_VERSION_5_5:
                 case ENTERPRISE_SDK_VERSION_5_5_1:
                 case ENTERPRISE_SDK_VERSION_5_6:
+                case ENTERPRISE_SDK_VERSION_5_7:
                     return true;
                 default:
                     return false;
@@ -95,6 +96,8 @@ public class DeviceUtils {
                     return new ContentBlocker20(context, 300);
                 case ENTERPRISE_SDK_VERSION_5_6:
                     return new ContentBlocker56(context); // works
+                case ENTERPRISE_SDK_VERSION_5_7:
+                    return new ContentBlocker56(context);
                 default:
                     return null;
             }
