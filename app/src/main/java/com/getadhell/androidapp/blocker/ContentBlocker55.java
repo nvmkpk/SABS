@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.getadhell.androidapp.contentprovider.AssetsContentBlockProvider;
+import com.getadhell.androidapp.contentprovider.ServerContentBlockProvider;
 import com.sec.enterprise.firewall.Firewall;
 import com.sec.enterprise.firewall.FirewallResponse;
 import com.sec.enterprise.firewall.FirewallRule;
@@ -15,14 +16,14 @@ public class ContentBlocker55 implements ContentBlocker {
     private static final int URL_BLOCK_LIMIT = 2300;
 
     private final String LOG_TAG = ContentBlocker55.class.getCanonicalName();
-    private AssetsContentBlockProvider assetsContentBlockProvider;
+    private ServerContentBlockProvider contentBlockProvider;
     private Firewall mFirewall;
 
     public ContentBlocker55(Context context) {
         Log.d(LOG_TAG, "Entering constructor...");
         EnterpriseDeviceManager mEnterpriseDeviceManager = (EnterpriseDeviceManager)
                 context.getSystemService(EnterpriseDeviceManager.ENTERPRISE_POLICY_SERVICE);
-        assetsContentBlockProvider = new AssetsContentBlockProvider(context);
+        contentBlockProvider = new ServerContentBlockProvider();
         mFirewall = mEnterpriseDeviceManager.getFirewall();
     }
 
@@ -56,7 +57,7 @@ public class ContentBlocker55 implements ContentBlocker {
     }
 
     private FirewallRule[] loadDenyArray() {
-        List<String> urls = assetsContentBlockProvider.getBlockDb("block.json").urlsToBlock;
+        List<String> urls = contentBlockProvider.loadBlockDb().urlsToBlock;
         FirewallRule[] denyRuleArray = new FirewallRule[URL_BLOCK_LIMIT];
         for (int i = 0; i < urls.size(); i++) {
             FirewallRule denyRule = new FirewallRule(FirewallRule.RuleType.DENY, Firewall.AddressType.IPV4);

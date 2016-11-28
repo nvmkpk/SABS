@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class AssetsContentBlockProvider {
-    private final String LOG_TAG = AssetsContentBlockProvider.class.getCanonicalName();
+    private final String TAG = AssetsContentBlockProvider.class.getCanonicalName();
     private Context mContext;
     private Gson gson;
 
@@ -20,21 +20,21 @@ public class AssetsContentBlockProvider {
         this.mContext = context;
     }
 
-    public BlockDb getBlockDb(String assetName) {
-        Log.d(LOG_TAG, "Entering getBlockDb()");
+    public BlockDb loadBlockDb(String assetName) {
+        Log.d(TAG, "Entering loadBlockDb()");
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(
                     new InputStreamReader(mContext.getAssets().open(assetName)));
             return gson.fromJson(reader, BlockDb.class);
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Failed to read from assets", e);
+            Log.e(TAG, "Failed to read from assets", e);
         } finally {
             if (reader != null) {
                 try {
                     reader.close();
                 } catch (IOException e) {
-                    Log.e(LOG_TAG, "Failed to close reader", e);
+                    Log.e(TAG, "Failed to close reader", e);
                 }
             }
         }

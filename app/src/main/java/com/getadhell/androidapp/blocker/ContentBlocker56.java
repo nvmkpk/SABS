@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.getadhell.androidapp.contentprovider.AssetsContentBlockProvider;
+import com.getadhell.androidapp.contentprovider.ServerContentBlockProvider;
 import com.sec.enterprise.AppIdentity;
 import com.sec.enterprise.firewall.DomainFilterRule;
 import com.sec.enterprise.firewall.Firewall;
@@ -15,13 +16,13 @@ import java.util.List;
 
 public class ContentBlocker56 implements ContentBlocker {
     private final String LOG_TAG = ContentBlocker56.class.getCanonicalName();
-    private AssetsContentBlockProvider assetsContentBlockProvider;
+    private ServerContentBlockProvider contentBlockProvider;
     private Firewall mFirewall;
 
     public ContentBlocker56(Context context) {
         EnterpriseDeviceManager mEnterpriseDeviceManager = (EnterpriseDeviceManager)
                 context.getSystemService(EnterpriseDeviceManager.ENTERPRISE_POLICY_SERVICE);
-        assetsContentBlockProvider = new AssetsContentBlockProvider(context);
+        contentBlockProvider = new ServerContentBlockProvider();
         mFirewall = mEnterpriseDeviceManager.getFirewall();
     }
 
@@ -80,7 +81,7 @@ public class ContentBlocker56 implements ContentBlocker {
     }
 
     private List<String> loadDenyList() {
-        List<String> urls = assetsContentBlockProvider.getBlockDb("block.json").urlsToBlock;
+        List<String> urls = contentBlockProvider.loadBlockDb().urlsToBlock;
         for (int i = 0; i < urls.size(); i++) {
             urls.set(i, "*" + urls.get(i) + "*");
         }

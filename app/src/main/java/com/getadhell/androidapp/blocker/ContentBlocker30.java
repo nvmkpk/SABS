@@ -5,21 +5,21 @@ import android.app.enterprise.FirewallPolicy;
 import android.content.Context;
 import android.util.Log;
 
-import com.getadhell.androidapp.contentprovider.AssetsContentBlockProvider;
+import com.getadhell.androidapp.contentprovider.ServerContentBlockProvider;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ContentBlocker30 implements ContentBlocker {
     private final String LOG_TAG = ContentBlocker30.class.getCanonicalName();
-    private AssetsContentBlockProvider assetsContentBlockProvider;
+    private ServerContentBlockProvider contentBlockProvider;
     private FirewallPolicy firewallPolicy;
 
     public ContentBlocker30(Context context) {
         Log.d(LOG_TAG, "Entering constructor...");
         EnterpriseDeviceManager mEnterpriseDeviceManager = (EnterpriseDeviceManager)
                 context.getSystemService(EnterpriseDeviceManager.ENTERPRISE_POLICY_SERVICE);
-        assetsContentBlockProvider = new AssetsContentBlockProvider(context);
+        contentBlockProvider = new ServerContentBlockProvider();
         firewallPolicy = mEnterpriseDeviceManager.getFirewallPolicy();
         Log.d(LOG_TAG, "Leaving constructor.");
     }
@@ -74,7 +74,7 @@ public class ContentBlocker30 implements ContentBlocker {
     }
 
     private List<String> loadDenyList() {
-        List<String> urls = assetsContentBlockProvider.getBlockDb("block.json").urlsToBlock;
+        List<String> urls = contentBlockProvider.loadBlockDb().urlsToBlock;
         for (int i = 0; i < urls.size(); i++) {
             urls.set(i, urls.get(i));
         }
