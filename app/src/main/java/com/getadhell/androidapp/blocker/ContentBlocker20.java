@@ -12,14 +12,14 @@ import java.util.List;
 public class ContentBlocker20 implements ContentBlocker {
     private final String LOG_TAG = ContentBlocker20.class.getCanonicalName();
     private int urlBlockLimit = 1625;
-    private ServerContentBlockProvider assetsContentBlockProvider;
+    private ServerContentBlockProvider contentBlockProvider;
     private FirewallPolicy firewallPolicy;
 
     public ContentBlocker20(Context context, int urlBlockLimit) {
         Log.d(LOG_TAG, "Entering constructor...");
         EnterpriseDeviceManager mEnterpriseDeviceManager = (EnterpriseDeviceManager)
                 context.getSystemService(EnterpriseDeviceManager.ENTERPRISE_POLICY_SERVICE);
-        assetsContentBlockProvider = new ServerContentBlockProvider();
+        contentBlockProvider = new ServerContentBlockProvider();
         firewallPolicy = mEnterpriseDeviceManager.getFirewallPolicy();
         if (urlBlockLimit != 0) {
             this.urlBlockLimit = urlBlockLimit;
@@ -76,7 +76,7 @@ public class ContentBlocker20 implements ContentBlocker {
     }
 
     private List<String> loadDenyList() {
-        List<String> urls = assetsContentBlockProvider.loadBlockDb().urlsToBlock;
+        List<String> urls = contentBlockProvider.loadBlockDb().urlsToBlock;
         for (int i = 0; i < urls.size(); i++) {
             urls.set(i, urls.get(i) + ":*;127.0.0.1:80");
             if (i == urlBlockLimit) {

@@ -4,7 +4,6 @@ import android.app.enterprise.EnterpriseDeviceManager;
 import android.content.Context;
 import android.util.Log;
 
-import com.getadhell.androidapp.contentprovider.AssetsContentBlockProvider;
 import com.getadhell.androidapp.contentprovider.ServerContentBlockProvider;
 import com.sec.enterprise.AppIdentity;
 import com.sec.enterprise.firewall.DomainFilterRule;
