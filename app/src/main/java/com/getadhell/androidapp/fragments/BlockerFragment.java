@@ -31,10 +31,10 @@ public class BlockerFragment extends Fragment {
         contentBlocker = DeviceUtils.getContentBlocker(getActivity());
 
         if (contentBlocker.isEnabled()) {
-            mPolicyChangeButton.setText("Turn Off");
+            mPolicyChangeButton.setText(R.string.block_button_text_turn_off);
             isSupportedTextView.setText(R.string.block_enabled);
         } else {
-            mPolicyChangeButton.setText("Turn On");
+            mPolicyChangeButton.setText(R.string.block_button_text_turn_on);
             isSupportedTextView.setText(R.string.block_disabled);
         }
         mPolicyChangeButton.setOnClickListener(new View.OnClickListener() {
@@ -48,10 +48,10 @@ public class BlockerFragment extends Fragment {
 
     public void setNeededText() {
         if (contentBlocker.isEnabled()) {
-            mPolicyChangeButton.setText("Turn Off");
+            mPolicyChangeButton.setText(R.string.block_button_text_turn_off);
             isSupportedTextView.setText(R.string.block_enabled);
         } else {
-            mPolicyChangeButton.setText("Turn On");
+            mPolicyChangeButton.setText(R.string.block_button_text_turn_on);
             isSupportedTextView.setText(R.string.block_disabled);
         }
     }
@@ -68,10 +68,10 @@ public class BlockerFragment extends Fragment {
             mPolicyChangeButton.setEnabled(false);
 
             if (!contentBlocker.isEnabled()) {
-                mPolicyChangeButton.setText("Enabling...");
+                mPolicyChangeButton.setText(R.string.block_button_text_enabling);
                 isSupportedTextView.setText(getString(R.string.please_wait));
             } else {
-                mPolicyChangeButton.setText("Disabling...");
+                mPolicyChangeButton.setText(R.string.block_button_text_disabling);
                 isSupportedTextView.setText(getString(R.string.wait_deleting));
             }
         }

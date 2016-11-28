@@ -14,7 +14,7 @@ public class NoInternetFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.admin_not_active_fragment, container, false);
+        View view = inflater.inflate(R.layout.no_internet_connection_fragment, container, false);
         return view;
     }
 }

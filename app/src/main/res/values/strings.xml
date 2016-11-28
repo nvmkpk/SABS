@@ -10,10 +10,10 @@
 
     <string name="preference_policy">policy-preference</string>
     <string name="isPolicyEnabled">isPolicyEnabled</string>
-    <string name="block_enabled">Content blocker enabled. You safe now</string>
-    <string name="block_disabled">Content blocker disabled</string>
+    <string name="block_enabled">Adhell enabled. You are safe now</string>
+    <string name="block_disabled">Adhell disabled</string>
     <string name="enable_blocker">Enable content blocker</string>
-    <string name="disable_blocker">Disable blocker</string>
+    <string name="disable_blocker">Disable Adhell</string>
     <string name="works_whit_samsung">This device not supported. Works with Samsung only, at least
         for now
     </string>
@@ -48,4 +48,8 @@
     </string>
     <string name="activating_knox_license">"Activating... "</string>
     <string name="knox_license_activated">Activated</string>
+    <string name="block_button_text_turn_off">Turn Off</string>
+    <string name="block_button_text_turn_on">Turn On</string>
+    <string name="block_button_text_enabling">Enabling...</string>
+    <string name="block_button_text_disabling">Disabling...</string>
 </resources>
