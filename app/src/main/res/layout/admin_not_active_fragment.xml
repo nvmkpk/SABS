@@ -8,6 +8,8 @@
     <Button
         android:id="@+id/button3"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:onClick="enableAdmin"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:onClick="enableAdmin"
         android:text="@string/turn_on_admin"/>
 </LinearLayout>
