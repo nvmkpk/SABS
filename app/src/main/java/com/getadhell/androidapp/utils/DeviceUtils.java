@@ -36,6 +36,8 @@ public class DeviceUtils {
             EnterpriseDeviceManager edm = (EnterpriseDeviceManager)
                     context.getSystemService(EnterpriseDeviceManager.ENTERPRISE_POLICY_SERVICE);
             switch (edm.getEnterpriseSdkVer()) {
+                case ENTERPRISE_SDK_VERSION_NONE:
+                    return false;
                 case ENTERPRISE_SDK_VERSION_2:
                 case ENTERPRISE_SDK_VERSION_2_1:
                 case ENTERPRISE_SDK_VERSION_2_2:
@@ -55,7 +57,7 @@ public class DeviceUtils {
                 case ENTERPRISE_SDK_VERSION_5_7:
                     return true;
                 default:
-                    return false;
+                    return true;
             }
         } catch (Throwable ex) {
             Log.e(LOG_TAG, "Knox version not supported", ex);
@@ -74,6 +76,8 @@ public class DeviceUtils {
         Log.w(LOG_TAG, "EDM version: " + edm.getEnterpriseSdkVer());
         try {
             switch (edm.getEnterpriseSdkVer()) {
+                case ENTERPRISE_SDK_VERSION_NONE:
+                    return null;
                 case ENTERPRISE_SDK_VERSION_2:
                 case ENTERPRISE_SDK_VERSION_2_1:
                 case ENTERPRISE_SDK_VERSION_2_2:
@@ -99,7 +103,7 @@ public class DeviceUtils {
                 case ENTERPRISE_SDK_VERSION_5_7:
                     return new ContentBlocker56(context);
                 default:
-                    return null;
+                    return new ContentBlocker56(context);
             }
         } catch (Throwable t) {
             Log.e(LOG_TAG, "Failed to get ContentBlocker", t);
