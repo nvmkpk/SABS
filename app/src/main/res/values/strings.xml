@@ -52,4 +52,9 @@
     <string name="block_button_text_turn_on">Turn On</string>
     <string name="block_button_text_enabling">Enabling...</string>
     <string name="block_button_text_disabling">Disabling...</string>
+    <string name="edit_block_list">Edit Blocked URL\'s</string>
+    <string name="whitelist">Show Whitelist</string>
+    <string name="blocklist">Show Blocklist</string>
+    <string name="back_to_main">Back to Main</string>
+    <string name="editAlert">After editing the block list and whitelist, return to this screen and toggle Enabled off, then back on to apply the changes!</string>
 </resources>

@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.getadhell.androidapp.contentprovider.ServerContentBlockProvider;
 
+import java.io.File;
 import java.util.List;
 
 public class ContentBlocker20 implements ContentBlocker {
@@ -19,7 +20,7 @@ public class ContentBlocker20 implements ContentBlocker {
         Log.d(LOG_TAG, "Entering constructor...");
         EnterpriseDeviceManager mEnterpriseDeviceManager = (EnterpriseDeviceManager)
                 context.getSystemService(EnterpriseDeviceManager.ENTERPRISE_POLICY_SERVICE);
-        contentBlockProvider = new ServerContentBlockProvider();
+        contentBlockProvider = new ServerContentBlockProvider(context.getFilesDir());
         firewallPolicy = mEnterpriseDeviceManager.getFirewallPolicy();
         if (urlBlockLimit != 0) {
             this.urlBlockLimit = urlBlockLimit;

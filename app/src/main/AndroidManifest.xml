@@ -19,9 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="" />
+        <!--<meta-data-->
+            <!--android:name="com.crashlytics.ApiKey"-->
+            <!--android:value="" />-->
 
         <receiver
             android:name="com.getadhell.androidapp.deviceadmin.CustomDeviceAdminReceiver"

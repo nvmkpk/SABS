@@ -22,7 +22,7 @@ public class ContentBlocker55 implements ContentBlocker {
         Log.d(LOG_TAG, "Entering constructor...");
         EnterpriseDeviceManager mEnterpriseDeviceManager = (EnterpriseDeviceManager)
                 context.getSystemService(EnterpriseDeviceManager.ENTERPRISE_POLICY_SERVICE);
-        contentBlockProvider = new ServerContentBlockProvider();
+        contentBlockProvider = new ServerContentBlockProvider(context.getFilesDir());
         mFirewall = mEnterpriseDeviceManager.getFirewall();
     }
 

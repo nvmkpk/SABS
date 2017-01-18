@@ -21,7 +21,7 @@ public class ContentBlocker56 implements ContentBlocker {
     public ContentBlocker56(Context context) {
         EnterpriseDeviceManager mEnterpriseDeviceManager = (EnterpriseDeviceManager)
                 context.getSystemService(EnterpriseDeviceManager.ENTERPRISE_POLICY_SERVICE);
-        contentBlockProvider = new ServerContentBlockProvider();
+        contentBlockProvider = new ServerContentBlockProvider(context.getFilesDir());
         mFirewall = mEnterpriseDeviceManager.getFirewall();
     }
 

@@ -1,6 +1,8 @@
 package com.getadhell.androidapp.fragments;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +15,9 @@ import android.widget.TextView;
 import com.getadhell.androidapp.R;
 import com.getadhell.androidapp.blocker.ContentBlocker;
 import com.getadhell.androidapp.utils.DeviceUtils;
+
+import java.io.FileDescriptor;
+import java.io.PrintWriter;
 
 public class BlockerFragment extends Fragment {
     private static final String LOG_TAG = BlockerFragment.class.getCanonicalName();
@@ -43,6 +48,19 @@ public class BlockerFragment extends Fragment {
                 changePermission();
             }
         });
+
+        Button editButton = (Button) view.findViewById(R.id.editUrls);
+        editButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d(LOG_TAG, "Edit button click in Fragment1");
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragmentContainer, new BlockListFragment());
+                fragmentTransaction.commit();
+            }
+
+        });
+
         return view;
     }
 
