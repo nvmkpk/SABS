@@ -24,7 +24,6 @@ Then sorts them by popularity, checks if urls are reachable. And finally generat
 
 For more information about generating urls-to-block list look at this repo: https://github.com/adhell/adprovider
 
-There is no need to enable them both
 
 ### Which is better, Adhell of Disconnect Pro?
 
