@@ -48,9 +48,10 @@ import java.util.List;
 
 public class AppListFragment extends Fragment {
     private static final String TAG = AppListFragment.class.getCanonicalName();
-    ListView appListView;
-    String APPLIST = "applist.json";
-    Boolean onWhiteList = false;
+    private ListView appListView;
+    private List<ApplicationInfo> masterAppInfo;
+    private String APPLIST = "applist.json";
+    private Boolean onWhiteList = false;
     private IconAppAdapter iconAdapter;
     private Context context;
     private PackageManager packageManager;
@@ -72,7 +73,9 @@ public class AppListFragment extends Fragment {
                 if (onWhiteList) {
                     onWhiteList = false;
                     editButton.setText(R.string.whitelist);
-                    new AdhellGetListTask().execute(false);
+                    setData(masterAppInfo);
+                    iconAdapter.notifyDataSetChanged();
+                    //new AdhellGetListTask().execute(false);
                 } else {
                     onWhiteList = true;
                     editButton.setText(R.string.applist);
@@ -88,7 +91,8 @@ public class AppListFragment extends Fragment {
                 String item = (String) parent.getItemAtPosition(position);
                 if (onWhiteList) {
                     //remove from whitelist
-                    removeFromWhiteList(item);
+                    //removeFromWhiteList(item);
+                    new RemoveFromWhiteList().execute(item);
                     new AdhellGetWhiteListTask().execute(false);
                 } else {
                     //add to whitelist
@@ -151,15 +155,16 @@ public class AppListFragment extends Fragment {
         public void remove(String packageName) {
             try {
                 ApplicationInfo ai = packageManager.getApplicationInfo(packageName, 0);
-                for (int i = 0; i < applicationInfoList.size(); i++){
-                    if (applicationInfoList.get(i).packageName.equals(packageName)) {
-                        applicationInfoList.remove(i);
+                for (int i = 0; i < this.applicationInfoList.size(); i++){
+                    if (this.applicationInfoList.get(i).packageName.equals(packageName)) {
+                        this.applicationInfoList.remove(i);
                         break;
                     }
                 }
             } catch (PackageManager.NameNotFoundException e) {
                 e.printStackTrace();
             }
+            masterAppInfo = this.applicationInfoList;
         }
     }
 
@@ -228,11 +233,62 @@ public class AppListFragment extends Fragment {
 
         protected void onPostExecute(List<ApplicationInfo> result) {
             pd.dismiss();
+            masterAppInfo = result;
             setData(result);
         }
     }
 
+    private class RemoveFromWhiteList extends AsyncTask<String, Void, Void> {
+        ProgressDialog pd;
+
+        protected void onPreExecute() {
+            pd = ProgressDialog.show(getActivity(), "", "Please Wait, Removing App From Whitelist", false);
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+            ArrayList<String> whitelist = getWhiteList();
+            whitelist.remove(params[0]);
+            File file;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                file = new File(getContext().getFilesDir(), APPLIST);
+            } else {
+                file = new File(getActivity().getFilesDir(), APPLIST);
+            }
+            if (file.exists()) {
+                try {
+                    Writer output = new BufferedWriter(new FileWriter(file));
+                    Gson gson = new Gson();
+                    output.write(gson.toJson(whitelist));
+                    output.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            try {
+                ApplicationInfo ai = packageManager.getApplicationInfo(params[0], 0);
+                masterAppInfo.add(ai);
+                Collections.sort(masterAppInfo, new Comparator<ApplicationInfo>() {
+                    public int compare(ApplicationInfo ai1, ApplicationInfo ai2) {
+                        String s1 = ai1.loadLabel(packageManager).toString();
+                        String s2 = ai2.loadLabel(packageManager).toString();
+                        return s1.compareTo(s2);
+                    }
+                });
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
+            pd.dismiss();
+            return null;
+        }
+
+        protected void onPostExecute(Void result) {
+            pd.dismiss();
+        }
+    }
+
     private void removeFromWhiteList(String url) {
+        ProgressDialog pd = ProgressDialog.show(getActivity(), "", "Please Wait, Removing from Whitelist", false);
         ArrayList<String> whitelist = getWhiteList();
         whitelist.remove(url);
         File file;
@@ -251,6 +307,20 @@ public class AppListFragment extends Fragment {
                 e.printStackTrace();
             }
         }
+        try {
+            ApplicationInfo ai = packageManager.getApplicationInfo(url, 0);
+            masterAppInfo.add(ai);
+            Collections.sort(masterAppInfo, new Comparator<ApplicationInfo>() {
+                public int compare(ApplicationInfo ai1, ApplicationInfo ai2) {
+                    String s1 = ai1.loadLabel(packageManager).toString();
+                    String s2 = ai2.loadLabel(packageManager).toString();
+                    return s1.compareTo(s2);
+                }
+            });
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        pd.dismiss();
     }
 
     private void addToWhiteList(String url) {
