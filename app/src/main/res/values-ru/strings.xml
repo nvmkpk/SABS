@@ -42,4 +42,5 @@
     <string name="editAlert">After editing the block list and whitelist, return to this screen and toggle Enabled off, then back on to apply the changes!</string>
     <string name="allow_apps">WhiteList Apps</string>
     <string name="applist">Show App List</string>
+    <string name="list_filter">Filter:</string>
 </resources>

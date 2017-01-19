@@ -3,11 +3,14 @@ package com.getadhell.androidapp.fragments;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.ResolveInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,11 +18,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Filter;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.getadhell.androidapp.MainActivity;
 import com.getadhell.androidapp.R;
 import com.getadhell.androidapp.contentprovider.ServerContentBlockProvider;
 import com.getadhell.androidapp.model.BlockDb;
+import com.getadhell.androidapp.utils.CustomArrayAdapter;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -40,9 +47,10 @@ import java.util.List;
 
 public class AppListFragment extends Fragment {
     private static final String LOG_TAG = AppListFragment.class.getCanonicalName();
-    ListView appListView;
-    String APPLIST = "applist.json";
-    Boolean onWhiteList = false;
+    private ListView appListView;
+    private final String APPLIST = "applist.json";
+    private Boolean onWhiteList = false;
+    private ArrayAdapter<String> arrayAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -98,15 +106,33 @@ public class AppListFragment extends Fragment {
             }
         });
 
+        TextView filter = (TextView)view.findViewById(R.id.filterApps);
+        filter.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                arrayAdapter.getFilter().filter(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         return view;
     }
 
     private void setData(ArrayList<String> data) {
-        ArrayAdapter<String> arrayAdapter = null;
+        arrayAdapter = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            arrayAdapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_list_item_1, data);
+            arrayAdapter = new CustomArrayAdapter(this.getContext(), android.R.layout.simple_list_item_1, data);
         } else {
-            arrayAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_list_item_1, data);
+            arrayAdapter = new CustomArrayAdapter(this.getActivity(), android.R.layout.simple_list_item_1, data);
         }
         appListView.setAdapter(arrayAdapter);
     }
