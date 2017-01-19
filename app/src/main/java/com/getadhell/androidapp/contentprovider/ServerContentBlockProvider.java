@@ -21,8 +21,8 @@ import okhttp3.Response;
 
 public class ServerContentBlockProvider {
     private Gson gson;
-    String WHITELIST = "whitelist.json";
-    String APPLIST = "applist.json";
+    private String WHITELIST = "whitelist.json";
+    private String APPLIST = "applist.json";
     private File filesDir;
 
     private static final String TAG = ServerContentBlockProvider.class.getCanonicalName();

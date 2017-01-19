@@ -47,13 +47,13 @@
         android:id="@+id/filterApps" />
     </LinearLayout>
 
-
-
     <android.support.v7.widget.ListViewCompat
-    android:id="@+id/appList"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scrollbars="vertical"
+        android:id="@+id/appList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:divider="?attr/dividerHorizontal"
-        android:dividerHeight="1dp"></android.support.v7.widget.ListViewCompat>
+        android:dividerHeight="1dp"
+        android:scrollbars="vertical">
+
+    </android.support.v7.widget.ListViewCompat>
 </LinearLayout>
