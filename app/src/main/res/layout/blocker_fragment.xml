@@ -24,6 +24,13 @@
         android:layout_gravity="center_horizontal"
         android:id="@+id/editUrls" />
 
+    <Button
+        android:text="@string/allow_apps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/allowApps"
+        android:layout_gravity="center_horizontal" />
+
     <TextView
         android:text="@string/editAlert"
         android:layout_width="match_parent"

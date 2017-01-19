@@ -40,6 +40,11 @@ public class ContentBlocker56 implements ContentBlocker {
         List<DomainFilterRule> rules = new ArrayList<DomainFilterRule>();
         AppIdentity appIdentity = new AppIdentity("*", null);
         rules.add(new DomainFilterRule(appIdentity, denyList, allowList));
+        List<String> superAllow = new ArrayList<String>();
+        superAllow.add("*");
+        for (String app : contentBlockProvider.loadAllowApps()) {
+            rules.add(new DomainFilterRule(new AppIdentity(app, null), new ArrayList<String>(), superAllow));
+        }
         try {
             FirewallResponse[] response = mFirewall.addDomainFilterRules(rules);
             if (!mFirewall.isFirewallEnabled()) {

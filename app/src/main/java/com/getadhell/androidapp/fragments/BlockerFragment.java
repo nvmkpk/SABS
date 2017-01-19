@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.getadhell.androidapp.R;
 import com.getadhell.androidapp.blocker.ContentBlocker;
+import com.getadhell.androidapp.blocker.ContentBlocker56;
 import com.getadhell.androidapp.utils.DeviceUtils;
 
 import java.io.FileDescriptor;
@@ -60,6 +61,22 @@ public class BlockerFragment extends Fragment {
             }
 
         });
+
+        Button appButton = (Button) view.findViewById(R.id.allowApps);
+        if (contentBlocker instanceof ContentBlocker56) {
+            appButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Log.d(LOG_TAG, "Allow Apps button click in Fragment1");
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragmentContainer, new AppListFragment());
+                    fragmentTransaction.commit();
+                }
+
+            });
+        } else {
+            appButton.setVisibility(View.GONE);
+        }
 
         return view;
     }
