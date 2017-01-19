@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -24,7 +25,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.getadhell.androidapp.R;
-import com.getadhell.androidapp.utils.CustomArrayAdapter;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -109,24 +109,6 @@ public class AppListFragment extends Fragment {
             }
         });
 
-        TextView filter = (TextView)view.findViewById(R.id.filterApps);
-        filter.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                arrayAdapter.getFilter().filter(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
         return view;
     }
 
@@ -201,9 +183,10 @@ public class AppListFragment extends Fragment {
     }
 
     private class AdhellGetListTask extends AsyncTask<Boolean, Void, List<ApplicationInfo>> {
+        ProgressDialog pd;
 
         protected void onPreExecute() {
-
+            pd = ProgressDialog.show(getActivity(), "", "Please Wait, Loading Application List", false);
         }
 
         protected List<ApplicationInfo> doInBackground(Boolean... switchers) {
@@ -226,6 +209,7 @@ public class AppListFragment extends Fragment {
         }
 
         protected void onPostExecute(List<ApplicationInfo> result) {
+            pd.dismiss();
             setData(result);
         }
     }
