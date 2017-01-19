@@ -170,12 +170,6 @@ public class AppListFragment extends Fragment {
 
 
     private void setData(List<ApplicationInfo> data) {
-//        ArrayAdapter<String> arrayAdapter = null;
-//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-//            arrayAdapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_list_item_1, data);
-//        } else {
-//            arrayAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_list_item_1, data);
-//        }
         iconAdapter = new IconAppAdapter(data);
         appListView.setAdapter(iconAdapter);
     }
