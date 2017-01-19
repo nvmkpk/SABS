@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
     <TextView
@@ -15,4 +16,27 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="@string/wait"/>
+
+    <Button
+        android:text="@string/edit_block_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/editUrls" />
+
+    <Button
+        android:text="@string/allow_apps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/allowApps"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:text="@string/editAlert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editAlert"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:paddingLeft="5pt"
+        android:paddingRight="5pt" />
 </LinearLayout>

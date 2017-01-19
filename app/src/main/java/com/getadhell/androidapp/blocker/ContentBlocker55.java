@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.getadhell.androidapp.contentprovider.ServerContentBlockProvider;
+import com.sec.enterprise.AppIdentity;
 import com.sec.enterprise.firewall.Firewall;
 import com.sec.enterprise.firewall.FirewallResponse;
 import com.sec.enterprise.firewall.FirewallRule;
@@ -22,14 +23,16 @@ public class ContentBlocker55 implements ContentBlocker {
         Log.d(LOG_TAG, "Entering constructor...");
         EnterpriseDeviceManager mEnterpriseDeviceManager = (EnterpriseDeviceManager)
                 context.getSystemService(EnterpriseDeviceManager.ENTERPRISE_POLICY_SERVICE);
-        contentBlockProvider = new ServerContentBlockProvider();
+        contentBlockProvider = new ServerContentBlockProvider(context.getFilesDir());
         mFirewall = mEnterpriseDeviceManager.getFirewall();
     }
 
     @Override
     public boolean enableBlocker() {
         FirewallRule[] denyRuleArray = loadDenyArray();
+        FirewallRule[] allowRuleArray = loadAllowArray();
         FirewallResponse[] firewallResponseArray = mFirewall.addRules(denyRuleArray);
+        FirewallResponse[] firewallAllowResponeArray = mFirewall.addRules(allowRuleArray);
         FirewallResponse enableFilrewallResponse = mFirewall.enableFirewall(true);
         if (enableFilrewallResponse.getResult() == FirewallResponse.Result.SUCCESS
                 || enableFilrewallResponse.getResult() == FirewallResponse.Result.NO_CHANGES) {
@@ -72,5 +75,24 @@ public class ContentBlocker55 implements ContentBlocker {
             }
         }
         return denyRuleArray;
+    }
+
+    private FirewallRule[] loadAllowArray() {
+        List<String> appNames = contentBlockProvider.loadAllowApps();
+        FirewallRule[] allowRuleArray = new FirewallRule[URL_BLOCK_LIMIT];
+        for (int i = 0; i < appNames.size(); i++ ) {
+            AppIdentity ai = new AppIdentity();
+            ai.setPackageName(appNames.get(i));
+            FirewallRule allowRule = new FirewallRule(FirewallRule.RuleType.ALLOW, Firewall.AddressType.IPV4);
+            allowRule.setApplication(ai);
+            allowRule.setPortLocation(Firewall.PortLocation.ALL);
+            allowRule.setNetworkInterface(Firewall.NetworkInterface.ALL_NETWORKS);
+            allowRule.setDirection(Firewall.Direction.ALL);
+            allowRule.setProtocol(Firewall.Protocol.ALL);
+            if (i == URL_BLOCK_LIMIT) {
+                break;
+            }
+        }
+        return allowRuleArray;
     }
 }

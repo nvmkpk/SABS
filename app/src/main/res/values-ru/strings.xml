@@ -35,4 +35,11 @@
     <string name="isPolicyEnabled">isPolicyEnabled</string>
     <string name="enable_blocker">Включить Adhell</string>
     <string name="about">Adhell блокируется рекламу на всем устройстве (только для смартфонов Samsung)</string>
+    <string name="edit_block_list">Edit Blocked URL\'s</string>
+    <string name="whitelist">Show Whitelist</string>
+    <string name="blocklist">Show Blocklist</string>
+    <string name="back_to_main">Back to Main</string>
+    <string name="editAlert">After editing the block list and whitelist, return to this screen and toggle Enabled off, then back on to apply the changes!</string>
+    <string name="allow_apps">WhiteList Apps</string>
+    <string name="applist">Show App List</string>
 </resources>

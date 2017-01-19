@@ -10,8 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
-import com.crashlytics.android.Crashlytics;
-import com.crashlytics.android.answers.Answers;
+//import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.answers.Answers;
 import com.getadhell.androidapp.deviceadmin.DeviceAdminInteractor;
 import com.getadhell.androidapp.fragments.ActivateKnoxLicenseFragment;
 import com.getadhell.androidapp.fragments.AdhellNotSupportedFragment;
@@ -20,7 +20,7 @@ import com.getadhell.androidapp.fragments.EnableAdminFragment;
 import com.getadhell.androidapp.fragments.NoInternetFragment;
 import com.getadhell.androidapp.utils.DeviceUtils;
 
-import io.fabric.sdk.android.Fabric;
+//import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = MainActivity.class.getCanonicalName();
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fabric.with(this, new Answers(), new Crashlytics());
+        //Fabric.with(this, new Answers(), new Crashlytics());
         setContentView(R.layout.activity_main);
         fragmentManager = getFragmentManager();
         mAdminInteractor = new DeviceAdminInteractor(this);
