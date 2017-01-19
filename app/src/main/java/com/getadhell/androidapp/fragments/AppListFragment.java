@@ -1,11 +1,11 @@
 package com.getadhell.androidapp.fragments;
 
+import android.Manifest;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.content.pm.ApplicationInfo;
-import android.content.pm.ResolveInfo;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,8 +18,6 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.getadhell.androidapp.R;
-import com.getadhell.androidapp.contentprovider.ServerContentBlockProvider;
-import com.getadhell.androidapp.model.BlockDb;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -39,7 +37,7 @@ import java.util.List;
  */
 
 public class AppListFragment extends Fragment {
-    private static final String LOG_TAG = AppListFragment.class.getCanonicalName();
+    private static final String TAG = AppListFragment.class.getCanonicalName();
     ListView appListView;
     String APPLIST = "applist.json";
     Boolean onWhiteList = false;
@@ -56,7 +54,7 @@ public class AppListFragment extends Fragment {
         final Button editButton = (Button) view.findViewById(R.id.whitelist);
         editButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d(LOG_TAG, "Whitelist button click in AppListFragment");
+                Log.d(TAG, "Whitelist button click in AppListFragment");
                 if (onWhiteList) {
                     onWhiteList = false;
                     editButton.setText(R.string.whitelist);
@@ -73,7 +71,7 @@ public class AppListFragment extends Fragment {
         appListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String item = (String)parent.getItemAtPosition(position);
+                String item = (String) parent.getItemAtPosition(position);
                 if (onWhiteList) {
                     //remove from whitelist
                     removeFromWhiteList(item);
@@ -86,11 +84,11 @@ public class AppListFragment extends Fragment {
             }
         });
 
-        Button back = (Button)view.findViewById(R.id.back_to_main);
+        Button back = (Button) view.findViewById(R.id.back_to_main);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(LOG_TAG, "Back button click in AppListFragment");
+                Log.d(TAG, "Back button click in AppListFragment");
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragmentContainer, new BlockerFragment());
@@ -133,11 +131,17 @@ public class AppListFragment extends Fragment {
         }
 
         protected ArrayList<String> doInBackground(Boolean... switchers) {
+            PackageManager packageManager = getActivity().getPackageManager();
             ArrayList<String> pkgNames = new ArrayList<String>();
-            final List<ApplicationInfo> pkgAppsList = getActivity().getPackageManager().getInstalledApplications(0);
+            final List<ApplicationInfo> pkgAppsList = packageManager.getInstalledApplications(0);
+            Log.i(TAG, "Number of applications installed: " + pkgAppsList.size());
             for (ApplicationInfo ai : pkgAppsList) {
-                pkgNames.add(ai.packageName);
+                int permissionState = packageManager.checkPermission(Manifest.permission.INTERNET, ai.packageName);
+                if (permissionState == PackageManager.PERMISSION_GRANTED) {
+                    pkgNames.add(ai.packageName);
+                }
             }
+            Log.i(TAG, "Number of applications with INTERNET GRANDTED permission installed: " + pkgNames.size());
             pkgNames.removeAll(getWhiteList());
             Collections.sort(pkgNames);
             return pkgNames;
