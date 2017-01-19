@@ -1,6 +1,7 @@
 package com.getadhell.androidapp.fragments;
 
 import android.Manifest;
+import android.app.Application;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -50,7 +51,7 @@ public class AppListFragment extends Fragment {
     ListView appListView;
     String APPLIST = "applist.json";
     Boolean onWhiteList = false;
-    private ArrayAdapter<String> arrayAdapter;
+    private IconAppAdapter iconAdapter;
     private Context context;
     private PackageManager packageManager;
 
@@ -92,7 +93,9 @@ public class AppListFragment extends Fragment {
                 } else {
                     //add to whitelist
                     addToWhiteList(item);
-                    new AdhellGetListTask().execute(false);
+                    //new AdhellGetListTask().execute(false);
+                    iconAdapter.remove(item);
+                    iconAdapter.notifyDataSetChanged();
                 }
             }
         });
@@ -144,6 +147,20 @@ public class AppListFragment extends Fragment {
             appIconImageView.setImageDrawable(packageManager.getApplicationIcon(this.applicationInfoList.get(position)));
             return row;
         }
+
+        public void remove(String packageName) {
+            try {
+                ApplicationInfo ai = packageManager.getApplicationInfo(packageName, 0);
+                for (int i = 0; i < applicationInfoList.size(); i++){
+                    if (applicationInfoList.get(i).packageName.equals(packageName)) {
+                        applicationInfoList.remove(i);
+                        break;
+                    }
+                }
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
@@ -154,7 +171,8 @@ public class AppListFragment extends Fragment {
 //        } else {
 //            arrayAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_list_item_1, data);
 //        }
-        appListView.setAdapter(new IconAppAdapter(data));
+        iconAdapter = new IconAppAdapter(data);
+        appListView.setAdapter(iconAdapter);
     }
 
     private class AdhellGetWhiteListTask extends AsyncTask<Boolean, Void, List<ApplicationInfo>> {
