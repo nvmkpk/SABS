@@ -5,24 +5,26 @@
               android:orientation="vertical">
 
     <Button
-        android:text="@string/back_to_main"
+        android:id="@+id/back_to_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/back_to_main"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:text="@string/back_to_main"/>
 
     <Button
-        android:text="@string/whitelist"
+        android:id="@+id/whitelist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/whitelist"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:text="@string/whitelist"/>
 
     <android.support.v7.widget.ListViewCompat
-    android:id="@+id/appList"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scrollbars="vertical"
+        android:id="@+id/appList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:divider="?attr/dividerHorizontal"
-        android:dividerHeight="1dp"></android.support.v7.widget.ListViewCompat>
+        android:dividerHeight="1dp"
+        android:scrollbars="vertical">
+
+    </android.support.v7.widget.ListViewCompat>
 </LinearLayout>
