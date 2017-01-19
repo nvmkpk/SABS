@@ -4,16 +4,20 @@ import android.Manifest;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -46,6 +50,7 @@ public class AppListFragment extends Fragment {
     ListView appListView;
     String APPLIST = "applist.json";
     Boolean onWhiteList = false;
+    private ArrayAdapter<String> arrayAdapter;
     private Context context;
     private PackageManager packageManager;
 
@@ -178,9 +183,10 @@ public class AppListFragment extends Fragment {
     }
 
     private class AdhellGetListTask extends AsyncTask<Boolean, Void, List<ApplicationInfo>> {
+        ProgressDialog pd;
 
         protected void onPreExecute() {
-
+            pd = ProgressDialog.show(getActivity(), "", "Please Wait, Loading Application List", false);
         }
 
         protected List<ApplicationInfo> doInBackground(Boolean... switchers) {
@@ -203,6 +209,7 @@ public class AppListFragment extends Fragment {
         }
 
         protected void onPostExecute(List<ApplicationInfo> result) {
+            pd.dismiss();
             setData(result);
         }
     }

@@ -4,19 +4,26 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <Button
-        android:id="@+id/back_to_main"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/back_to_main"/>
+        android:gravity="center_horizontal">
 
-    <Button
-        android:id="@+id/whitelist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/whitelist"/>
+        <Button
+            android:text="@string/back_to_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/back_to_main"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:text="@string/whitelist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/whitelist"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
 
     <android.support.v7.widget.ListViewCompat
         android:id="@+id/appList"
