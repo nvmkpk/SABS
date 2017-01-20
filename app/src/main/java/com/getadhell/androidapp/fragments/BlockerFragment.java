@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,8 @@ public class BlockerFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.blocker_fragment, container, false);
 
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
         mPolicyChangeButton = (Button) view.findViewById(R.id.policyChangeButton);
         isSupportedTextView = (TextView) view.findViewById(R.id.isSupportedTextView);
 
@@ -56,7 +59,9 @@ public class BlockerFragment extends Fragment {
                 Log.d(LOG_TAG, "Edit button click in Fragment1");
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.animator.enter_from_left, R.animator.exit_to_right, R.animator.enter_from_right, R.animator.exit_to_left);
                 fragmentTransaction.replace(R.id.fragmentContainer, new BlockListFragment());
+                fragmentTransaction.addToBackStack("main_to_editUrl");
                 fragmentTransaction.commit();
             }
 
@@ -69,7 +74,9 @@ public class BlockerFragment extends Fragment {
                     Log.d(LOG_TAG, "Allow Apps button click in Fragment1");
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.setCustomAnimations(R.animator.enter_from_left, R.animator.exit_to_right, R.animator.enter_from_right, R.animator.exit_to_left);
                     fragmentTransaction.replace(R.id.fragmentContainer, new AppListFragment());
+                    fragmentTransaction.addToBackStack("main_to_editApp");
                     fragmentTransaction.commit();
                 }
 

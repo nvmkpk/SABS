@@ -1,24 +1,19 @@
 package com.getadhell.androidapp.fragments;
 
 import android.Manifest;
-import android.app.Application;
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -63,6 +58,8 @@ public class AppListFragment extends Fragment {
         packageManager = this.context.getPackageManager();
         final View view = inflater.inflate(R.layout.app_list_fragment, container, false);
 
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         appListView = (ListView) view.findViewById(R.id.appList);
         new AdhellGetListTask().execute(false);
 
@@ -101,18 +98,6 @@ public class AppListFragment extends Fragment {
                     iconAdapter.remove(item);
                     iconAdapter.notifyDataSetChanged();
                 }
-            }
-        });
-
-        Button back = (Button) view.findViewById(R.id.back_to_main);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "Back button click in AppListFragment");
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragmentContainer, new BlockerFragment());
-                fragmentTransaction.commit();
             }
         });
 
@@ -279,42 +264,6 @@ public class AppListFragment extends Fragment {
         protected void onPostExecute(Void result) {
             pd.dismiss();
         }
-    }
-
-    private void removeFromWhiteList(String url) {
-        ProgressDialog pd = ProgressDialog.show(getActivity(), "", "Please Wait, Removing from Whitelist", false);
-        ArrayList<String> whitelist = getWhiteList();
-        whitelist.remove(url);
-        File file;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            file = new File(getContext().getFilesDir(), APPLIST);
-        } else {
-            file = new File(getActivity().getFilesDir(), APPLIST);
-        }
-        if (file.exists()) {
-            try {
-                Writer output = new BufferedWriter(new FileWriter(file));
-                Gson gson = new Gson();
-                output.write(gson.toJson(whitelist));
-                output.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        try {
-            ApplicationInfo ai = packageManager.getApplicationInfo(url, 0);
-            masterAppInfo.add(ai);
-            Collections.sort(masterAppInfo, new Comparator<ApplicationInfo>() {
-                public int compare(ApplicationInfo ai1, ApplicationInfo ai2) {
-                    String s1 = ai1.loadLabel(packageManager).toString();
-                    String s2 = ai2.loadLabel(packageManager).toString();
-                    return s1.compareTo(s2);
-                }
-            });
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        pd.dismiss();
     }
 
     private void addToWhiteList(String url) {

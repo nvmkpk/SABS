@@ -1,10 +1,9 @@
 package com.getadhell.androidapp.fragments;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -50,6 +49,8 @@ public class BlockListFragment extends Fragment {
 
         final View view = inflater.inflate(R.layout.block_list_fragment, container, false);
 
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         blockListView = (ListView) view.findViewById(R.id.urlList);
         new AdhellGetListTask().execute(false);
 
@@ -83,18 +84,6 @@ public class BlockListFragment extends Fragment {
                     addToWhiteList(item);
                     new AdhellGetListTask().execute(false);
                 }
-            }
-        });
-
-        Button back = (Button)view.findViewById(R.id.back_to_main);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(LOG_TAG, "Back button click in BlockListFragment");
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragmentContainer, new BlockerFragment());
-                fragmentTransaction.commit();
             }
         });
 
