@@ -166,7 +166,7 @@ public class BlockListFragment extends Fragment {
 
         protected void onPreExecute() {
             runningTaskList.add(this);
-            pd = ProgressDialog.show(getActivity(), "", "Please Wait, Loading Application List", false);
+            pd = ProgressDialog.show(getActivity(), "", "Please Wait, Loading URL List", false);
         }
 
         protected ArrayList<String> doInBackground(Boolean... switchers) {
