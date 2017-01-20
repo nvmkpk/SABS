@@ -11,13 +11,6 @@
         android:gravity="center_horizontal">
 
         <Button
-            android:text="@string/back_to_main"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/back_to_main"
-            android:layout_gravity="center_horizontal" />
-
-        <Button
             android:text="@string/whitelist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
