@@ -8,4 +8,8 @@
     <string name="allow_apps">WhiteList Apps</string>
     <string name="applist">Show App List</string>
     <string name="list_filter">Filter:</string>
+    <string name="block_app_tab_label">Active Apps</string>
+    <string name="allowed_app_tab_label">Excluded Apps</string>
+    <string name="block_url_tab_label">Blocked URLs</string>
+    <string name="allowed_url_tab_label">Allowed URLs</string>
 </resources>
