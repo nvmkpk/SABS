@@ -26,8 +26,10 @@ For more information about generating urls-to-block list look at this repo: http
 
 
 ### Which is better, Adhell of Disconnect Pro?
-
 Adhell is free and open source.
+
+### If I have disconnect pro and advantages to running this as well?
+ Disconnect Pro and Adhell are using the same underlying Knox Standard SDK. If Disconnect Pro is running Samsung Firewall Adhell doesn't have rights to change Firewall settings and vice versa. So they can't work together at the same time.
 
 ### Any noticeable battery drain using this?
 No
@@ -40,3 +42,6 @@ You may have see some ads.
 
 ### I tried this but some in-app ads were still appearing
 Try rebooting. The ads might have been cached.
+
+### Is it okay to use Adhell with Adguard?
+Adguard (without root) will set up a local vpn to route adds to nowhere basically. I think with root it uses a proxy. Either way, it's different than how Adhell does it, so they should work side by side just fine.
