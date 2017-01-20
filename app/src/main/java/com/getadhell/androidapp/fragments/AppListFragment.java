@@ -18,6 +18,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.getadhell.androidapp.R;
@@ -50,6 +51,7 @@ public class AppListFragment extends Fragment {
     private IconAppAdapter iconAdapter;
     private Context context;
     private PackageManager packageManager;
+    private List<AsyncTask> runningTaskList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,25 +64,6 @@ public class AppListFragment extends Fragment {
 
         appListView = (ListView) view.findViewById(R.id.appList);
         new AdhellGetListTask().execute(false);
-
-        final Button editButton = (Button) view.findViewById(R.id.whitelist);
-        editButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Log.d(TAG, "Whitelist button click in AppListFragment");
-                if (onWhiteList) {
-                    onWhiteList = false;
-                    editButton.setText(R.string.whitelist);
-                    setData(masterAppInfo);
-                    iconAdapter.notifyDataSetChanged();
-                    //new AdhellGetListTask().execute(false);
-                } else {
-                    onWhiteList = true;
-                    editButton.setText(R.string.applist);
-                    new AdhellGetWhiteListTask().execute(false);
-                }
-            }
-
-        });
 
         appListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -101,7 +84,46 @@ public class AppListFragment extends Fragment {
             }
         });
 
+        TabHost th = (TabHost)view.findViewById(R.id.urlTabHost);
+        th.setup();
+        th.addTab(th.newTabSpec("BlockTab").setIndicator(getResources().getString(R.string.block_app_tab_label)).setContent(new TabHost.TabContentFactory() {
+            @Override
+            public View createTabContent(String tag) {
+                return new View(getActivity());
+            }
+        }));
+        th.addTab(th.newTabSpec("AllowTab").setIndicator(getResources().getString(R.string.allowed_app_tab_label)).setContent(new TabHost.TabContentFactory() {
+            @Override
+            public View createTabContent(String tag) {
+                return new View(getActivity());
+            }
+        }));
+
+        th.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String tabId) {
+                if (tabId.equals("BlockTab")) {
+                    onWhiteList = false;
+                    setData(masterAppInfo);
+                    iconAdapter.notifyDataSetChanged();
+                }
+                if (tabId.equals("AllowTab")) {
+                    onWhiteList = true;
+                    new AdhellGetWhiteListTask().execute(false);
+                }
+            }
+        });
+
         return view;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        for (AsyncTask task : runningTaskList){
+            if (task != null && task.getStatus() == AsyncTask.Status.RUNNING)
+                task.cancel(true);
+        }
     }
 
     class IconAppAdapter extends BaseAdapter {
@@ -162,7 +184,7 @@ public class AppListFragment extends Fragment {
     private class AdhellGetWhiteListTask extends AsyncTask<Boolean, Void, List<ApplicationInfo>> {
 
         protected void onPreExecute() {
-
+            runningTaskList.add(this);
         }
 
         protected List<ApplicationInfo> doInBackground(Boolean... switchers) {
@@ -180,7 +202,9 @@ public class AppListFragment extends Fragment {
         }
 
         protected void onPostExecute(List<ApplicationInfo> result) {
-            setData(result);
+            if (!isCancelled())
+                setData(result);
+            runningTaskList.remove(this);
         }
     }
 
@@ -188,6 +212,7 @@ public class AppListFragment extends Fragment {
         ProgressDialog pd;
 
         protected void onPreExecute() {
+            runningTaskList.add(this);
             pd = ProgressDialog.show(getActivity(), "", "Please Wait, Loading Application List", false);
         }
 
@@ -212,8 +237,11 @@ public class AppListFragment extends Fragment {
 
         protected void onPostExecute(List<ApplicationInfo> result) {
             pd.dismiss();
-            masterAppInfo = result;
-            setData(result);
+            if (!isCancelled()) {
+                masterAppInfo = result;
+                setData(result);
+            }
+            runningTaskList.remove(this);
         }
     }
 
@@ -221,6 +249,7 @@ public class AppListFragment extends Fragment {
         ProgressDialog pd;
 
         protected void onPreExecute() {
+            runningTaskList.add(this);
             pd = ProgressDialog.show(getActivity(), "", "Please Wait, Removing App From Whitelist", false);
         }
 
@@ -263,6 +292,7 @@ public class AppListFragment extends Fragment {
 
         protected void onPostExecute(Void result) {
             pd.dismiss();
+            runningTaskList.remove(this);
         }
     }
 
@@ -300,14 +330,19 @@ public class AppListFragment extends Fragment {
         } else {
             file = new File(getActivity().getFilesDir(), APPLIST);
         }
-        if (file.exists()) {
+        if (!file.exists()) {
             try {
-                BufferedReader reader = new BufferedReader(new FileReader(file));
-                Gson gson = new Gson();
-                whitelist = gson.fromJson(reader, ArrayList.class);
-            } catch (FileNotFoundException e) {
+                file.createNewFile();
+            } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            Gson gson = new Gson();
+            whitelist = gson.fromJson(reader, ArrayList.class);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
         return whitelist;
     }

@@ -1,6 +1,7 @@
 package com.getadhell.androidapp.fragments;
 
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,7 +14,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.getadhell.androidapp.R;
@@ -31,6 +34,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Patrick.Lower on 1/17/2017.
@@ -42,6 +46,7 @@ public class BlockListFragment extends Fragment {
     private String WHITELIST = "whitelist.json";
     private Boolean onWhiteList = false;
     private ArrayAdapter<String> arrayAdapter;
+    private List<AsyncTask> runningTaskList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,23 +58,6 @@ public class BlockListFragment extends Fragment {
 
         blockListView = (ListView) view.findViewById(R.id.urlList);
         new AdhellGetListTask().execute(false);
-
-        final Button editButton = (Button) view.findViewById(R.id.whitelist);
-        editButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Log.d(LOG_TAG, "Whitelist button click in BlockListFragment");
-                if (onWhiteList) {
-                    onWhiteList = false;
-                    editButton.setText(R.string.whitelist);
-                    new AdhellGetListTask().execute(false);
-                } else {
-                    onWhiteList = true;
-                    editButton.setText(R.string.blocklist);
-                    new AdhellGetWhiteListTask().execute(false);
-                }
-            }
-
-        });
 
         blockListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -105,7 +93,45 @@ public class BlockListFragment extends Fragment {
             }
         });
 
+        TabHost th = (TabHost)view.findViewById(R.id.urlTabHost);
+        th.setup();
+        th.addTab(th.newTabSpec("BlockTab").setIndicator(getResources().getString(R.string.block_url_tab_label)).setContent(new TabHost.TabContentFactory() {
+            @Override
+            public View createTabContent(String tag) {
+                return new View(getActivity());
+            }
+        }));
+        th.addTab(th.newTabSpec("AllowTab").setIndicator(getResources().getString(R.string.allowed_url_tab_label)).setContent(new TabHost.TabContentFactory() {
+            @Override
+            public View createTabContent(String tag) {
+                return new View(getActivity());
+            }
+        }));
+
+        th.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String tabId) {
+                if (tabId.equals("BlockTab")) {
+                    onWhiteList = false;
+                    new AdhellGetListTask().execute(false);
+                }
+                if (tabId.equals("AllowTab")) {
+                    onWhiteList = true;
+                    new AdhellGetWhiteListTask().execute(false);
+                }
+            }
+        });
+
         return view;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        for (AsyncTask task : runningTaskList){
+            if (task != null && task.getStatus() == AsyncTask.Status.RUNNING)
+                task.cancel(true);
+        }
     }
 
     private void setData(ArrayList<String> data) {
@@ -121,7 +147,7 @@ public class BlockListFragment extends Fragment {
     private class AdhellGetWhiteListTask extends AsyncTask<Boolean, Void, ArrayList<String>> {
 
         protected void onPreExecute() {
-
+            runningTaskList.add(this);
         }
 
         protected ArrayList<String> doInBackground(Boolean... switchers) {
@@ -129,14 +155,18 @@ public class BlockListFragment extends Fragment {
         }
 
         protected void onPostExecute(ArrayList<String> result) {
-            setData(result);
+            if (!isCancelled())
+                setData(result);
+            runningTaskList.remove(this);
         }
     }
 
     private class AdhellGetListTask extends AsyncTask<Boolean, Void, ArrayList<String>> {
+        ProgressDialog pd;
 
         protected void onPreExecute() {
-
+            runningTaskList.add(this);
+            pd = ProgressDialog.show(getActivity(), "", "Please Wait, Loading Application List", false);
         }
 
         protected ArrayList<String> doInBackground(Boolean... switchers) {
@@ -146,7 +176,10 @@ public class BlockListFragment extends Fragment {
         }
 
         protected void onPostExecute(ArrayList<String> result) {
-            setData(result);
+            pd.dismiss();
+            if (!isCancelled())
+                setData(result);
+            runningTaskList.remove(this);
         }
     }
 
@@ -205,14 +238,19 @@ public class BlockListFragment extends Fragment {
         } else {
             file = new File(getActivity().getFilesDir(), WHITELIST);
         }
-        if (file.exists()) {
+        if (!file.exists()) {
             try {
-                BufferedReader reader = new BufferedReader(new FileReader(file));
-                Gson gson = new Gson();
-                whitelist = gson.fromJson(reader, ArrayList.class);
-            } catch (FileNotFoundException e) {
+                file.createNewFile();
+            } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            Gson gson = new Gson();
+            whitelist = gson.fromJson(reader, ArrayList.class);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
         return whitelist;
     }
