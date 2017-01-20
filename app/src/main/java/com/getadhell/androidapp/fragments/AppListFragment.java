@@ -8,6 +8,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,6 +57,8 @@ public class AppListFragment extends Fragment {
         this.context = getActivity().getApplicationContext();
         packageManager = this.context.getPackageManager();
         final View view = inflater.inflate(R.layout.app_list_fragment, container, false);
+
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         appListView = (ListView) view.findViewById(R.id.appList);
         new AdhellGetListTask().execute(false);
