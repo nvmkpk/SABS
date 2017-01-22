@@ -43,7 +43,10 @@ public class ServerContentBlockProvider {
             response = client.newCall(request).execute();
             String blockDbString = response.body().string();
             BlockDb remoteList = gson.fromJson(blockDbString, BlockDb.class);
-            remoteList.urlsToBlock.removeAll(getWhiteList());
+            List<String> whitelist = getWhiteList();
+            if (whitelist != null) {
+                remoteList.urlsToBlock.removeAll(whitelist);
+            }
             Collections.sort(remoteList.urlsToBlock);
             return remoteList;
         } catch (IOException e) {
@@ -54,16 +57,19 @@ public class ServerContentBlockProvider {
     }
 
     public List<String> loadAllowApps() {
-        File file;
+        File file = new File(filesDir, APPLIST);
         List<String> appList = new ArrayList<String>();
-        file = new File(filesDir, APPLIST);
         if (file.exists()) {
             try {
                 BufferedReader reader = new BufferedReader(new FileReader(file));
                 Gson gson = new Gson();
                 appList = gson.fromJson(reader, List.class);
+                if (appList == null) {
+                    appList = new ArrayList<String>();
+                }
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                Log.e(TAG, "Problem with loading allowed app: ", e);
+                appList = new ArrayList<String>();
             }
         }
         return appList;
@@ -71,7 +77,7 @@ public class ServerContentBlockProvider {
 
     private ArrayList<String> getWhiteList() {
         File file;
-        ArrayList<String> whitelist = null;
+        ArrayList<String> whitelist = new ArrayList<String>();
         file = new File(filesDir, WHITELIST);
         if (file.exists()) {
             try {
@@ -82,7 +88,8 @@ public class ServerContentBlockProvider {
                     whitelist = new ArrayList<String>();
                 }
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                Log.e(TAG, "Failed to get whitelist: ", e);
+                whitelist = new ArrayList<String>();
             }
         }
         return whitelist;

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -202,7 +203,7 @@ public class BlockListFragment extends Fragment {
                 e.printStackTrace();
             }
         }
-        ArrayList<String> whitelist = null;
+        ArrayList<String> whitelist = new ArrayList<>();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             Gson gson = new Gson();
@@ -211,7 +212,8 @@ public class BlockListFragment extends Fragment {
                 whitelist = new ArrayList<>();
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            Log.e(LOG_TAG, "Failed to get whitelist: ", e);
+            whitelist = new ArrayList<>();
         }
         return whitelist;
     }

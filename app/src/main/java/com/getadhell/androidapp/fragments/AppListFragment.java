@@ -181,6 +181,7 @@ public class AppListFragment extends Fragment {
             }
         } catch (FileNotFoundException e) {
             Log.e(TAG, "Problem with reading whitelist", e);
+            whitelist = new ArrayList<String>();
         }
         return whitelist;
     }
