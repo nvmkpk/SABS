@@ -20,13 +20,12 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class ServerContentBlockProvider {
+    private static final String TAG = ServerContentBlockProvider.class.getCanonicalName();
+    private static final String BLOCK_PROVIDER_URL = "http://getadhell.com/urls-to-block.json";
     private Gson gson;
     private String WHITELIST = "whitelist.json";
     private String APPLIST = "applist.json";
     private File filesDir;
-
-    private static final String TAG = ServerContentBlockProvider.class.getCanonicalName();
-    private static final String BLOCK_PROVIDER_URL = "http://getadhell.com/urls-to-block.json";
 
     public ServerContentBlockProvider(File filesDir) {
         this.gson = new Gson();
@@ -72,20 +71,20 @@ public class ServerContentBlockProvider {
 
     private ArrayList<String> getWhiteList() {
         File file;
-        ArrayList<String> whitelist = new ArrayList<String>();
+        ArrayList<String> whitelist = null;
         file = new File(filesDir, WHITELIST);
         if (file.exists()) {
             try {
                 BufferedReader reader = new BufferedReader(new FileReader(file));
                 Gson gson = new Gson();
                 whitelist = gson.fromJson(reader, ArrayList.class);
+                if (whitelist == null) {
+                    whitelist = new ArrayList<String>();
+                }
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         }
         return whitelist;
     }
-
-
-
 }

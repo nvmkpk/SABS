@@ -5,20 +5,21 @@ import android.widget.ArrayAdapter;
 import android.widget.Filter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Patrick.Lower on 1/19/2017.
  */
 
 public class CustomArrayAdapter extends ArrayAdapter<String> {
-    private ArrayList<String> originalList;
-    private ArrayList<String> Values;
+    private List<String> originalList;
+    private List<String> values;
     private CustomFilter filter;
 
-    public CustomArrayAdapter(Context context, int layout, ArrayList<String> values) {
+    public CustomArrayAdapter(Context context, int layout, List<String> values) {
         super(context, layout, values);
-        Values = new ArrayList<String>();
-        Values.addAll(values);
+        this.values = new ArrayList<String>();
+        this.values.addAll(values);
         originalList = new ArrayList<String>();
         originalList.addAll(values);
     }
@@ -39,7 +40,7 @@ public class CustomArrayAdapter extends ArrayAdapter<String> {
             FilterResults result = new FilterResults();
             if (constraint != null && constraint.toString().length() > 0) {
                 ArrayList<String> filteredItems = new ArrayList<String>();
-                for (String s : Values) {
+                for (String s : values) {
                     if (s.toString().toLowerCase().contains(constraint))
                         filteredItems.add(s);
                 }
@@ -56,11 +57,11 @@ public class CustomArrayAdapter extends ArrayAdapter<String> {
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            Values = (ArrayList<String>)results.values;
+            values = (ArrayList<String>) results.values;
             notifyDataSetChanged();
             clear();
-            for(int i = 0, l = Values.size(); i < l; i++)
-                add(Values.get(i));
+            for (int i = 0, l = values.size(); i < l; i++)
+                add(values.get(i));
             notifyDataSetInvalidated();
         }
     }

@@ -7,14 +7,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -54,7 +51,7 @@ public class BlockListFragment extends Fragment {
 
         final View view = inflater.inflate(R.layout.block_list_fragment, container, false);
 
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         blockListView = (ListView) view.findViewById(R.id.urlList);
         new AdhellGetListTask().execute(false);
@@ -62,7 +59,7 @@ public class BlockListFragment extends Fragment {
         blockListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String item = (String)parent.getItemAtPosition(position);
+                String item = (String) parent.getItemAtPosition(position);
                 if (onWhiteList) {
                     //remove from whitelist
                     removeFromWhiteList(item);
@@ -75,7 +72,7 @@ public class BlockListFragment extends Fragment {
             }
         });
 
-        TextView filter = (TextView)view.findViewById(R.id.urlFilter);
+        TextView filter = (TextView) view.findViewById(R.id.urlFilter);
         filter.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -93,7 +90,7 @@ public class BlockListFragment extends Fragment {
             }
         });
 
-        TabHost th = (TabHost)view.findViewById(R.id.urlTabHost);
+        TabHost th = (TabHost) view.findViewById(R.id.urlTabHost);
         th.setup();
         th.addTab(th.newTabSpec("BlockTab").setIndicator(getResources().getString(R.string.block_url_tab_label)).setContent(new TabHost.TabContentFactory() {
             @Override
@@ -128,7 +125,7 @@ public class BlockListFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        for (AsyncTask task : runningTaskList){
+        for (AsyncTask task : runningTaskList) {
             if (task != null && task.getStatus() == AsyncTask.Status.RUNNING)
                 task.cancel(true);
         }
@@ -142,45 +139,6 @@ public class BlockListFragment extends Fragment {
             arrayAdapter = new CustomArrayAdapter(this.getActivity(), android.R.layout.simple_list_item_1, data);
         }
         blockListView.setAdapter(arrayAdapter);
-    }
-
-    private class AdhellGetWhiteListTask extends AsyncTask<Boolean, Void, ArrayList<String>> {
-
-        protected void onPreExecute() {
-            runningTaskList.add(this);
-        }
-
-        protected ArrayList<String> doInBackground(Boolean... switchers) {
-            return getWhiteList();
-        }
-
-        protected void onPostExecute(ArrayList<String> result) {
-            if (!isCancelled())
-                setData(result);
-            runningTaskList.remove(this);
-        }
-    }
-
-    private class AdhellGetListTask extends AsyncTask<Boolean, Void, ArrayList<String>> {
-        ProgressDialog pd;
-
-        protected void onPreExecute() {
-            runningTaskList.add(this);
-            pd = ProgressDialog.show(getActivity(), "", "Please Wait, Loading URL List", false);
-        }
-
-        protected ArrayList<String> doInBackground(Boolean... switchers) {
-            ServerContentBlockProvider contentProvider = new ServerContentBlockProvider(getContext().getFilesDir());
-            BlockDb bdb = contentProvider.loadBlockDb();
-            return (ArrayList)bdb.urlsToBlock;
-        }
-
-        protected void onPostExecute(ArrayList<String> result) {
-            pd.dismiss();
-            if (!isCancelled())
-                setData(result);
-            runningTaskList.remove(this);
-        }
     }
 
     private void removeFromWhiteList(String url) {
@@ -232,7 +190,6 @@ public class BlockListFragment extends Fragment {
 
     private ArrayList<String> getWhiteList() {
         File file;
-        ArrayList<String> whitelist = new ArrayList<String>();
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             file = new File(getContext().getFilesDir(), WHITELIST);
         } else {
@@ -245,13 +202,56 @@ public class BlockListFragment extends Fragment {
                 e.printStackTrace();
             }
         }
+        ArrayList<String> whitelist = null;
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             Gson gson = new Gson();
             whitelist = gson.fromJson(reader, ArrayList.class);
+            if (whitelist == null) {
+                whitelist = new ArrayList<>();
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         return whitelist;
+    }
+
+    private class AdhellGetWhiteListTask extends AsyncTask<Boolean, Void, ArrayList<String>> {
+
+        protected void onPreExecute() {
+            runningTaskList.add(this);
+        }
+
+        protected ArrayList<String> doInBackground(Boolean... switchers) {
+            return getWhiteList();
+        }
+
+        protected void onPostExecute(ArrayList<String> result) {
+            if (!isCancelled())
+                setData(result);
+            runningTaskList.remove(this);
+        }
+    }
+
+    private class AdhellGetListTask extends AsyncTask<Boolean, Void, ArrayList<String>> {
+        ProgressDialog pd;
+
+        protected void onPreExecute() {
+            runningTaskList.add(this);
+            pd = ProgressDialog.show(getActivity(), "", "Please Wait, Loading URL List", false);
+        }
+
+        protected ArrayList<String> doInBackground(Boolean... switchers) {
+            ServerContentBlockProvider contentProvider = new ServerContentBlockProvider(getContext().getFilesDir());
+            BlockDb bdb = contentProvider.loadBlockDb();
+            return (ArrayList) bdb.urlsToBlock;
+        }
+
+        protected void onPostExecute(ArrayList<String> result) {
+            pd.dismiss();
+            if (!isCancelled())
+                setData(result);
+            runningTaskList.remove(this);
+        }
     }
 }

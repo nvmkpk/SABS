@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TabHost;
@@ -60,7 +59,7 @@ public class AppListFragment extends Fragment {
         packageManager = this.context.getPackageManager();
         final View view = inflater.inflate(R.layout.app_list_fragment, container, false);
 
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         appListView = (ListView) view.findViewById(R.id.appList);
         new AdhellGetListTask().execute(false);
@@ -84,7 +83,7 @@ public class AppListFragment extends Fragment {
             }
         });
 
-        TabHost th = (TabHost)view.findViewById(R.id.urlTabHost);
+        TabHost th = (TabHost) view.findViewById(R.id.urlTabHost);
         th.setup();
         th.addTab(th.newTabSpec("BlockTab").setIndicator(getResources().getString(R.string.block_app_tab_label)).setContent(new TabHost.TabContentFactory() {
             @Override
@@ -120,10 +119,70 @@ public class AppListFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        for (AsyncTask task : runningTaskList){
+        for (AsyncTask task : runningTaskList) {
             if (task != null && task.getStatus() == AsyncTask.Status.RUNNING)
                 task.cancel(true);
         }
+    }
+
+    private void setData(List<ApplicationInfo> data) {
+        iconAdapter = new IconAppAdapter(data);
+        appListView.setAdapter(iconAdapter);
+    }
+
+    private void addToWhiteList(String url) {
+        List<String> whitelist = getWhiteList();
+        whitelist.add(url);
+        File file;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            file = new File(getContext().getFilesDir(), APPLIST);
+        } else {
+            file = new File(getActivity().getFilesDir(), APPLIST);
+        }
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            Writer output = new BufferedWriter(new FileWriter(file));
+            Gson gson = new Gson();
+            output.write(gson.toJson(whitelist));
+            output.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private List<String> getWhiteList() {
+        File file;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            file = new File(getContext().getFilesDir(), APPLIST);
+        } else {
+            file = new File(getActivity().getFilesDir(), APPLIST);
+        }
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                Log.e(TAG, "Problem with creating file", e);
+            }
+        }
+        List<String> whitelist = null;
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            Gson gson = new Gson();
+            whitelist = gson.fromJson(reader, ArrayList.class);
+            if (whitelist == null) {
+                Log.w(TAG, "Whitelist is null");
+                whitelist = new ArrayList<String>();
+            }
+        } catch (FileNotFoundException e) {
+            Log.e(TAG, "Problem with reading whitelist", e);
+        }
+        return whitelist;
     }
 
     class IconAppAdapter extends BaseAdapter {
@@ -162,7 +221,7 @@ public class AppListFragment extends Fragment {
         public void remove(String packageName) {
             try {
                 ApplicationInfo ai = packageManager.getApplicationInfo(packageName, 0);
-                for (int i = 0; i < this.applicationInfoList.size(); i++){
+                for (int i = 0; i < this.applicationInfoList.size(); i++) {
                     if (this.applicationInfoList.get(i).packageName.equals(packageName)) {
                         this.applicationInfoList.remove(i);
                         break;
@@ -175,12 +234,6 @@ public class AppListFragment extends Fragment {
         }
     }
 
-
-    private void setData(List<ApplicationInfo> data) {
-        iconAdapter = new IconAppAdapter(data);
-        appListView.setAdapter(iconAdapter);
-    }
-
     private class AdhellGetWhiteListTask extends AsyncTask<Boolean, Void, List<ApplicationInfo>> {
 
         protected void onPreExecute() {
@@ -190,6 +243,9 @@ public class AppListFragment extends Fragment {
         protected List<ApplicationInfo> doInBackground(Boolean... switchers) {
             List<String> appWhiteList = getWhiteList();
             List<ApplicationInfo> applicationInfoList = new ArrayList<>();
+            if (appWhiteList == null || appWhiteList.size() == 0) {
+                return applicationInfoList;
+            }
             for (String packageName : appWhiteList) {
                 try {
                     applicationInfoList.add(packageManager.getApplicationInfo(packageName, 0));
@@ -226,7 +282,7 @@ public class AppListFragment extends Fragment {
                 ApplicationInfo ai = applicationInfoIterator.next();
                 int permissionState = packageManager.checkPermission(Manifest.permission.INTERNET, ai.packageName);
                 if (permissionState != PackageManager.PERMISSION_GRANTED
-                        || appWhiteList.contains(ai.packageName)) {
+                        || (appWhiteList != null && appWhiteList.contains(ai.packageName))) {
                     applicationInfoIterator.remove();
                 }
             }
@@ -255,7 +311,7 @@ public class AppListFragment extends Fragment {
 
         @Override
         protected Void doInBackground(String... params) {
-            ArrayList<String> whitelist = getWhiteList();
+            List<String> whitelist = getWhiteList();
             whitelist.remove(params[0]);
             File file;
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
@@ -295,58 +351,6 @@ public class AppListFragment extends Fragment {
             runningTaskList.remove(this);
         }
     }
-
-    private void addToWhiteList(String url) {
-        ArrayList<String> whitelist = getWhiteList();
-        whitelist.add(url);
-        File file;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            file = new File(getContext().getFilesDir(), APPLIST);
-        } else {
-            file = new File(getActivity().getFilesDir(), APPLIST);
-        }
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        try {
-            Writer output = new BufferedWriter(new FileWriter(file));
-            Gson gson = new Gson();
-            output.write(gson.toJson(whitelist));
-            output.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private ArrayList<String> getWhiteList() {
-        File file;
-        ArrayList<String> whitelist = new ArrayList<String>();
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            file = new File(getContext().getFilesDir(), APPLIST);
-        } else {
-            file = new File(getActivity().getFilesDir(), APPLIST);
-        }
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            Gson gson = new Gson();
-            whitelist = gson.fromJson(reader, ArrayList.class);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        return whitelist;
-    }
-
 
     private class ApplicationInfoNameComparator implements Comparator<ApplicationInfo> {
         @Override
