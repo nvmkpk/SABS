@@ -3,6 +3,7 @@
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.sec.MDM_FIREWALL"/>
+    <uses-permission android:name="android.permission.sec.MDM_APP_MGMT"/>
     <uses-permission
         android:name="com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>

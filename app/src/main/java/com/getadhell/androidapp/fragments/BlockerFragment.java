@@ -3,8 +3,16 @@ package com.getadhell.androidapp.fragments;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.admin.DeviceAdminReceiver;
+import android.app.admin.DevicePolicyManager;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,21 +26,21 @@ import com.getadhell.androidapp.blocker.ContentBlocker;
 import com.getadhell.androidapp.blocker.ContentBlocker56;
 import com.getadhell.androidapp.utils.DeviceUtils;
 
-import java.io.FileDescriptor;
-import java.io.PrintWriter;
-
 public class BlockerFragment extends Fragment {
     private static final String LOG_TAG = BlockerFragment.class.getCanonicalName();
     private static Button mPolicyChangeButton;
     private static TextView isSupportedTextView;
     private ContentBlocker contentBlocker;
+    private Context mContext;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.blocker_fragment, container, false);
 
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
+        mContext = this.getActivity().getApplicationContext();
 
         mPolicyChangeButton = (Button) view.findViewById(R.id.policyChangeButton);
         isSupportedTextView = (TextView) view.findViewById(R.id.isSupportedTextView);
@@ -84,6 +92,29 @@ public class BlockerFragment extends Fragment {
         } else {
             appButton.setVisibility(View.GONE);
         }
+
+        Button deleteAppButton = (Button) view.findViewById(R.id.deleteApp);
+        deleteAppButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                new AlertDialog.Builder(v.getContext())
+                        .setTitle("Delete app")
+                        .setMessage("Do you really want to turn off and delete Adhell?")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                contentBlocker.disableBlocker();
+                                ComponentName devAdminReceiver = new ComponentName(mContext, DeviceAdminReceiver.class);
+                                DevicePolicyManager dpm = (DevicePolicyManager) mContext.getSystemService(Context.DEVICE_POLICY_SERVICE);
+                                dpm.removeActiveAdmin(devAdminReceiver);
+                                Intent intent = new Intent(Intent.ACTION_DELETE);
+                                intent.setData(Uri.parse("com.getadhell.androidapp"));
+                                startActivity(intent);
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, null).show();
+            }
+        });
 
         return view;
     }
@@ -144,5 +175,6 @@ public class BlockerFragment extends Fragment {
             Log.d(LOG_TAG, "Leaving onPostExecute() method");
         }
     }
+
 
 }

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+              android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
 
@@ -19,25 +18,32 @@
         android:text="@string/wait"/>
 
     <Button
-        android:text="@string/edit_block_list"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:id="@+id/editUrls"
-        android:layout_width="300dp" />
-
-    <Button
-        android:text="@string/allow_apps"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/edit_block_list"/>
+
+    <Button
         android:id="@+id/allowApps"
-        android:layout_gravity="center_horizontal" />
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/allow_apps"/>
 
     <TextView
-        android:text="@string/editAlert"
+        android:id="@+id/editAlert"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editAlert"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
         android:paddingLeft="5pt"
-        android:paddingRight="5pt" />
+        android:paddingRight="5pt"
+        android:text="@string/editAlert"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
+
+    <Button
+        android:id="@+id/deleteApp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/delete_app"/>
 </LinearLayout>
