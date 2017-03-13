@@ -2,6 +2,7 @@ package com.getadhell.androidapp;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.enterprise.EnterpriseDeviceManager;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -20,6 +21,10 @@ import com.getadhell.androidapp.fragments.BlockerFragment;
 import com.getadhell.androidapp.fragments.EnableAdminFragment;
 import com.getadhell.androidapp.fragments.NoInternetFragment;
 import com.getadhell.androidapp.utils.DeviceUtils;
+import com.sec.enterprise.firewall.DomainFilterReport;
+import com.sec.enterprise.firewall.Firewall;
+
+import java.util.List;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -100,5 +105,22 @@ public class MainActivity extends AppCompatActivity {
 
     public void enableAdmin(View view) {
         mAdminInteractor.forceEnableAdmin();
+    }
+
+    public void testReport(View view) {
+        EnterpriseDeviceManager edm = (EnterpriseDeviceManager)
+                this.getSystemService(EnterpriseDeviceManager.ENTERPRISE_POLICY_SERVICE);
+        Firewall firewall = edm.getFirewall();
+        List<DomainFilterReport> list = firewall.getDomainFilterReport(null);
+        Log.d(LOG_TAG, String.format("Before clear. Number of urls: %d", list.size()));
+        list.clear();
+        Log.d(LOG_TAG, String.format("after clear. Number of urls: %d", list.size()));
+        list = firewall.getDomainFilterReport(null);
+        Log.d(LOG_TAG, String.format("after clear and get. Number of urls: %d", list.size()));
+        for (DomainFilterReport domainFilterReport: list) {
+            Log.d(LOG_TAG, String.format("blocked urls: %s", domainFilterReport.getDomainUrl()));
+            domainFilterReport.getPackageName();
+        }
+        Log.d(LOG_TAG, list.toString());
     }
 }

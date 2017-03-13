@@ -41,12 +41,8 @@
     <string name="editAlert">After editing the block list and whitelist, return to this screen and toggle Enabled off, then back on to apply the changes!</string>
     <string name="list_filter">Filter:</string>
     <string name="block_app_tab_label">Active Apps</string>
-    <string name="allowed_app_tab_label">Белый список</string>
-    <string name="allowed_url_tab_label">Незаблокированные домены</string>
     <string name="delete_app">Выключить и удалить Adhell</string>
-    <string name="block_url_tab_label">P</string>
     <string name="block_url_tab_label">Заблокированные домены</string>
-    <string name="block_app_tab_label"></string>
     <string name="allowed_app_tab_label">Белый список</string>
     <string name="allowed_url_tab_label">Незаблокированные домены</string>
     <string name="back_to_main">Вернуться в главное меню</string>

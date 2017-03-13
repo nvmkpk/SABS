@@ -65,4 +65,5 @@
     <string name="allowed_app_tab_label">Excluded Apps</string>
     <string name="block_url_tab_label">Blocked URLs</string>
     <string name="allowed_url_tab_label">Allowed URLs</string>
+    <string name="test_report">Test report</string>
 </resources>

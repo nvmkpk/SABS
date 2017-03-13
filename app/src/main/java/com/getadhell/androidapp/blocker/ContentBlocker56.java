@@ -50,6 +50,10 @@ public class ContentBlocker56 implements ContentBlocker {
             if (!mFirewall.isFirewallEnabled()) {
                 mFirewall.enableFirewall(true);
             }
+            if (!mFirewall.isDomainFilterReportEnabled()) {
+                Log.d(LOG_TAG, "Enabling filewall report");
+                mFirewall.enableDomainFilterReport(true);
+            }
             if (FirewallResponse.Result.SUCCESS == response[0].getResult()) {
                 Log.i(LOG_TAG, "Adhell enabled " + response[0].getMessage());
                 return true;
@@ -71,6 +75,9 @@ public class ContentBlocker56 implements ContentBlocker {
             Log.i(LOG_TAG, "disableBlocker " + response[0].getMessage());
             if (mFirewall.isFirewallEnabled()) {
                 mFirewall.enableFirewall(false);
+            }
+            if (mFirewall.isDomainFilterReportEnabled()) {
+                mFirewall.enableDomainFilterReport(false);
             }
         } catch (SecurityException ex) {
             Log.e(LOG_TAG, "Failed to removeDomainFilterRules", ex);
