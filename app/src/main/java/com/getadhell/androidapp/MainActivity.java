@@ -9,6 +9,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -29,11 +30,26 @@ import java.util.List;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String LOG_TAG = MainActivity.class.getCanonicalName();
+    private static final String TAG = MainActivity.class.getCanonicalName();
+
 
     private static FragmentManager fragmentManager;
     private DeviceAdminInteractor mAdminInteractor;
 
+    @Override
+    public void onBackPressed() {
+        int count = fragmentManager.getBackStackEntryCount();
+        if (count == 0) {
+            super.onBackPressed();
+        } else {
+            fragmentManager.popBackStack();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,37 +64,36 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                FragmentManager fm = getFragmentManager();
-                fm.popBackStack();
-                break;
+                fragmentManager.popBackStack();
+                return true;
         }
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         if (!DeviceUtils.isContentBlockerSupported(this)) {
-            Log.i(LOG_TAG, "Device not supported");
+            Log.i(TAG, "Device not supported");
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragmentContainer, new AdhellNotSupportedFragment());
             fragmentTransaction.commit();
             return;
         }
         if (!mAdminInteractor.isActiveAdmin()) {
-            Log.d(LOG_TAG, "Admin is not active. Request enabling");
+            Log.d(TAG, "Admin is not active. Request enabling");
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragmentContainer, new EnableAdminFragment());
             fragmentTransaction.commit();
             return;
         }
         if (!mAdminInteractor.isKnoxEnbaled()) {
-            Log.d(LOG_TAG, "Knox disabled");
-            Log.d(LOG_TAG, "Checking if internet connection exists");
+            Log.d(TAG, "Knox disabled");
+            Log.d(TAG, "Checking if internet connection exists");
             ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
             boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-            Log.d(LOG_TAG, "Is internet connection exists: " + isConnected);
+            Log.d(TAG, "Is internet connection exists: " + isConnected);
             if (!isConnected) {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragmentContainer, new NoInternetFragment());
@@ -90,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.commit();
             return;
         }
-        Log.d(LOG_TAG, "Everything is okay");
+        Log.d(TAG, "Everything is okay");
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragmentContainer, new BlockerFragment());
         fragmentTransaction.commit();
@@ -112,15 +127,15 @@ public class MainActivity extends AppCompatActivity {
                 this.getSystemService(EnterpriseDeviceManager.ENTERPRISE_POLICY_SERVICE);
         Firewall firewall = edm.getFirewall();
         List<DomainFilterReport> list = firewall.getDomainFilterReport(null);
-        Log.d(LOG_TAG, String.format("Before clear. Number of urls: %d", list.size()));
+        Log.d(TAG, String.format("Before clear. Number of urls: %d", list.size()));
         list.clear();
-        Log.d(LOG_TAG, String.format("after clear. Number of urls: %d", list.size()));
+        Log.d(TAG, String.format("after clear. Number of urls: %d", list.size()));
         list = firewall.getDomainFilterReport(null);
-        Log.d(LOG_TAG, String.format("after clear and get. Number of urls: %d", list.size()));
-        for (DomainFilterReport domainFilterReport: list) {
-            Log.d(LOG_TAG, String.format("blocked urls: %s", domainFilterReport.getDomainUrl()));
+        Log.d(TAG, String.format("after clear and get. Number of urls: %d", list.size()));
+        for (DomainFilterReport domainFilterReport : list) {
+            Log.d(TAG, String.format("blocked urls: %s", domainFilterReport.getDomainUrl()));
             domainFilterReport.getPackageName();
         }
-        Log.d(LOG_TAG, list.toString());
+        Log.d(TAG, list.toString());
     }
 }

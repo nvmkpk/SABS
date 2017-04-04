@@ -48,4 +48,6 @@
     <string name="back_to_main">Вернуться в главное меню</string>
     <string name="allow_apps">Белый список приложений</string>
     <string name="applist">Установленные приложения</string>
+    <string name="test_report">Тестовый репорт</string>
+    <string name="adhell_settings">Настройки</string>
 </resources>

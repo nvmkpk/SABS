@@ -34,9 +34,6 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Patrick.Lower on 1/17/2017.
- */
 
 public class BlockListFragment extends Fragment {
     private static final String LOG_TAG = BlockListFragment.class.getCanonicalName();
@@ -45,11 +42,12 @@ public class BlockListFragment extends Fragment {
     private Boolean onWhiteList = false;
     private ArrayAdapter<String> arrayAdapter;
     private List<AsyncTask> runningTaskList = new ArrayList<>();
+    private Fragment fragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        fragment = this;
         final View view = inflater.inflate(R.layout.block_list_fragment, container, false);
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -244,7 +242,7 @@ public class BlockListFragment extends Fragment {
         }
 
         protected ArrayList<String> doInBackground(Boolean... switchers) {
-            ServerContentBlockProvider contentProvider = new ServerContentBlockProvider(getContext().getFilesDir());
+            ServerContentBlockProvider contentProvider = new ServerContentBlockProvider(fragment.getActivity().getApplicationContext().getFilesDir());
             BlockDb bdb = contentProvider.loadBlockDb();
             return (ArrayList) bdb.urlsToBlock;
         }

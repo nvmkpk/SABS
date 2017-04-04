@@ -1,21 +1,16 @@
 package com.getadhell.androidapp.fragments;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.app.admin.DeviceAdminReceiver;
-import android.app.admin.DevicePolicyManager;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -23,15 +18,34 @@ import android.widget.TextView;
 
 import com.getadhell.androidapp.R;
 import com.getadhell.androidapp.blocker.ContentBlocker;
-import com.getadhell.androidapp.blocker.ContentBlocker56;
 import com.getadhell.androidapp.utils.DeviceUtils;
 
 public class BlockerFragment extends Fragment {
-    private static final String LOG_TAG = BlockerFragment.class.getCanonicalName();
+    private static final String TAG = BlockerFragment.class.getCanonicalName();
     private static Button mPolicyChangeButton;
     private static TextView isSupportedTextView;
     private ContentBlocker contentBlocker;
     private Context mContext;
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.settings, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_app_settings:
+                Log.d(TAG, "App setting action clicked");
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.fragmentContainer, new AppSettingsFragment());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,66 +70,11 @@ public class BlockerFragment extends Fragment {
         }
         mPolicyChangeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d(LOG_TAG, "Button click in Fragment1");
+                Log.d(TAG, "Button click in Fragment1");
                 changePermission();
             }
         });
-
-        Button editButton = (Button) view.findViewById(R.id.editUrls);
-        editButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Log.d(LOG_TAG, "Edit button click in Fragment1");
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.setCustomAnimations(R.animator.enter_from_left, R.animator.exit_to_right, R.animator.enter_from_right, R.animator.exit_to_left);
-                fragmentTransaction.replace(R.id.fragmentContainer, new BlockListFragment());
-                fragmentTransaction.addToBackStack("main_to_editUrl");
-                fragmentTransaction.commit();
-            }
-
-        });
-
-        Button appButton = (Button) view.findViewById(R.id.allowApps);
-        if (contentBlocker instanceof ContentBlocker56) {
-            appButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    Log.d(LOG_TAG, "Allow Apps button click in Fragment1");
-                    FragmentManager fragmentManager = getFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.setCustomAnimations(R.animator.enter_from_left, R.animator.exit_to_right, R.animator.enter_from_right, R.animator.exit_to_left);
-                    fragmentTransaction.replace(R.id.fragmentContainer, new AppListFragment());
-                    fragmentTransaction.addToBackStack("main_to_editApp");
-                    fragmentTransaction.commit();
-                }
-
-            });
-        } else {
-            appButton.setVisibility(View.GONE);
-        }
-
-        Button deleteAppButton = (Button) view.findViewById(R.id.deleteApp);
-        deleteAppButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                new AlertDialog.Builder(v.getContext())
-                        .setTitle("Delete app")
-                        .setMessage("Do you really want to turn off and delete Adhell?")
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                contentBlocker.disableBlocker();
-                                ComponentName devAdminReceiver = new ComponentName(mContext, DeviceAdminReceiver.class);
-                                DevicePolicyManager dpm = (DevicePolicyManager) mContext.getSystemService(Context.DEVICE_POLICY_SERVICE);
-                                dpm.removeActiveAdmin(devAdminReceiver);
-                                Intent intent = new Intent(Intent.ACTION_DELETE);
-                                intent.setData(Uri.parse("com.getadhell.androidapp"));
-                                startActivity(intent);
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, null).show();
-            }
-        });
-
+        setHasOptionsMenu(true);
         return view;
     }
 
@@ -130,7 +89,7 @@ public class BlockerFragment extends Fragment {
     }
 
     private void changePermission() {
-        Log.d(LOG_TAG, "Entering changePermission");
+        Log.d(TAG, "Entering changePermission");
         new AdhellSwitchTask().execute(false);
 
     }
@@ -153,26 +112,26 @@ public class BlockerFragment extends Fragment {
             try {
                 if (contentBlocker.isEnabled()) {
                     // Enabled. Trying to disable
-                    Log.d(LOG_TAG, "Policy enabled, trying to disable");
+                    Log.d(TAG, "Policy enabled, trying to disable");
                     contentBlocker.disableBlocker();
                 } else {
                     // Disabled. Enabling
-                    Log.d(LOG_TAG, "Policy disabled, trying to enable");
+                    Log.d(TAG, "Policy disabled, trying to enable");
                     contentBlocker.disableBlocker();
                     contentBlocker.enableBlocker();
                 }
             } catch (Exception e) {
-                Log.e(LOG_TAG, "Failed to turn on ad blocker", e);
+                Log.e(TAG, "Failed to turn on ad blocker", e);
                 contentBlocker.disableBlocker();
             }
             return 42;
         }
 
         protected void onPostExecute(Integer result) {
-            Log.d(LOG_TAG, "Enterting onPostExecute() method");
+            Log.d(TAG, "Enterting onPostExecute() method");
             setNeededText();
             mPolicyChangeButton.setEnabled(true);
-            Log.d(LOG_TAG, "Leaving onPostExecute() method");
+            Log.d(TAG, "Leaving onPostExecute() method");
         }
     }
 

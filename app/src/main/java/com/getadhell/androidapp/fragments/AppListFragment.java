@@ -37,9 +37,6 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * Created by Patrick.Lower on 1/17/2017.
- */
 
 public class AppListFragment extends Fragment {
     private static final String TAG = AppListFragment.class.getCanonicalName();
