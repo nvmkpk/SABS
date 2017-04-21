@@ -4,14 +4,21 @@
                 android:orientation="vertical"
                 android:padding="10dp">
 
+    <TextView
+        android:id="@+id/dnsChangetextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/note_that_adhell_must_be_enabled"/>
     <EditText
         android:id="@+id/dns_address_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/dnsChangetextView"
         android:digits="0123456789."
         android:hint="@string/dns_1_address"
         android:inputType="number|numberDecimal"
-        android:text="@string/google_dns_1">
+        android:text="@string/google_dns_1"
+    >
         <requestFocus/>
     </EditText>
     <EditText

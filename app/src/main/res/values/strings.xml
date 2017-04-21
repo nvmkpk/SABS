@@ -74,4 +74,5 @@
     <string name="google_dns_2">8.8.4.4</string>
     <string name="set_dns_button_text">Set DNS</string>
     <string name="cancel_text">Cancel</string>
+    <string name="note_that_adhell_must_be_enabled">Note that Adhell must be enabled.</string>
 </resources>
