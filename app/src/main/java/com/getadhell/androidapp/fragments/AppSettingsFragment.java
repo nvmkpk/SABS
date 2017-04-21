@@ -20,7 +20,9 @@ import android.widget.Button;
 import com.getadhell.androidapp.R;
 import com.getadhell.androidapp.blocker.ContentBlocker;
 import com.getadhell.androidapp.blocker.ContentBlocker56;
+import com.getadhell.androidapp.blocker.ContentBlocker57;
 import com.getadhell.androidapp.deviceadmin.CustomDeviceAdminReceiver;
+import com.getadhell.androidapp.dialogfragment.DnsChangeDialogFragment;
 import com.getadhell.androidapp.utils.DeviceUtils;
 
 public class AppSettingsFragment extends Fragment {
@@ -28,8 +30,9 @@ public class AppSettingsFragment extends Fragment {
     private ContentBlocker contentBlocker;
     private Context mContext;
 
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_app_settings, container, false);
         mContext = this.getActivity().getApplicationContext();
@@ -89,6 +92,22 @@ public class AppSettingsFragment extends Fragment {
                         .setNegativeButton(android.R.string.no, null).show();
             }
         });
+
+        Button changeDnsButton = (Button) view.findViewById(R.id.changeDnsButton);
+        if (contentBlocker instanceof ContentBlocker57) {
+            changeDnsButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d(TAG, "Show dns change dialog");
+                    FragmentManager fragmentManager = getFragmentManager();
+                    DnsChangeDialogFragment dnsChangeDialogFragment = DnsChangeDialogFragment.newInstance("Some title");
+                    dnsChangeDialogFragment.show(fragmentManager, "dialog_fragment_dns");
+                }
+            });
+        } else {
+            changeDnsButton.setVisibility(View.GONE);
+        }
+
 
         return view;
     }

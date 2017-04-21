@@ -18,6 +18,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="@string/allow_apps"/>
+    <Button
+        android:id="@+id/changeDnsButton"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/change_dns_button"/>
 
     <TextView
         android:id="@+id/editAlert"

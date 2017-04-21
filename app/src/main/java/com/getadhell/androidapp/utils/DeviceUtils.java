@@ -9,6 +9,7 @@ import android.util.Log;
 import com.getadhell.androidapp.blocker.ContentBlocker;
 import com.getadhell.androidapp.blocker.ContentBlocker20;
 import com.getadhell.androidapp.blocker.ContentBlocker56;
+import com.getadhell.androidapp.blocker.ContentBlocker57;
 
 public class DeviceUtils {
     private static final String LOG_TAG = DeviceUtils.class.getCanonicalName();
@@ -101,7 +102,9 @@ public class DeviceUtils {
                 case ENTERPRISE_SDK_VERSION_5_6:
                     return new ContentBlocker56(context); // works
                 case ENTERPRISE_SDK_VERSION_5_7:
-                    return new ContentBlocker56(context);
+                    return new ContentBlocker57(context);
+                case ENTERPRISE_SDK_VERSION_5_7_1:
+                    return new ContentBlocker57(context);
                 default:
                     return new ContentBlocker56(context);
             }

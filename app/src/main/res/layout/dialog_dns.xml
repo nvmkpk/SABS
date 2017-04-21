@@ -1,0 +1,41 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+    <EditText
+        android:id="@+id/dns_address_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:digits="0123456789."
+        android:hint="@string/dns_1_address"
+        android:inputType="number|numberDecimal"
+        android:text="@string/google_dns_1">
+        <requestFocus/>
+    </EditText>
+    <EditText
+        android:id="@+id/dns_address_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dns_address_1"
+        android:digits="0123456789."
+        android:hint="@string/dns_2_address"
+        android:inputType="number|numberDecimal"
+        android:text="@string/google_dns_2"/>
+
+    <Button
+        android:id="@+id/changeDnsOkButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dns_address_2"
+        android:text="@string/set_dns_button_text"
+    />
+    <Button
+        android:id="@+id/changeDnsCancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dns_address_2"
+        android:layout_toRightOf="@+id/changeDnsOkButton"
+        android:text="@string/cancel_text"/>
+</RelativeLayout>

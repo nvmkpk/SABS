@@ -25,6 +25,10 @@ public class ContentBlocker56 implements ContentBlocker {
         mFirewall = mEnterpriseDeviceManager.getFirewall();
     }
 
+    public Firewall getmFirewall() {
+        return mFirewall;
+    }
+
     @Override
     public boolean enableBlocker() {
         if (isEnabled()) {
