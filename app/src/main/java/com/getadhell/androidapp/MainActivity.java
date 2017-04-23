@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (!DeviceUtils.isContentBlockerSupported(this)) {
+        if (!DeviceUtils.isContentBlockerSupported()) {
             Log.i(TAG, "Device not supported");
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragmentContainer, new AdhellNotSupportedFragment());

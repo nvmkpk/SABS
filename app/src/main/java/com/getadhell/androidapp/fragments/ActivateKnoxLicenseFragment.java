@@ -56,7 +56,7 @@ public class ActivateKnoxLicenseFragment extends Fragment {
                 Toast.makeText(context, "License activation failed", Toast.LENGTH_LONG).show();
                 Log.w(LOG_TAG, "License activation failed");
             }
-            if (DeviceUtils.isContentBlockerSupported(context)
+            if (DeviceUtils.isContentBlockerSupported()
                     && deviceAdminInteractor.isKnoxEnbaled()) {
                 if (fragmentManager != null) {
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

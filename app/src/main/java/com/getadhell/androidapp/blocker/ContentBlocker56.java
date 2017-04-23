@@ -4,7 +4,9 @@ import android.app.enterprise.EnterpriseDeviceManager;
 import android.content.Context;
 import android.util.Log;
 
+import com.getadhell.androidapp.App;
 import com.getadhell.androidapp.contentprovider.ServerContentBlockProvider;
+import com.getadhell.androidapp.utils.DeviceUtils;
 import com.sec.enterprise.AppIdentity;
 import com.sec.enterprise.firewall.DomainFilterRule;
 import com.sec.enterprise.firewall.Firewall;
@@ -14,19 +16,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContentBlocker56 implements ContentBlocker {
+    private static ContentBlocker56 mInstance = null;
     private final String LOG_TAG = ContentBlocker56.class.getCanonicalName();
     private ServerContentBlockProvider contentBlockProvider;
     private Firewall mFirewall;
 
-    public ContentBlocker56(Context context) {
-        EnterpriseDeviceManager mEnterpriseDeviceManager = (EnterpriseDeviceManager)
-                context.getSystemService(EnterpriseDeviceManager.ENTERPRISE_POLICY_SERVICE);
+
+    private ContentBlocker56() {
+        Context context = App.get().getApplicationContext();
+        EnterpriseDeviceManager mEnterpriseDeviceManager = DeviceUtils.getEnterpriseDeviceManager();
         contentBlockProvider = new ServerContentBlockProvider(context.getFilesDir());
         mFirewall = mEnterpriseDeviceManager.getFirewall();
     }
 
-    public Firewall getmFirewall() {
-        return mFirewall;
+    public static ContentBlocker56 getInstance() {
+        if (mInstance == null) {
+            mInstance = getSync();
+        }
+        return mInstance;
+    }
+
+    private static synchronized ContentBlocker56 getSync() {
+        if (mInstance == null) {
+            mInstance = new ContentBlocker56();
+        }
+        return mInstance;
     }
 
     @Override

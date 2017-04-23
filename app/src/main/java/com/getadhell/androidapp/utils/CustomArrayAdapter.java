@@ -7,10 +7,6 @@ import android.widget.Filter;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Patrick.Lower on 1/19/2017.
- */
-
 public class CustomArrayAdapter extends ArrayAdapter<String> {
     private List<String> originalList;
     private List<String> values;

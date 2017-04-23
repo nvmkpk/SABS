@@ -1,9 +1,12 @@
 package com.getadhell.androidapp.blocker;
 
+import android.app.enterprise.EnterpriseDeviceManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.getadhell.androidapp.App;
+import com.getadhell.androidapp.utils.DeviceUtils;
 import com.sec.enterprise.AppIdentity;
 import com.sec.enterprise.firewall.DomainFilterRule;
 import com.sec.enterprise.firewall.Firewall;
@@ -11,21 +14,37 @@ import com.sec.enterprise.firewall.Firewall;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContentBlocker57 extends ContentBlocker56 {
+public class ContentBlocker57 implements ContentBlocker {
     private static final String TAG = ContentBlocker57.class.getCanonicalName();
-    Firewall mFirewall;
-    Context mContext;
+    private static ContentBlocker57 mInstance = null;
+    private Firewall mFirewall;
+    private ContentBlocker56 contentBlocker56;
 
-    public ContentBlocker57(Context context) {
-        super(context);
-        mFirewall = this.getmFirewall();
-        mContext = context;
+    private ContentBlocker57() {
+        Context context = App.get().getApplicationContext();
+        EnterpriseDeviceManager mEnterpriseDeviceManager = DeviceUtils.getEnterpriseDeviceManager();
+        mFirewall = mEnterpriseDeviceManager.getFirewall();
+        contentBlocker56 = ContentBlocker56.getInstance();
+    }
+
+    private static synchronized ContentBlocker57 getSync() {
+        if (mInstance == null) {
+            mInstance = new ContentBlocker57();
+        }
+        return mInstance;
+    }
+
+    public static ContentBlocker57 getInstance() {
+        if (mInstance == null) {
+            mInstance = getSync();
+        }
+        return mInstance;
     }
 
     @Override
     public boolean enableBlocker() {
-        if (super.enableBlocker()) {
-            SharedPreferences sharedPreferences = mContext.getSharedPreferences("dnsAddresses", Context.MODE_PRIVATE);
+        if (contentBlocker56.enableBlocker()) {
+            SharedPreferences sharedPreferences = App.get().getApplicationContext().getSharedPreferences("dnsAddresses", Context.MODE_PRIVATE);
             if (sharedPreferences.contains("dns1") && sharedPreferences.contains("dns2")) {
                 String dns1 = sharedPreferences.getString("dns1", "8.8.8.8");
                 String dns2 = sharedPreferences.getString("dns2", "8.8.4.4");
@@ -37,6 +56,16 @@ public class ContentBlocker57 extends ContentBlocker56 {
         return false;
     }
 
+    @Override
+    public boolean disableBlocker() {
+        return contentBlocker56.disableBlocker();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return contentBlocker56.isEnabled();
+    }
+
     public void setDns(String dns1, String dns2) {
         DomainFilterRule domainFilterRule = new DomainFilterRule(new AppIdentity(Firewall.FIREWALL_ALL_PACKAGES, null));
         domainFilterRule.setDns1(dns1);
@@ -46,11 +75,5 @@ public class ContentBlocker57 extends ContentBlocker56 {
         mFirewall.addDomainFilterRules(rules);
         Log.d(TAG, "DNS1: " + domainFilterRule.getDns1());
         Log.d(TAG, "DNS2: " + domainFilterRule.getDns2());
-    }
-
-    public String getStringDns() {
-        DomainFilterRule domainFilterRule = new DomainFilterRule(new AppIdentity(Firewall.FIREWALL_ALL_PACKAGES, null));
-        String dns = domainFilterRule.getDns1() + " " + domainFilterRule.getDns2();
-        return dns;
     }
 }

@@ -5,29 +5,45 @@ import android.app.enterprise.FirewallPolicy;
 import android.content.Context;
 import android.util.Log;
 
+import com.getadhell.androidapp.App;
 import com.getadhell.androidapp.contentprovider.ServerContentBlockProvider;
+import com.getadhell.androidapp.utils.DeviceUtils;
 
-import java.io.File;
 import java.util.List;
 
 public class ContentBlocker20 implements ContentBlocker {
+    private static ContentBlocker20 mInstance = null;
     private final String LOG_TAG = ContentBlocker20.class.getCanonicalName();
     private int urlBlockLimit = 1625;
     private ServerContentBlockProvider contentBlockProvider;
     private FirewallPolicy firewallPolicy;
 
-    public ContentBlocker20(Context context, int urlBlockLimit) {
+    private ContentBlocker20() {
+        Context context = App.get().getApplicationContext();
         Log.d(LOG_TAG, "Entering constructor...");
-        EnterpriseDeviceManager mEnterpriseDeviceManager = (EnterpriseDeviceManager)
-                context.getSystemService(EnterpriseDeviceManager.ENTERPRISE_POLICY_SERVICE);
+        EnterpriseDeviceManager mEnterpriseDeviceManager = DeviceUtils.getEnterpriseDeviceManager();
         contentBlockProvider = new ServerContentBlockProvider(context.getFilesDir());
         firewallPolicy = mEnterpriseDeviceManager.getFirewallPolicy();
-        if (urlBlockLimit != 0) {
-            this.urlBlockLimit = urlBlockLimit;
-        }
-
         Log.d(LOG_TAG, "Number of urls to block: " + urlBlockLimit);
         Log.d(LOG_TAG, "Leaving constructor.");
+    }
+
+    public static ContentBlocker20 getInstance() {
+        if (mInstance == null) {
+            mInstance = getSync();
+        }
+        return mInstance;
+    }
+
+    private static synchronized ContentBlocker20 getSync() {
+        if (mInstance == null) {
+            mInstance = new ContentBlocker20();
+        }
+        return mInstance;
+    }
+
+    public void setUrlBlockLimit(int urlBlockLimit) {
+        this.urlBlockLimit = urlBlockLimit;
     }
 
     @Override
