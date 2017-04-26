@@ -38,7 +38,7 @@ No
 No
 
 ### What about YouTube native app?
-You may have see some ads.
+You may see some ads.
 
 ### I tried this but some in-app ads were still appearing
 Try rebooting. The ads might have been cached.
