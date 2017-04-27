@@ -101,8 +101,10 @@ public class DeviceUtils {
                     return ContentBlocker57.getInstance();
                 case ENTERPRISE_SDK_VERSION_5_7_1:
                     return ContentBlocker57.getInstance();
+                case ENTERPRISE_SDK_VERSION_5_8:
+                    return ContentBlocker57.getInstance();
                 default:
-                    return ContentBlocker56.getInstance();
+                    return ContentBlocker57.getInstance();
             }
         } catch (Throwable t) {
             Log.e(LOG_TAG, "Failed to get ContentBlocker", t);
