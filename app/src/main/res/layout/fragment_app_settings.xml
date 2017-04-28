@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
-    <!--<TextView android:layout_width="match_parent" android:layout_height="match_parent" android:text="It is future setting fragment"/>-->
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <Button
         android:id="@+id/editUrls"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="@string/edit_block_list"/>
+        android:text="@string/edit_block_list" />
 
     <Button
         android:id="@+id/allowApps"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="@string/allow_apps"/>
+        android:text="@string/allow_apps" />
+
     <Button
         android:id="@+id/changeDnsButton"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="@string/change_dns_button"/>
+        android:text="@string/change_dns_button" />
 
     <TextView
         android:id="@+id/editAlert"
@@ -32,21 +32,21 @@
         android:paddingLeft="5pt"
         android:paddingRight="5pt"
         android:text="@string/editAlert"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
+        android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
     <Button
         android:id="@+id/deleteApp"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="@string/delete_app"/>
+        android:text="@string/delete_app" />
 
     <!--<Button-->
-        <!--android:id="@+id/testReport"-->
-        <!--android:layout_width="300dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="center_horizontal"-->
-        <!--android:text="@string/test_report"-->
-        <!--android:onClick="testReport"/>-->
+    <!--android:id="@+id/testReport"-->
+    <!--android:layout_width="300dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center_horizontal"-->
+    <!--android:text="@string/test_report"-->
+    <!--android:onClick="testReport"/>-->
 
 </LinearLayout>

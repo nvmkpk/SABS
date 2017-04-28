@@ -56,6 +56,7 @@ public class DeviceUtils {
                 case ENTERPRISE_SDK_VERSION_5_6:
                 case ENTERPRISE_SDK_VERSION_5_7:
                 case ENTERPRISE_SDK_VERSION_5_7_1:
+                case ENTERPRISE_SDK_VERSION_5_8:
                     return true;
                 default:
                     return true;

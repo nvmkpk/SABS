@@ -21,7 +21,6 @@ public class ContentBlocker57 implements ContentBlocker {
     private ContentBlocker56 contentBlocker56;
 
     private ContentBlocker57() {
-        Context context = App.get().getApplicationContext();
         EnterpriseDeviceManager mEnterpriseDeviceManager = DeviceUtils.getEnterpriseDeviceManager();
         mFirewall = mEnterpriseDeviceManager.getFirewall();
         contentBlocker56 = ContentBlocker56.getInstance();

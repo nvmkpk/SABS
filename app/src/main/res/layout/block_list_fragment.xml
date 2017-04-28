@@ -1,38 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
 
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
         <TextView
-            android:text="@string/list_filter"
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView2" />
+            android:text="@string/list_filter" />
+
         <EditText
+            android:id="@+id/urlFilter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
             android:ems="10"
-            android:id="@+id/urlFilter" />
+            android:inputType="text" />
 
     </LinearLayout>
 
     <TabHost
-        android:layout_width="match_parent"
         android:id="@+id/urlTabHost"
+        android:layout_width="match_parent"
         android:layout_height="55dp">
 
         <LinearLayout
@@ -55,12 +57,12 @@
     </TabHost>
 
     <android.support.v7.widget.ListViewCompat
-    android:id="@+id/urlList"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scrollbars="vertical"
+        android:id="@+id/urlList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:divider="?attr/dividerHorizontal"
-        android:dividerHeight="1dp"></android.support.v7.widget.ListViewCompat>
+        android:dividerHeight="1dp"
+        android:scrollbars="vertical"></android.support.v7.widget.ListViewCompat>
 
 
 </LinearLayout>
