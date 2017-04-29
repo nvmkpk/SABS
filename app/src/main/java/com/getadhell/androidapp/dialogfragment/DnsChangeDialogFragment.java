@@ -25,6 +25,7 @@ public class DnsChangeDialogFragment extends DialogFragment {
     private EditText mDns2EditText;
     private Button mSetDnsButton;
     private Button mCancelButton;
+    private Button restoreDefaultDnsButton;
 
     public DnsChangeDialogFragment() {
 
@@ -53,13 +54,14 @@ public class DnsChangeDialogFragment extends DialogFragment {
         final SharedPreferences sharedPreferences = view.getContext().getSharedPreferences("dnsAddresses", Context.MODE_PRIVATE);
         if (sharedPreferences.contains("dns1") && sharedPreferences.contains("dns2")) {
             Toast.makeText(view.getContext(), "Loading saved dns addresses", Toast.LENGTH_SHORT).show();
-            mDns1EditText.setText(sharedPreferences.getString("dns1", "8.8.8.8"));
-            mDns2EditText.setText(sharedPreferences.getString("dns2", "8.8.4.4"));
+            mDns1EditText.setText(sharedPreferences.getString("dns1", "0.0.0.0"));
+            mDns2EditText.setText(sharedPreferences.getString("dns2", "0.0.0.0"));
         }
-
 
         mSetDnsButton = (Button) view.findViewById(R.id.changeDnsOkButton);
         mCancelButton = (Button) view.findViewById(R.id.changeDnsCancelButton);
+        restoreDefaultDnsButton = (Button) view.findViewById(R.id.restoreDefaultDnsButton);
+
         mDns1EditText.requestFocus();
         getDialog().getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
@@ -73,7 +75,7 @@ public class DnsChangeDialogFragment extends DialogFragment {
                     Toast.makeText(v.getContext(), "Check your input data. ", Toast.LENGTH_LONG).show();
                     return;
                 }
-                ContentBlocker57 contentBlocker57 = (ContentBlocker57) DeviceUtils.getContentBlocker(getActivity());
+                ContentBlocker57 contentBlocker57 = (ContentBlocker57) DeviceUtils.getContentBlocker();
                 if (!contentBlocker57.isEnabled()) {
                     Toast.makeText(v.getContext(), "Adhell Must be enabled. ", Toast.LENGTH_LONG).show();
                 }
@@ -91,6 +93,20 @@ public class DnsChangeDialogFragment extends DialogFragment {
 
             @Override
             public void onClick(View v) {
+                dismiss();
+            }
+        });
+        restoreDefaultDnsButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.remove("dns1");
+                editor.remove("dns2");
+                editor.apply();
+                ContentBlocker57 contentBlocker57 = (ContentBlocker57) DeviceUtils.getContentBlocker();
+                contentBlocker57.disableBlocker();
+                Toast.makeText(v.getContext(), "DNS has been restored to defaults. You should to enable Adhell again. ", Toast.LENGTH_LONG).show();
                 dismiss();
             }
         });

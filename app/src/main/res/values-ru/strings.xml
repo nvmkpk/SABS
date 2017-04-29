@@ -58,4 +58,6 @@
     <string name="google_dns_2">8.8.4.4</string>
     <string name="set_dns_button_text">Изменить DNS</string>
     <string name="note_that_adhell_must_be_enabled">Adhell должен быть включен</string>
+    <string name="zero_dns">0.0.0.0</string>
+    <string name="restore_defaults">Восстановить DNS по умолчанию</string>
 </resources>

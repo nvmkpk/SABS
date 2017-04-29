@@ -18,7 +18,7 @@
         android:digits="0123456789."
         android:hint="@string/dns_1_address"
         android:inputType="number|numberDecimal"
-        android:text="@string/google_dns_1">
+        android:text="@string/zero_dns">
 
         <requestFocus />
     </EditText>
@@ -31,7 +31,7 @@
         android:digits="0123456789."
         android:hint="@string/dns_2_address"
         android:inputType="number|numberDecimal"
-        android:text="@string/google_dns_2" />
+        android:text="@string/zero_dns" />
 
     <Button
         android:id="@+id/changeDnsOkButton"

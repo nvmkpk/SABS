@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.getadhell.androidapp"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.getadhell.androidapp">
 
-    <uses-permission android:name="android.permission.sec.MDM_FIREWALL"/>
-    <uses-permission android:name="android.permission.sec.MDM_APP_MGMT"/>
-    <uses-permission
-        android:name="com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.sec.MDM_FIREWALL" />
+    <uses-permission android:name="android.permission.sec.MDM_APP_MGMT" />
+    <uses-permission android:name="com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -17,13 +17,13 @@
         android:theme="@style/AppTheme">
         <activity android:name="com.getadhell.androidapp.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <meta-data
             android:name="com.crashlytics.ApiKey"
-            android:value=""/>
+            android:value="" />
 
         <receiver
             android:name="com.getadhell.androidapp.deviceadmin.CustomDeviceAdminReceiver"
@@ -32,16 +32,16 @@
             android:permission="android.permission.BIND_DEVICE_ADMIN">
             <meta-data
                 android:name="android.app.device_admin"
-                android:resource="@xml/enterprise_device_admin"/>
+                android:resource="@xml/enterprise_device_admin" />
             <intent-filter>
-                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED"/>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
             </intent-filter>
         </receiver>
         <receiver
             android:name="com.getadhell.androidapp.fragments.ActivateKnoxLicenseFragment$MyReceiver"
             android:enabled="true">
             <intent-filter>
-                <action android:name="edm.intent.action.license.status"/>
+                <action android:name="edm.intent.action.license.status" />
             </intent-filter>
         </receiver>
 

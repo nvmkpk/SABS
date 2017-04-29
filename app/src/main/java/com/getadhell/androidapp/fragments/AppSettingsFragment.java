@@ -36,7 +36,7 @@ public class AppSettingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_app_settings, container, false);
         mContext = this.getActivity().getApplicationContext();
-        contentBlocker = DeviceUtils.getContentBlocker(getActivity());
+        contentBlocker = DeviceUtils.getContentBlocker();
 
         Button editButton = (Button) view.findViewById(R.id.editUrls);
         editButton.setOnClickListener(new View.OnClickListener() {
@@ -53,7 +53,7 @@ public class AppSettingsFragment extends Fragment {
         });
 
         Button appButton = (Button) view.findViewById(R.id.allowApps);
-        if (contentBlocker instanceof ContentBlocker56) {
+        if (contentBlocker instanceof ContentBlocker56 || contentBlocker instanceof ContentBlocker57) {
             appButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Log.d(TAG, "Allow Apps button click in Fragment1");

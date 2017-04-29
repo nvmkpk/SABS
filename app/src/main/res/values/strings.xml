@@ -75,4 +75,5 @@
     <string name="cancel_text">Cancel</string>
     <string name="note_that_adhell_must_be_enabled">Note that Adhell must be enabled.</string>
     <string name="restore_defaults">Restore Defaults</string>
+    <string name="zero_dns">0.0.0.0</string>
 </resources>

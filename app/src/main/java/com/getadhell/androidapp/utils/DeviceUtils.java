@@ -71,7 +71,7 @@ public class DeviceUtils {
         return (isSamsung() && isKnoxSupported() && isKnoxVersionSupported());
     }
 
-    public static ContentBlocker getContentBlocker(Context context) {
+    public static ContentBlocker getContentBlocker() {
         Log.d(LOG_TAG, "Entering contentBlocker() method");
         try {
             switch (getEnterpriseDeviceManager().getEnterpriseSdkVer()) {
