@@ -1,41 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/list_filter" />
+
+    <EditText
+        android:id="@+id/urlFilterEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
+        android:layout_toRightOf="@+id/textView2"
+        android:ems="10"
+        android:inputType="text" />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/addBlockedUrlTextView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_below="@id/urlFilterEditText"
+        android:text="Add custom url: " />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/list_filter" />
+    <EditText
+        android:id="@+id/addBlockedUrlEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/urlFilterEditText"
+        android:layout_toRightOf="@+id/addBlockedUrlTextView"
+        android:text="facebook.com" />
 
-        <EditText
-            android:id="@+id/urlFilter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="text" />
-
-    </LinearLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/urlFilterEditText"
+        android:layout_toRightOf="@+id/addBlockedUrlEditText"
+        android:text="Add" />
 
     <TabHost
         android:id="@+id/urlTabHost"
         android:layout_width="match_parent"
-        android:layout_height="55dp">
+        android:layout_height="55dp"
+        android:layout_below="@+id/addBlockedUrlEditText">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,9 +68,12 @@
         android:id="@+id/urlList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/urlTabHost"
         android:divider="?attr/dividerHorizontal"
         android:dividerHeight="1dp"
-        android:scrollbars="vertical"></android.support.v7.widget.ListViewCompat>
+        android:scrollbars="vertical">
+
+    </android.support.v7.widget.ListViewCompat>
 
 
-</LinearLayout>
+</RelativeLayout>

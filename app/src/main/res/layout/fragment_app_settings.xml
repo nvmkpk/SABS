@@ -41,12 +41,4 @@
         android:layout_gravity="center_horizontal"
         android:text="@string/delete_app" />
 
-    <!--<Button-->
-    <!--android:id="@+id/testReport"-->
-    <!--android:layout_width="300dp"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="center_horizontal"-->
-    <!--android:text="@string/test_report"-->
-    <!--android:onClick="testReport"/>-->
-
 </LinearLayout>

@@ -71,7 +71,7 @@ public class BlockListFragment extends Fragment {
             }
         });
 
-        TextView filter = (TextView) view.findViewById(R.id.urlFilter);
+        TextView filter = (TextView) view.findViewById(R.id.urlFilterEditText);
         filter.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
