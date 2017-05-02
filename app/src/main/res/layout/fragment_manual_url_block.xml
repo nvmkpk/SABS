@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/noteTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/to_take_effect_turn_off_turn_on_adhell_after_editing_list"/>
+    <EditText
+        android:id="@+id/addBlockedUrlEditText"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/noteTextView"
+        android:hint="@string/facebook_com"
+        android:inputType="textUri"
+        app:layout_widthPercent="70%"/>
+
+    <Button
+        android:id="@+id/addCustomBlockedUrlButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/addBlockedUrlEditText"
+        android:layout_toEndOf="@+id/addBlockedUrlEditText"
+        android:layout_toRightOf="@+id/addBlockedUrlEditText"
+        android:text="@string/block"/>
+
+    <ListView
+        android:id="@+id/customUrlsListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/addBlockedUrlEditText">
+
+    </ListView>
+</android.support.percent.PercentRelativeLayout>

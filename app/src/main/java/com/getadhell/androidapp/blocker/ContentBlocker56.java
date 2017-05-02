@@ -111,6 +111,7 @@ public class ContentBlocker56 implements ContentBlocker {
 
     private List<String> loadDenyList() {
         List<String> urls = contentBlockProvider.loadBlockDb().urlsToBlock;
+        urls.addAll(DeviceUtils.loadCustomBlockedUrls());
         for (int i = 0; i < urls.size(); i++) {
             urls.set(i, "*" + urls.get(i) + "*");
         }

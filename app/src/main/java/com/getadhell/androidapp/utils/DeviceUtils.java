@@ -3,6 +3,7 @@ package com.getadhell.androidapp.utils;
 import android.app.enterprise.EnterpriseDeviceManager;
 import android.app.enterprise.license.EnterpriseLicenseManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.util.Log;
 
@@ -11,8 +12,15 @@ import com.getadhell.androidapp.blocker.ContentBlocker;
 import com.getadhell.androidapp.blocker.ContentBlocker20;
 import com.getadhell.androidapp.blocker.ContentBlocker56;
 import com.getadhell.androidapp.blocker.ContentBlocker57;
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class DeviceUtils {
+    private static final String PREF_CUSTOM_URL = "custom_urls_to_block";
+    private static final String CUSTOM_KEY = "urls_key";
     private static final String LOG_TAG = DeviceUtils.class.getCanonicalName();
 
     private static boolean isSamsung() {
@@ -119,5 +127,17 @@ public class DeviceUtils {
                 context.getSystemService(EnterpriseDeviceManager.ENTERPRISE_POLICY_SERVICE);
         Log.w(LOG_TAG, "EDM version: " + edm.getEnterpriseSdkVer());
         return edm;
+    }
+
+    public static List<String> loadCustomBlockedUrls() {
+        List<String> customUrlsToBlock = new ArrayList<String>();
+        Gson gson = new Gson();
+        SharedPreferences prefs = App.get().getApplicationContext().getSharedPreferences(PREF_CUSTOM_URL, Context.MODE_PRIVATE);
+        String jsonText = prefs.getString(CUSTOM_KEY, null);
+        if (jsonText != null) {
+            String[] text = gson.fromJson(jsonText, String[].class);
+            customUrlsToBlock.addAll(Arrays.asList(text));
+        }
+        return customUrlsToBlock;
     }
 }

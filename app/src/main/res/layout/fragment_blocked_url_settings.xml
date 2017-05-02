@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <Button
+        android:id="@+id/seeStandardPackageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/manage_standard_url_package"/>
+    <Button
+        android:id="@+id/addCustomBlockedUrl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/seeStandardPackageButton"
+        android:layout_centerHorizontal="true"
+        android:text="@string/block_custom_urls"/>
+</android.support.percent.PercentRelativeLayout>

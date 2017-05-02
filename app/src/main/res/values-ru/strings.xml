@@ -58,6 +58,12 @@
     <string name="google_dns_2">8.8.4.4</string>
     <string name="set_dns_button_text">Изменить DNS</string>
     <string name="note_that_adhell_must_be_enabled">Adhell должен быть включен</string>
-    <string name="zero_dns">0.0.0.0</string>
     <string name="restore_defaults">Восстановить DNS по умолчанию</string>
+    <string name="block">Заблокировать</string>
+    <string name="block_custom_urls">Заблокировать свои урлы</string>
+    <string name="manage_standard_url_package">Управлять списком блокировки</string>
+    <string name="facebook_com">facebook.com</string>
+    <string name="to_take_effect_turn_off_turn_on_adhell_after_editing_list">После изменения списка
+        выключите и включите блокировщик.
+    </string>
 </resources>

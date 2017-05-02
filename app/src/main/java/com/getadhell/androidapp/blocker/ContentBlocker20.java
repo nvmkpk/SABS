@@ -94,6 +94,7 @@ public class ContentBlocker20 implements ContentBlocker {
 
     private List<String> loadDenyList() {
         List<String> urls = contentBlockProvider.loadBlockDb().urlsToBlock;
+        urls.addAll(DeviceUtils.loadCustomBlockedUrls());
         for (int i = 0; i < urls.size(); i++) {
             urls.set(i, urls.get(i) + ":*;127.0.0.1:80");
             if (i == urlBlockLimit) {

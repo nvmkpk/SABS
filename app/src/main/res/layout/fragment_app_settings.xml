@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -9,36 +10,27 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="@string/edit_block_list" />
+        android:text="@string/edit_block_list"/>
 
     <Button
         android:id="@+id/allowApps"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="@string/allow_apps" />
+        android:text="@string/allow_apps"/>
 
     <Button
         android:id="@+id/changeDnsButton"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="@string/change_dns_button" />
-
-    <TextView
-        android:id="@+id/editAlert"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="5pt"
-        android:paddingRight="5pt"
-        android:text="@string/editAlert"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+        android:text="@string/change_dns_button"/>
 
     <Button
         android:id="@+id/deleteApp"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="@string/delete_app" />
+        android:text="@string/delete_app"/>
 
 </LinearLayout>
