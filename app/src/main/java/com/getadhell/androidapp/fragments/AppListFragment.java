@@ -21,16 +21,8 @@ import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.getadhell.androidapp.R;
-import com.google.gson.Gson;
+import com.getadhell.androidapp.utils.AppWhiteList;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -42,16 +34,17 @@ public class AppListFragment extends Fragment {
     private static final String TAG = AppListFragment.class.getCanonicalName();
     private ListView appListView;
     private List<ApplicationInfo> masterAppInfo;
-    private String APPLIST = "applist.json";
     private Boolean onWhiteList = false;
     private IconAppAdapter iconAdapter;
     private Context context;
     private PackageManager packageManager;
     private List<AsyncTask> runningTaskList = new ArrayList<>();
+    private AppWhiteList mAppWhiteList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        mAppWhiteList = new AppWhiteList();
         this.context = getActivity().getApplicationContext();
         packageManager = this.context.getPackageManager();
         final View view = inflater.inflate(R.layout.app_list_fragment, container, false);
@@ -72,7 +65,7 @@ public class AppListFragment extends Fragment {
                     new AdhellGetWhiteListTask().execute(false);
                 } else {
                     //add to whitelist
-                    addToWhiteList(item);
+                    mAppWhiteList.addToWhiteList(item);
                     //new AdhellGetListTask().execute(false);
                     iconAdapter.remove(item);
                     iconAdapter.notifyDataSetChanged();
@@ -127,61 +120,6 @@ public class AppListFragment extends Fragment {
         appListView.setAdapter(iconAdapter);
     }
 
-    private void addToWhiteList(String url) {
-        List<String> whitelist = getWhiteList();
-        whitelist.add(url);
-        File file;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            file = new File(getContext().getFilesDir(), APPLIST);
-        } else {
-            file = new File(getActivity().getFilesDir(), APPLIST);
-        }
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        try {
-            Writer output = new BufferedWriter(new FileWriter(file));
-            Gson gson = new Gson();
-            output.write(gson.toJson(whitelist));
-            output.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private List<String> getWhiteList() {
-        File file;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            file = new File(getContext().getFilesDir(), APPLIST);
-        } else {
-            file = new File(getActivity().getFilesDir(), APPLIST);
-        }
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                Log.e(TAG, "Problem with creating file", e);
-            }
-        }
-        List<String> whitelist = null;
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            Gson gson = new Gson();
-            whitelist = gson.fromJson(reader, ArrayList.class);
-            if (whitelist == null) {
-                Log.w(TAG, "Whitelist is null");
-                whitelist = new ArrayList<String>();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e(TAG, "Problem with reading whitelist", e);
-            whitelist = new ArrayList<String>();
-        }
-        return whitelist;
-    }
 
     class IconAppAdapter extends BaseAdapter {
         private List<ApplicationInfo> applicationInfoList;
@@ -239,7 +177,7 @@ public class AppListFragment extends Fragment {
         }
 
         protected List<ApplicationInfo> doInBackground(Boolean... switchers) {
-            List<String> appWhiteList = getWhiteList();
+            List<String> appWhiteList = mAppWhiteList.getWhiteList();
             List<ApplicationInfo> applicationInfoList = new ArrayList<>();
             if (appWhiteList == null || appWhiteList.size() == 0) {
                 return applicationInfoList;
@@ -272,7 +210,7 @@ public class AppListFragment extends Fragment {
 
         protected List<ApplicationInfo> doInBackground(Boolean... switchers) {
             PackageManager packageManager = getActivity().getPackageManager();
-            List<String> appWhiteList = getWhiteList();
+            List<String> appWhiteList = mAppWhiteList.getWhiteList();
             final List<ApplicationInfo> pkgAppsList = packageManager.getInstalledApplications(0);
             Log.i(TAG, "Number of applications installed: " + pkgAppsList.size());
             Iterator<ApplicationInfo> applicationInfoIterator = pkgAppsList.iterator();
@@ -309,24 +247,7 @@ public class AppListFragment extends Fragment {
 
         @Override
         protected Void doInBackground(String... params) {
-            List<String> whitelist = getWhiteList();
-            whitelist.remove(params[0]);
-            File file;
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                file = new File(getContext().getFilesDir(), APPLIST);
-            } else {
-                file = new File(getActivity().getFilesDir(), APPLIST);
-            }
-            if (file.exists()) {
-                try {
-                    Writer output = new BufferedWriter(new FileWriter(file));
-                    Gson gson = new Gson();
-                    output.write(gson.toJson(whitelist));
-                    output.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            mAppWhiteList.removeFromWhiteList(params[0]);
             try {
                 ApplicationInfo ai = packageManager.getApplicationInfo(params[0], 0);
                 masterAppInfo.add(ai);

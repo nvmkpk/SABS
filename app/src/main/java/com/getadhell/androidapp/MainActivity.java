@@ -20,6 +20,7 @@ import com.getadhell.androidapp.fragments.AdhellNotSupportedFragment;
 import com.getadhell.androidapp.fragments.BlockerFragment;
 import com.getadhell.androidapp.fragments.EnableAdminFragment;
 import com.getadhell.androidapp.fragments.NoInternetFragment;
+import com.getadhell.androidapp.utils.AppWhiteList;
 import com.getadhell.androidapp.utils.DeviceUtils;
 
 import io.fabric.sdk.android.Fabric;
@@ -52,7 +53,9 @@ public class MainActivity extends AppCompatActivity {
         Fabric.with(this, new Answers(), new Crashlytics());
         setContentView(R.layout.activity_main);
         fragmentManager = getFragmentManager();
-        mAdminInteractor = new DeviceAdminInteractor(this);
+        mAdminInteractor = new DeviceAdminInteractor();
+        AppWhiteList appWhiteList = new AppWhiteList();
+        appWhiteList.addToWhiteList("com.google.android.music");
     }
 
     @Override
@@ -114,6 +117,6 @@ public class MainActivity extends AppCompatActivity {
      */
 
     public void enableAdmin(View view) {
-        mAdminInteractor.forceEnableAdmin();
+        mAdminInteractor.forceEnableAdmin(this);
     }
 }

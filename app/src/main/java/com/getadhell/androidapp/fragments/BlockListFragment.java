@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,17 +19,9 @@ import android.widget.TextView;
 import com.getadhell.androidapp.R;
 import com.getadhell.androidapp.contentprovider.ServerContentBlockProvider;
 import com.getadhell.androidapp.model.BlockDb;
+import com.getadhell.androidapp.utils.UrlWhiteList;
 import com.getadhell.androidapp.utils.CustomArrayAdapter;
-import com.google.gson.Gson;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,15 +29,17 @@ import java.util.List;
 public class BlockListFragment extends Fragment {
     private static final String LOG_TAG = BlockListFragment.class.getCanonicalName();
     private ListView blockListView;
-    private String WHITELIST = "whitelist.json";
+
     private Boolean onWhiteList = false;
     private ArrayAdapter<String> arrayAdapter;
     private List<AsyncTask> runningTaskList = new ArrayList<>();
     private Fragment fragment;
+    private UrlWhiteList urlWhiteList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        urlWhiteList = new UrlWhiteList();
         fragment = this;
         final View view = inflater.inflate(R.layout.block_list_fragment, container, false);
 
@@ -61,11 +54,11 @@ public class BlockListFragment extends Fragment {
                 String item = (String) parent.getItemAtPosition(position);
                 if (onWhiteList) {
                     //remove from whitelist
-                    removeFromWhiteList(item);
+                    urlWhiteList.removeFromWhiteList(item);
                     new AdhellGetWhiteListTask().execute(false);
                 } else {
                     //add to whitelist
-                    addToWhiteList(item);
+                    urlWhiteList.addToWhiteList(item);
                     new AdhellGetListTask().execute(false);
                 }
             }
@@ -140,81 +133,6 @@ public class BlockListFragment extends Fragment {
         blockListView.setAdapter(arrayAdapter);
     }
 
-    private void removeFromWhiteList(String url) {
-        ArrayList<String> whitelist = getWhiteList();
-        whitelist.remove(url);
-        File file;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            file = new File(getContext().getFilesDir(), WHITELIST);
-        } else {
-            file = new File(getActivity().getFilesDir(), WHITELIST);
-        }
-        if (file.exists()) {
-            try {
-                Writer output = new BufferedWriter(new FileWriter(file));
-                Gson gson = new Gson();
-                output.write(gson.toJson(whitelist));
-                output.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void addToWhiteList(String url) {
-        ArrayList<String> whitelist = getWhiteList();
-        whitelist.add(url);
-        File file;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            file = new File(getContext().getFilesDir(), WHITELIST);
-        } else {
-            file = new File(getActivity().getFilesDir(), WHITELIST);
-        }
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        try {
-            Writer output = new BufferedWriter(new FileWriter(file));
-            Gson gson = new Gson();
-            output.write(gson.toJson(whitelist));
-            output.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private ArrayList<String> getWhiteList() {
-        File file;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            file = new File(getContext().getFilesDir(), WHITELIST);
-        } else {
-            file = new File(getActivity().getFilesDir(), WHITELIST);
-        }
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        ArrayList<String> whitelist = new ArrayList<>();
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            Gson gson = new Gson();
-            whitelist = gson.fromJson(reader, ArrayList.class);
-            if (whitelist == null) {
-                whitelist = new ArrayList<>();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e(LOG_TAG, "Failed to get whitelist: ", e);
-            whitelist = new ArrayList<>();
-        }
-        return whitelist;
-    }
 
     private class AdhellGetWhiteListTask extends AsyncTask<Boolean, Void, ArrayList<String>> {
 
@@ -223,7 +141,7 @@ public class BlockListFragment extends Fragment {
         }
 
         protected ArrayList<String> doInBackground(Boolean... switchers) {
-            return getWhiteList();
+            return urlWhiteList.getWhiteList();
         }
 
         protected void onPostExecute(ArrayList<String> result) {

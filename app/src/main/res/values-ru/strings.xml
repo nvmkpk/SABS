@@ -16,29 +16,42 @@
     <string name="block_button_text_turn_on">Включить</string>
     <string name="failed_to_activate_knox_message">Не удалось активировать Knox</string>
     <string name="knox_license_activated">Лицензия активирована</string>
-    <string name="knox">Adhell использует файрволл Samsung для блокировки рекламы, Пожалуйста активируйте лицензию. Это бесплатно.</string>
-    <string name="no_internet_connection">Похоже, что ваше устройство не подключено к интернету</string>
+    <string name="knox">Adhell использует файрволл Samsung для блокировки рекламы, Пожалуйста
+        активируйте лицензию. Это бесплатно.
+    </string>
+    <string name="no_internet_connection">Похоже, что ваше устройство не подключено к интернету
+    </string>
     <string name="no_thanks">Нет, спасибо</string>
     <string name="notify_you_2">Данное устройство не поддерживается</string>
     <string name="only_samsung">Только Samsung</string>
     <string name="please_wait">Включаю Adhell...</string>
-    <string name="to_enable_adhell">Чтобы включить Adhell нужно дать приложению права администратора</string>
+    <string name="to_enable_adhell">Чтобы включить Adhell нужно дать приложению права
+        администратора
+    </string>
     <string name="turn_on_admin">Включить</string>
     <string name="wait">Подождите</string>
     <string name="wait_deleting">Выключаю Adhell...</string>
-    <string name="works_whit_samsung">\"Adhell работает только с Samsung. Данное устройство не поддерживается. \"</string>
+    <string name="works_whit_samsung">"Adhell работает только с Samsung. Данное устройство не
+        поддерживается. "
+    </string>
     <string name="phone_not_supported">Данное устройство не поддерживается</string>
     <string name="yes_notify_me">Да, расскажите мне</string>
-    <string name="thank_you_we_will_notify_you">Мы оповестим вас, когда Adhell заработает на вашем устройстве</string>
+    <string name="thank_you_we_will_notify_you">Мы оповестим вас, когда Adhell заработает на вашем
+        устройстве
+    </string>
     <string name="preference_policy">policy-preference</string>
     <string name="isSupported">Подождите</string>
     <string name="isPolicyEnabled">isPolicyEnabled</string>
     <string name="enable_blocker">Включить Adhell</string>
-    <string name="about">Adhell блокируется рекламу на всем устройстве (только для смартфонов Samsung)</string>
+    <string name="about">Adhell блокируется рекламу на всем устройстве (только для смартфонов
+        Samsung)
+    </string>
     <string name="edit_block_list">Edit Blocked URL\'s</string>
     <string name="whitelist">Show Whitelist</string>
     <string name="blocklist">Показать заблокированные адреса</string>
-    <string name="editAlert">After editing the block list and whitelist, return to this screen and toggle Enabled off, then back on to apply the changes!</string>
+    <string name="editAlert">After editing the block list and whitelist, return to this screen and
+        toggle Enabled off, then back on to apply the changes!
+    </string>
     <string name="list_filter">Filter:</string>
     <string name="block_app_tab_label">Active Apps</string>
     <string name="delete_app">Выключить и удалить Adhell</string>
@@ -57,7 +70,10 @@
     <string name="google_dns_1">8.8.8.8</string>
     <string name="google_dns_2">8.8.4.4</string>
     <string name="set_dns_button_text">Изменить DNS</string>
-    <string name="note_that_adhell_must_be_enabled">Adhell должен быть включен</string>
+    <string name="note_that_adhell_must_be_enabled">Используйте данную функцию, только если
+        понимаете что такое DNS и какие проблемы могут возникнуть. Заметьте, что Adhell должен быть
+        включен
+    </string>
     <string name="restore_defaults">Восстановить DNS по умолчанию</string>
     <string name="block">Заблокировать</string>
     <string name="block_custom_urls">Заблокировать свои урлы</string>

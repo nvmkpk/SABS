@@ -75,7 +75,9 @@
     <string name="google_dns_2">8.8.4.4</string>
     <string name="set_dns_button_text">Set DNS</string>
     <string name="cancel_text">Cancel</string>
-    <string name="note_that_adhell_must_be_enabled">Note that Adhell must be enabled.</string>
+    <string name="note_that_adhell_must_be_enabled">Use it only if you know what DNS for and what
+        benefits or problems editing could cause. Note that Adhell must be enabled.
+    </string>
     <string name="restore_defaults">Restore Defaults</string>
     <string name="zero_dns" translatable="false">0.0.0.0</string>
     <string name="facebook_com">facebook.com</string>
