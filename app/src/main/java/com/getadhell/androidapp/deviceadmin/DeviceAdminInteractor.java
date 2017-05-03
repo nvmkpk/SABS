@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.util.Log;
 
+import com.getadhell.androidapp.App;
 import com.getadhell.androidapp.BuildConfig;
 import com.getadhell.androidapp.net.CustomResponse;
 import com.google.gson.Gson;
@@ -23,7 +24,7 @@ import okhttp3.Response;
 
 public class DeviceAdminInteractor {
     private static final int RESULT_ENABLE = 42;
-    private final String LOG_TAG = DeviceAdminInteractor.class.getCanonicalName();
+    private final String TAG = DeviceAdminInteractor.class.getCanonicalName();
     private ComponentName componentName;
     private DevicePolicyManager devicePolicyManager;
     /**
@@ -31,11 +32,11 @@ public class DeviceAdminInteractor {
      */
     private Context mContext;
 
-    public DeviceAdminInteractor(Context mContext) {
-        this.mContext = mContext;
+    public DeviceAdminInteractor() {
+        this.mContext = App.get().getApplicationContext();
         devicePolicyManager =
-                (DevicePolicyManager) mContext.getSystemService(Context.DEVICE_POLICY_SERVICE);
-        componentName = new ComponentName(mContext, CustomDeviceAdminReceiver.class);
+                (DevicePolicyManager) this.mContext.getSystemService(Context.DEVICE_POLICY_SERVICE);
+        componentName = new ComponentName(this.mContext, CustomDeviceAdminReceiver.class);
     }
 
 
@@ -68,7 +69,7 @@ public class DeviceAdminInteractor {
             EnterpriseLicenseManager.getInstance(mContext)
                     .activateLicense(knoxKey);
         } catch (Exception e) {
-            Log.e(LOG_TAG, "Failed to activate license", e);
+            Log.e(TAG, "Failed to activate license", e);
             throw new Exception("Failed to activate license");
         }
 
@@ -104,7 +105,7 @@ public class DeviceAdminInteractor {
             }
             return null;
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Problem with getting Knox Key from adhell server", e);
             return null;
         }
 //        AppConfig appConfig = AppConfig.loadConfigFromAsset(mContext);
