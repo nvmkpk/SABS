@@ -9,18 +9,20 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.util.Log;
 
+import com.getadhell.androidapp.BuildConfig;
 import com.getadhell.androidapp.net.CustomResponse;
 import com.google.gson.Gson;
 
 import java.io.IOException;
 
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class DeviceAdminInteractor {
     private static final int RESULT_ENABLE = 42;
-    private static String KNOX_KEY_URL = "http://backend.getadhell.com/knox-key";
     private final String LOG_TAG = DeviceAdminInteractor.class.getCanonicalName();
     private ComponentName componentName;
     private DevicePolicyManager devicePolicyManager;
@@ -82,8 +84,12 @@ public class DeviceAdminInteractor {
 
     public String getKnoxKey() {
         OkHttpClient okHttpClient = new OkHttpClient();
+        RequestBody formBody = new FormBody.Builder()
+                .add("adhellToken", BuildConfig.ADHELL_TOKEN)
+                .build();
         Request request = new Request.Builder()
-                .url(KNOX_KEY_URL)
+                .url(BuildConfig.ADHELL_KEY_URL)
+                .post(formBody)
                 .build();
         try {
             Response response = okHttpClient.newCall(request).execute();
