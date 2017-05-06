@@ -37,6 +37,7 @@ android {
         buildTypes.each {
             it.buildConfigField 'String', 'ADHELL_TOKEN', AdhellToken
             it.buildConfigField 'String', 'ADHELL_KEY_URL', AdhellKeyUrl
+            it.resValue 'string', 'CRASHLYTICS_API_KEY', CrashlyticsApiKey
         }
     }
 }
