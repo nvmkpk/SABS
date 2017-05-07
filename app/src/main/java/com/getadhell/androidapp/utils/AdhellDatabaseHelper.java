@@ -27,7 +27,7 @@ public class AdhellDatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_BLOCKED_DOMAIN_ID = "id";
     private static final String KEY_BLOCKED_DOMAIN_URL = "url";
     private static final String KEY_BLOCKED_DOMAIN_TIMESTAMP = "blockTimestamp";
-    public static final String KEY_BLOCKED_PACKAGE_NAME = "packageName";
+    private static final String KEY_BLOCKED_PACKAGE_NAME = "packageName";
 
 
     public static synchronized AdhellDatabaseHelper getInstance(Context context) {

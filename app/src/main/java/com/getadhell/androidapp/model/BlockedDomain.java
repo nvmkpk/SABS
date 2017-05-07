@@ -10,10 +10,11 @@ public class BlockedDomain {
     public BlockedDomain() {
     }
 
-    public BlockedDomain(int id, String url, long blockTimestamp) {
+    public BlockedDomain(int id, String url, long blockTimestamp, String packageName) {
         this.id = id;
         this.url = url;
         this.blockTimestamp = blockTimestamp;
+        this.packageName = packageName;
     }
 
 }
