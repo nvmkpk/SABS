@@ -17,4 +17,14 @@ public class BlockedDomain {
         this.packageName = packageName;
     }
 
+
+    @Override
+    public String toString() {
+        return "BlockedDomain{" +
+                "id=" + id +
+                ", url='" + url + '\'' +
+                ", blockTimestamp=" + blockTimestamp +
+                ", packageName='" + packageName + '\'' +
+                '}';
+    }
 }

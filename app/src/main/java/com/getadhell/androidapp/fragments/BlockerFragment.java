@@ -2,7 +2,6 @@ package com.getadhell.androidapp.fragments;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +17,9 @@ import android.widget.TextView;
 
 import com.getadhell.androidapp.R;
 import com.getadhell.androidapp.blocker.ContentBlocker;
+import com.getadhell.androidapp.blocker.ContentBlocker56;
+import com.getadhell.androidapp.blocker.ContentBlocker57;
+import com.getadhell.androidapp.utils.BlockedDomainAlarmHelper;
 import com.getadhell.androidapp.utils.DeviceUtils;
 
 public class BlockerFragment extends Fragment {
@@ -25,7 +27,6 @@ public class BlockerFragment extends Fragment {
     private static Button mPolicyChangeButton;
     private static TextView isSupportedTextView;
     private ContentBlocker contentBlocker;
-    private Context mContext;
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -53,8 +54,6 @@ public class BlockerFragment extends Fragment {
         View view = inflater.inflate(R.layout.blocker_fragment, container, false);
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-
-        mContext = this.getActivity().getApplicationContext();
 
         mPolicyChangeButton = (Button) view.findViewById(R.id.policyChangeButton);
         isSupportedTextView = (TextView) view.findViewById(R.id.isSupportedTextView);
@@ -114,15 +113,27 @@ public class BlockerFragment extends Fragment {
                     // Enabled. Trying to disable
                     Log.d(TAG, "Policy enabled, trying to disable");
                     contentBlocker.disableBlocker();
+                    if (contentBlocker instanceof ContentBlocker56
+                            || contentBlocker instanceof ContentBlocker57) {
+                        BlockedDomainAlarmHelper.cancelBlockedDomainAlarm();
+                    }
                 } else {
                     // Disabled. Enabling
                     Log.d(TAG, "Policy disabled, trying to enable");
                     contentBlocker.disableBlocker();
                     contentBlocker.enableBlocker();
+                    if (contentBlocker instanceof ContentBlocker56
+                            || contentBlocker instanceof ContentBlocker57) {
+                        BlockedDomainAlarmHelper.scheduleBlockedDomainAlarm();
+                    }
                 }
             } catch (Exception e) {
                 Log.e(TAG, "Failed to turn on ad blocker", e);
                 contentBlocker.disableBlocker();
+                if (contentBlocker instanceof ContentBlocker56
+                        || contentBlocker instanceof ContentBlocker57) {
+                    BlockedDomainAlarmHelper.cancelBlockedDomainAlarm();
+                }
             }
             return 42;
         }

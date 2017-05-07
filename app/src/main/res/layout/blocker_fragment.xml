@@ -16,4 +16,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="@string/wait" />
+
+    <Button
+        android:id="@+id/adhellReportsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Reports" />
 </LinearLayout>

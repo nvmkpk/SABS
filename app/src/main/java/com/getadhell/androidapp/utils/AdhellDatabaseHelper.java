@@ -15,30 +15,27 @@ import java.util.List;
 
 public class AdhellDatabaseHelper extends SQLiteOpenHelper {
     private static final String TAG = AdhellDatabaseHelper.class.getCanonicalName();
-    private static AdhellDatabaseHelper sInstance;
-
     private static final String DATABASE_NAME = "adhellDatabase";
     private static final int DATABASE_VERSION = 1;
-
     // Blocked domains table
     private static final String TABLE_BLOCKED_DOMAIN = "BlockedDomain";
-
     // Blocked domains table's columns
     private static final String KEY_BLOCKED_DOMAIN_ID = "id";
     private static final String KEY_BLOCKED_DOMAIN_URL = "url";
     private static final String KEY_BLOCKED_DOMAIN_TIMESTAMP = "blockTimestamp";
     private static final String KEY_BLOCKED_PACKAGE_NAME = "packageName";
+    private static AdhellDatabaseHelper sInstance;
 
+
+    private AdhellDatabaseHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
 
     public static synchronized AdhellDatabaseHelper getInstance(Context context) {
         if (sInstance == null) {
             sInstance = new AdhellDatabaseHelper(context.getApplicationContext());
         }
         return sInstance;
-    }
-
-    private AdhellDatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
@@ -139,7 +136,7 @@ public class AdhellDatabaseHelper extends SQLiteOpenHelper {
                 BlockedDomain blockedDomain1 = new BlockedDomain();
                 blockedDomain1.blockTimestamp = b.getTimeStamp();
                 blockedDomain1.packageName = b.getPackageName();
-                blockedDomain1.url = b.getPackageName();
+                blockedDomain1.url = b.getDomainUrl();
                 addBlockedDomain(blockedDomain1);
             }
         }

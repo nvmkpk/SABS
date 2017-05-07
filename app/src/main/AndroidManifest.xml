@@ -21,6 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service
+            android:name=".service.BlockedDomainService"
+            android:exported="false" />
 
         <receiver
             android:name="com.getadhell.androidapp.deviceadmin.CustomDeviceAdminReceiver"
@@ -41,6 +44,9 @@
                 <action android:name="edm.intent.action.license.status" />
             </intent-filter>
         </receiver>
+        <receiver
+            android:name=".receiver.BlockedDomainAlarmReceiver"
+            android:process=":remote" />
 
     </application>
 

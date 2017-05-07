@@ -3,6 +3,7 @@ package com.getadhell.androidapp;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -20,8 +21,13 @@ import com.getadhell.androidapp.fragments.AdhellNotSupportedFragment;
 import com.getadhell.androidapp.fragments.BlockerFragment;
 import com.getadhell.androidapp.fragments.EnableAdminFragment;
 import com.getadhell.androidapp.fragments.NoInternetFragment;
+import com.getadhell.androidapp.model.BlockedDomain;
+import com.getadhell.androidapp.service.BlockedDomainService;
+import com.getadhell.androidapp.utils.AdhellDatabaseHelper;
 import com.getadhell.androidapp.utils.AppWhiteList;
 import com.getadhell.androidapp.utils.DeviceUtils;
+
+import java.util.List;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -118,5 +124,18 @@ public class MainActivity extends AppCompatActivity {
 
     public void enableAdmin(View view) {
         mAdminInteractor.forceEnableAdmin(this);
+    }
+
+    public void logDB(View view) {
+        AdhellDatabaseHelper adhellDatabaseHelper = AdhellDatabaseHelper.getInstance(this);
+        List<BlockedDomain> blockedDomains = adhellDatabaseHelper.getBlockedDomainsBetween(0, Integer.MAX_VALUE);
+        Log.i(TAG, blockedDomains.toString());
+    }
+
+    public void saveUrls(View view) {
+        Log.d(TAG, "save urls");
+        Intent i = new Intent(this, BlockedDomainService.class);
+        i.putExtra("launchedFrom", "alarm-receiver");
+        this.startService(i);
     }
 }
