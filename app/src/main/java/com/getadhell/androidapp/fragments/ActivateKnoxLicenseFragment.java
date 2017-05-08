@@ -21,15 +21,13 @@ import com.getadhell.androidapp.utils.DeviceUtils;
 
 public class ActivateKnoxLicenseFragment extends Fragment {
     private static final String LOG_TAG = ActivateKnoxLicenseFragment.class.getCanonicalName();
-    private static Context context;
     private static FragmentManager fragmentManager;
-    private static Button mActivateKnoxButton;
+    private Button mActivateKnoxButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.knox_license_activation_fragment, container, false);
-        context = this.getActivity();
+        View view = inflater.inflate(R.layout.fragment_knox_license_activation, container, false);
         fragmentManager = this.getFragmentManager();
         mActivateKnoxButton = (Button) view.findViewById(R.id.activateKnoxButton);
         mActivateKnoxButton.setOnClickListener(new View.OnClickListener() {

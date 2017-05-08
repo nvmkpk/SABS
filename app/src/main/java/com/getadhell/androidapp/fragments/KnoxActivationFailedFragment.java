@@ -10,7 +10,7 @@ import com.getadhell.androidapp.R;
 
 
 public class KnoxActivationFailedFragment extends Fragment {
-    private static final String LOG_TAG = KnoxActivationFailedFragment.class.getCanonicalName();
+    private static final String TAG = KnoxActivationFailedFragment.class.getCanonicalName();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

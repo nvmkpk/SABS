@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.percent.PercentRelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <TextView
         android:id="@+id/editAlert"
         android:layout_width="match_parent"
@@ -10,22 +10,24 @@
         android:paddingLeft="5pt"
         android:paddingRight="5pt"
         android:text="@string/editAlert" />
+
     <TextView
         android:id="@+id/textView2"
-        android:layout_below="@+id/editAlert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/list_filter"/>
+        android:layout_below="@+id/editAlert"
+        android:text="@string/list_filter" />
 
     <EditText
         android:id="@+id/urlFilterEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/textView2"
-        android:layout_toEndOf="@+id/textView2"
-        android:ems="10"
         android:layout_below="@+id/editAlert"
-        android:inputType="text"/>
+        android:layout_toEndOf="@+id/textView2"
+        android:layout_toRightOf="@+id/textView2"
+        android:ems="10"
+        android:inputType="text" />
+
     <TabHost
         android:id="@+id/urlTabHost"
         android:layout_width="match_parent"
@@ -40,7 +42,7 @@
             <TabWidget
                 android:id="@android:id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
             <FrameLayout
                 android:id="@android:id/tabcontent"

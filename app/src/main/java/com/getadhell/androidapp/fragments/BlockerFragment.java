@@ -1,6 +1,7 @@
 package com.getadhell.androidapp.fragments;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -24,9 +25,10 @@ import com.getadhell.androidapp.utils.DeviceUtils;
 
 public class BlockerFragment extends Fragment {
     private static final String TAG = BlockerFragment.class.getCanonicalName();
-    private static Button mPolicyChangeButton;
-    private static TextView isSupportedTextView;
+    private Button mPolicyChangeButton;
+    private TextView isSupportedTextView;
     private ContentBlocker contentBlocker;
+    private Button reportButton;
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -51,12 +53,13 @@ public class BlockerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.blocker_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_blocker, container, false);
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         mPolicyChangeButton = (Button) view.findViewById(R.id.policyChangeButton);
         isSupportedTextView = (TextView) view.findViewById(R.id.isSupportedTextView);
+        reportButton = (Button) view.findViewById(R.id.adhellReportsButton);
 
         contentBlocker = DeviceUtils.getContentBlocker();
 
@@ -74,6 +77,22 @@ public class BlockerFragment extends Fragment {
             }
         });
         setHasOptionsMenu(true);
+
+        if ((contentBlocker instanceof ContentBlocker57
+                || contentBlocker instanceof ContentBlocker56) && contentBlocker.isEnabled()) {
+            reportButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragmentContainer, new AdhellReportsFragment());
+                    fragmentTransaction.addToBackStack("main_to_reports");
+                    fragmentTransaction.commit();
+                }
+            });
+        } else {
+            reportButton.setVisibility(View.GONE);
+        }
         return view;
     }
 
@@ -104,6 +123,7 @@ public class BlockerFragment extends Fragment {
             } else {
                 mPolicyChangeButton.setText(R.string.block_button_text_disabling);
                 isSupportedTextView.setText(getString(R.string.wait_deleting));
+                reportButton.setVisibility(View.GONE);
             }
         }
 
@@ -143,6 +163,14 @@ public class BlockerFragment extends Fragment {
             setNeededText();
             mPolicyChangeButton.setEnabled(true);
             Log.d(TAG, "Leaving onPostExecute() method");
+            if (contentBlocker.isEnabled()
+                    && (contentBlocker instanceof ContentBlocker56
+                    || contentBlocker instanceof ContentBlocker57)) {
+                reportButton.setVisibility(View.VISIBLE);
+            }
+            if (!contentBlocker.isEnabled()) {
+                reportButton.setVisibility(View.GONE);
+            }
         }
     }
 

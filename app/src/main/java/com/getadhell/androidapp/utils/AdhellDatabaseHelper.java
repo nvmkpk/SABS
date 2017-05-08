@@ -16,11 +16,11 @@ import java.util.List;
 public class AdhellDatabaseHelper extends SQLiteOpenHelper {
     private static final String TAG = AdhellDatabaseHelper.class.getCanonicalName();
     private static final String DATABASE_NAME = "adhellDatabase";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     // Blocked domains table
     private static final String TABLE_BLOCKED_DOMAIN = "BlockedDomain";
     // Blocked domains table's columns
-    private static final String KEY_BLOCKED_DOMAIN_ID = "id";
+    private static final String KEY_BLOCKED_DOMAIN_ID = "_id";
     private static final String KEY_BLOCKED_DOMAIN_URL = "url";
     private static final String KEY_BLOCKED_DOMAIN_TIMESTAMP = "blockTimestamp";
     private static final String KEY_BLOCKED_PACKAGE_NAME = "packageName";
@@ -42,7 +42,7 @@ public class AdhellDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_BLOCKED_DOMAIN_TABLE = "CREATE TABLE " + TABLE_BLOCKED_DOMAIN +
                 "(" +
-                KEY_BLOCKED_DOMAIN_ID + " INTEGER PRIMARY KEY, " +
+                KEY_BLOCKED_DOMAIN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 KEY_BLOCKED_DOMAIN_URL + " TEXT," +
                 KEY_BLOCKED_DOMAIN_TIMESTAMP + " INTEGER," +
                 KEY_BLOCKED_PACKAGE_NAME + " TEXT" +
@@ -74,10 +74,7 @@ public class AdhellDatabaseHelper extends SQLiteOpenHelper {
 
     public List<BlockedDomain> getBlockedDomainsBetween(long start, long end) {
         List<BlockedDomain> blockedDomains = new ArrayList<>();
-
-        SQLiteDatabase db = getReadableDatabase();
-        String GET_BLOCKED_DOMAINS_BETWEEN = String.format("SELECT * FROM %s WHERE %s BETWEEN %d AND %d", TABLE_BLOCKED_DOMAIN, KEY_BLOCKED_DOMAIN_TIMESTAMP, start, end);
-        Cursor cursor = db.rawQuery(GET_BLOCKED_DOMAINS_BETWEEN, null);
+        Cursor cursor = getCursorBlockedDomainsBetween(start, end);
         try {
             if (cursor.moveToFirst()) {
                 do {
@@ -98,6 +95,13 @@ public class AdhellDatabaseHelper extends SQLiteOpenHelper {
             }
         }
         return blockedDomains;
+    }
+
+    public Cursor getCursorBlockedDomainsBetween(long start, long end) {
+        SQLiteDatabase db = getReadableDatabase();
+        String GET_BLOCKED_DOMAINS_BETWEEN = String.format("SELECT * FROM %s WHERE %s BETWEEN %d AND %d ORDER BY _id DESC", TABLE_BLOCKED_DOMAIN, KEY_BLOCKED_DOMAIN_TIMESTAMP, start, end);
+        Cursor cursor = db.rawQuery(GET_BLOCKED_DOMAINS_BETWEEN, null);
+        return cursor;
     }
 
     public BlockedDomain getLastBlockedDomain() {

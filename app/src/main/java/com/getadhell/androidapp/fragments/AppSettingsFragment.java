@@ -26,7 +26,7 @@ import com.getadhell.androidapp.dialogfragment.DnsChangeDialogFragment;
 import com.getadhell.androidapp.utils.DeviceUtils;
 
 public class AppSettingsFragment extends Fragment {
-    public static final String TAG = AppSettingsFragment.class.getCanonicalName();
+    private static final String TAG = AppSettingsFragment.class.getCanonicalName();
     private ContentBlocker contentBlocker;
     private Context mContext;
 
@@ -44,7 +44,6 @@ public class AppSettingsFragment extends Fragment {
                 Log.d(TAG, "Edit button click in Fragment1");
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                fragmentTransaction.setCustomAnimations(R.animator.enter_from_left, R.animator.exit_to_right, R.animator.enter_from_right, R.animator.exit_to_left);
                 fragmentTransaction.replace(R.id.fragmentContainer, new BlockedUrlSettingFragment());
                 fragmentTransaction.addToBackStack("main_to_editUrl");
                 fragmentTransaction.commit();
@@ -59,7 +58,6 @@ public class AppSettingsFragment extends Fragment {
                     Log.d(TAG, "Allow Apps button click in Fragment1");
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                    fragmentTransaction.setCustomAnimations(R.animator.enter_from_left, R.animator.exit_to_right, R.animator.enter_from_right, R.animator.exit_to_left);
                     fragmentTransaction.replace(R.id.fragmentContainer, new AppListFragment());
                     fragmentTransaction.addToBackStack("main_to_editApp");
                     fragmentTransaction.commit();

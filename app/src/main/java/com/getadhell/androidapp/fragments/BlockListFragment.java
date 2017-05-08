@@ -19,15 +19,15 @@ import android.widget.TextView;
 import com.getadhell.androidapp.R;
 import com.getadhell.androidapp.contentprovider.ServerContentBlockProvider;
 import com.getadhell.androidapp.model.BlockDb;
-import com.getadhell.androidapp.utils.UrlWhiteList;
 import com.getadhell.androidapp.utils.CustomArrayAdapter;
+import com.getadhell.androidapp.utils.UrlWhiteList;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class BlockListFragment extends Fragment {
-    private static final String LOG_TAG = BlockListFragment.class.getCanonicalName();
+    private static final String TAG = BlockListFragment.class.getCanonicalName();
     private ListView blockListView;
 
     private Boolean onWhiteList = false;
@@ -41,7 +41,7 @@ public class BlockListFragment extends Fragment {
                              Bundle savedInstanceState) {
         urlWhiteList = new UrlWhiteList();
         fragment = this;
-        final View view = inflater.inflate(R.layout.block_list_fragment, container, false);
+        final View view = inflater.inflate(R.layout.fragment_block_list, container, false);
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

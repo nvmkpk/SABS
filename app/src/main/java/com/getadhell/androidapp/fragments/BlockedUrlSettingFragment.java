@@ -26,7 +26,6 @@ public class BlockedUrlSettingFragment extends Fragment {
                 Log.d(TAG, "Edit button click in Fragment1");
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                fragmentTransaction.setCustomAnimations(R.animator.enter_from_left, R.animator.exit_to_right, R.animator.enter_from_right, R.animator.exit_to_left);
                 fragmentTransaction.replace(R.id.fragmentContainer, new BlockListFragment());
                 fragmentTransaction.addToBackStack("manage_url_to_manage_standard");
                 fragmentTransaction.commit();
@@ -40,7 +39,6 @@ public class BlockedUrlSettingFragment extends Fragment {
             public void onClick(View view) {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                fragmentTransaction.setCustomAnimations(R.animator.enter_from_left, R.animator.exit_to_right, R.animator.enter_from_right, R.animator.exit_to_left);
                 fragmentTransaction.replace(R.id.fragmentContainer, new BlockCustomUrlFragment());
                 fragmentTransaction.addToBackStack("manage_url_to_add_custom");
                 fragmentTransaction.commit();

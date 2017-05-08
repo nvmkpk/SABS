@@ -47,7 +47,7 @@ public class AppListFragment extends Fragment {
         mAppWhiteList = new AppWhiteList();
         this.context = getActivity().getApplicationContext();
         packageManager = this.context.getPackageManager();
-        final View view = inflater.inflate(R.layout.app_list_fragment, container, false);
+        final View view = inflater.inflate(R.layout.fragment_app_list, container, false);
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -146,7 +146,7 @@ public class AppListFragment extends Fragment {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             LayoutInflater inflater = LayoutInflater.from(context);
-            View row = inflater.inflate(R.layout.app_lits_view_item, parent, false);
+            View row = inflater.inflate(R.layout.item_app_lits_view, parent, false);
             TextView appNameTextView = (TextView) row.findViewById(R.id.appName);
             ImageView appIconImageView = (ImageView) row.findViewById(R.id.appIcon);
             appNameTextView.setText(packageManager.getApplicationLabel(this.applicationInfoList.get(position)));
@@ -155,16 +155,11 @@ public class AppListFragment extends Fragment {
         }
 
         public void remove(String packageName) {
-            try {
-                ApplicationInfo ai = packageManager.getApplicationInfo(packageName, 0);
-                for (int i = 0; i < this.applicationInfoList.size(); i++) {
-                    if (this.applicationInfoList.get(i).packageName.equals(packageName)) {
-                        this.applicationInfoList.remove(i);
-                        break;
-                    }
+            for (int i = 0; i < this.applicationInfoList.size(); i++) {
+                if (this.applicationInfoList.get(i).packageName.equals(packageName)) {
+                    this.applicationInfoList.remove(i);
+                    break;
                 }
-            } catch (PackageManager.NameNotFoundException e) {
-                e.printStackTrace();
             }
             masterAppInfo = this.applicationInfoList;
         }
