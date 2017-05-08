@@ -1,6 +1,7 @@
 package com.getadhell.androidapp.fragments;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,8 +13,13 @@ import android.widget.TextView;
 import com.getadhell.androidapp.App;
 import com.getadhell.androidapp.R;
 import com.getadhell.androidapp.adapter.BlockedDomainCursorAdapter;
+import com.getadhell.androidapp.blocker.ContentBlocker;
+import com.getadhell.androidapp.blocker.ContentBlocker56;
+import com.getadhell.androidapp.blocker.ContentBlocker57;
 import com.getadhell.androidapp.model.BlockedDomain;
+import com.getadhell.androidapp.service.BlockedDomainService;
 import com.getadhell.androidapp.utils.AdhellDatabaseHelper;
+import com.getadhell.androidapp.utils.DeviceUtils;
 
 import java.util.List;
 

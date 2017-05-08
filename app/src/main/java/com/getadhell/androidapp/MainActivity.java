@@ -15,6 +15,9 @@ import android.view.View;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
+import com.getadhell.androidapp.blocker.ContentBlocker;
+import com.getadhell.androidapp.blocker.ContentBlocker56;
+import com.getadhell.androidapp.blocker.ContentBlocker57;
 import com.getadhell.androidapp.deviceadmin.DeviceAdminInteractor;
 import com.getadhell.androidapp.fragments.ActivateKnoxLicenseFragment;
 import com.getadhell.androidapp.fragments.AdhellNotSupportedFragment;
@@ -109,6 +112,14 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragmentContainer, new BlockerFragment());
         fragmentTransaction.commit();
+
+        ContentBlocker contentBlocker = DeviceUtils.getContentBlocker();
+        if (contentBlocker != null && contentBlocker.isEnabled() && (contentBlocker instanceof ContentBlocker56
+                || contentBlocker instanceof ContentBlocker57)) {
+            Intent i = new Intent(App.get().getApplicationContext(), BlockedDomainService.class);
+            i.putExtra("launchedFrom", "main-activity");
+            App.get().getApplicationContext().startService(i);
+        }
     }
 
 

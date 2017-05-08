@@ -15,21 +15,13 @@ public class BlockedDomainAlarmHelper {
 
     public static void scheduleBlockedDomainAlarm() {
         Intent intent = new Intent(App.get().getApplicationContext(), BlockedDomainAlarmReceiver.class);
-
-        boolean alarmUp = (PendingIntent.getBroadcast(App.get().getApplicationContext(), BlockedDomainAlarmReceiver.REQUEST_CODE,
-                intent,
-                PendingIntent.FLAG_NO_CREATE) != null);
-//        if (!alarmUp) {
         Log.d(TAG, "Alarm not set. Setting alarm");
         final PendingIntent pIntent = PendingIntent.getBroadcast(App.get().getApplicationContext(), BlockedDomainAlarmReceiver.REQUEST_CODE,
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
         long firstMillis = System.currentTimeMillis();
         AlarmManager alarm = (AlarmManager) App.get().getApplicationContext().getSystemService(Context.ALARM_SERVICE);
         alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, firstMillis,
-                AlarmManager.INTERVAL_FIFTEEN_MINUTES, pIntent);
-//        } else {
-//            Log.d(TAG, "Alarm already set");
-//        }
+                AlarmManager.INTERVAL_HOUR, pIntent);
     }
 
 
@@ -39,5 +31,13 @@ public class BlockedDomainAlarmHelper {
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarm = (AlarmManager) App.get().getApplicationContext().getSystemService(Context.ALARM_SERVICE);
         alarm.cancel(pIntent);
+    }
+
+    public static boolean isEnabled() {
+        Intent intent = new Intent(App.get().getApplicationContext(), BlockedDomainAlarmReceiver.class);
+        boolean alarmUp = (PendingIntent.getBroadcast(App.get().getApplicationContext(), BlockedDomainAlarmReceiver.REQUEST_CODE,
+                intent,
+                PendingIntent.FLAG_NO_CREATE) != null);
+        return alarmUp;
     }
 }
