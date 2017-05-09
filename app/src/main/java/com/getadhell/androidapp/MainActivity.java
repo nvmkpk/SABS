@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "Everything is okay");
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragmentContainer, new BlockerFragment());
-        fragmentTransaction.commit();
+        fragmentTransaction.commitAllowingStateLoss();
 
         ContentBlocker contentBlocker = DeviceUtils.getContentBlocker();
         if (contentBlocker != null && contentBlocker.isEnabled() && (contentBlocker instanceof ContentBlocker56

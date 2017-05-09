@@ -4,6 +4,7 @@ import android.app.enterprise.EnterpriseDeviceManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.util.Patterns;
 
 import com.getadhell.androidapp.App;
 import com.getadhell.androidapp.utils.DeviceUtils;
@@ -45,9 +46,13 @@ public class ContentBlocker57 implements ContentBlocker {
         if (contentBlocker56.enableBlocker()) {
             SharedPreferences sharedPreferences = App.get().getApplicationContext().getSharedPreferences("dnsAddresses", Context.MODE_PRIVATE);
             if (sharedPreferences.contains("dns1") && sharedPreferences.contains("dns2")) {
-                String dns1 = sharedPreferences.getString("dns1", "8.8.8.8");
-                String dns2 = sharedPreferences.getString("dns2", "8.8.4.4");
-                this.setDns(dns1, dns2);
+                String dns1 = sharedPreferences.getString("dns1", null);
+                String dns2 = sharedPreferences.getString("dns2", null);
+                if (dns1 != null && dns2 != null
+                        && Patterns.IP_ADDRESS.matcher(dns1).matches()
+                        && Patterns.IP_ADDRESS.matcher(dns2).matches()) {
+                    this.setDns(dns1, dns2);
+                }
                 Log.d(TAG, "Previous dns addresses has been applied. " + dns1 + " " + dns2);
             }
             return true;

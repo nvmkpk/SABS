@@ -63,7 +63,7 @@ public class BlockerFragment extends Fragment {
 
         contentBlocker = DeviceUtils.getContentBlocker();
 
-        if (contentBlocker.isEnabled()) {
+        if (contentBlocker != null && contentBlocker.isEnabled()) {
             mPolicyChangeButton.setText(R.string.block_button_text_turn_off);
             isSupportedTextView.setText(R.string.block_enabled);
         } else {

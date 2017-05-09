@@ -59,14 +59,14 @@ public class ActivateKnoxLicenseFragment extends Fragment {
                 if (fragmentManager != null) {
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.fragmentContainer, new BlockerFragment());
-                    fragmentTransaction.commit();
+                    fragmentTransaction.commitAllowingStateLoss();
                     return;
                 }
             }
             if (fragmentManager != null) {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragmentContainer, new KnoxActivationFailedFragment());
-                fragmentTransaction.commit();
+                fragmentTransaction.commitAllowingStateLoss();
             }
 
         }

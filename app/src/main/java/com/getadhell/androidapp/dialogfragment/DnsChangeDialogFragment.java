@@ -76,7 +76,7 @@ public class DnsChangeDialogFragment extends DialogFragment {
                     return;
                 }
                 ContentBlocker57 contentBlocker57 = (ContentBlocker57) DeviceUtils.getContentBlocker();
-                if (!contentBlocker57.isEnabled()) {
+                if (contentBlocker57 != null && !contentBlocker57.isEnabled()) {
                     Toast.makeText(v.getContext(), "Adhell Must be enabled. ", Toast.LENGTH_LONG).show();
                 }
                 contentBlocker57.setDns(dns1, dns2);

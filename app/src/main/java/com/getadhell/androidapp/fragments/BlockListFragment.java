@@ -73,7 +73,9 @@ public class BlockListFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                arrayAdapter.getFilter().filter(s.toString());
+                if (arrayAdapter != null) {
+                    arrayAdapter.getFilter().filter(s.toString());
+                }
             }
 
             @Override
