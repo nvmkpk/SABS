@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Adhell</string>
+    <string name="app_name" translatable="false">Adhell</string>
     <string name="wait">Wait…</string>
     <string name="about">App for Samsung smartphones that blocks ads and trackers in Chrome. Website
         loading increases up to 100%!
@@ -71,8 +71,8 @@
     <string name="change_dns_button">Change DNS</string>
     <string name="dns_1_address">DNS 1 Address</string>
     <string name="dns_2_address">DNS 2 Address</string>
-    <string name="google_dns_1">8.8.8.8</string>
-    <string name="google_dns_2">8.8.4.4</string>
+    <string name="google_dns_1" translatable="false">8.8.8.8</string>
+    <string name="google_dns_2" translatable="false">8.8.4.4</string>
     <string name="set_dns_button_text">Set DNS</string>
     <string name="cancel_text">Cancel</string>
     <string name="note_that_adhell_must_be_enabled">Use it only if you know what DNS for and what

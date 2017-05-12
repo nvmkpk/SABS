@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Adhell</string>
     <string name="activate_knox">Активировать Knox</string>
     <string name="activating_knox_license">Активирую</string>
     <string name="adhell_not_supported">Adhell не поддерживается на этом устройстве</string>
@@ -67,8 +66,6 @@
     <string name="change_dns_button">Изменить DNS</string>
     <string name="dns_1_address">Адрес DNS 1</string>
     <string name="dns_2_address">Адрес DNS 2</string>
-    <string name="google_dns_1">8.8.8.8</string>
-    <string name="google_dns_2">8.8.4.4</string>
     <string name="set_dns_button_text">Изменить DNS</string>
     <string name="note_that_adhell_must_be_enabled">Используйте данную функцию, только если
         понимаете что такое DNS и какие проблемы могут возникнуть. Заметьте, что Adhell должен быть
