@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.getadhell.androidapp.App;
-import com.getadhell.androidapp.blocker.ContentBlocker;
 import com.getadhell.androidapp.utils.AdhellDatabaseHelper;
 import com.getadhell.androidapp.utils.DeviceUtils;
 import com.sec.enterprise.firewall.Firewall;
@@ -21,8 +20,7 @@ public class BlockedDomainService extends IntentService {
 
     @Override
     public void onCreate() {
-        super.onCreate(); // if you override onCreate(), make sure to call super().
-        // If a Context object is needed, call getApplicationContext() here.
+        super.onCreate();
     }
 
     @Override
