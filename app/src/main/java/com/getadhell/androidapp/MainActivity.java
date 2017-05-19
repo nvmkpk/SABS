@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -25,6 +26,7 @@ import com.getadhell.androidapp.fragments.BlockerFragment;
 import com.getadhell.androidapp.fragments.EnableAdminFragment;
 import com.getadhell.androidapp.fragments.NoInternetFragment;
 import com.getadhell.androidapp.service.BlockedDomainService;
+import com.getadhell.androidapp.service.HeartbeatIntentService;
 import com.getadhell.androidapp.utils.AppWhiteList;
 import com.getadhell.androidapp.utils.DeviceUtils;
 
@@ -58,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         Fabric.with(this, new Answers(), new Crashlytics());
         setContentView(R.layout.activity_main);
         fragmentManager = getFragmentManager();
-        mAdminInteractor = new DeviceAdminInteractor();
+        mAdminInteractor = DeviceAdminInteractor.getInstance();
         AppWhiteList appWhiteList = new AppWhiteList();
         appWhiteList.addToWhiteList("com.google.android.music");
     }
@@ -134,9 +136,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void saveUrls(View view) {
-        Log.d(TAG, "save urls");
-        Intent i = new Intent(this, BlockedDomainService.class);
+        Log.d(TAG, "Starting service");
+        Intent i = new Intent(this, HeartbeatIntentService.class);
         i.putExtra("launchedFrom", "alarm-receiver");
         this.startService(i);
+        Log.d(TAG, this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).toString());
     }
 }

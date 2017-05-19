@@ -26,7 +26,7 @@ android {
         applicationId "com.getadhell.androidapp"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 32
+        versionCode 31
         versionName "1.2.12"
     }
     buildTypes {
@@ -39,6 +39,19 @@ android {
             it.buildConfigField 'String', 'ADHELL_KEY_URL', AdhellKeyUrl
             it.buildConfigField 'String', 'ADHELL_HEARTBEAT_URL', AdhellHeartbeatUrl
         }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
     }
 }
 

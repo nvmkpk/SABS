@@ -9,12 +9,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.getadhell.androidapp.MainActivity">
 
-    <!--<Button-->
-    <!--android:id="@+id/saveurl"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:onClick="saveUrls"-->
-    <!--android:text="Save to database" />-->
+    <Button
+    android:id="@+id/saveurl"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:onClick="saveUrls"
+    android:text="Save to database" />
 
     <FrameLayout
         android:id="@+id/fragmentContainer"

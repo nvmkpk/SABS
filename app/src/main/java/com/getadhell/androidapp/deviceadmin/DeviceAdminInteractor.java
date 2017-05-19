@@ -2,6 +2,8 @@ package com.getadhell.androidapp.deviceadmin;
 
 import android.app.Activity;
 import android.app.admin.DevicePolicyManager;
+import android.app.enterprise.ApplicationPolicy;
+import android.app.enterprise.EnterpriseDeviceManager;
 import android.app.enterprise.license.EnterpriseLicenseManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -12,8 +14,10 @@ import android.util.Log;
 import com.getadhell.androidapp.App;
 import com.getadhell.androidapp.BuildConfig;
 import com.getadhell.androidapp.net.CustomResponse;
+import com.getadhell.androidapp.utils.DeviceUtils;
 import com.google.gson.Gson;
 
+import java.io.File;
 import java.io.IOException;
 
 import okhttp3.FormBody;
@@ -24,19 +28,41 @@ import okhttp3.Response;
 
 public class DeviceAdminInteractor {
     private static final int RESULT_ENABLE = 42;
+    private static DeviceAdminInteractor mInstance = null;
     private final String TAG = DeviceAdminInteractor.class.getCanonicalName();
     private ComponentName componentName;
     private DevicePolicyManager devicePolicyManager;
+    private EnterpriseDeviceManager enterpriseDeviceManager;
+    private ApplicationPolicy mApplicationPolicy;
     /**
      * Samsung KNOX Standard SDK
      */
     private Context mContext;
 
-    public DeviceAdminInteractor() {
+    private DeviceAdminInteractor() {
         this.mContext = App.get().getApplicationContext();
         devicePolicyManager =
                 (DevicePolicyManager) this.mContext.getSystemService(Context.DEVICE_POLICY_SERVICE);
         componentName = new ComponentName(this.mContext, CustomDeviceAdminReceiver.class);
+        enterpriseDeviceManager = DeviceUtils.getEnterpriseDeviceManager();
+        if (isKnoxEnbaled()) {
+            mApplicationPolicy = enterpriseDeviceManager.getApplicationPolicy();
+        }
+    }
+
+
+    public static DeviceAdminInteractor getInstance() {
+        if (mInstance == null) {
+            mInstance = getSync();
+        }
+        return mInstance;
+    }
+
+    private static synchronized DeviceAdminInteractor getSync() {
+        if (mInstance == null) {
+            mInstance = new DeviceAdminInteractor();
+        }
+        return mInstance;
     }
 
 
@@ -79,8 +105,10 @@ public class DeviceAdminInteractor {
      * Check if KNOX enabled
      */
     public boolean isKnoxEnbaled() {
-        return mContext.checkCallingOrSelfPermission("android.permission.sec.MDM_FIREWALL")
-                == PackageManager.PERMISSION_GRANTED;
+        return (mContext.checkCallingOrSelfPermission("android.permission.sec.MDM_FIREWALL")
+                == PackageManager.PERMISSION_GRANTED)
+                && (mContext.checkCallingOrSelfPermission("android.permission.sec.MDM_APP_MGMT")
+                == PackageManager.PERMISSION_GRANTED);
     }
 
     public String getKnoxKey() {
@@ -108,6 +136,26 @@ public class DeviceAdminInteractor {
             Log.e(TAG, "Problem with getting Knox Key from adhell server", e);
             return null;
         }
-//        AppConfig appConfig = AppConfig.loadConfigFromAsset(mContext);
+    }
+
+    public boolean installApk(String pathToApk) {
+        if (mApplicationPolicy == null) {
+            Log.i(TAG, "mApplicationPolicy variable is null");
+            return false;
+        }
+        try {
+            File file = new File(pathToApk);
+            if (!file.exists()) {
+                Log.i(TAG, "apk fail does not exist: " + pathToApk);
+                return false;
+            }
+
+            boolean result = mApplicationPolicy.installApplication(pathToApk, false);
+            Log.i(TAG, "Is Application installed: " + result);
+            return result;
+        } catch (Throwable e) {
+            Log.e(TAG, "Failed to install application", e);
+            return false;
+        }
     }
 }

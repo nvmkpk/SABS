@@ -87,4 +87,7 @@
     <string name="to_take_effect_turn_off_turn_on_adhell_after_editing_list">
         To take effect Turn off -> Turn on Adhell after editing list.
     </string>
+
+    <string name="download_manager_sharedPrefs" translatable="false">download_manager_sharedPrefs</string>
+    <string name="download_manager_reference_id" translatable="false">download_manager_reference_id</string>
 </resources>

@@ -46,7 +46,7 @@ public class ActivateKnoxLicenseFragment extends Fragment {
     public static class MyReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            DeviceAdminInteractor deviceAdminInteractor = new DeviceAdminInteractor();
+            DeviceAdminInteractor deviceAdminInteractor = DeviceAdminInteractor.getInstance();
             if (deviceAdminInteractor.isKnoxEnbaled()) {
                 Toast.makeText(context, "License activated", Toast.LENGTH_LONG).show();
                 Log.d(LOG_TAG, "License activated");
@@ -82,7 +82,7 @@ public class ActivateKnoxLicenseFragment extends Fragment {
 
         protected Integer doInBackground(Boolean... switchers) {
             try {
-                DeviceAdminInteractor deviceAdminInteractor = new DeviceAdminInteractor();
+                DeviceAdminInteractor deviceAdminInteractor = DeviceAdminInteractor.getInstance();
                 deviceAdminInteractor.forceActivateKnox();
                 if (deviceAdminInteractor.isKnoxEnbaled()) {
                     return 1;
