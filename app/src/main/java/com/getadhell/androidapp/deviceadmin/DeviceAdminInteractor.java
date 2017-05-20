@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -112,7 +113,10 @@ public class DeviceAdminInteractor {
     }
 
     public String getKnoxKey() {
-        OkHttpClient okHttpClient = new OkHttpClient();
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .connectTimeout(20, TimeUnit.SECONDS)
+                .readTimeout(20, TimeUnit.SECONDS)
+                .build();
         RequestBody formBody = new FormBody.Builder()
                 .add("adhellToken", BuildConfig.ADHELL_TOKEN)
                 .build();

@@ -24,6 +24,7 @@ import com.getadhell.androidapp.utils.DeviceUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -41,7 +42,10 @@ public class HeartbeatIntentService extends IntentService {
 
     public HeartbeatIntentService() {
         super(TAG);
-        mOkHttpClient = new OkHttpClient();
+        mOkHttpClient = new OkHttpClient.Builder()
+                .connectTimeout(20, TimeUnit.SECONDS)
+                .readTimeout(20, TimeUnit.SECONDS)
+                .build();
         mObjectMapper = new ObjectMapper();
         mContext = App.get().getApplicationContext();
 
