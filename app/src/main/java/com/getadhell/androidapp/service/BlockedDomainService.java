@@ -26,10 +26,13 @@ public class BlockedDomainService extends IntentService {
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         Log.d(TAG, "Saving domain list");
-//        ContentBlocker contentBlocker = DeviceUtils.getContentBlocker();
         EnterpriseDeviceManager mEnterpriseDeviceManager = DeviceUtils.getEnterpriseDeviceManager();
         Firewall firewall = mEnterpriseDeviceManager.getFirewall();
         AdhellDatabaseHelper.getInstance(App.get().getApplicationContext())
                 .addBlockedDomains(firewall.getDomainFilterReport(null));
+        int timestamp = (int) (System.currentTimeMillis() / 1000);
+        AdhellDatabaseHelper
+                .getInstance(App.get().getApplicationContext())
+                .deleteBlockedDomainsBefore(timestamp - 24 * 60 * 60);
     }
 }

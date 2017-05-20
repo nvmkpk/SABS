@@ -104,6 +104,13 @@ public class AdhellDatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
+    public int deleteBlockedDomainsBefore(int timestamp) {
+        SQLiteDatabase db = getWritableDatabase();
+        int numbers = db.delete(TABLE_BLOCKED_DOMAIN, KEY_BLOCKED_DOMAIN_TIMESTAMP + " < ?", new String[]{String.valueOf(timestamp)});
+        Log.d(TAG, "Deleted rows: " + numbers);
+        return numbers;
+    }
+
     public BlockedDomain getLastBlockedDomain() {
         BlockedDomain blockedDomain = null;
         SQLiteDatabase db = getReadableDatabase();

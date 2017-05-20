@@ -4,31 +4,15 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/totalInfoTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Totally blocked: " />
-
-    <TextView
-        android:id="@+id/totalBlockedTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/totalInfoTextView"
-        android:layout_toRightOf="@+id/totalInfoTextView"
-        android:text="0" />
-
-    <TextView
         android:id="@+id/lastDayInfoTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/totalInfoTextView"
         android:text="Last 24 hours blocked: " />
 
     <TextView
         android:id="@+id/lastDayBlockedTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/totalInfoTextView"
         android:layout_toEndOf="@+id/lastDayInfoTextView"
         android:layout_toRightOf="@+id/lastDayInfoTextView"
         android:text="0" />
