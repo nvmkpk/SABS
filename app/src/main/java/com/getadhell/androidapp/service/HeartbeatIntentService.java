@@ -9,24 +9,34 @@ import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.getadhell.androidapp.App;
 import com.getadhell.androidapp.BuildConfig;
 import com.getadhell.androidapp.R;
+import com.getadhell.androidapp.model.AndroidDeviceForm;
 import com.getadhell.androidapp.net.AdhellInfoResponse;
+import com.getadhell.androidapp.net.CustomResponse;
+import com.getadhell.androidapp.utils.DeviceUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 
 public class HeartbeatIntentService extends IntentService {
 
     private static final String TAG = HeartbeatIntentService.class.getCanonicalName();
+    private static final String PREF_UNIQUE_ID = "PREF_UNIQUE_ID";
+    private static String uniqueID = null;
     private OkHttpClient mOkHttpClient;
     private ObjectMapper mObjectMapper;
     private Context mContext;
@@ -40,6 +50,21 @@ public class HeartbeatIntentService extends IntentService {
         mObjectMapper = new ObjectMapper();
         mContext = App.get().getApplicationContext();
 
+    }
+
+    public synchronized static String id(Context context) {
+        if (uniqueID == null) {
+            SharedPreferences sharedPrefs = context.getSharedPreferences(
+                    PREF_UNIQUE_ID, Context.MODE_PRIVATE);
+            uniqueID = sharedPrefs.getString(PREF_UNIQUE_ID, null);
+            if (uniqueID == null) {
+                uniqueID = UUID.randomUUID().toString();
+                SharedPreferences.Editor editor = sharedPrefs.edit();
+                editor.putString(PREF_UNIQUE_ID, uniqueID);
+                editor.apply();
+            }
+        }
+        return uniqueID;
     }
 
     private void makeUpdateRequest() {
@@ -102,6 +127,35 @@ public class HeartbeatIntentService extends IntentService {
     protected void onHandleIntent(@Nullable Intent intent) {
         Log.d(TAG, "Starting hearbeat service");
         makeUpdateRequest();
-//        makeHearbeatRequest();
+        makeHearbeatRequest();
+    }
+
+    private void makeHearbeatRequest() {
+        AndroidDeviceForm androidDeviceForm = new AndroidDeviceForm();
+        androidDeviceForm.adhellIntVersion = BuildConfig.VERSION_CODE;
+        androidDeviceForm.deviceManufacturer = android.os.Build.MANUFACTURER;
+        androidDeviceForm.deviceModel = android.os.Build.MODEL;
+        androidDeviceForm.sdkVersion = android.os.Build.VERSION.SDK_INT;
+        androidDeviceForm.releaseVersion = android.os.Build.VERSION.RELEASE;
+        androidDeviceForm.knoxStandardSdkVersion = DeviceUtils.getEnterpriseDeviceManager().getEnterpriseSdkVer().toString();
+        androidDeviceForm.appId = id(mContext);
+
+        final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        try {
+            String json = mObjectMapper.writeValueAsString(androidDeviceForm);
+            RequestBody body = RequestBody.create(JSON, json);
+            Request request = new Request.Builder()
+                    .url(BuildConfig.ADHELL_HEARTBEAT_URL)
+                    .post(body)
+                    .build();
+            Response response = mOkHttpClient.newCall(request).execute();
+            String stringResponse = response.body().string();
+            CustomResponse<List<Integer>> customResponse =
+                    mObjectMapper.readValue(stringResponse, new TypeReference<CustomResponse<List<Integer>>>() {
+                    });
+            Log.i(TAG, "Reponse received");
+        } catch (IOException e) {
+            Log.e(TAG, "Failed heartbeat request", e);
+        }
     }
 }
