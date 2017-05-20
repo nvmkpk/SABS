@@ -1,4 +1,4 @@
-package com.getadhell.androidapp.deviceadmin;
+package com.getadhell.androidapp.receiver;
 
 import android.app.admin.DeviceAdminReceiver;
 
