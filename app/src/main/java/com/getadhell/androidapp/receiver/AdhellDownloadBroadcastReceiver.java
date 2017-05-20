@@ -5,15 +5,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.getadhell.androidapp.App;
 import com.getadhell.androidapp.R;
 import com.getadhell.androidapp.deviceadmin.DeviceAdminInteractor;
-
-import java.io.File;
 
 public class AdhellDownloadBroadcastReceiver extends BroadcastReceiver {
     private static final String TAG = AdhellDownloadBroadcastReceiver.class.getCanonicalName();
@@ -41,19 +38,15 @@ public class AdhellDownloadBroadcastReceiver extends BroadcastReceiver {
             if (deviceAdminInteractor.isKnoxEnbaled()) {
                 Log.i(TAG, "Knox enabled");
 
-                String downloadDir = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).toString();
+                String downloadDir = context.getExternalFilesDir(null).toString();
                 Log.i(TAG, "get dit: " + downloadDir);
-                boolean isInstalled =
-//                        false;
-                        deviceAdminInteractor.installApk(downloadDir + "/adhell.apk");
+                boolean isInstalled = deviceAdminInteractor.installApk(downloadDir + "/adhell.apk");
                 Log.i(TAG, "Path to: " + downloadDir + "/adhell.apk");
                 if (!isInstalled) {
                     Toast.makeText(context, "Failed to update Adhell.", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(context, "Adhell app updated!", Toast.LENGTH_LONG).show();
                 }
-                File file = new File(downloadDir + "/adhell.apk");
-                file.delete();
             } else {
                 Log.i(TAG, "Knox is disabled");
             }

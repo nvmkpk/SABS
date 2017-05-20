@@ -14,6 +14,7 @@ import android.util.Log;
 import com.getadhell.androidapp.App;
 import com.getadhell.androidapp.BuildConfig;
 import com.getadhell.androidapp.net.CustomResponse;
+import com.getadhell.androidapp.receiver.CustomDeviceAdminReceiver;
 import com.getadhell.androidapp.utils.DeviceUtils;
 import com.google.gson.Gson;
 

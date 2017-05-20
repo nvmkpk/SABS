@@ -139,7 +139,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "Starting service");
         Intent i = new Intent(this, HeartbeatIntentService.class);
         i.putExtra("launchedFrom", "alarm-receiver");
+        Log.d(TAG, this.getExternalFilesDir(null).toString());
         this.startService(i);
-        Log.d(TAG, this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).toString());
+
     }
 }

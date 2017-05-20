@@ -21,7 +21,7 @@ import com.getadhell.androidapp.R;
 import com.getadhell.androidapp.blocker.ContentBlocker;
 import com.getadhell.androidapp.blocker.ContentBlocker56;
 import com.getadhell.androidapp.blocker.ContentBlocker57;
-import com.getadhell.androidapp.deviceadmin.CustomDeviceAdminReceiver;
+import com.getadhell.androidapp.receiver.CustomDeviceAdminReceiver;
 import com.getadhell.androidapp.dialogfragment.DnsChangeDialogFragment;
 import com.getadhell.androidapp.utils.DeviceUtils;
 
