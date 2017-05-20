@@ -12,11 +12,12 @@ import com.getadhell.androidapp.receiver.BlockedDomainAlarmReceiver;
 
 public class BlockedDomainAlarmHelper {
     private static final String TAG = BlockedDomainAlarmHelper.class.getCanonicalName();
+    private static final int REQUEST_CODE = 502742;
 
-    public static void scheduleBlockedDomainAlarm() {
+    public static void scheduleAlarm() {
         Intent intent = new Intent(App.get().getApplicationContext(), BlockedDomainAlarmReceiver.class);
         Log.d(TAG, "Alarm not set. Setting alarm");
-        final PendingIntent pIntent = PendingIntent.getBroadcast(App.get().getApplicationContext(), BlockedDomainAlarmReceiver.REQUEST_CODE,
+        final PendingIntent pIntent = PendingIntent.getBroadcast(App.get().getApplicationContext(), REQUEST_CODE,
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
         long firstMillis = System.currentTimeMillis();
         AlarmManager alarm = (AlarmManager) App.get().getApplicationContext().getSystemService(Context.ALARM_SERVICE);
@@ -25,9 +26,9 @@ public class BlockedDomainAlarmHelper {
     }
 
 
-    public static void cancelBlockedDomainAlarm() {
+    public static void cancelAlarm() {
         Intent intent = new Intent(App.get().getApplicationContext(), BlockedDomainAlarmReceiver.class);
-        final PendingIntent pIntent = PendingIntent.getBroadcast(App.get().getApplicationContext(), BlockedDomainAlarmReceiver.REQUEST_CODE,
+        final PendingIntent pIntent = PendingIntent.getBroadcast(App.get().getApplicationContext(), REQUEST_CODE,
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarm = (AlarmManager) App.get().getApplicationContext().getSystemService(Context.ALARM_SERVICE);
         alarm.cancel(pIntent);
@@ -35,7 +36,7 @@ public class BlockedDomainAlarmHelper {
 
     public static boolean isEnabled() {
         Intent intent = new Intent(App.get().getApplicationContext(), BlockedDomainAlarmReceiver.class);
-        boolean alarmUp = (PendingIntent.getBroadcast(App.get().getApplicationContext(), BlockedDomainAlarmReceiver.REQUEST_CODE,
+        boolean alarmUp = (PendingIntent.getBroadcast(App.get().getApplicationContext(), REQUEST_CODE,
                 intent,
                 PendingIntent.FLAG_NO_CREATE) != null);
         return alarmUp;

@@ -135,7 +135,7 @@ public class BlockerFragment extends Fragment {
                     contentBlocker.disableBlocker();
                     if (contentBlocker instanceof ContentBlocker56
                             || contentBlocker instanceof ContentBlocker57) {
-                        BlockedDomainAlarmHelper.cancelBlockedDomainAlarm();
+                        BlockedDomainAlarmHelper.cancelAlarm();
                     }
                 } else {
                     // Disabled. Enabling
@@ -144,7 +144,7 @@ public class BlockerFragment extends Fragment {
                     contentBlocker.enableBlocker();
                     if (contentBlocker instanceof ContentBlocker56
                             || contentBlocker instanceof ContentBlocker57) {
-                        BlockedDomainAlarmHelper.scheduleBlockedDomainAlarm();
+                        BlockedDomainAlarmHelper.scheduleAlarm();
                     }
                 }
             } catch (Exception e) {
@@ -152,7 +152,7 @@ public class BlockerFragment extends Fragment {
                 contentBlocker.disableBlocker();
                 if (contentBlocker instanceof ContentBlocker56
                         || contentBlocker instanceof ContentBlocker57) {
-                    BlockedDomainAlarmHelper.cancelBlockedDomainAlarm();
+                    BlockedDomainAlarmHelper.cancelAlarm();
                 }
             }
             return 42;

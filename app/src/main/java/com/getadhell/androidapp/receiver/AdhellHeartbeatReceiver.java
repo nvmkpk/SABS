@@ -1,21 +1,20 @@
 package com.getadhell.androidapp.receiver;
 
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.getadhell.androidapp.service.BlockedDomainService;
+import com.getadhell.androidapp.service.HeartbeatIntentService;
 
-public class BlockedDomainAlarmReceiver extends BroadcastReceiver {
-    public static final String TAG = BlockedDomainAlarmReceiver.class.getCanonicalName();
 
+public class AdhellHeartbeatReceiver extends BroadcastReceiver {
+    private static final String TAG = AdhellHeartbeatReceiver.class.getCanonicalName();
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d(TAG, "Received from alarmManager");
-        Intent i = new Intent(context, BlockedDomainService.class);
+        Log.d(TAG, "Starting service");
+        Intent i = new Intent(context, HeartbeatIntentService.class);
         i.putExtra("launchedFrom", "alarm-receiver");
         context.startService(i);
     }

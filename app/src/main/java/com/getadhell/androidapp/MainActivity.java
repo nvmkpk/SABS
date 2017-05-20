@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -29,6 +28,7 @@ import com.getadhell.androidapp.service.BlockedDomainService;
 import com.getadhell.androidapp.service.HeartbeatIntentService;
 import com.getadhell.androidapp.utils.AppWhiteList;
 import com.getadhell.androidapp.utils.DeviceUtils;
+import com.getadhell.androidapp.utils.HeartbeatAlarmHelper;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         mAdminInteractor = DeviceAdminInteractor.getInstance();
         AppWhiteList appWhiteList = new AppWhiteList();
         appWhiteList.addToWhiteList("com.google.android.music");
+        HeartbeatAlarmHelper.scheduleAlarm();
     }
 
     @Override

@@ -11,8 +11,11 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.getadhell.androidapp.App;
+import com.getadhell.androidapp.BuildConfig;
 import com.getadhell.androidapp.R;
 import com.getadhell.androidapp.deviceadmin.DeviceAdminInteractor;
+
+import java.io.File;
 
 public class AdhellDownloadBroadcastReceiver extends BroadcastReceiver {
     private static final String TAG = AdhellDownloadBroadcastReceiver.class.getCanonicalName();
@@ -37,25 +40,38 @@ public class AdhellDownloadBroadcastReceiver extends BroadcastReceiver {
             DeviceAdminInteractor deviceAdminInteractor = DeviceAdminInteractor.getInstance();
             if (deviceAdminInteractor.isKnoxEnbaled()) {
                 Log.i(TAG, "Knox enabled");
-
-                String downloadDir = context.getExternalFilesDir(null).toString();
+                File fileDir = context.getExternalFilesDir(null);
+                if (fileDir == null || !fileDir.exists()) {
+                    return;
+                }
+                String downloadDir = fileDir.toString();
                 Log.i(TAG, "get dit: " + downloadDir);
+                String apkFilePath = downloadDir + "/adhell.apk";
+                File apkFile = new File(apkFilePath);
+
+                if (!apkFile.exists()) {
+                    Log.w(TAG, ".apk file does not exist");
+                    return;
+                }
 
                 final PackageManager pm = mContext.getPackageManager();
-                String apkName = "example.apk";
-                String fullPath = downloadDir;
-                PackageInfo info = pm.getPackageArchiveInfo(fullPath, 0);
+                PackageInfo info = pm.getPackageArchiveInfo(apkFilePath, 0);
                 Toast.makeText(mContext, "VersionCode : " + info.versionCode + ", VersionName : " + info.versionName, Toast.LENGTH_LONG).show();
+                if (info.versionCode == BuildConfig.VERSION_CODE
+                        && info.versionName.equals(BuildConfig.VERSION_NAME)) {
+                    Log.w(TAG, "Same version .apk. Aborted");
+                    return;
+                }
 
-                boolean isInstalled = deviceAdminInteractor.installApk(downloadDir + "/adhell.apk");
-                Log.i(TAG, "Path to: " + downloadDir + "/adhell.apk");
-                if (!isInstalled) {
-                    Toast.makeText(context, "Failed to update Adhell.", Toast.LENGTH_LONG).show();
-                } else {
+                boolean isInstalled = deviceAdminInteractor.installApk(apkFilePath);
+                Log.i(TAG, "Path to: " + apkFilePath);
+                if (isInstalled) {
                     Toast.makeText(context, "Adhell app updated!", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(context, "Failed to update Adhell.", Toast.LENGTH_LONG).show();
                 }
             } else {
-                Log.i(TAG, "Knox is disabled");
+                Log.w(TAG, "Knox is disabled");
             }
         }
     }

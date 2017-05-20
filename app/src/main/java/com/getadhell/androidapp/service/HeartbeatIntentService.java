@@ -49,7 +49,7 @@ public class HeartbeatIntentService extends IntentService {
         }
         Log.d(TAG, "Starting makeUpdateRequest()");
         Request request = new Request.Builder()
-                .url("http://106.109.129.245:80/adhell-info.json")
+                .url("http://getadhell.com/adhell-info.json")
                 .build();
         try {
             Response response = mOkHttpClient.newCall(request).execute();
@@ -58,6 +58,12 @@ public class HeartbeatIntentService extends IntentService {
             Log.i(TAG, "Adhell version: " + adhellInfoResponse.appVersion);
             if (adhellInfoResponse.appVersion > BuildConfig.VERSION_CODE) {
                 String downloadDir = applicationFolder.toString();
+                String apkFilePath = downloadDir + "/adhell.apk";
+                File file = new File(apkFilePath);
+                if (file.exists()) {
+                    boolean isDeleted = file.delete();
+                    Log.i(TAG, "Apk deleted: " + isDeleted);
+                }
                 Log.i(TAG, "File path: " + downloadDir);
                 mContext.deleteFile("adhell.apk");
                 long referenceId = startDownload(adhellInfoResponse.appDownloadLink);
@@ -78,14 +84,11 @@ public class HeartbeatIntentService extends IntentService {
         Uri uri = Uri.parse(url);
         DownloadManager downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
         DownloadManager.Request request = new DownloadManager.Request(uri);
-        //Setting title of request
         request.setTitle("New Adhell version");
-
-        //Setting description of request
         request.setDescription("After download new version will be installed.");
         request.setDestinationInExternalFilesDir(mContext, null, "adhell.apk");
-
         long downloadReference = downloadManager.enqueue(request);
+        Log.i(TAG, "ReferenceId: " + downloadReference);
         return downloadReference;
     }
 

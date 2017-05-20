@@ -146,7 +146,13 @@ public class DeviceAdminInteractor {
     public boolean installApk(String pathToApk) {
         if (mApplicationPolicy == null) {
             Log.i(TAG, "mApplicationPolicy variable is null");
-            return false;
+            if (isKnoxEnbaled()) {
+                Log.i(TAG, "Getting instance of applicationPolicy");
+                mApplicationPolicy = enterpriseDeviceManager.getApplicationPolicy();
+            } else {
+                Log.w(TAG, "Knox is disabled. No way of getting instance of applicationPolicy");
+                return false;
+            }
         }
         try {
             File file = new File(pathToApk);
