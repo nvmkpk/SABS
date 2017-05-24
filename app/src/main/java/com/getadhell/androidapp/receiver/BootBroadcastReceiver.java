@@ -9,7 +9,6 @@ import com.getadhell.androidapp.blocker.ContentBlocker56;
 import com.getadhell.androidapp.blocker.ContentBlocker57;
 import com.getadhell.androidapp.utils.BlockedDomainAlarmHelper;
 import com.getadhell.androidapp.utils.DeviceUtils;
-import com.getadhell.androidapp.utils.HeartbeatAlarmHelper;
 
 public class BootBroadcastReceiver extends WakefulBroadcastReceiver {
 
@@ -20,6 +19,6 @@ public class BootBroadcastReceiver extends WakefulBroadcastReceiver {
                 || contentBlocker instanceof ContentBlocker57)) {
             BlockedDomainAlarmHelper.scheduleAlarm();
         }
-        HeartbeatAlarmHelper.scheduleAlarm();
+//        HeartbeatAlarmHelper.scheduleAlarm();
     }
 }

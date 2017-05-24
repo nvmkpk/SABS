@@ -93,7 +93,9 @@ public class ContentBlocker20 implements ContentBlocker {
     }
 
     private List<String> loadDenyList() {
-        List<String> urls = contentBlockProvider.loadBlockDb(ServerContentBlockProvider.IP_BLOCK_PROVIDER_URL).urlsToBlock;
+        Log.i(LOG_TAG, "Downloading block list");
+        List<String> urls = contentBlockProvider.loadBlockDb(ServerContentBlockProvider.BLOCK_PROVIDER_URL).urlsToBlock;
+        Log.i(LOG_TAG, "Size: " + urls.size());
         urls.addAll(DeviceUtils.loadCustomBlockedUrls());
         for (int i = 0; i < urls.size(); i++) {
             urls.set(i, urls.get(i) + ":*;127.0.0.1:80");
@@ -101,6 +103,6 @@ public class ContentBlocker20 implements ContentBlocker {
                 break;
             }
         }
-        return urls.subList(0, urlBlockLimit);
+        return urls.subList(0, 500);
     }
 }

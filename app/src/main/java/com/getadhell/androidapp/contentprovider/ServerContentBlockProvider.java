@@ -21,7 +21,7 @@ import okhttp3.Response;
 
 public class ServerContentBlockProvider {
     private static final String TAG = ServerContentBlockProvider.class.getCanonicalName();
-    private static final String BLOCK_PROVIDER_URL = "http://getadhell.com/urls-to-block.json";
+    public static final String BLOCK_PROVIDER_URL = "http://getadhell.com/urls-to-block.json";
     public static final String IP_BLOCK_PROVIDER_URL = "http://getadhell.com/ips-to-block.json";
     private Gson gson;
     private String WHITELIST = "whitelist.json";

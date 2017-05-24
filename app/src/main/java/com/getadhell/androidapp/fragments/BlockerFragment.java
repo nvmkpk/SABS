@@ -66,7 +66,8 @@ public class BlockerFragment extends Fragment {
                     || contentBlocker instanceof ContentBlocker57) {
                 BlockedDomainAlarmHelper.cancelAlarm();
             }
-            emitter.onError(e);
+            emitter.onNext(false);
+            emitter.onComplete();
         }
     });
     private Button reportButton;
@@ -158,7 +159,7 @@ public class BlockerFragment extends Fragment {
 
     private void updateUserInterface(Boolean isEnabled) {
         Log.d(TAG, "Enterting onPostExecute() method");
-        if (isEnabled) {
+        if (contentBlocker.isEnabled()) {
             mPolicyChangeButton.setText(R.string.block_button_text_turn_off);
             isSupportedTextView.setText(R.string.block_enabled);
         } else {
@@ -166,7 +167,7 @@ public class BlockerFragment extends Fragment {
             isSupportedTextView.setText(R.string.block_disabled);
         }
         Log.d(TAG, "Leaving onPostExecute() method");
-        if (isEnabled
+        if (contentBlocker.isEnabled()
                 && (contentBlocker instanceof ContentBlocker56
                 || contentBlocker instanceof ContentBlocker57)) {
             reportButton.setOnClickListener(view1 -> {
@@ -178,7 +179,7 @@ public class BlockerFragment extends Fragment {
             });
             reportButton.setVisibility(View.VISIBLE);
         }
-        if (!isEnabled) {
+        if (!contentBlocker.isEnabled()) {
             reportButton.setVisibility(View.GONE);
         }
     }

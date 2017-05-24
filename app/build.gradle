@@ -24,10 +24,10 @@ android {
 
     defaultConfig {
         applicationId "com.getadhell.androidapp"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 25
-        versionCode 34
-        versionName "1.2.14"
+        versionCode 35
+        versionName "1.2.15"
         jackOptions {
             enabled true
         }
