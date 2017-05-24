@@ -37,6 +37,14 @@ public class ActivateKnoxLicenseFragment extends Fragment {
     });
 
     @Override
+    public void onStop() {
+        super.onStop();
+        if (disposable != null && !disposable.isDisposed()) {
+            disposable.dispose();
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_knox_license_activation, container, false);
