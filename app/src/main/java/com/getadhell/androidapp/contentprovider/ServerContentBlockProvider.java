@@ -22,6 +22,7 @@ import okhttp3.Response;
 public class ServerContentBlockProvider {
     private static final String TAG = ServerContentBlockProvider.class.getCanonicalName();
     private static final String BLOCK_PROVIDER_URL = "http://getadhell.com/urls-to-block.json";
+    public static final String IP_BLOCK_PROVIDER_URL = "http://getadhell.com/ips-to-block.json";
     private Gson gson;
     private String WHITELIST = "whitelist.json";
     private String APPLIST = "applist.json";
@@ -33,9 +34,13 @@ public class ServerContentBlockProvider {
     }
 
     public BlockDb loadBlockDb() {
+        return loadBlockDb(BLOCK_PROVIDER_URL);
+    }
+
+    public BlockDb loadBlockDb(String url) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url(BLOCK_PROVIDER_URL)
+                .url(url)
                 .build();
 
         Response response = null;
@@ -52,7 +57,6 @@ public class ServerContentBlockProvider {
         } catch (IOException e) {
             Log.e(TAG, "Failed to load urls from server", e);
         }
-
         return null;
     }
 

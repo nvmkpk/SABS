@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         mAdminInteractor = DeviceAdminInteractor.getInstance();
         AppWhiteList appWhiteList = new AppWhiteList();
         appWhiteList.addToWhiteList("com.google.android.music");
-        HeartbeatAlarmHelper.scheduleAlarm();
+//        HeartbeatAlarmHelper.scheduleAlarm();
     }
 
     @Override

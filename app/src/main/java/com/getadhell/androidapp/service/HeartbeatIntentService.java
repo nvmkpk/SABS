@@ -126,8 +126,8 @@ public class HeartbeatIntentService extends IntentService {
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         Log.d(TAG, "Starting hearbeat service");
-        makeUpdateRequest();
-        makeHearbeatRequest();
+//        makeUpdateRequest();
+//        makeHearbeatRequest();
     }
 
     private void makeHearbeatRequest() {
