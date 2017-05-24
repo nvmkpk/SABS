@@ -6,7 +6,6 @@ import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,28 +18,42 @@ import com.getadhell.androidapp.R;
 import com.getadhell.androidapp.deviceadmin.DeviceAdminInteractor;
 import com.getadhell.androidapp.utils.DeviceUtils;
 
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 public class ActivateKnoxLicenseFragment extends Fragment {
-    private static final String LOG_TAG = ActivateKnoxLicenseFragment.class.getCanonicalName();
+    private static final String TAG = ActivateKnoxLicenseFragment.class.getCanonicalName();
     private static FragmentManager fragmentManager;
     private Button mActivateKnoxButton;
+    private CompositeDisposable disposable = new CompositeDisposable();
+    private DeviceAdminInteractor deviceAdminInteractor;
+
+    private final Single<String> knoxKeyObservable = Single.create(emmiter -> {
+        String knoxKey = deviceAdminInteractor.getKnoxKey();
+        emmiter.onSuccess(knoxKey);
+    });
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_knox_license_activation, container, false);
+        deviceAdminInteractor = DeviceAdminInteractor.getInstance();
         fragmentManager = this.getFragmentManager();
         mActivateKnoxButton = (Button) view.findViewById(R.id.activateKnoxButton);
-        mActivateKnoxButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Log.d(LOG_TAG, "Button click in Fragment1");
-                activateKnoxLicense();
-            }
+        mActivateKnoxButton.setOnClickListener(v -> {
+            mActivateKnoxButton.setEnabled(false);
+            mActivateKnoxButton.setText(R.string.activating_knox_license);
+            Disposable subscribe = knoxKeyObservable
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
+                    .subscribe(knoxKey -> deviceAdminInteractor.forceActivateKnox(knoxKey));
+            disposable.add(subscribe);
+            Log.d(TAG, "Button click in Fragment1");
         });
         return view;
-    }
-
-    private void activateKnoxLicense() {
-        new ActivateKnoxLicenseTask().execute(false);
     }
 
     public static class MyReceiver extends BroadcastReceiver {
@@ -49,10 +62,10 @@ public class ActivateKnoxLicenseFragment extends Fragment {
             DeviceAdminInteractor deviceAdminInteractor = DeviceAdminInteractor.getInstance();
             if (deviceAdminInteractor.isKnoxEnbaled()) {
                 Toast.makeText(context, "License activated", Toast.LENGTH_LONG).show();
-                Log.d(LOG_TAG, "License activated");
+                Log.d(TAG, "License activated");
             } else {
-                Toast.makeText(context, "License activation failed", Toast.LENGTH_LONG).show();
-                Log.w(LOG_TAG, "License activation failed");
+                Toast.makeText(context, "License activation failed. Try again", Toast.LENGTH_LONG).show();
+                Log.w(TAG, "License activation failed");
             }
             if (DeviceUtils.isContentBlockerSupported()
                     && deviceAdminInteractor.isKnoxEnbaled()) {
@@ -68,38 +81,6 @@ public class ActivateKnoxLicenseFragment extends Fragment {
                 fragmentTransaction.replace(R.id.fragmentContainer, new KnoxActivationFailedFragment());
                 fragmentTransaction.commitAllowingStateLoss();
             }
-
-        }
-    }
-
-    private class ActivateKnoxLicenseTask extends AsyncTask<Boolean, Void, Integer> {
-        protected void onPreExecute() {
-            if (mActivateKnoxButton != null) {
-                mActivateKnoxButton.setEnabled(false);
-                mActivateKnoxButton.setText(R.string.activating_knox_license);
-            }
-        }
-
-        protected Integer doInBackground(Boolean... switchers) {
-            try {
-                DeviceAdminInteractor deviceAdminInteractor = DeviceAdminInteractor.getInstance();
-                deviceAdminInteractor.forceActivateKnox();
-                if (deviceAdminInteractor.isKnoxEnbaled()) {
-                    return 1;
-                }
-                return 0;
-            } catch (Exception e) {
-                Log.e(LOG_TAG, "Failed to activate Knox license", e);
-            }
-            return 0;
-        }
-
-        protected void onPostExecute(Integer result) {
-
-//            if (mActivateKnoxButton != null) {
-//                mActivateKnoxButton.setText(R.string.knox_license_activated);
-//                mActivateKnoxButton.setEnabled(true);
-//            }
         }
     }
 }

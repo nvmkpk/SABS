@@ -91,9 +91,8 @@ public class DeviceAdminInteractor {
     /**
      * Force to activate Samsung KNOX Standard SDK
      */
-    public void forceActivateKnox() throws Exception {
+    public void forceActivateKnox(String knoxKey) throws Exception {
         try {
-            String knoxKey = getKnoxKey();
             EnterpriseLicenseManager.getInstance(mContext)
                     .activateLicense(knoxKey);
         } catch (Exception e) {
