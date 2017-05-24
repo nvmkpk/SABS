@@ -28,6 +28,9 @@ android {
         targetSdkVersion 25
         versionCode 34
         versionName "1.2.14"
+        jackOptions {
+            enabled true
+        }
     }
     buildTypes {
 //        release {
@@ -38,6 +41,10 @@ android {
             it.buildConfigField 'String', 'ADHELL_TOKEN', AdhellToken
             it.buildConfigField 'String', 'ADHELL_KEY_URL', AdhellKeyUrl
             it.buildConfigField 'String', 'ADHELL_HEARTBEAT_URL', AdhellHeartbeatUrl
+        }
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
         }
     }
 
@@ -69,10 +76,11 @@ dependencies {
     compile 'com.android.support:percent:25.3.1'
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.squareup.okhttp3:okhttp:3.4.2'
-
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.8.8'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.8.8'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.8.8'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.0'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.8.8'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.8.8'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.8.8'
 
     testCompile 'junit:junit:4.12'
 }
