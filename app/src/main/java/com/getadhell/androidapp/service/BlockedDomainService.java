@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.getadhell.androidapp.App;
+import com.getadhell.androidapp.blocker.ContentBlocker;
+import com.getadhell.androidapp.deviceadmin.DeviceAdminInteractor;
 import com.getadhell.androidapp.utils.AdhellDatabaseHelper;
 import com.getadhell.androidapp.utils.DeviceUtils;
 import com.sec.enterprise.firewall.Firewall;
@@ -25,6 +27,17 @@ public class BlockedDomainService extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
+        if (!DeviceUtils.isContentBlockerSupported()) {
+            return;
+        }
+        if (!DeviceAdminInteractor.getInstance().isKnoxEnbaled()) {
+            return;
+        }
+        ContentBlocker contentBlocker = DeviceUtils.getContentBlocker();
+        if (contentBlocker == null || !contentBlocker.isEnabled()) {
+            return;
+        }
+
         Log.d(TAG, "Saving domain list");
         EnterpriseDeviceManager mEnterpriseDeviceManager = DeviceUtils.getEnterpriseDeviceManager();
         Firewall firewall = mEnterpriseDeviceManager.getFirewall();
