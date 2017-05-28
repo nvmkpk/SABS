@@ -28,7 +28,6 @@ import com.getadhell.androidapp.service.BlockedDomainService;
 import com.getadhell.androidapp.service.HeartbeatIntentService;
 import com.getadhell.androidapp.utils.AppWhiteList;
 import com.getadhell.androidapp.utils.DeviceUtils;
-import com.getadhell.androidapp.utils.HeartbeatAlarmHelper;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -60,6 +59,9 @@ public class MainActivity extends AppCompatActivity {
         Fabric.with(this, new Answers(), new Crashlytics());
         setContentView(R.layout.activity_main);
         fragmentManager = getFragmentManager();
+        if (!DeviceUtils.isContentBlockerSupported()) {
+            return;
+        }
         mAdminInteractor = DeviceAdminInteractor.getInstance();
         AppWhiteList appWhiteList = new AppWhiteList();
         appWhiteList.addToWhiteList("com.google.android.music");
