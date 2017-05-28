@@ -23,12 +23,12 @@ public class DeviceUtils {
     private static final String CUSTOM_KEY = "urls_key";
     private static final String LOG_TAG = DeviceUtils.class.getCanonicalName();
 
-    private static boolean isSamsung() {
+    public static boolean isSamsung() {
         Log.i(LOG_TAG, "Device manufacturer: " + Build.MANUFACTURER);
         return Build.MANUFACTURER.equals("samsung");
     }
 
-    private static boolean isKnoxSupported() {
+    public static boolean isKnoxSupported() {
         Log.d(LOG_TAG, "Entering isKnoxSupported()");
         try {
             EnterpriseLicenseManager.getInstance(App.get().getApplicationContext());

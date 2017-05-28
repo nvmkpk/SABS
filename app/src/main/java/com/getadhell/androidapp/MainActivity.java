@@ -20,13 +20,12 @@ import com.getadhell.androidapp.blocker.ContentBlocker;
 import com.getadhell.androidapp.blocker.ContentBlocker56;
 import com.getadhell.androidapp.blocker.ContentBlocker57;
 import com.getadhell.androidapp.deviceadmin.DeviceAdminInteractor;
-import com.getadhell.androidapp.fragments.ActivateKnoxLicenseFragment;
+import com.getadhell.androidapp.dialogfragment.AdhellNotSupportedDialogFragment;
+import com.getadhell.androidapp.dialogfragment.AdhellTurnOnDialogFragment;
+import com.getadhell.androidapp.dialogfragment.NoInternetConnectionDialogFragment;
 import com.getadhell.androidapp.fragments.AdhellNotSupportedFragment;
 import com.getadhell.androidapp.fragments.BlockerFragment;
-import com.getadhell.androidapp.fragments.EnableAdminFragment;
-import com.getadhell.androidapp.fragments.NoInternetFragment;
 import com.getadhell.androidapp.service.BlockedDomainService;
-import com.getadhell.androidapp.service.HeartbeatIntentService;
 import com.getadhell.androidapp.utils.AppWhiteList;
 import com.getadhell.androidapp.utils.DeviceUtils;
 import com.roughike.bottombar.BottomBar;
@@ -62,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+
         bottomBar.setOnTabSelectListener(tabId -> {
             switch (tabId) {
                 case R.id.blockerTab:
@@ -98,35 +98,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        showDialog();
         if (!DeviceUtils.isContentBlockerSupported()) {
             Log.i(TAG, "Device not supported");
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragmentContainer, new AdhellNotSupportedFragment());
-            fragmentTransaction.commit();
-            return;
-        }
-        if (!mAdminInteractor.isActiveAdmin()) {
-            Log.d(TAG, "Admin is not active. Request enabling");
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragmentContainer, new EnableAdminFragment());
-            fragmentTransaction.commit();
-            return;
-        }
-        if (!mAdminInteractor.isKnoxEnbaled()) {
-            Log.d(TAG, "Knox disabled");
-            Log.d(TAG, "Checking if internet connection exists");
-            ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-            boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-            Log.d(TAG, "Is internet connection exists: " + isConnected);
-            if (!isConnected) {
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragmentContainer, new NoInternetFragment());
-                fragmentTransaction.commit();
-                return;
-            }
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragmentContainer, new ActivateKnoxLicenseFragment());
             fragmentTransaction.commit();
             return;
         }
@@ -155,13 +131,37 @@ public class MainActivity extends AppCompatActivity {
         mAdminInteractor.forceEnableAdmin(this);
     }
 
-    public void saveUrls(View view) {
-        Log.d(TAG, "Starting service");
-        Intent i = new Intent(this, HeartbeatIntentService.class);
-        i.putExtra("launchedFrom", "alarm-receiver");
-        Log.d(TAG, this.getExternalFilesDir(null).toString());
-        this.startService(i);
+    public void showDialog() {
+        if (!(DeviceUtils.isSamsung() && DeviceUtils.isKnoxSupported())) {
+            Log.i(TAG, "Device not supported");
+            AdhellNotSupportedDialogFragment adhellNotSupportedDialogFragment = AdhellNotSupportedDialogFragment.newInstance("Some title");
+            adhellNotSupportedDialogFragment.show(fragmentManager, "dialog_fragment_adhell_not_supported");
+            adhellNotSupportedDialogFragment.setCancelable(false);
+            return;
+        }
+        if (!mAdminInteractor.isActiveAdmin()) {
+            Log.d(TAG, "Admin is not active. Request enabling");
+            AdhellTurnOnDialogFragment adhellTurnOnDialogFragment = AdhellTurnOnDialogFragment.newInstance("Adhell Turn On");
+            adhellTurnOnDialogFragment.show(fragmentManager, "dialog_fragment_turn_on_adhell");
+            adhellTurnOnDialogFragment.setCancelable(false);
+            return;
+        }
 
-
+        if (!mAdminInteractor.isKnoxEnbaled()) {
+            Log.d(TAG, "Knox disabled");
+            Log.d(TAG, "Checking if internet connection exists");
+            ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+            boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+            Log.d(TAG, "Is internet connection exists: " + isConnected);
+            if (!isConnected) {
+                NoInternetConnectionDialogFragment noInternetConnectionDialogFragment = NoInternetConnectionDialogFragment.newInstance("No Internet connection");
+                noInternetConnectionDialogFragment.show(fragmentManager, "dialog_fragment_no_internet_connection");
+                noInternetConnectionDialogFragment.setCancelable(false);
+            }
+            AdhellTurnOnDialogFragment adhellTurnOnDialogFragment = AdhellTurnOnDialogFragment.newInstance("Adhell Turn On");
+            adhellTurnOnDialogFragment.show(fragmentManager, "dialog_fragment_turn_on_adhell");
+            adhellTurnOnDialogFragment.setCancelable(false);
+        }
     }
 }
