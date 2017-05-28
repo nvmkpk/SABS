@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
@@ -28,6 +29,7 @@ import com.getadhell.androidapp.service.BlockedDomainService;
 import com.getadhell.androidapp.service.HeartbeatIntentService;
 import com.getadhell.androidapp.utils.AppWhiteList;
 import com.getadhell.androidapp.utils.DeviceUtils;
+import com.roughike.bottombar.BottomBar;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -58,6 +60,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Answers(), new Crashlytics());
         setContentView(R.layout.activity_main);
+
+        BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+        bottomBar.setOnTabSelectListener(tabId -> {
+            switch (tabId) {
+                case R.id.blockerTab:
+                    Toast.makeText(getApplicationContext(), "Adhell tab", Toast.LENGTH_LONG).show();
+                    break;
+                case R.id.packageDisablerTab:
+                    Toast.makeText(getApplicationContext(), "Package Disabler tab", Toast.LENGTH_LONG).show();
+                    break;
+                case R.id.appSupportTab:
+                    Toast.makeText(getApplicationContext(), "Support tab", Toast.LENGTH_LONG).show();
+            }
+        });
+
         fragmentManager = getFragmentManager();
         if (!DeviceUtils.isContentBlockerSupported()) {
             return;
