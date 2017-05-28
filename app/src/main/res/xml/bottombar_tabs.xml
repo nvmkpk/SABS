@@ -1,4 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-
-</PreferenceScreen>
+<tabs>
+    <tab
+        icon="@drawable/ic_pan_tool"
+        id="@+id/blockerTab"
+        title="Adhell"/>
+    <tab
+        icon="@drawable/ic_report"
+        id="@+id/packageDisablerTab"
+        title="Package Disabler"/>
+    <tab
+        icon="@drawable/ic_account_balance"
+        id="@+id/appSupportTab"
+        title="App Support"/>
+</tabs>
