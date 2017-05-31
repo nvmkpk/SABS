@@ -116,6 +116,10 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.commit();
             return;
         }
+        if (!mAdminInteractor.isActiveAdmin() || !mAdminInteractor.isKnoxEnbaled()) {
+            Log.d(TAG, "Admin not active");
+            return;
+        }
         Log.d(TAG, "Everything is okay");
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragmentContainer, new BlockerFragment());

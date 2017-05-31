@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InterruptedIOException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.FormBody;
@@ -116,6 +117,7 @@ public class DeviceAdminInteractor {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(20, TimeUnit.SECONDS)
                 .readTimeout(20, TimeUnit.SECONDS)
+                .writeTimeout(15, TimeUnit.SECONDS)
                 .build();
         RequestBody formBody = new FormBody.Builder()
                 .add("adhellToken", BuildConfig.ADHELL_TOKEN)
@@ -136,7 +138,13 @@ public class DeviceAdminInteractor {
                 return customResponse.data.toString();
             }
             return null;
+        } catch (InterruptedIOException e) {
+            Log.e(TAG, "Problem with getting Knox Key from adhell server", e);
+            return null;
         } catch (IOException e) {
+            Log.e(TAG, "Problem with getting Knox Key from adhell server", e);
+            return null;
+        } catch (Throwable e) {
             Log.e(TAG, "Problem with getting Knox Key from adhell server", e);
             return null;
         }

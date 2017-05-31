@@ -20,43 +20,36 @@ import com.getadhell.androidapp.deviceadmin.DeviceAdminInteractor;
 
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
 
 public class AdhellTurnOnDialogFragment extends DialogFragment {
     private static final String TAG = AdhellTurnOnDialogFragment.class.getCanonicalName();
     private DeviceAdminInteractor deviceAdminInteractor;
-    private final Single<String> knoxKeyObservable = Single.create(emmiter -> {
-        String knoxKey = deviceAdminInteractor.getKnoxKey();
-        emmiter.onSuccess(knoxKey);
-    });
+    private Single<String> knoxKeyObservable;
     private Button turnOnAdminButton;
     private Button activateKnoxButton;
     private Button dismissDialogButton;
-    private CompositeDisposable disposable = new CompositeDisposable();
-
-    private BroadcastReceiver receiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            DeviceAdminInteractor deviceAdminInteractor = DeviceAdminInteractor.getInstance();
-            if (deviceAdminInteractor.isKnoxEnbaled()) {
-                Toast.makeText(context, "License activated", Toast.LENGTH_LONG).show();
-                allowDialogDismiss(true);
-                dismiss();
-                allowActivateKnox(false);
-                activateKnoxButton.setText("License Activated");
-                Log.d(TAG, "License activated");
-            } else {
-                Toast.makeText(context, "License activation failed. Try again", Toast.LENGTH_LONG).show();
-                Log.w(TAG, "License activation failed");
-            }
-        }
-    };
+    private CompositeDisposable disposable;
+    private Context dialogContext;
 
     public AdhellTurnOnDialogFragment() {
         deviceAdminInteractor = DeviceAdminInteractor.getInstance();
+//        dialogContext = this.getActivity().getApplicationContext();
+        knoxKeyObservable = Single.create(emmiter -> {
+            String knoxKey = null;
+            try {
+                knoxKey = deviceAdminInteractor.getKnoxKey();
+                emmiter.onSuccess(knoxKey);
+            } catch (Throwable e) {
+                emmiter.onError(e);
+                Log.e(TAG, "Failed to get knox key", e);
+            }
+        });
     }
 
     public static AdhellTurnOnDialogFragment newInstance(String title) {
@@ -88,8 +81,35 @@ public class AdhellTurnOnDialogFragment extends DialogFragment {
             Disposable subscribe = knoxKeyObservable
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
-                    .subscribe(knoxKey -> deviceAdminInteractor.forceActivateKnox(knoxKey));
+                    .subscribeWith(new DisposableSingleObserver<String>() {
+
+                        @Override
+                        public void onSuccess(@NonNull String knoxKey) {
+                            if (knoxKey == null) {
+                                activateKnoxButton.setEnabled(true);
+                                activateKnoxButton.setText(R.string.activate_knox);
+                                Log.w(TAG, "Failed to activate knox");
+                            }
+                            try {
+                                deviceAdminInteractor.forceActivateKnox(knoxKey);
+                            } catch (Exception e) {
+//                                Toast.makeText(dialogContext, "Failed to activate, try again", Toast.LENGTH_LONG).show();
+                                activateKnoxButton.setEnabled(true);
+                                activateKnoxButton.setText(R.string.activate_knox);
+                                Log.e(TAG, "Failed to activate knox", e);
+                            }
+                        }
+
+                        @Override
+                        public void onError(@NonNull Throwable e) {
+                            activateKnoxButton.setEnabled(true);
+                            activateKnoxButton.setText(R.string.activate_knox);
+//                            Toast.makeText(dialogContext, "Failed to activate, try again", Toast.LENGTH_LONG).show();
+                            Log.e(TAG, "Failed to activate knox", e);
+                        }
+                    });
             disposable.add(subscribe);
+            Log.d(TAG, "Exiting button click");
         });
 
         dismissDialogButton.setOnClickListener(v -> {
@@ -98,6 +118,23 @@ public class AdhellTurnOnDialogFragment extends DialogFragment {
         allowDialogDismiss(false);
         IntentFilter filter = new IntentFilter();
         filter.addAction("edm.intent.action.license.status");
+        BroadcastReceiver receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                DeviceAdminInteractor deviceAdminInteractor = DeviceAdminInteractor.getInstance();
+                if (deviceAdminInteractor.isKnoxEnbaled()) {
+                    Toast.makeText(context, "License activated", Toast.LENGTH_LONG).show();
+                    allowDialogDismiss(true);
+                    dismiss();
+                    allowActivateKnox(false);
+                    activateKnoxButton.setText("License Activated");
+                    Log.d(TAG, "License activated");
+                } else {
+                    Toast.makeText(context, "License activation failed. Try again", Toast.LENGTH_LONG).show();
+                    Log.w(TAG, "License activation failed");
+                }
+            }
+        };
         this.getActivity().registerReceiver(receiver, filter);
         return view;
     }
@@ -105,6 +142,7 @@ public class AdhellTurnOnDialogFragment extends DialogFragment {
     @Override
     public void onResume() {
         super.onResume();
+        disposable = new CompositeDisposable();
         Log.i(TAG, "AdhellTurnOnDialogFragment on Resume");
         if (deviceAdminInteractor.isActiveAdmin()) {
             allowTurnOnAdmin(false);
@@ -162,6 +200,7 @@ public class AdhellTurnOnDialogFragment extends DialogFragment {
     @Override
     public void onStop() {
         super.onStop();
+        Log.i(TAG, "onStop");
         if (disposable != null && !disposable.isDisposed()) {
             disposable.dispose();
         }
