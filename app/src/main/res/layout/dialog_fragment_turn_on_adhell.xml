@@ -1,31 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/to_enable_adhell" />
+        android:text="@string/to_enable_adhell"/>
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/turnOnAdminButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:onClick="enableAdmin"
-        android:text="@string/turn_on_admin" />
+        android:text="@string/turn_on_admin"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/knox" />
+        android:text="@string/knox"/>
 
     <Button
         android:id="@+id/activateKnoxButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="@string/activate_knox" />
+        android:text="@string/activate_knox"/>
+
+    <Button
+        android:id="@+id/dismissDialogButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Complete above steps"/>
 </LinearLayout>

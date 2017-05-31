@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
@@ -37,7 +36,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     private static FragmentManager fragmentManager;
-    private DeviceAdminInteractor mAdminInteractor;
+    protected DeviceAdminInteractor mAdminInteractor;
+
+    private AdhellNotSupportedDialogFragment adhellNotSupportedDialogFragment;
+    private AdhellTurnOnDialogFragment adhellTurnOnDialogFragment;
+    private NoInternetConnectionDialogFragment noInternetConnectionDialogFragment;
 
     @Override
     public void onBackPressed() {
@@ -59,6 +62,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Answers(), new Crashlytics());
         setContentView(R.layout.activity_main);
+
+        adhellNotSupportedDialogFragment = AdhellNotSupportedDialogFragment.newInstance("Some title");
+        adhellTurnOnDialogFragment = AdhellTurnOnDialogFragment.newInstance("Adhell Turn On");
+        noInternetConnectionDialogFragment = NoInternetConnectionDialogFragment.newInstance("No Internet connection");
+        adhellNotSupportedDialogFragment.setCancelable(false);
+        adhellTurnOnDialogFragment.setCancelable(false);
+        noInternetConnectionDialogFragment.setCancelable(false);
 
         BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
 
@@ -121,29 +131,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    /**
-     * Change permissions of phone. Allow or restrict
-     *
-     * @param view button
-     */
-
-    public void enableAdmin(View view) {
-        mAdminInteractor.forceEnableAdmin(this);
-    }
-
     public void showDialog() {
         if (!(DeviceUtils.isSamsung() && DeviceUtils.isKnoxSupported())) {
             Log.i(TAG, "Device not supported");
-            AdhellNotSupportedDialogFragment adhellNotSupportedDialogFragment = AdhellNotSupportedDialogFragment.newInstance("Some title");
-            adhellNotSupportedDialogFragment.show(fragmentManager, "dialog_fragment_adhell_not_supported");
-            adhellNotSupportedDialogFragment.setCancelable(false);
+            if (!adhellNotSupportedDialogFragment.isVisible()) {
+                adhellNotSupportedDialogFragment.show(fragmentManager, "dialog_fragment_adhell_not_supported");
+            }
             return;
         }
         if (!mAdminInteractor.isActiveAdmin()) {
             Log.d(TAG, "Admin is not active. Request enabling");
-            AdhellTurnOnDialogFragment adhellTurnOnDialogFragment = AdhellTurnOnDialogFragment.newInstance("Adhell Turn On");
-            adhellTurnOnDialogFragment.show(fragmentManager, "dialog_fragment_turn_on_adhell");
-            adhellTurnOnDialogFragment.setCancelable(false);
+            if (!adhellTurnOnDialogFragment.isVisible()) {
+                adhellTurnOnDialogFragment.show(fragmentManager, "dialog_fragment_turn_on_adhell");
+            }
             return;
         }
 
@@ -155,13 +155,14 @@ public class MainActivity extends AppCompatActivity {
             boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
             Log.d(TAG, "Is internet connection exists: " + isConnected);
             if (!isConnected) {
-                NoInternetConnectionDialogFragment noInternetConnectionDialogFragment = NoInternetConnectionDialogFragment.newInstance("No Internet connection");
-                noInternetConnectionDialogFragment.show(fragmentManager, "dialog_fragment_no_internet_connection");
-                noInternetConnectionDialogFragment.setCancelable(false);
+                if (!noInternetConnectionDialogFragment.isVisible()) {
+                    noInternetConnectionDialogFragment.show(fragmentManager, "dialog_fragment_no_internet_connection");
+                }
+            } else {
+                if (!adhellTurnOnDialogFragment.isVisible()) {
+                    adhellTurnOnDialogFragment.show(fragmentManager, "dialog_fragment_turn_on_adhell");
+                }
             }
-            AdhellTurnOnDialogFragment adhellTurnOnDialogFragment = AdhellTurnOnDialogFragment.newInstance("Adhell Turn On");
-            adhellTurnOnDialogFragment.show(fragmentManager, "dialog_fragment_turn_on_adhell");
-            adhellTurnOnDialogFragment.setCancelable(false);
         }
     }
 }

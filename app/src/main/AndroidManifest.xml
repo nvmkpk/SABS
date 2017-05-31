@@ -45,13 +45,13 @@
                 <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
             </intent-filter>
         </receiver>
-        <receiver
-            android:name="com.getadhell.androidapp.fragments.ActivateKnoxLicenseFragment$MyReceiver"
-            android:enabled="true">
-            <intent-filter>
-                <action android:name="edm.intent.action.license.status" />
-            </intent-filter>
-        </receiver>
+        <!--<receiver-->
+            <!--android:name="com.getadhell.androidapp.dialogfragment.AdhellTurnOnDialogFragment$MyReceiver"-->
+            <!--android:enabled="true">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="edm.intent.action.license.status" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
         <receiver
             android:name=".receiver.BlockedDomainAlarmReceiver"
             android:process=":remote" />
