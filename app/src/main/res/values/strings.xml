@@ -62,6 +62,8 @@
     <string name="delete_app">Turn Off and Delete Adhell</string>
     <string name="applist">Show App List</string>
     <string name="list_filter">Filter</string>
+    <string name="apply_filter">Filter</string>
+    <string name="applying_filter">Please Wait, Applying Filter</string>
     <string name="block_app_tab_label">Active Apps</string>
     <string name="allowed_app_tab_label">Excluded Apps</string>
     <string name="block_url_tab_label">Blocked URLs</string>
@@ -90,4 +92,7 @@
 
     <string name="download_manager_sharedPrefs" translatable="false">download_manager_sharedPrefs</string>
     <string name="download_manager_reference_id" translatable="false">download_manager_reference_id</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

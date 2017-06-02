@@ -146,7 +146,7 @@ public class AppListFragment extends Fragment {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             LayoutInflater inflater = LayoutInflater.from(context);
-            View row = inflater.inflate(R.layout.item_app_lits_view, parent, false);
+            View row = inflater.inflate(R.layout.item_app_list_view, parent, false);
             TextView appNameTextView = (TextView) row.findViewById(R.id.appName);
             ImageView appIconImageView = (ImageView) row.findViewById(R.id.appIcon);
             appNameTextView.setText(packageManager.getApplicationLabel(this.applicationInfoList.get(position)));

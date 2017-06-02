@@ -40,14 +40,11 @@ public class BlockCustomUrlFragment extends Fragment {
 
         ListView listView = (ListView) view.findViewById(R.id.customUrlsListView);
         listView.setAdapter(itemsAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                customUrlsToBlock.remove(position);
-                save();
-                itemsAdapter.notifyDataSetChanged();
-                Toast.makeText(context, "Url removed", Toast.LENGTH_SHORT).show();
-            }
+        listView.setOnItemClickListener((parent, view1, position, id) -> {
+            customUrlsToBlock.remove(position);
+            save();
+            itemsAdapter.notifyDataSetChanged();
+            Toast.makeText(context, "Url removed", Toast.LENGTH_SHORT).show();
         });
 
         final EditText addBlockedUrlEditText = (EditText) view.findViewById(R.id.addBlockedUrlEditText);

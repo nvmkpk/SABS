@@ -24,6 +24,7 @@ import com.getadhell.androidapp.dialogfragment.AdhellTurnOnDialogFragment;
 import com.getadhell.androidapp.dialogfragment.NoInternetConnectionDialogFragment;
 import com.getadhell.androidapp.fragments.AdhellNotSupportedFragment;
 import com.getadhell.androidapp.fragments.BlockerFragment;
+import com.getadhell.androidapp.fragments.PackageDisablerFragment;
 import com.getadhell.androidapp.service.BlockedDomainService;
 import com.getadhell.androidapp.utils.AppWhiteList;
 import com.getadhell.androidapp.utils.DeviceUtils;
@@ -41,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     private AdhellNotSupportedDialogFragment adhellNotSupportedDialogFragment;
     private AdhellTurnOnDialogFragment adhellTurnOnDialogFragment;
     private NoInternetConnectionDialogFragment noInternetConnectionDialogFragment;
+
+    private static int tabState = R.id.blockerTab;
 
     @Override
     public void onBackPressed() {
@@ -70,22 +73,31 @@ public class MainActivity extends AppCompatActivity {
         adhellTurnOnDialogFragment.setCancelable(false);
         noInternetConnectionDialogFragment.setCancelable(false);
 
+        fragmentManager = getFragmentManager();
         BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
 
         bottomBar.setOnTabSelectListener(tabId -> {
+            tabState = tabId;
+            for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) fragmentManager.popBackStack();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
             switch (tabId) {
                 case R.id.blockerTab:
+                    fragmentTransaction.replace(R.id.fragmentContainer, new BlockerFragment());
                     Toast.makeText(getApplicationContext(), "Adhell tab", Toast.LENGTH_LONG).show();
                     break;
                 case R.id.packageDisablerTab:
+                    fragmentTransaction.replace(R.id.fragmentContainer, new PackageDisablerFragment());
                     Toast.makeText(getApplicationContext(), "Package Disabler tab", Toast.LENGTH_LONG).show();
                     break;
                 case R.id.appSupportTab:
                     Toast.makeText(getApplicationContext(), "Support tab", Toast.LENGTH_LONG).show();
+                    return;
             }
+
+            fragmentTransaction.commitAllowingStateLoss();
         });
 
-        fragmentManager = getFragmentManager();
         if (!DeviceUtils.isContentBlockerSupported()) {
             return;
         }
@@ -122,7 +134,8 @@ public class MainActivity extends AppCompatActivity {
         }
         Log.d(TAG, "Everything is okay");
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentContainer, new BlockerFragment());
+        if (tabState == R.id.packageDisablerTab) fragmentTransaction.replace(R.id.fragmentContainer, new PackageDisablerFragment());
+        else fragmentTransaction.replace(R.id.fragmentContainer, new BlockerFragment());
         fragmentTransaction.commitAllowingStateLoss();
 
         ContentBlocker contentBlocker = DeviceUtils.getContentBlocker();
