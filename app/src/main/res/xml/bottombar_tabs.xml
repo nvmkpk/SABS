@@ -2,13 +2,13 @@
     <tab
         icon="@drawable/ic_pan_tool"
         id="@+id/blockerTab"
-        title="Adhell"/>
+        title="@string/blocker_fragment_title"/>
     <tab
         icon="@drawable/ic_report"
         id="@+id/packageDisablerTab"
-        title="Package Disabler"/>
+        title="@string/package_disabler_bottombar_title"/>
     <tab
         icon="@drawable/ic_account_balance"
         id="@+id/appSupportTab"
-        title="App Support"/>
+        title="@string/app_support_fragment_title"/>
 </tabs>

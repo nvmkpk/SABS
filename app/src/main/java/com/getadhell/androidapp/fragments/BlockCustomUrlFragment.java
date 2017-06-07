@@ -9,7 +9,6 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,7 +35,7 @@ public class BlockCustomUrlFragment extends Fragment {
         context = this.getActivity();
         View view = inflater.inflate(R.layout.fragment_manual_url_block, container, false);
         customUrlsToBlock = DeviceUtils.loadCustomBlockedUrls();
-        final ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_list_item_1, customUrlsToBlock);
+        final ArrayAdapter<String> itemsAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_list_item_1, customUrlsToBlock);
 
         ListView listView = (ListView) view.findViewById(R.id.customUrlsListView);
         listView.setAdapter(itemsAdapter);
@@ -49,22 +48,19 @@ public class BlockCustomUrlFragment extends Fragment {
 
         final EditText addBlockedUrlEditText = (EditText) view.findViewById(R.id.addBlockedUrlEditText);
         Button addCustomBlockedUrlButton = (Button) view.findViewById(R.id.addCustomBlockedUrlButton);
-        addCustomBlockedUrlButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                String urlToAdd = addBlockedUrlEditText.getText().toString();
-                if (!Patterns.WEB_URL.matcher(urlToAdd).matches()) {
-                    Toast.makeText(context, "Url not valid. Please check", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                customUrlsToBlock.add(urlToAdd);
-                Collections.sort(customUrlsToBlock);
-                save();
-                addBlockedUrlEditText.setText("");
-                Toast.makeText(context, "Url has been added", Toast.LENGTH_SHORT).show();
-                itemsAdapter.notifyDataSetChanged();
+        addCustomBlockedUrlButton.setOnClickListener(view12 ->
+        {
+            String urlToAdd = addBlockedUrlEditText.getText().toString();
+            if (!Patterns.WEB_URL.matcher(urlToAdd).matches()) {
+                Toast.makeText(context, "Url not valid. Please check", Toast.LENGTH_SHORT).show();
+                return;
             }
+            customUrlsToBlock.add(urlToAdd);
+            Collections.sort(customUrlsToBlock);
+            save();
+            addBlockedUrlEditText.setText("");
+            Toast.makeText(context, "Url has been added", Toast.LENGTH_SHORT).show();
+            itemsAdapter.notifyDataSetChanged();
         });
         return view;
     }

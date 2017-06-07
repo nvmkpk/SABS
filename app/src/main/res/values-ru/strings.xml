@@ -5,12 +5,12 @@
     <string name="adhell_not_supported">Adhell не поддерживается на этом устройстве</string>
     <string name="android_version_not_supported">Данная версия Android не поддерживается</string>
     <string name="block_disabled">Adhell выключен</string>
-    <string name="block_enabled">Adhell включен. Реклама блокируется</string>
+    <string name="block_enabled">Adhell включен, реклама блокируется</string>
     <string name="disable_blocker">Выключить Adhell</string>
     <string name="edit">Изменить</string>
     <string name="edit_email">Неверный email? Изменить</string>
-    <string name="block_button_text_disabling">Выключаю...</string>
-    <string name="block_button_text_enabling">Включаю...</string>
+    <string name="block_button_text_disabling">Выключаю…</string>
+    <string name="block_button_text_enabling">Включаю…</string>
     <string name="block_button_text_turn_off">Выключить</string>
     <string name="block_button_text_turn_on">Включить</string>
     <string name="failed_to_activate_knox_message">Не удалось активировать Knox</string>
@@ -23,13 +23,14 @@
     <string name="no_thanks">Нет, спасибо</string>
     <string name="notify_you_2">Данное устройство не поддерживается</string>
     <string name="only_samsung">Только Samsung</string>
-    <string name="please_wait">Включаю Adhell...</string>
+    <string name="please_wait">Включаю Adhell…</string>
     <string name="to_enable_adhell">Чтобы включить Adhell нужно дать приложению права
         администратора
     </string>
     <string name="turn_on_admin">Включить</string>
     <string name="wait">Подождите</string>
-    <string name="wait_deleting">Выключаю Adhell...</string>
+    <string name="Reports">Отчет</string>
+    <string name="wait_deleting">Выключаю Adhell…</string>
     <string name="works_whit_samsung">"Adhell работает только с Samsung. Данное устройство не
         поддерживается. "
     </string>
@@ -45,20 +46,22 @@
     <string name="about">Adhell блокируется рекламу на всем устройстве (только для смартфонов
         Samsung)
     </string>
-    <string name="edit_block_list">Edit Blocked URL\'s</string>
-    <string name="whitelist">Show Whitelist</string>
+    <string name="edit_block_list">Изменить заблокированные адреса</string>
+    <string name="whitelist">Показать белый список</string>
     <string name="blocklist">Показать заблокированные адреса</string>
-    <string name="editAlert">After editing the block list and whitelist, return to this screen and
-        toggle Enabled off, then back on to apply the changes!
+    <string name="editAlert">После изменения списков блокировки вернитесь на главный экран Adhell и
+        нажмите "Turn off", затем нажмите "Turn on", чтобы применить изменения!
     </string>
     <string name="list_filter">Фильтр:</string>
     <string name="apply_filter">Фильтр</string>
     <string name="applying_filter">Пожалуйста, подождите, применяется фильтр</string>
-    <string name="block_app_tab_label">Active Apps</string>
+    <string name="block_app_tab_label">Работающие приложения</string>
     <string name="delete_app">Выключить и удалить Adhell</string>
-    <string name="block_url_tab_label">Заблокированные домены</string>
+    <string name="delete_app_dialog_title">Удаление приложения</string>
+    <string name="delete_app_dialog_text">Вы действительно хотите выключить и удалить Adhell?</string>
+    <string name="block_url_tab_label">Cписок блокировки</string>
     <string name="allowed_app_tab_label">Белый список</string>
-    <string name="allowed_url_tab_label">Незаблокированные домены</string>
+    <string name="allowed_url_tab_label">Белый список</string>
     <string name="back_to_main">Вернуться в главное меню</string>
     <string name="allow_apps">Белый список приложений</string>
     <string name="applist">Установленные приложения</string>
@@ -70,15 +73,28 @@
     <string name="dns_2_address">Адрес DNS 2</string>
     <string name="set_dns_button_text">Изменить DNS</string>
     <string name="note_that_adhell_must_be_enabled">Используйте данную функцию, только если
-        понимаете что такое DNS и какие проблемы могут возникнуть. Заметьте, что Adhell должен быть
+        понимаете, что такое DNS и какие проблемы могут возникнуть. Заметьте, что Adhell должен быть
         включен
     </string>
     <string name="restore_defaults">Восстановить DNS по умолчанию</string>
     <string name="block">Заблокировать</string>
-    <string name="block_custom_urls">Заблокировать свои урлы</string>
+    <string name="block_custom_urls">Заблокировать свои адреса</string>
     <string name="manage_standard_url_package">Управлять списком блокировки</string>
     <string name="facebook_com">facebook.com</string>
     <string name="to_take_effect_turn_off_turn_on_adhell_after_editing_list">После изменения списка
         выключите и включите блокировщик.
     </string>
+    <string name="package_disabler_fragment_title">Блокировщик пакетов</string>
+    <string name="package_disabler_bottombar_title">Блок. пакетов</string>
+    <string name="app_support_fragment_title">Поддержка</string>
+    <string name="to_be_done">Функционал в данный момент в разработке</string>
+    <string name="last_day_blocked">"Заблокировано за последние 24 часа: "</string>
+    <string name="loading_saved_dns">Загрузка dns адресов</string>
+    <string name="check_input_dns">Проверьте введенный адрес</string>
+    <string name="enable_adhell_for_dns">Adhell должен быть включен</string>
+    <string name="changed_dns">Dns адрес был изменен"</string>
+    <string name="restored_dns">DNS был восстановлен к настройкам по умолчанию. Включите Adhell.</string>
+    <string name="wait_loading_apps_list">Пожалуйста, подождите, загружается список приложений</string>
+    <string name="wait_removing_app_from_whitelist">Пожалуйста, подождите, приложение удаляется из белого списка</string>
+
 </resources>

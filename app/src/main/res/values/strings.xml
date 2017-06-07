@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">Adhell</string>
     <string name="wait">Wait…</string>
+    <string name="Reports">Reports</string>
     <string name="about">App for Samsung smartphones that blocks ads and trackers in Chrome. Website
         loading increases up to 100%!
     </string>
@@ -45,21 +46,23 @@
     </string>
     <string name="failed_to_activate_knox_message">Knox license activation failed
     </string>
-    <string name="activating_knox_license">"Activating... "</string>
+    <string name="activating_knox_license">"Activating… "</string>
     <string name="knox_license_activated">Activated</string>
     <string name="block_button_text_turn_off">Turn Off</string>
     <string name="block_button_text_turn_on">Turn On</string>
-    <string name="block_button_text_enabling">Enabling...</string>
-    <string name="block_button_text_disabling">Disabling...</string>
+    <string name="block_button_text_enabling">Enabling…</string>
+    <string name="block_button_text_disabling">Disabling…</string>
     <string name="edit_block_list">Edit Blocked URL\'s</string>
     <string name="whitelist">Show Whitelist</string>
     <string name="blocklist">Show Blocklist</string>
     <string name="back_to_main">Back to Main</string>
-    <string name="editAlert">After editing the block list and whitelist, return to this screen and
-        toggle Enabled off, then back on to apply the changes!
+    <string name="editAlert">After editing the block list and whitelist return to main Adhell screen
+        and toggle "Turn off", then tap "Turn on" to apply the changes!
     </string>
     <string name="allow_apps">WhiteList Apps</string>
     <string name="delete_app">Turn Off and Delete Adhell</string>
+    <string name="delete_app_dialog_title">Delete app</string>
+    <string name="delete_app_dialog_text">Do you really want to turn off and delete Adhell?</string>
     <string name="applist">Show App List</string>
     <string name="list_filter">Filter</string>
     <string name="apply_filter">Filter</string>
@@ -92,6 +95,20 @@
 
     <string name="download_manager_sharedPrefs" translatable="false">download_manager_sharedPrefs</string>
     <string name="download_manager_reference_id" translatable="false">download_manager_reference_id</string>
+
+    <string name="blocker_fragment_title" translatable="false">Adhell</string>
+    <string name="package_disabler_fragment_title">Package disabler</string>
+    <string name="package_disabler_bottombar_title">Package disabler</string>
+    <string name="app_support_fragment_title">App support</string>
+    <string name="to_be_done">This feature is under development</string>
+    <string name="last_day_blocked">"Last 24 hours blocked: "</string>
+    <string name="loading_saved_dns">Loading saved dns addresses</string>
+    <string name="check_input_dns">Check your input data</string>
+    <string name="enable_adhell_for_dns">Adhell Must be enabled</string>
+    <string name="changed_dns">Dns addresses has been changed"</string>
+    <string name="restored_dns">DNS has been restored to defaults. You should to enable Adhell again.</string>
+    <string name="wait_loading_apps_list">"Please Wait, Loading Application List"</string>
+    <string name="wait_removing_app_from_whitelist">"Please Wait, Removing App From Whitelist"</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -103,6 +103,7 @@ public class BlockerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        getActivity().setTitle(getString(R.string.blocker_fragment_title));
         View view = inflater.inflate(R.layout.fragment_blocker, container, false);
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);

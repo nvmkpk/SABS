@@ -5,35 +5,26 @@ import android.app.enterprise.ApplicationPolicy;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.media.Image;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.getadhell.androidapp.App;
 import com.getadhell.androidapp.R;
 import com.getadhell.androidapp.utils.DeviceUtils;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class PackageDisablerFragment extends Fragment
@@ -56,6 +47,7 @@ public class PackageDisablerFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
+        getActivity().setTitle(getString(R.string.package_disabler_fragment_title));
         context = getActivity().getApplicationContext();
         appPolicy = DeviceUtils.getEnterpriseDeviceManager().getApplicationPolicy();
         packageManager = getActivity().getPackageManager();
@@ -97,8 +89,10 @@ public class PackageDisablerFragment extends Fragment
 
         public DisablerAppAdapter(List<ApplicationInfo> appInfoList)
         {
-            applicationInfoList = appInfoList;
-            filteredList = appInfoList;
+            applicationInfoList = new ArrayList<>();
+            for (ApplicationInfo appInfo: appInfoList)
+                if (!appInfo.packageName.equals("com.getadhell.androidapp")) applicationInfoList.add(appInfo);
+            filteredList = applicationInfoList;
             filter = new ItemFilter();
         }
 
@@ -178,7 +172,7 @@ public class PackageDisablerFragment extends Fragment
         }
     }
 
-    static class ViewHolder
+    public static class ViewHolder
     {
         TextView textH;
         Switch switchH;

@@ -7,7 +7,9 @@
         android:id="@+id/lastDayInfoTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Last 24 hours blocked: " />
+        android:text="@string/last_day_blocked"
+        android:textColor="#000000"
+        android:textSize="@dimen/text_small_size" />
 
     <TextView
         android:id="@+id/lastDayBlockedTextView"
@@ -15,7 +17,8 @@
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/lastDayInfoTextView"
         android:layout_toRightOf="@+id/lastDayInfoTextView"
-        android:text="0" />
+        android:textColor="#000000"
+        android:textSize="@dimen/text_small_size"/>
 
     <ListView
         android:id="@+id/blockedDomainsListView"

@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -49,57 +48,44 @@ public class AppListFragment extends Fragment {
         packageManager = this.context.getPackageManager();
         final View view = inflater.inflate(R.layout.fragment_app_list, container, false);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        try { ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true); }
+        catch (NullPointerException e) { e.printStackTrace(); }
 
         appListView = (ListView) view.findViewById(R.id.appList);
         new AdhellGetListTask().execute(false);
 
-        appListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String item = (String) parent.getItemAtPosition(position);
-                if (onWhiteList) {
-                    //remove from whitelist
-                    //removeFromWhiteList(item);
-                    new RemoveFromWhiteList().execute(item);
-                    new AdhellGetWhiteListTask().execute(false);
-                } else {
-                    //add to whitelist
-                    mAppWhiteList.addToWhiteList(item);
-                    //new AdhellGetListTask().execute(false);
-                    iconAdapter.remove(item);
-                    iconAdapter.notifyDataSetChanged();
-                }
+        appListView.setOnItemClickListener((parent, view1, position, id) ->
+        {
+            String item = (String) parent.getItemAtPosition(position);
+            if (onWhiteList) {
+                //remove from whitelist
+                //removeFromWhiteList(item);
+                new RemoveFromWhiteList().execute(item);
+                new AdhellGetWhiteListTask().execute(false);
+            } else {
+                //add to whitelist
+                mAppWhiteList.addToWhiteList(item);
+                //new AdhellGetListTask().execute(false);
+                iconAdapter.remove(item);
+                iconAdapter.notifyDataSetChanged();
             }
         });
 
         TabHost th = (TabHost) view.findViewById(R.id.urlTabHost);
         th.setup();
-        th.addTab(th.newTabSpec("BlockTab").setIndicator(getResources().getString(R.string.block_app_tab_label)).setContent(new TabHost.TabContentFactory() {
-            @Override
-            public View createTabContent(String tag) {
-                return new View(getActivity());
-            }
-        }));
-        th.addTab(th.newTabSpec("AllowTab").setIndicator(getResources().getString(R.string.allowed_app_tab_label)).setContent(new TabHost.TabContentFactory() {
-            @Override
-            public View createTabContent(String tag) {
-                return new View(getActivity());
-            }
-        }));
+        th.addTab(th.newTabSpec("BlockTab").setIndicator(getResources().getString(R.string.block_app_tab_label)).setContent(tag -> new View(getActivity())));
+        th.addTab(th.newTabSpec("AllowTab").setIndicator(getResources().getString(R.string.allowed_app_tab_label)).setContent(tag -> new View(getActivity())));
 
-        th.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
-            @Override
-            public void onTabChanged(String tabId) {
-                if (tabId.equals("BlockTab")) {
-                    onWhiteList = false;
-                    setData(masterAppInfo);
-                    iconAdapter.notifyDataSetChanged();
-                }
-                if (tabId.equals("AllowTab")) {
-                    onWhiteList = true;
-                    new AdhellGetWhiteListTask().execute(false);
-                }
+        th.setOnTabChangedListener(tabId ->
+        {
+            if (tabId.equals("BlockTab")) {
+                onWhiteList = false;
+                setData(masterAppInfo);
+                iconAdapter.notifyDataSetChanged();
+            }
+            if (tabId.equals("AllowTab")) {
+                onWhiteList = true;
+                new AdhellGetWhiteListTask().execute(false);
             }
         });
 
@@ -121,7 +107,7 @@ public class AppListFragment extends Fragment {
     }
 
 
-    class IconAppAdapter extends BaseAdapter {
+    private class IconAppAdapter extends BaseAdapter {
         private List<ApplicationInfo> applicationInfoList;
 
         public IconAppAdapter(List<ApplicationInfo> applicationInfoList) {
@@ -200,7 +186,7 @@ public class AppListFragment extends Fragment {
 
         protected void onPreExecute() {
             runningTaskList.add(this);
-            pd = ProgressDialog.show(getActivity(), "", "Please Wait, Loading Application List", false);
+            pd = ProgressDialog.show(getActivity(), "", getString(R.string.wait_loading_apps_list), false);
         }
 
         protected List<ApplicationInfo> doInBackground(Boolean... switchers) {
@@ -237,7 +223,7 @@ public class AppListFragment extends Fragment {
 
         protected void onPreExecute() {
             runningTaskList.add(this);
-            pd = ProgressDialog.show(getActivity(), "", "Please Wait, Removing App From Whitelist", false);
+            pd = ProgressDialog.show(getActivity(), "", getString(R.string.wait_removing_app_from_whitelist), false);
         }
 
         @Override
@@ -246,12 +232,11 @@ public class AppListFragment extends Fragment {
             try {
                 ApplicationInfo ai = packageManager.getApplicationInfo(params[0], 0);
                 masterAppInfo.add(ai);
-                Collections.sort(masterAppInfo, new Comparator<ApplicationInfo>() {
-                    public int compare(ApplicationInfo ai1, ApplicationInfo ai2) {
-                        String s1 = ai1.loadLabel(packageManager).toString();
-                        String s2 = ai2.loadLabel(packageManager).toString();
-                        return s1.compareTo(s2);
-                    }
+                Collections.sort(masterAppInfo, (ai1, ai2) ->
+                {
+                    String s1 = ai1.loadLabel(packageManager).toString();
+                    String s2 = ai2.loadLabel(packageManager).toString();
+                    return s1.compareTo(s2);
                 });
             } catch (PackageManager.NameNotFoundException e) {
                 e.printStackTrace();

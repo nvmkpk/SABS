@@ -8,7 +8,10 @@
         android:id="@+id/isSupportedTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/isSupported" />
+        android:text="@string/isSupported"
+        android:layout_margin="10dp"
+        android:textColor="#000000"
+        android:textSize="@dimen/text_small_size"/>
 
     <Button
         android:id="@+id/policyChangeButton"
@@ -22,5 +25,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Reports" />
+        android:text="@string/Reports" />
 </LinearLayout>

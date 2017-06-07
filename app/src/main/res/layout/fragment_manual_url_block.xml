@@ -8,6 +8,8 @@
         android:id="@+id/noteTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="@dimen/text_small_size"
         android:text="@string/to_take_effect_turn_off_turn_on_adhell_after_editing_list"/>
     <EditText
         android:id="@+id/addBlockedUrlEditText"

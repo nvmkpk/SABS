@@ -9,6 +9,8 @@
         android:layout_height="wrap_content"
         android:paddingLeft="5pt"
         android:paddingRight="5pt"
+        android:textColor="#000000"
+        android:textSize="@dimen/text_mizerable_size"
         android:text="@string/editAlert" />
 
     <TextView
@@ -16,6 +18,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/editAlert"
+        android:textColor="#000000"
+        android:textSize="@dimen/text_small_size"
+        android:layout_marginTop="10dp"
         android:text="@string/list_filter" />
 
     <EditText
