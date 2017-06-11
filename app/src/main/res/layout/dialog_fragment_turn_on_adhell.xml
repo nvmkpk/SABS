@@ -27,4 +27,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="@string/activate_knox"/>
+
+    <Button
+        android:id="@+id/dismissDialogButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Complete above steps"/>
 </LinearLayout>
