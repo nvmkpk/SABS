@@ -22,9 +22,11 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.getadhell.androidapp.R;
+import com.getadhell.androidapp.utils.ApplicationInfoNameComparator;
 import com.getadhell.androidapp.utils.DeviceUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PackageDisablerFragment extends Fragment
@@ -34,6 +36,7 @@ public class PackageDisablerFragment extends Fragment
     private  PackageManager packageManager;
     private ApplicationPolicy appPolicy;
     private ProgressDialog pd;
+    private List<ApplicationInfo> packageList;
 
     public PackageDisablerFragment() {}
 
@@ -53,7 +56,8 @@ public class PackageDisablerFragment extends Fragment
         packageManager = getActivity().getPackageManager();
         View view = inflater.inflate(R.layout.fragment_package_disabler, container, false);
         EditText editText = (EditText) view.findViewById(R.id.disabledFilter);
-        DisablerAppAdapter adapter = new DisablerAppAdapter(packageManager.getInstalledApplications(PackageManager.GET_META_DATA));
+        packageList = packageManager.getInstalledApplications(PackageManager.GET_META_DATA);
+        DisablerAppAdapter adapter = new DisablerAppAdapter(packageList);
         view.findViewById(R.id.buttonFilterDisable).setOnClickListener(view1 ->
         {
             String text = editText.getText().toString();
@@ -63,8 +67,6 @@ public class PackageDisablerFragment extends Fragment
                 protected Void doInBackground(Boolean ... switchers) { adapter.getFilter().filter(text); return null; }
             }.execute(false);
         });
-
-
 
         installedAppsView = (ListView) view.findViewById(R.id.installed_apps_list);
         installedAppsView.setAdapter(adapter);
@@ -84,7 +86,7 @@ public class PackageDisablerFragment extends Fragment
     private class DisablerAppAdapter extends BaseAdapter implements Filterable
     {
         private List<ApplicationInfo> applicationInfoList;
-        private List<ApplicationInfo> filteredList;
+        private List<ApplicationInfo> filteredList = new ArrayList<>();
         private ItemFilter filter;
 
         public DisablerAppAdapter(List<ApplicationInfo> appInfoList)
@@ -92,8 +94,26 @@ public class PackageDisablerFragment extends Fragment
             applicationInfoList = new ArrayList<>();
             for (ApplicationInfo appInfo: appInfoList)
                 if (!appInfo.packageName.equals("com.getadhell.androidapp")) applicationInfoList.add(appInfo);
-            filteredList = applicationInfoList;
             filter = new ItemFilter();
+            doSort();
+        }
+
+        private void doSort()
+        {
+            new AsyncTask<Boolean, Void, Void>()
+            {
+                protected void onPreExecute() { pd = ProgressDialog.show(getActivity(), "", "Please Wait, Sorting Applications"); }
+                protected Void doInBackground(Boolean ... switchers) {
+                    Collections.sort(applicationInfoList, new ApplicationInfoNameComparator(packageManager));
+                    return null;
+                }
+                protected void onPostExecute(Void result)
+                {
+                    pd.dismiss();
+                    filteredList = applicationInfoList;
+                    notifyDataSetChanged();
+                }
+            }.execute(false);
         }
 
         @Override

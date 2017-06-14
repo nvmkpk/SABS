@@ -21,10 +21,10 @@ import android.widget.TextView;
 
 import com.getadhell.androidapp.R;
 import com.getadhell.androidapp.utils.AppWhiteList;
+import com.getadhell.androidapp.utils.ApplicationInfoNameComparator;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -204,7 +204,7 @@ public class AppListFragment extends Fragment {
                 }
             }
             Log.i(TAG, "Number of applications with INTERNET GRANDTED permission installed: " + pkgAppsList.size());
-            Collections.sort(pkgAppsList, new ApplicationInfoNameComparator());
+            Collections.sort(pkgAppsList, new ApplicationInfoNameComparator(packageManager));
             return pkgAppsList;
         }
 
@@ -248,21 +248,6 @@ public class AppListFragment extends Fragment {
         protected void onPostExecute(Void result) {
             pd.dismiss();
             runningTaskList.remove(this);
-        }
-    }
-
-    private class ApplicationInfoNameComparator implements Comparator<ApplicationInfo> {
-        @Override
-        public int compare(ApplicationInfo lhs, ApplicationInfo rhs) {
-            String lAppName = (String) packageManager.getApplicationLabel(lhs);
-            String rAppName = (String) packageManager.getApplicationLabel(rhs);
-            if (lAppName == null) {
-                lAppName = "(Unknown)";
-            }
-            if (rAppName == null) {
-                rAppName = "(Unknown)";
-            }
-            return lAppName.compareToIgnoreCase(rAppName);
         }
     }
 }
