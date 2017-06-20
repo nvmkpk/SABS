@@ -96,5 +96,7 @@
     <string name="restored_dns">DNS был восстановлен к настройкам по умолчанию. Включите Adhell.</string>
     <string name="wait_loading_apps_list">Пожалуйста, подождите, загружается список приложений</string>
     <string name="wait_removing_app_from_whitelist">Пожалуйста, подождите, приложение удаляется из белого списка</string>
+    <string name="support_app_development">Поддержите разработку приложения</string>
+    <string name="help_developers_to_keep_up_development">Поддежите разработку Adhell</string>
 
 </resources>
