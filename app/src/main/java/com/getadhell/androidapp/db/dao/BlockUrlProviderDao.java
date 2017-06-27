@@ -1,5 +1,6 @@
 package com.getadhell.androidapp.db.dao;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -15,7 +16,7 @@ import java.util.List;
 public interface BlockUrlProviderDao {
 
     @Query("SELECT * FROM blockUrlProviders")
-    List<BlockUrlProvider> getAll();
+    LiveData<List<BlockUrlProvider>> getAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(BlockUrlProvider... urlProviders);

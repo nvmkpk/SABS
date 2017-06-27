@@ -7,7 +7,7 @@ import android.arch.persistence.room.PrimaryKey;
 
 @Entity(tableName = "blockUrlProviders", indices = {@Index(value = {"url"}, unique = true)})
 public class BlockUrlProvider {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
     public int id;
 
