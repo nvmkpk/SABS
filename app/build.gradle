@@ -90,4 +90,7 @@ dependencies {
 
     annotationProcessor "android.arch.lifecycle:compiler:1.0.0-alpha3"
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0-alpha3"
+    compile "android.arch.persistence.room:rxjava2:1.0.0-alpha3"
+
+    compile "com.android.support:support-fragment:25.4.0"
 }

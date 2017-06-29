@@ -116,4 +116,6 @@
     <string name="help_developers_to_keep_up_development">Support Adhell development</string>
     <string name="add_provider">Add Url Provider</string>
     <string name="adaway_hosts">https://adaway.org/hosts.txt</string>
+    <string name="_2597">2597</string>
+    <string name="show_custom_providers">Show Custom Providers</string>
 </resources>

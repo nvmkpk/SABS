@@ -1,13 +1,13 @@
 package com.getadhell.androidapp.fragments;
 
 import android.Manifest;
-import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -48,8 +48,11 @@ public class AppListFragment extends Fragment {
         packageManager = this.context.getPackageManager();
         final View view = inflater.inflate(R.layout.fragment_app_list, container, false);
 
-        try { ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true); }
-        catch (NullPointerException e) { e.printStackTrace(); }
+        try {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
 
         appListView = (ListView) view.findViewById(R.id.appList);
         new AdhellGetListTask().execute(false);

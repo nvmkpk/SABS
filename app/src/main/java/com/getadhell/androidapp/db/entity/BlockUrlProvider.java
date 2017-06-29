@@ -5,6 +5,8 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
+import java.util.Date;
+
 @Entity(tableName = "blockUrlProviders", indices = {@Index(value = {"url"}, unique = true)})
 public class BlockUrlProvider {
     @PrimaryKey(autoGenerate = true)

@@ -1,6 +1,6 @@
 package com.getadhell.androidapp.fragments;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.app.ProgressDialog;
 import android.app.enterprise.ApplicationPolicy;
 import android.content.Context;
