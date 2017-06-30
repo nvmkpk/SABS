@@ -19,7 +19,7 @@ public interface BlockUrlProviderDao {
     LiveData<List<BlockUrlProvider>> getAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(BlockUrlProvider... urlProviders);
+    long[] insertAll(BlockUrlProvider... urlProviders);
 
     @Update
     void updateBlockUrlProviders(BlockUrlProvider... blockUrlProviders);

@@ -5,11 +5,6 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
-import android.arch.persistence.room.TypeConverters;
-
-import com.getadhell.androidapp.db.DateConverter;
-
-import java.util.Date;
 
 
 @Entity(
@@ -21,18 +16,19 @@ import java.util.Date;
         ),
         indices = {@Index(value = {"url", "urlProviderId"}, unique = true)}
 )
-@TypeConverters(DateConverter.class)
 public class BlockUrl {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
-    public int id;
+    public long id;
 
     @ColumnInfo(name = "url")
     public String url;
 
     @ColumnInfo(name = "urlProviderId")
-    public int urlProviderId;
+    public long urlProviderId;
 
-    public Date updatedAt;
-
+    public BlockUrl(String url, long urlProviderId) {
+        this.url = url;
+        this.urlProviderId = urlProviderId;
+    }
 }

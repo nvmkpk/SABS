@@ -11,7 +11,7 @@ import com.getadhell.androidapp.db.dao.BlockUrlProviderDao;
 import com.getadhell.androidapp.db.entity.BlockUrl;
 import com.getadhell.androidapp.db.entity.BlockUrlProvider;
 
-@Database(entities = {BlockUrlProvider.class, BlockUrl.class}, version = 1)
+@Database(entities = {BlockUrlProvider.class, BlockUrl.class}, version = 6)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase INSTANCE;
 

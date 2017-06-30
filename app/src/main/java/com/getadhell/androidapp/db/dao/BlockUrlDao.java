@@ -26,7 +26,7 @@ public interface BlockUrlDao {
     void deleteAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(BlockUrl... blockUrls);
+    void insertAll(List<BlockUrl> blockUrls);
 
 
 }

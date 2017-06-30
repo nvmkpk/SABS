@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="50dp">
 
     <TextView
         android:id="@+id/blockUrlProviderTextView"
@@ -12,9 +12,22 @@
         android:id="@+id/blockUrlCountTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/blockUrlProviderTextView"
+        android:layout_below="@+id/blockUrlProviderTextView"
+        android:text="@string/_2597"/>
+    <CheckBox
+        android:id="@+id/urlProviderCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignRight="@+id/blockUrlProviderTextView"
-        android:text="@string/_2597"/>
+        android:checked="false"/>
+    <ImageView
+        android:id="@+id/deleteUrlProviderImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/urlProviderCheckBox"
+        android:layout_toStartOf="@+id/urlProviderCheckBox"
+        android:contentDescription="@string/delete_url"
+        android:src="@drawable/ic_delete_grey600_24dp"/>
+
 </RelativeLayout>
