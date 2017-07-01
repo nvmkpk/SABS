@@ -80,7 +80,7 @@ public class ContentBlocker56 implements ContentBlocker {
         List<String> denyList = new ArrayList<>();
         for (BlockUrl blockUrl : finalBlockList) {
             if (Patterns.WEB_URL.matcher(blockUrl.url).matches()) {
-                denygit sList.add("*" + blockUrl.url + "*");
+                denyList.add("*" + blockUrl.url + "*");
             }
         }
         Log.d(TAG, "Number of block list: " + denyList.size());
