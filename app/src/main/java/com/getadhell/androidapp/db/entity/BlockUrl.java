@@ -8,6 +8,7 @@ import android.arch.persistence.room.PrimaryKey;
 
 
 @Entity(
+        tableName = "BlockUrl",
         foreignKeys = @ForeignKey(
                 entity = BlockUrlProvider.class,
                 parentColumns = "_id",

@@ -9,6 +9,7 @@ import com.getadhell.androidapp.App;
 import com.getadhell.androidapp.contentprovider.ServerContentBlockProvider;
 import com.getadhell.androidapp.db.AppDatabase;
 import com.getadhell.androidapp.db.entity.BlockUrl;
+import com.getadhell.androidapp.db.entity.BlockUrlProvider;
 import com.getadhell.androidapp.utils.DeviceUtils;
 import com.sec.enterprise.AppIdentity;
 import com.sec.enterprise.firewall.DomainFilterRule;
@@ -16,13 +17,16 @@ import com.sec.enterprise.firewall.Firewall;
 import com.sec.enterprise.firewall.FirewallResponse;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContentBlocker56 implements ContentBlocker {
     private static ContentBlocker56 mInstance = null;
     private final String TAG = ContentBlocker56.class.getCanonicalName();
     private ServerContentBlockProvider contentBlockProvider;
     private Firewall mFirewall;
+    private int urlBlockLimit = 2700;
 
 
     private ContentBlocker56() {
@@ -54,14 +58,30 @@ public class ContentBlocker56 implements ContentBlocker {
         Log.d(TAG, "Loading block.js");
         AppDatabase appDatabase = AppDatabase.getAppDatabase(App.get().getApplicationContext());
 
-        List<BlockUrl> blockUrls = appDatabase.blockUrlDao().getAll();
-        List<String> denyList = new ArrayList<>();
-        for (int i = 0; i < blockUrls.size(); i++) {
-            if (Patterns.WEB_URL.matcher(blockUrls.get(i).url).matches()) {
-                denyList.add("*" + blockUrls.get(i).url + "*");
-//                Log.d(TAG, "url to block: " + denyList.get(i));
+        // TODO: get all blockUrlProviders where selected = 1
+        // TODO: loop blockUrlProviders and get blockUrls where blocjUrlProviderId = selected
+        // TODO: Add to final list only if does not reach limit
+        List<BlockUrlProvider> blockUrlProviders = appDatabase.blockUrlProviderDao().getBlockUrlProviderBySelectedFlag(1);
+        Set<BlockUrl> finalBlockList = new HashSet<>();
+        for (BlockUrlProvider blockUrlProvider : blockUrlProviders) {
+            Log.i(TAG, "Included url provider: " + blockUrlProvider.url);
+            List<BlockUrl> blockUrls = appDatabase.blockUrlDao().getUrlsByProviderId(blockUrlProvider.id);
+            if (finalBlockList.size() + blockUrls.size() <= this.urlBlockLimit) {
+                finalBlockList.addAll(blockUrls);
+            } else {
+                int remain = this.urlBlockLimit - finalBlockList.size();
+                if (remain < blockUrls.size()) {
+                    blockUrls = blockUrls.subList(0, remain);
+                }
+                finalBlockList.addAll(blockUrls);
+                break;
             }
-
+        }
+        List<String> denyList = new ArrayList<>();
+        for (BlockUrl blockUrl : finalBlockList) {
+            if (Patterns.WEB_URL.matcher(blockUrl.url).matches()) {
+                denygit sList.add("*" + blockUrl.url + "*");
+            }
         }
         Log.d(TAG, "Number of block list: " + denyList.size());
         List<String> allowList = new ArrayList<>();
@@ -119,12 +139,8 @@ public class ContentBlocker56 implements ContentBlocker {
         return mFirewall.isFirewallEnabled();
     }
 
-    private List<String> loadDenyList() {
-        List<String> urls = contentBlockProvider.loadBlockDb().urlsToBlock;
-        urls.addAll(DeviceUtils.loadCustomBlockedUrls());
-        for (int i = 0; i < urls.size(); i++) {
-            urls.set(i, "*" + urls.get(i) + "*");
-        }
-        return urls;
+    public void setUrlBlockLimit(int urlBlockLimit) {
+        this.urlBlockLimit = urlBlockLimit;
     }
+
 }

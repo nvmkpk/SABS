@@ -15,8 +15,11 @@ import java.util.List;
 @Dao
 public interface BlockUrlProviderDao {
 
-    @Query("SELECT * FROM blockUrlProviders")
+    @Query("SELECT * FROM BlockUrlProviders")
     LiveData<List<BlockUrlProvider>> getAll();
+
+    @Query("SELECT * FROM BlockUrlProviders WHERE selected = :selected")
+    List<BlockUrlProvider> getBlockUrlProviderBySelectedFlag(int selected);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long[] insertAll(BlockUrlProvider... urlProviders);

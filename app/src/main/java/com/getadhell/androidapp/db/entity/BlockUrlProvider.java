@@ -10,7 +10,7 @@ import com.getadhell.androidapp.db.DateConverter;
 
 import java.util.Date;
 
-@Entity(tableName = "blockUrlProviders", indices = {@Index(value = {"url"}, unique = true)})
+@Entity(tableName = "BlockUrlProviders", indices = {@Index(value = {"url"}, unique = true)})
 @TypeConverters(DateConverter.class)
 public class BlockUrlProvider {
     @PrimaryKey(autoGenerate = true)
