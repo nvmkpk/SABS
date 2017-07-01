@@ -3,6 +3,7 @@ package com.getadhell.androidapp.fragments;
 import android.arch.lifecycle.LifecycleFragment;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import com.getadhell.androidapp.db.entity.BlockUrlProvider;
 import com.getadhell.androidapp.viewmodel.BlockUrlProvidersViewModel;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
@@ -56,7 +58,30 @@ public class CustomBlockUrlProviderFragment extends LifecycleFragment {
         blockUrlProviderEditText = (EditText) view.findViewById(R.id.blockUrlProviderEditText);
         addBlockUrlProviderButton = (Button) view.findViewById(R.id.addBlockUrlProviderButton);
         blockListView = (ListView) view.findViewById(R.id.blockUrlProviderListView);
+        Button updateBlockUrlProvidersButton = (Button) view.findViewById(R.id.updateBlockUrlProvidersButton);
+        updateBlockUrlProvidersButton.setOnClickListener(v -> {
+            // TODO: get all
+            // TODO: then loop and delete and update
+            Maybe.fromCallable(() -> {
+                List<BlockUrlProvider> blockUrlProviders = mDb.blockUrlProviderDao().getAll2();
+                mDb.blockUrlDao().deleteAll();
+                for (BlockUrlProvider blockUrlProvider : blockUrlProviders) {
+                    String urlProvider = blockUrlProvider.url;
 
+                    List<BlockUrl> blockUrls = loadBlockUrls(urlProvider, blockUrlProvider);
+                    blockUrlProvider.count = blockUrls.size();
+                    blockUrlProvider.lastUpdated = new Date();
+                    mDb.blockUrlProviderDao().updateBlockUrlProviders(blockUrlProvider);
+                    mDb.blockUrlDao().insertAll(blockUrls);
+                }
+
+                return null;
+            })
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe();
+
+        });
         addBlockUrlProviderButton.setOnClickListener(v -> {
             String urlProvider = blockUrlProviderEditText.getText().toString();
             // Check if normal url
@@ -70,29 +95,7 @@ public class CustomBlockUrlProviderFragment extends LifecycleFragment {
                     blockUrlProvider.selected = false;
                     blockUrlProvider.id = mDb.blockUrlProviderDao().insertAll(blockUrlProvider)[0];
                     // Try to download and parse urls
-                    URL urlProviderUrl = new URL(urlProvider);
-                    URLConnection connection = urlProviderUrl.openConnection();
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                    List<BlockUrl> blockUrls = new ArrayList<>();
-                    String inputLine;
-                    while ((inputLine = bufferedReader.readLine()) != null) {
-                        Log.d(TAG, "Url: " + inputLine);
-                        inputLine = inputLine
-                                .replace("127.0.0.1", "")
-                                .replace("0.0.0.0", "")
-                                .trim()
-                                .toLowerCase();
-                        int hIndex = inputLine.indexOf("#");
-                        if (hIndex != -1) {
-                            inputLine = inputLine.substring(0, hIndex).trim();
-                        }
-
-                        if (URLUtil.isValidUrl("http://" + inputLine)) {
-                            BlockUrl blockUrl = new BlockUrl(inputLine, blockUrlProvider.id);
-                            blockUrls.add(blockUrl);
-                        }
-                    }
-                    bufferedReader.close();
+                    List<BlockUrl> blockUrls = loadBlockUrls(urlProvider, blockUrlProvider);
                     blockUrlProvider.count = blockUrls.size();
                     Log.d(TAG, "Number of urls to insert: " + blockUrlProvider.count);
                     // Save url provider
@@ -114,5 +117,33 @@ public class CustomBlockUrlProviderFragment extends LifecycleFragment {
         });
 
         return view;
+    }
+
+    @NonNull
+    private List<BlockUrl> loadBlockUrls(String urlProvider, BlockUrlProvider blockUrlProvider) throws IOException {
+        URL urlProviderUrl = new URL(urlProvider);
+        URLConnection connection = urlProviderUrl.openConnection();
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        List<BlockUrl> blockUrls = new ArrayList<>();
+        String inputLine;
+        while ((inputLine = bufferedReader.readLine()) != null) {
+            Log.d(TAG, "Url: " + inputLine);
+            inputLine = inputLine
+                    .replace("127.0.0.1", "")
+                    .replace("0.0.0.0", "")
+                    .trim()
+                    .toLowerCase();
+            int hIndex = inputLine.indexOf("#");
+            if (hIndex != -1) {
+                inputLine = inputLine.substring(0, hIndex).trim();
+            }
+
+            if (URLUtil.isValidUrl("http://" + inputLine)) {
+                BlockUrl blockUrl = new BlockUrl(inputLine, blockUrlProvider.id);
+                blockUrls.add(blockUrl);
+            }
+        }
+        bufferedReader.close();
+        return blockUrls;
     }
 }

@@ -48,7 +48,7 @@ public class BlockCustomUrlFragment extends Fragment {
 
         final EditText addBlockedUrlEditText = (EditText) view.findViewById(R.id.addBlockedUrlEditText);
         Button addCustomBlockedUrlButton = (Button) view.findViewById(R.id.addCustomBlockedUrlButton);
-        addCustomBlockedUrlButton.setOnClickListener(view12 ->
+        addCustomBlockedUrlButton.setOnClickListener(v ->
         {
             String urlToAdd = addBlockedUrlEditText.getText().toString();
             if (!Patterns.WEB_URL.matcher(urlToAdd).matches()) {

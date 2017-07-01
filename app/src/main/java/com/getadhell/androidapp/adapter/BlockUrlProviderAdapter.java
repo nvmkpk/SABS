@@ -17,6 +17,7 @@ import com.getadhell.androidapp.R;
 import com.getadhell.androidapp.db.AppDatabase;
 import com.getadhell.androidapp.db.entity.BlockUrlProvider;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import io.reactivex.Maybe;
@@ -42,6 +43,7 @@ public class BlockUrlProviderAdapter extends ArrayAdapter<BlockUrlProvider> {
         TextView blockUrlCountTextView = (TextView) convertView.findViewById(R.id.blockUrlCountTextView);
         CheckBox urlProviderCheckBox = (CheckBox) convertView.findViewById(R.id.urlProviderCheckBox);
         ImageView deleteUrlImageView = (ImageView) convertView.findViewById(R.id.deleteUrlProviderImageView);
+        TextView lastUpdatedTextView = (TextView) convertView.findViewById(R.id.lastUpdatedTextView);
         urlProviderCheckBox.setTag(position);
         deleteUrlImageView.setTag(position);
         if (blockUrlProvider != null) {
@@ -49,6 +51,8 @@ public class BlockUrlProviderAdapter extends ArrayAdapter<BlockUrlProvider> {
             blockUrlProviderTextView.setText(blockUrlProvider.url + "");
             blockUrlCountTextView.setText(blockUrlProvider.count + "");
             urlProviderCheckBox.setChecked(blockUrlProvider.selected);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            lastUpdatedTextView.setText(dateFormat.format(blockUrlProvider.lastUpdated));
         }
         urlProviderCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             int position2 = (Integer) buttonView.getTag();

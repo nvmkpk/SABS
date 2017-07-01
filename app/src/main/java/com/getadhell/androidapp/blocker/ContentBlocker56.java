@@ -58,9 +58,9 @@ public class ContentBlocker56 implements ContentBlocker {
         Log.d(TAG, "Loading block.js");
         AppDatabase appDatabase = AppDatabase.getAppDatabase(App.get().getApplicationContext());
 
-        // TODO: get all blockUrlProviders where selected = 1
-        // TODO: loop blockUrlProviders and get blockUrls where blocjUrlProviderId = selected
-        // TODO: Add to final list only if does not reach limit
+        // Get all blockUrlProviders where selected = 1
+        // Loop blockUrlProviders and get blockUrls where blocjUrlProviderId = selected
+        // Add to final list only if does not reach limit
         List<BlockUrlProvider> blockUrlProviders = appDatabase.blockUrlProviderDao().getBlockUrlProviderBySelectedFlag(1);
         Set<BlockUrl> finalBlockList = new HashSet<>();
         for (BlockUrlProvider blockUrlProvider : blockUrlProviders) {

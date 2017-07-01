@@ -16,6 +16,9 @@ import java.util.List;
 public interface BlockUrlProviderDao {
 
     @Query("SELECT * FROM BlockUrlProviders")
+    List<BlockUrlProvider> getAll2();
+
+    @Query("SELECT * FROM BlockUrlProviders")
     LiveData<List<BlockUrlProvider>> getAll();
 
     @Query("SELECT * FROM BlockUrlProviders WHERE selected = :selected")

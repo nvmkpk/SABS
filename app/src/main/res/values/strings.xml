@@ -119,4 +119,6 @@
     <string name="_2597">2597</string>
     <string name="show_custom_providers">Show Custom Providers</string>
     <string name="delete_url">Delete Url</string>
+    <string name="update_all_providers">Update All Providers</string>
+    <string name="_2017_06_30_16_00_00">2017-06-30 16:00:00</string>
 </resources>
