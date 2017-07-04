@@ -8,10 +8,12 @@ import android.content.Context;
 
 import com.getadhell.androidapp.db.dao.BlockUrlDao;
 import com.getadhell.androidapp.db.dao.BlockUrlProviderDao;
+import com.getadhell.androidapp.db.dao.ReportBlockedUrlDao;
 import com.getadhell.androidapp.db.entity.BlockUrl;
 import com.getadhell.androidapp.db.entity.BlockUrlProvider;
+import com.getadhell.androidapp.db.entity.ReportBlockedUrl;
 
-@Database(entities = {BlockUrlProvider.class, BlockUrl.class}, version = 7)
+@Database(entities = {BlockUrlProvider.class, BlockUrl.class, ReportBlockedUrl.class}, version = 7)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase INSTANCE;
 
@@ -31,4 +33,6 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract BlockUrlDao blockUrlDao();
 
     public abstract BlockUrlProviderDao blockUrlProviderDao();
+
+    public abstract ReportBlockedUrlDao reportBlockedUrlDao();
 }

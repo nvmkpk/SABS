@@ -1,12 +1,16 @@
 package com.getadhell.androidapp.db.entity;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
 import java.util.Date;
 
-@Entity
+@Entity(tableName = "ReportBlockedUrl")
 public class ReportBlockedUrl {
 
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "_id")
     public long id;
     public String url;
     public String packageName;
