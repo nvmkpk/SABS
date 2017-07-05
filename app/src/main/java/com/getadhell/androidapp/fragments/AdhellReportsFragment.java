@@ -18,14 +18,24 @@ import com.getadhell.androidapp.db.entity.ReportBlockedUrl;
 import java.util.Date;
 import java.util.List;
 
-import io.reactivex.Maybe;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 
 public class AdhellReportsFragment extends Fragment {
     private TextView lastDayBlockedTextView;
     private ListView blockedDomainsListView;
+    private CompositeDisposable disposable = new CompositeDisposable();
+
+    private Single<List<ReportBlockedUrl>> reportBlockedListObservable = Single.create(emitter -> {
+        AppDatabase appDatabase = AppDatabase.getAppDatabase(App.get().getApplicationContext());
+        List<ReportBlockedUrl> reportBlockedUrls =
+                appDatabase.reportBlockedUrlDao().getReportBlockUrlBetween(new Date(System.currentTimeMillis() - 24 * 3600 * 1000), new Date());
+        emitter.onSuccess(reportBlockedUrls);
+    });
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,20 +50,24 @@ public class AdhellReportsFragment extends Fragment {
         lastDayBlockedTextView = (TextView) view.findViewById(R.id.lastDayBlockedTextView);
         blockedDomainsListView = (ListView) view.findViewById(R.id.blockedDomainsListView);
 
-        AppDatabase appDatabase = AppDatabase.getAppDatabase(App.get().getApplicationContext());
-
-        Maybe.fromCallable(() -> {
-            List<ReportBlockedUrl> reportBlockedUrls =
-                    appDatabase.reportBlockedUrlDao().getReportBlockUrlBetween(new Date(System.currentTimeMillis() - 24 * 3600 * 1000), new Date());
-            ReportBlockedUrlAdapter reportBlockedUrlAdapter = new ReportBlockedUrlAdapter(this.getActivity(), reportBlockedUrls);
-            blockedDomainsListView.setAdapter(reportBlockedUrlAdapter);
-            lastDayBlockedTextView.setText(String.valueOf(reportBlockedUrls.size()));
-            return null;
-        })
+        Disposable subscribe = reportBlockedListObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe();
+                .subscribe(list -> {
+                    ReportBlockedUrlAdapter reportBlockedUrlAdapter = new ReportBlockedUrlAdapter(this.getActivity(), list);
+                    blockedDomainsListView.setAdapter(reportBlockedUrlAdapter);
+                    lastDayBlockedTextView.setText(String.valueOf(list.size()));
+                });
+        disposable.add(subscribe);
         return view;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (disposable != null && !disposable.isDisposed()) {
+            disposable.dispose();
+        }
     }
 
 }

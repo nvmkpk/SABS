@@ -73,6 +73,6 @@ public class ReportBlockedUrlAdapter extends ArrayAdapter<ReportBlockedUrl> {
         blockedDomainTimeTextView.setText(new SimpleDateFormat("HH:mm:ss").format(reportBlockedUrl.blockDate));
         blockedDomainUrlTextView.setText(reportBlockedUrl.url);
 
-        return super.getView(position, convertView, parent);
+        return convertView;
     }
 }

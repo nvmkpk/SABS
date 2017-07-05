@@ -22,7 +22,7 @@ public interface ReportBlockedUrlDao {
     @Insert
     void insertAll(List<ReportBlockedUrl> reportBlockedUrls);
 
-    @Query("SELECT * FROM ReportBlockedUrl WHERE blockDate BETWEEN :startDate AND endDate ORDER BY _id DESC")
+    @Query("SELECT * FROM ReportBlockedUrl WHERE blockDate BETWEEN :startDate AND :endDate ORDER BY _id DESC")
     List<ReportBlockedUrl> getReportBlockUrlBetween(Date startDate, Date endDate);
 
     @Query("DELETE FROM ReportBlockedUrl WHERE blockDate < :blockDate")
