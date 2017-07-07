@@ -9,3 +9,4 @@
 .idea
 *.apk
 fabric.properties
+app/release

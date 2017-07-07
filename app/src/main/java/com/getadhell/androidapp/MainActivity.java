@@ -1,60 +1,56 @@
 package com.getadhell.androidapp;
 
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.os.AsyncTask;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.android.billingclient.api.BillingClient;
+import com.android.billingclient.api.SkuDetails;
+import com.android.billingclient.api.SkuDetailsResponseListener;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
 import com.getadhell.androidapp.blocker.ContentBlocker;
 import com.getadhell.androidapp.blocker.ContentBlocker56;
 import com.getadhell.androidapp.blocker.ContentBlocker57;
 import com.getadhell.androidapp.db.AppDatabase;
-import com.getadhell.androidapp.db.entity.AppInfo;
 import com.getadhell.androidapp.deviceadmin.DeviceAdminInteractor;
 import com.getadhell.androidapp.dialogfragment.AdhellNotSupportedDialogFragment;
 import com.getadhell.androidapp.dialogfragment.AdhellTurnOnDialogFragment;
 import com.getadhell.androidapp.dialogfragment.NoInternetConnectionDialogFragment;
 import com.getadhell.androidapp.fragments.AdhellNotSupportedFragment;
-import com.getadhell.androidapp.fragments.AppListFragment;
 import com.getadhell.androidapp.fragments.AppSupportFragment;
 import com.getadhell.androidapp.fragments.BlockerFragment;
 import com.getadhell.androidapp.fragments.PackageDisablerFragment;
 import com.getadhell.androidapp.service.BlockedDomainService;
 import com.getadhell.androidapp.utils.AppWhiteList;
 import com.getadhell.androidapp.utils.AppsListDBInitializer;
+import com.getadhell.androidapp.utils.BillingManager;
 import com.getadhell.androidapp.utils.DeviceUtils;
 import com.roughike.bottombar.BottomBar;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getCanonicalName();
-
-
     private static FragmentManager fragmentManager;
+    private static int tabState = R.id.blockerTab;
     protected DeviceAdminInteractor mAdminInteractor;
-
+    private BillingManager mBillingManager;
     private AdhellNotSupportedDialogFragment adhellNotSupportedDialogFragment;
     private AdhellTurnOnDialogFragment adhellTurnOnDialogFragment;
     private NoInternetConnectionDialogFragment noInternetConnectionDialogFragment;
-
-    private static int tabState = R.id.blockerTab;
 
     @Override
     public void onBackPressed() {
@@ -89,7 +85,8 @@ public class MainActivity extends AppCompatActivity {
 
         bottomBar.setOnTabSelectListener(tabId -> {
             tabState = tabId;
-            for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) fragmentManager.popBackStack();
+            for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++)
+                fragmentManager.popBackStack();
             changeFragment();
         });
 
@@ -106,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
             if (AppDatabase.getAppDatabase(getApplicationContext()).applicationInfoDao().getAll().size() == 0)
                 AppsListDBInitializer.getInstance().fillPackageDb(getPackageManager());
         });
+        mBillingManager = new BillingManager(this);
     }
 
     @Override
@@ -145,8 +143,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void changeFragment()
-    {
+    private void changeFragment() {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         Fragment replacing;
         if (tabState == R.id.blockerTab) replacing = new BlockerFragment();
@@ -190,5 +187,25 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+
+    private void handleManagerAndUiReady() {
+        // Start querying for SKUs
+        List<String> inAppSkus = mBillingManager.getSkus(BillingClient.SkuType.INAPP);
+        mBillingManager.querySkuDetailsAsync(BillingClient.SkuType.INAPP, inAppSkus,
+                skuDetailsResult -> {
+                    // If we successfully got SKUs, add a header in front of it
+                    if (skuDetailsResult.getResponseCode() == BillingClient.BillingResponse.OK
+                            && skuDetailsResult.getSkuDetailsList() != null) {
+//                            List<SkuRowData> inList = new ArrayList<>();
+//                            for (SkuDetails details : skuDetailsResult.getSkuDetailsList()) {
+//                                Log.i(TAG, "Found sku: " + details);
+//                            }
+                    }
+                });
+
+        // Show the UI
+//        displayAnErrorIfNeeded();
     }
 }

@@ -8,9 +8,9 @@
         android:id="@+id/noteTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="@string/to_take_effect_turn_off_turn_on_adhell_after_editing_list"
         android:textColor="#000000"
-        android:textSize="@dimen/text_small_size"
-        android:text="@string/to_take_effect_turn_off_turn_on_adhell_after_editing_list"/>
+        android:textSize="@dimen/text_small_size"/>
     <EditText
         android:id="@+id/addBlockedUrlEditText"
         android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
     <ListView
         android:id="@+id/customUrlsListView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/addBlockedUrlEditText">
 
     </ListView>

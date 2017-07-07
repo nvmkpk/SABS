@@ -107,6 +107,7 @@ public class CustomBlockUrlProviderFragment extends LifecycleFragment {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe();
+                blockUrlProviderEditText.setText("");
             }
         });
 

@@ -100,5 +100,9 @@
     <string name="help_developers_to_keep_up_development">Поддежите разработку Adhell</string>
     <string name="app_list_sorted_by_date">Список отсортирован по времени установки</string>
     <string name="app_list_sorted_by_alphabet">Список отсортирован по алфавиту</string>
+    <string name="add_provider">Добавить провайдера</string>
+    <string name="update_all_providers">Обновить</string>
+    <string name="delete_url">Удалить url</string>
+    <string name="show_custom_providers">Показать провайдеров рекламы</string>
 
 </resources>
