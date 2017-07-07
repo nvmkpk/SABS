@@ -1,5 +1,8 @@
 package com.getadhell.androidapp;
 
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -18,18 +21,25 @@ import com.crashlytics.android.answers.Answers;
 import com.getadhell.androidapp.blocker.ContentBlocker;
 import com.getadhell.androidapp.blocker.ContentBlocker56;
 import com.getadhell.androidapp.blocker.ContentBlocker57;
+import com.getadhell.androidapp.db.AppDatabase;
+import com.getadhell.androidapp.db.entity.AppInfo;
 import com.getadhell.androidapp.deviceadmin.DeviceAdminInteractor;
 import com.getadhell.androidapp.dialogfragment.AdhellNotSupportedDialogFragment;
 import com.getadhell.androidapp.dialogfragment.AdhellTurnOnDialogFragment;
 import com.getadhell.androidapp.dialogfragment.NoInternetConnectionDialogFragment;
 import com.getadhell.androidapp.fragments.AdhellNotSupportedFragment;
+import com.getadhell.androidapp.fragments.AppListFragment;
 import com.getadhell.androidapp.fragments.AppSupportFragment;
 import com.getadhell.androidapp.fragments.BlockerFragment;
 import com.getadhell.androidapp.fragments.PackageDisablerFragment;
 import com.getadhell.androidapp.service.BlockedDomainService;
 import com.getadhell.androidapp.utils.AppWhiteList;
+import com.getadhell.androidapp.utils.AppsListDBInitializer;
 import com.getadhell.androidapp.utils.DeviceUtils;
 import com.roughike.bottombar.BottomBar;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -90,6 +100,12 @@ public class MainActivity extends AppCompatActivity {
         AppWhiteList appWhiteList = new AppWhiteList();
         appWhiteList.addToWhiteList("com.google.android.music");
 //        HeartbeatAlarmHelper.scheduleAlarm();
+
+        AsyncTask.execute(() ->
+        {
+            if (AppDatabase.getAppDatabase(getApplicationContext()).applicationInfoDao().getAll().size() == 0)
+                AppsListDBInitializer.getInstance().fillPackageDb(getPackageManager());
+        });
     }
 
     @Override

@@ -121,4 +121,6 @@
     <string name="delete_url">Delete Url</string>
     <string name="update_all_providers">Update All Providers</string>
     <string name="_2017_06_30_16_00_00">2017-06-30 16:00:00</string>
+    <string name="app_list_sorted_by_date">List is sorted by installation time</string>
+    <string name="app_list_sorted_by_alphabet">List is sorted alphabetically</string>
 </resources>

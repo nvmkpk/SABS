@@ -98,5 +98,7 @@
     <string name="wait_removing_app_from_whitelist">Пожалуйста, подождите, приложение удаляется из белого списка</string>
     <string name="support_app_development">Поддержите разработку приложения</string>
     <string name="help_developers_to_keep_up_development">Поддежите разработку Adhell</string>
+    <string name="app_list_sorted_by_date">Список отсортирован по времени установки</string>
+    <string name="app_list_sorted_by_alphabet">Список отсортирован по алфавиту</string>
 
 </resources>

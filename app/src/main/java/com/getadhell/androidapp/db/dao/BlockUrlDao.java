@@ -30,6 +30,4 @@ public interface BlockUrlDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<BlockUrl> blockUrls);
-
-
 }
