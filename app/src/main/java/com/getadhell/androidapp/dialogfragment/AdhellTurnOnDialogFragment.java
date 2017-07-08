@@ -33,15 +33,12 @@ public class AdhellTurnOnDialogFragment extends DialogFragment {
     private Single<String> knoxKeyObservable;
     private Button turnOnAdminButton;
     private Button activateKnoxButton;
-    private Button dismissDialogButton;
     private CompositeDisposable disposable;
-    private Context dialogContext;
 
     public AdhellTurnOnDialogFragment() {
         deviceAdminInteractor = DeviceAdminInteractor.getInstance();
-//        dialogContext = this.getActivity().getApplicationContext();
         knoxKeyObservable = Single.create(emmiter -> {
-            String knoxKey = null;
+            String knoxKey;
             try {
                 knoxKey = deviceAdminInteractor.getKnoxKey();
                 emmiter.onSuccess(knoxKey);
@@ -66,7 +63,6 @@ public class AdhellTurnOnDialogFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_fragment_turn_on_adhell, container);
         turnOnAdminButton = (Button) view.findViewById(R.id.turnOnAdminButton);
         activateKnoxButton = (Button) view.findViewById(R.id.activateKnoxButton);
-        dismissDialogButton = (Button) view.findViewById(R.id.dismissDialogButton);
 
         turnOnAdminButton.setOnClickListener(v -> {
             deviceAdminInteractor.forceEnableAdmin(this.getActivity());
@@ -112,10 +108,6 @@ public class AdhellTurnOnDialogFragment extends DialogFragment {
             Log.d(TAG, "Exiting button click");
         });
 
-        dismissDialogButton.setOnClickListener(v -> {
-            dismiss();
-        });
-        allowDialogDismiss(false);
         IntentFilter filter = new IntentFilter();
         filter.addAction("edm.intent.action.license.status");
         BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -124,7 +116,6 @@ public class AdhellTurnOnDialogFragment extends DialogFragment {
                 DeviceAdminInteractor deviceAdminInteractor = DeviceAdminInteractor.getInstance();
                 if (deviceAdminInteractor.isKnoxEnbaled()) {
                     Toast.makeText(context, "License activated", Toast.LENGTH_LONG).show();
-                    allowDialogDismiss(true);
                     dismiss();
                     allowActivateKnox(false);
                     activateKnoxButton.setText("License Activated");
@@ -164,27 +155,10 @@ public class AdhellTurnOnDialogFragment extends DialogFragment {
             }
         }
         if (deviceAdminInteractor.isActiveAdmin() && deviceAdminInteractor.isKnoxEnbaled()) {
-            allowDialogDismiss(true);
             dismiss();
-        } else {
-            allowDialogDismiss(false);
         }
     }
 
-    private void allowDialogDismiss(boolean isAllowed) {
-        Log.i(TAG, "allowDialogDismiss");
-        if (isAllowed) {
-            if (dismissDialogButton != null) {
-                dismissDialogButton.setText("Your are ready to go");
-                dismissDialogButton.setEnabled(true);
-                dismissDialogButton.setClickable(true);
-            }
-        } else {
-            dismissDialogButton.setText("Complete above steps2");
-            dismissDialogButton.setEnabled(false);
-            dismissDialogButton.setClickable(false);
-        }
-    }
 
     private void allowActivateKnox(boolean isAllowed) {
         Log.i(TAG, "allowActivateKnox");

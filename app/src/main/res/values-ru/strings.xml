@@ -104,5 +104,6 @@
     <string name="update_all_providers">Обновить</string>
     <string name="delete_url">Удалить url</string>
     <string name="show_custom_providers">Показать провайдеров рекламы</string>
+    <string name="subscribe">Подписаться за 89 руб. в мес.</string>
 
 </resources>

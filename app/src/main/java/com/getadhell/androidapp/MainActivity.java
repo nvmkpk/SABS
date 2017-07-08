@@ -15,8 +15,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.android.billingclient.api.BillingClient;
-import com.android.billingclient.api.SkuDetails;
-import com.android.billingclient.api.SkuDetailsResponseListener;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
 import com.getadhell.androidapp.blocker.ContentBlocker;
@@ -34,7 +32,6 @@ import com.getadhell.androidapp.fragments.PackageDisablerFragment;
 import com.getadhell.androidapp.service.BlockedDomainService;
 import com.getadhell.androidapp.utils.AppWhiteList;
 import com.getadhell.androidapp.utils.AppsListDBInitializer;
-import com.getadhell.androidapp.utils.BillingManager;
 import com.getadhell.androidapp.utils.DeviceUtils;
 import com.roughike.bottombar.BottomBar;
 
@@ -47,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
     private static FragmentManager fragmentManager;
     private static int tabState = R.id.blockerTab;
     protected DeviceAdminInteractor mAdminInteractor;
-    private BillingManager mBillingManager;
     private AdhellNotSupportedDialogFragment adhellNotSupportedDialogFragment;
     private AdhellTurnOnDialogFragment adhellTurnOnDialogFragment;
     private NoInternetConnectionDialogFragment noInternetConnectionDialogFragment;
@@ -103,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
             if (AppDatabase.getAppDatabase(getApplicationContext()).applicationInfoDao().getAll().size() == 0)
                 AppsListDBInitializer.getInstance().fillPackageDb(getPackageManager());
         });
-        mBillingManager = new BillingManager(this);
     }
 
     @Override
@@ -187,25 +182,5 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-    }
-
-
-    private void handleManagerAndUiReady() {
-        // Start querying for SKUs
-        List<String> inAppSkus = mBillingManager.getSkus(BillingClient.SkuType.INAPP);
-        mBillingManager.querySkuDetailsAsync(BillingClient.SkuType.INAPP, inAppSkus,
-                skuDetailsResult -> {
-                    // If we successfully got SKUs, add a header in front of it
-                    if (skuDetailsResult.getResponseCode() == BillingClient.BillingResponse.OK
-                            && skuDetailsResult.getSkuDetailsList() != null) {
-//                            List<SkuRowData> inList = new ArrayList<>();
-//                            for (SkuDetails details : skuDetailsResult.getSkuDetailsList()) {
-//                                Log.i(TAG, "Found sku: " + details);
-//                            }
-                    }
-                });
-
-        // Show the UI
-//        displayAnErrorIfNeeded();
     }
 }

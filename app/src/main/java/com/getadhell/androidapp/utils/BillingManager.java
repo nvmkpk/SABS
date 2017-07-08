@@ -7,10 +7,9 @@ import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.PurchasesUpdatedListener;
-import com.android.billingclient.api.SkuDetails;
 import com.android.billingclient.api.SkuDetailsResponseListener;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,11 +19,10 @@ public class BillingManager implements PurchasesUpdatedListener {
 
     static {
         SKUS = new HashMap<>();
-        SKUS.put(BillingClient.SkuType.INAPP, Arrays.asList("gas", "premium"));
-        SKUS.put(BillingClient.SkuType.SUBS, Arrays.asList("gold_monthly", "gold_yearly"));
+        SKUS.put(BillingClient.SkuType.SUBS, Collections.singletonList("basic_pro_subs"));
     }
 
-    private final BillingClient mBillingClient;
+    public final BillingClient mBillingClient;
     private final Activity mActivity;
 
     public BillingManager(Activity mActivity) {
@@ -58,13 +56,7 @@ public class BillingManager implements PurchasesUpdatedListener {
 
     public void querySkuDetailsAsync(@BillingClient.SkuType final String skuType,
                                      final List<String> skuList, final SkuDetailsResponseListener listener) {
-        mBillingClient.querySkuDetailsAsync(skuType, skuList,
-                new SkuDetailsResponseListener() {
-                    @Override
-                    public void onSkuDetailsResponse(SkuDetails.SkuDetailsResult result) {
-                        listener.onSkuDetailsResponse(result);
-                    }
-                });
+        mBillingClient.querySkuDetailsAsync(skuType, skuList, listener);
     }
 
 }

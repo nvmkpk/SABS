@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/supportDevelopmentTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
         android:text="@string/help_developers_to_keep_up_development"
         android:textColor="#000000"
-        android:textSize="@dimen/text_small_size"/>
+        android:textSize="@dimen/text_small_size" />
+
+    <Button
+        android:id="@+id/subscriptionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/supportDevelopmentTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:text="@string/subscribe" />
 
 </RelativeLayout>
