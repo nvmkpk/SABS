@@ -14,13 +14,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.android.billingclient.api.BillingClient;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
 import com.getadhell.androidapp.blocker.ContentBlocker;
 import com.getadhell.androidapp.blocker.ContentBlocker56;
 import com.getadhell.androidapp.blocker.ContentBlocker57;
 import com.getadhell.androidapp.db.AppDatabase;
+import com.getadhell.androidapp.db.entity.BlockUrl;
+import com.getadhell.androidapp.db.entity.BlockUrlProvider;
 import com.getadhell.androidapp.deviceadmin.DeviceAdminInteractor;
 import com.getadhell.androidapp.dialogfragment.AdhellNotSupportedDialogFragment;
 import com.getadhell.androidapp.dialogfragment.AdhellTurnOnDialogFragment;
@@ -32,15 +33,19 @@ import com.getadhell.androidapp.fragments.PackageDisablerFragment;
 import com.getadhell.androidapp.service.BlockedDomainService;
 import com.getadhell.androidapp.utils.AppWhiteList;
 import com.getadhell.androidapp.utils.AppsListDBInitializer;
+import com.getadhell.androidapp.utils.BlockUrlUtils;
 import com.getadhell.androidapp.utils.DeviceUtils;
 import com.roughike.bottombar.BottomBar;
 
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getCanonicalName();
+    private static final String ADHELL_STANDARD_PACKAGE = "http://getadhell.com/standard-package.txt";
     private static FragmentManager fragmentManager;
     private static int tabState = R.id.blockerTab;
     protected DeviceAdminInteractor mAdminInteractor;
@@ -90,14 +95,46 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         mAdminInteractor = DeviceAdminInteractor.getInstance();
-        AppWhiteList appWhiteList = new AppWhiteList();
-        appWhiteList.addToWhiteList("com.google.android.music");
+
 //        HeartbeatAlarmHelper.scheduleAlarm();
 
         AsyncTask.execute(() ->
         {
-            if (AppDatabase.getAppDatabase(getApplicationContext()).applicationInfoDao().getAll().size() == 0)
+            AppDatabase appDatabase = AppDatabase.getAppDatabase(getApplicationContext());
+            if (appDatabase.applicationInfoDao().getAll().size() == 0) {
                 AppsListDBInitializer.getInstance().fillPackageDb(getPackageManager());
+            }
+            // TODO: Make it with database
+            // Add to whitelist if not exists
+            AppWhiteList appWhiteList = new AppWhiteList();
+            appWhiteList.addToWhiteList("com.google.android.music");
+
+            // Check if standard ad provider is exist. if not add
+            BlockUrlProvider blockUrlProvider =
+                    appDatabase.blockUrlProviderDao().getByUrl(ADHELL_STANDARD_PACKAGE);
+            if (blockUrlProvider == null) {
+                blockUrlProvider = new BlockUrlProvider();
+                blockUrlProvider.url = ADHELL_STANDARD_PACKAGE;
+                blockUrlProvider.lastUpdated = new Date();
+                blockUrlProvider.deletable = false;
+                blockUrlProvider.selected = true;
+                long ids[] = appDatabase.blockUrlProviderDao().insertAll(blockUrlProvider);
+                blockUrlProvider.id = ids[0];
+                List<BlockUrl> blockUrls = null;
+                try {
+                    blockUrls = BlockUrlUtils.loadBlockUrls(ADHELL_STANDARD_PACKAGE, blockUrlProvider);
+                    blockUrlProvider.count = blockUrls.size();
+                    Log.d(TAG, "Number of urls to insert: " + blockUrlProvider.count);
+                    // Save url provider
+                    appDatabase.blockUrlProviderDao().updateBlockUrlProviders(blockUrlProvider);
+                    // Save urls from providers
+                    appDatabase.blockUrlDao().insertAll(blockUrls);
+                } catch (IOException e) {
+                    Log.e(TAG, "Failed to download urls", e);
+                }
+
+            }
+
         });
     }
 

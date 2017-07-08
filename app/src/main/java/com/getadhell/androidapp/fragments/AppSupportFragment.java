@@ -29,7 +29,7 @@ public class AppSupportFragment extends Fragment implements PurchasesUpdatedList
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        // TODO: check if in-app billing is available
         mBillingClient = new BillingClient.Builder(getActivity()).setListener(this).build();
     }
 

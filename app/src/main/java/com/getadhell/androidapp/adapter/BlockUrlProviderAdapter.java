@@ -53,6 +53,11 @@ public class BlockUrlProviderAdapter extends ArrayAdapter<BlockUrlProvider> {
             urlProviderCheckBox.setChecked(blockUrlProvider.selected);
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             lastUpdatedTextView.setText(dateFormat.format(blockUrlProvider.lastUpdated));
+            if (!blockUrlProvider.deletable) {
+                deleteUrlImageView.setVisibility(View.GONE);
+                urlProviderCheckBox.setClickable(false);
+            }
+
         }
         urlProviderCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             int position2 = (Integer) buttonView.getTag();
