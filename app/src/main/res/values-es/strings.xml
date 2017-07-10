@@ -1,9 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name" translatable="false">Adhell</string>
     <string name="wait">Espere…</string>
     <string name="Reports">Informes</string>
-    <string name="about">Aplicación para smartphones Samsung, que bloquea anuncios y rastreadores en Chrome.
-		¡La carga del sitio web aumenta hasta un 100%!
+    <string name="about">Aplicación para smartphones Samsung, que bloquea anuncios y rastreadores en
+        Chrome.
+        ¡La carga del sitio web aumenta hasta un 100%!
     </string>
     <string name="isSupported">Espere</string>
     <string name="only_samsung">Sólo Samsung</string>
@@ -16,8 +18,8 @@
     <string name="enable_blocker">Habilitar el bloqueador de contenido</string>
     <string name="disable_blocker">Inhabilitar Adhell</string>
     <string name="works_whit_samsung">Este dispositivo no es compatible.
-		Actualmente sólo funciona con dispositvos Samsung
-	</string>
+        Actualmente sólo funciona con dispositvos Samsung
+    </string>
     <string name="android_version_not_supported">Esta versión de Android, no está soportada</string>
     <string name="please_wait">Por favor espere… Habilitando Adhell</string>
     <string name="wait_deleting">Por favor espere… Inhabilitando Adhell</string>
@@ -26,15 +28,18 @@
     <string name="yes_notify_me">¡Sí! ¡Notificarme!</string>
     <string name="no_thanks">¡No, gracias!</string>
     <string name="thank_you_we_will_notify_you">Se te notificará, cuando tu dispostivo, sea
-       compatible con Adhell.
+        compatible con Adhell.
     </string>
-    <string name="notify_you_2">Tu dispositivo no es compatible. Pero le notificaremos en {{email}} cuando
+    <string name="notify_you_2">Tu dispositivo no es compatible. Pero le notificaremos en {{email}}
+        cuando
         agreguemos tu dispositivo a Adhell. Gracias
     </string>
     <string name="edit_email">¿Email incorrecto? ¡Cambialo!</string>
     <string name="edit">Editar</string>
-    <string name="to_enable_adhell">Para habilitar Adhell, antes necesitas activar el modo de administración para que la aplicación funcione.
-        Adhell usa permisos avanzados de administración y configuración , para ello, debe habilitar el administrador de dispositivo.
+    <string name="to_enable_adhell">Para habilitar Adhell, antes necesitas activar el modo de
+        administración para que la aplicación funcione.
+        Adhell usa permisos avanzados de administración y configuración , para ello, debe habilitar
+        el administrador de dispositivo.
     </string>
     <string name="turn_on_admin">Activar Administrador</string>
     <string name="knox">Adhell utiliza el firewall de Samsung, para ello, por favor utilice Samsung
@@ -42,7 +47,7 @@
     </string>
     <string name="activate_knox">Activar Knox</string>
     <string name="no_internet_connection">Parece que su dispositivo, no está conectado a la
-         Red
+        Red
     </string>
     <string name="failed_to_activate_knox_message">Error en la activación de la licencia de Knox
     </string>
@@ -56,8 +61,9 @@
     <string name="whitelist">Permitidas</string>
     <string name="blocklist">Bloqueadas</string>
     <string name="back_to_main">Volver al inicio</string>
-    <string name="editAlert">¡Después de editar la lista negra y la lista blanca volver al menu principal de Adhell,
-	inhabilite y habilite Adhell, para aplicar los cambios!
+    <string name="editAlert">¡Después de editar la lista negra y la lista blanca volver al menu
+        principal de Adhell,
+        inhabilite y habilite Adhell, para aplicar los cambios!
     </string>
     <string name="allow_apps">Lista Apps</string>
     <string name="delete_app">Apagar y Borra Adhell</string>
@@ -93,8 +99,11 @@
         To take effect Turn off -> Turn on Adhell after editing list.
     </string>
 
-    <string name="download_manager_sharedPrefs" translatable="false">download_manager_sharedPrefs</string>
-    <string name="download_manager_reference_id" translatable="false">download_manager_reference_id</string>
+    <string name="download_manager_sharedPrefs" translatable="false">download_manager_sharedPrefs
+    </string>
+    <string name="download_manager_reference_id" translatable="false">
+        download_manager_reference_id
+    </string>
 
     <string name="blocker_fragment_title" translatable="false">Adhell</string>
     <string name="package_disabler_fragment_title">Package disabler</string>
@@ -106,9 +115,14 @@
     <string name="check_input_dns">Compruebe sus datos de entrada</string>
     <string name="enable_adhell_for_dns">Adhell debe estar habilitado</string>
     <string name="changed_dns">Dns addresses has been changed"</string>
-    <string name="restored_dns">DNS has been restored to defaults. You should to enable Adhell again.</string>
-    <string name="wait_loading_apps_list">"Por favor espere, Cargando la lista de aplicaciones"</string>
-    <string name="wait_removing_app_from_whitelist">"Espere, eliminando la aplicación de la lista blanca"</string>
+    <string name="restored_dns">DNS has been restored to defaults. You should to enable Adhell
+        again.
+    </string>
+    <string name="wait_loading_apps_list">"Por favor espere, Cargando la lista de aplicaciones"
+    </string>
+    <string name="wait_removing_app_from_whitelist">"Espere, eliminando la aplicación de la lista
+        blanca"
+    </string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hola parte blanca</string>

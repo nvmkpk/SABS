@@ -93,8 +93,11 @@
         To take effect Turn off -> Turn on Adhell after editing list.
     </string>
 
-    <string name="download_manager_sharedPrefs" translatable="false">download_manager_sharedPrefs</string>
-    <string name="download_manager_reference_id" translatable="false">download_manager_reference_id</string>
+    <string name="download_manager_sharedPrefs" translatable="false">download_manager_sharedPrefs
+    </string>
+    <string name="download_manager_reference_id" translatable="false">
+        download_manager_reference_id
+    </string>
 
     <string name="blocker_fragment_title" translatable="false">Adhell</string>
     <string name="package_disabler_fragment_title">Package disabler</string>
@@ -106,17 +109,22 @@
     <string name="check_input_dns">Check your input data</string>
     <string name="enable_adhell_for_dns">Adhell Must be enabled</string>
     <string name="changed_dns">Dns addresses has been changed"</string>
-    <string name="restored_dns">DNS has been restored to defaults. You should to enable Adhell again.</string>
+    <string name="restored_dns">DNS has been restored to defaults. You should to enable Adhell
+        again.
+    </string>
     <string name="wait_loading_apps_list">"Please Wait, Loading Application List"</string>
-    <string name="wait_removing_app_from_whitelist">"Please Wait, Removing App From Whitelist"</string>
+    <string name="wait_removing_app_from_whitelist">"Please Wait, Removing App From Whitelist"
+    </string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="support_app_development">Support app development</string>
     <string name="help_developers_to_keep_up_development">Support Adhell development.
         There is no Pro features for now,
-        you just helping us to develop cool product and soon there will be pro features as well)
-        You can cancel it any time in Adhell Google Play page</string>
+        but you could really help us to develop cool product by subscribing.
+        There will be pro features as well in near future)
+        You can cancel subscription anytime on Adhell Google Play page
+    </string>
     <string name="add_provider">Add Url Provider</string>
     <string name="adaway_hosts" translatable="false">https://adaway.org/hosts.txt</string>
     <string name="_2597" translatable="false">2597</string>
@@ -126,13 +134,14 @@
     <string name="_2017_06_30_16_00_00" translatable="false">2017-06-30 16:00:00</string>
     <string name="app_list_sorted_by_date">List is sorted by installation time</string>
     <string name="app_list_sorted_by_alphabet">List is sorted alphabetically</string>
-    <string name="subscribe">Subscribe for $1.49 per month</string>
+    <string name="subscribe">Subscribe for {{price}} per month</string>
     <string name="premium_subscriber_message">Thank you for being premium subscriber</string>
     <string name="already_premium">Already Premium</string>
     <string name="custom_url_provider_message">
         Note. You can add your own hosts link (e.g. https://adaway.org/hosts.txt).
         Depending on version you can block up to 15 000 urls.
-        Adhell already has decent standard package so in general you does not need to add additional packages.
+        Adhell already has decent standard package so in general you does not need to add additional
+        packages.
         This feature is experimental for now and only for enthusiasts.
     </string>
 

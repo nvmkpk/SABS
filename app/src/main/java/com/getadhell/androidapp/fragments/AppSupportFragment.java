@@ -18,6 +18,7 @@ import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.getadhell.androidapp.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AppSupportFragment extends Fragment implements PurchasesUpdatedListener {
@@ -56,7 +57,15 @@ public class AppSupportFragment extends Fragment implements PurchasesUpdatedList
                         subscriptionButton.setText(R.string.already_premium);
                         subscriptionButton.setEnabled(false);
                     } else {
+                        // Get currency and price
                         subscriptionButton.setEnabled(true);
+                        List<String> subs = new ArrayList<>();
+                        subs.add("basic_pro_subs");
+                        mBillingClient.querySkuDetailsAsync(BillingClient.SkuType.SUBS, subs, result -> {
+                            if (result.getResponseCode() == BillingClient.BillingResponse.OK) {
+                                subscriptionButton.setText(getString(R.string.subscribe).replace("{{price}}", result.getSkuDetailsList().get(0).getPrice()));
+                            }
+                        });
                         subscriptionButton.setOnClickListener(v -> {
                             BillingFlowParams.Builder builder = new BillingFlowParams.Builder()
                                     .setSku("basic_pro_subs").setType(BillingClient.SkuType.SUBS);
@@ -81,6 +90,7 @@ public class AppSupportFragment extends Fragment implements PurchasesUpdatedList
     @Override
     public void onPurchasesUpdated(int responseCode, List<Purchase> purchases) {
         if (purchases != null && purchases.size() > 0) {
+//            purchases.get(0).
             supportDevelopmentTextView.setText("Thank you for being premium subscriber");
             subscriptionButton.setText("Your subscription is valid");
             subscriptionButton.setEnabled(false);
