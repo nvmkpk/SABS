@@ -6,6 +6,7 @@ import android.util.Log;
 import android.util.Patterns;
 
 import com.getadhell.androidapp.App;
+import com.getadhell.androidapp.MainActivity;
 import com.getadhell.androidapp.contentprovider.ServerContentBlockProvider;
 import com.getadhell.androidapp.db.AppDatabase;
 import com.getadhell.androidapp.db.entity.BlockUrl;
@@ -55,15 +56,21 @@ public class ContentBlocker56 implements ContentBlocker {
         if (isEnabled()) {
             disableBlocker();
         }
-        Log.d(TAG, "Loading block.js");
         AppDatabase appDatabase = AppDatabase.getAppDatabase(App.get().getApplicationContext());
 
-        // Get all blockUrlProviders where selected = 1
-        // Loop blockUrlProviders and get blockUrls where blocjUrlProviderId = selected
-        // Add to final list only if does not reach limit
-        List<BlockUrlProvider> blockUrlProviders = appDatabase.blockUrlProviderDao().getBlockUrlProviderBySelectedFlag(1);
+        BlockUrlProvider standardBlockUrlProvider =
+                appDatabase.blockUrlProviderDao().getByUrl(MainActivity.ADHELL_STANDARD_PACKAGE);
+        List<BlockUrl> standardList = appDatabase.blockUrlDao().getUrlsByProviderId(standardBlockUrlProvider.id);
+        List<BlockUrl> customBlockUrlList = appDatabase.blockUrlDao().getUrlsByProviderId(-1);
         Set<BlockUrl> finalBlockList = new HashSet<>();
+        finalBlockList.addAll(standardList);
+        finalBlockList.addAll(customBlockUrlList);
+        List<BlockUrlProvider> blockUrlProviders = appDatabase.blockUrlProviderDao().getBlockUrlProviderBySelectedFlag(1);
+
         for (BlockUrlProvider blockUrlProvider : blockUrlProviders) {
+            if (blockUrlProvider.url.equals(MainActivity.ADHELL_STANDARD_PACKAGE)) {
+                continue;
+            }
             Log.i(TAG, "Included url provider: " + blockUrlProvider.url);
             List<BlockUrl> blockUrls = appDatabase.blockUrlDao().getUrlsByProviderId(blockUrlProvider.id);
             if (finalBlockList.size() + blockUrls.size() <= this.urlBlockLimit) {

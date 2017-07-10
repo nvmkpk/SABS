@@ -29,6 +29,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class AdhellTurnOnDialogFragment extends DialogFragment {
     private static final String TAG = AdhellTurnOnDialogFragment.class.getCanonicalName();
+    BroadcastReceiver receiver;
+    IntentFilter filter;
     private DeviceAdminInteractor deviceAdminInteractor;
     private Single<String> knoxKeyObservable;
     private Button turnOnAdminButton;
@@ -89,7 +91,6 @@ public class AdhellTurnOnDialogFragment extends DialogFragment {
                             try {
                                 deviceAdminInteractor.forceActivateKnox(knoxKey);
                             } catch (Exception e) {
-//                                Toast.makeText(dialogContext, "Failed to activate, try again", Toast.LENGTH_LONG).show();
                                 activateKnoxButton.setEnabled(true);
                                 activateKnoxButton.setText(R.string.activate_knox);
                                 Log.e(TAG, "Failed to activate knox", e);
@@ -100,7 +101,6 @@ public class AdhellTurnOnDialogFragment extends DialogFragment {
                         public void onError(@NonNull Throwable e) {
                             activateKnoxButton.setEnabled(true);
                             activateKnoxButton.setText(R.string.activate_knox);
-//                            Toast.makeText(dialogContext, "Failed to activate, try again", Toast.LENGTH_LONG).show();
                             Log.e(TAG, "Failed to activate knox", e);
                         }
                     });
@@ -108,9 +108,9 @@ public class AdhellTurnOnDialogFragment extends DialogFragment {
             Log.d(TAG, "Exiting button click");
         });
 
-        IntentFilter filter = new IntentFilter();
+        filter = new IntentFilter();
         filter.addAction("edm.intent.action.license.status");
-        BroadcastReceiver receiver = new BroadcastReceiver() {
+        receiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 DeviceAdminInteractor deviceAdminInteractor = DeviceAdminInteractor.getInstance();
@@ -126,13 +126,14 @@ public class AdhellTurnOnDialogFragment extends DialogFragment {
                 }
             }
         };
-        this.getActivity().registerReceiver(receiver, filter);
+
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        this.getActivity().registerReceiver(receiver, filter);
         disposable = new CompositeDisposable();
         Log.i(TAG, "AdhellTurnOnDialogFragment on Resume");
         if (deviceAdminInteractor.isActiveAdmin()) {
@@ -169,6 +170,12 @@ public class AdhellTurnOnDialogFragment extends DialogFragment {
     private void allowTurnOnAdmin(boolean isAllowed) {
         turnOnAdminButton.setClickable(isAllowed);
         turnOnAdminButton.setEnabled(isAllowed);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        this.getActivity().unregisterReceiver(receiver);
     }
 
     @Override

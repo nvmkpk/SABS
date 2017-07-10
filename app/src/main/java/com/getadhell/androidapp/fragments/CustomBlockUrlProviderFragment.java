@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +13,10 @@ import android.webkit.URLUtil;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.getadhell.androidapp.App;
+import com.getadhell.androidapp.MainActivity;
 import com.getadhell.androidapp.R;
 import com.getadhell.androidapp.adapter.BlockUrlProviderAdapter;
 import com.getadhell.androidapp.db.AppDatabase;
@@ -22,6 +25,7 @@ import com.getadhell.androidapp.db.entity.BlockUrlProvider;
 import com.getadhell.androidapp.utils.BlockUrlUtils;
 import com.getadhell.androidapp.viewmodel.BlockUrlProvidersViewModel;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -41,8 +45,6 @@ public class CustomBlockUrlProviderFragment extends LifecycleFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDb = AppDatabase.getAppDatabase(App.get().getApplicationContext());
-
-
     }
 
     @Nullable
@@ -60,15 +62,19 @@ public class CustomBlockUrlProviderFragment extends LifecycleFragment {
                 List<BlockUrlProvider> blockUrlProviders = mDb.blockUrlProviderDao().getAll2();
                 mDb.blockUrlDao().deleteAll();
                 for (BlockUrlProvider blockUrlProvider : blockUrlProviders) {
-                    String urlProvider = blockUrlProvider.url;
-
-                    List<BlockUrl> blockUrls = BlockUrlUtils.loadBlockUrls(urlProvider, blockUrlProvider);
-                    blockUrlProvider.count = blockUrls.size();
-                    blockUrlProvider.lastUpdated = new Date();
-                    mDb.blockUrlProviderDao().updateBlockUrlProviders(blockUrlProvider);
-                    mDb.blockUrlDao().insertAll(blockUrls);
+                    if (blockUrlProvider.url.equals(MainActivity.ADHELL_USER_PACKAGE)) {
+                        continue;
+                    }
+                    try {
+                        List<BlockUrl> blockUrls = BlockUrlUtils.loadBlockUrls(blockUrlProvider);
+                        blockUrlProvider.count = blockUrls.size();
+                        blockUrlProvider.lastUpdated = new Date();
+                        mDb.blockUrlProviderDao().updateBlockUrlProviders(blockUrlProvider);
+                        mDb.blockUrlDao().insertAll(blockUrls);
+                    } catch (IOException e) {
+                        Log.e(TAG, "Failed to fetch url from urlProvider", e);
+                    }
                 }
-
                 return null;
             })
                     .subscribeOn(Schedulers.io())
@@ -79,34 +85,42 @@ public class CustomBlockUrlProviderFragment extends LifecycleFragment {
         addBlockUrlProviderButton.setOnClickListener(v -> {
             String urlProvider = blockUrlProviderEditText.getText().toString();
             // Check if normal url
-            if (!urlProvider.isEmpty() && URLUtil.isValidUrl(urlProvider)) {
+            if (!urlProvider.isEmpty() && Patterns.WEB_URL.matcher(urlProvider).matches()) {
                 Maybe.fromCallable(() -> {
                     BlockUrlProvider blockUrlProvider = new BlockUrlProvider();
-                    blockUrlProvider.url = urlProvider;
+                    blockUrlProvider.url = (URLUtil.isValidUrl(urlProvider)) ? urlProvider : "http://" + urlProvider;
                     blockUrlProvider.count = 0;
                     blockUrlProvider.deletable = true;
                     blockUrlProvider.lastUpdated = new Date();
                     blockUrlProvider.selected = false;
                     blockUrlProvider.id = mDb.blockUrlProviderDao().insertAll(blockUrlProvider)[0];
                     // Try to download and parse urls
-                    List<BlockUrl> blockUrls = BlockUrlUtils.loadBlockUrls(urlProvider, blockUrlProvider);
-                    blockUrlProvider.count = blockUrls.size();
-                    Log.d(TAG, "Number of urls to insert: " + blockUrlProvider.count);
-                    // Save url provider
-                    mDb.blockUrlProviderDao().updateBlockUrlProviders(blockUrlProvider);
-                    // Save urls from providers
-                    mDb.blockUrlDao().insertAll(blockUrls);
+                    try {
+                        List<BlockUrl> blockUrls = BlockUrlUtils.loadBlockUrls(blockUrlProvider);
+                        blockUrlProvider.count = blockUrls.size();
+                        Log.d(TAG, "Number of urls to insert: " + blockUrlProvider.count);
+                        // Save url provider
+                        mDb.blockUrlProviderDao().updateBlockUrlProviders(blockUrlProvider);
+                        // Save urls from providers
+                        mDb.blockUrlDao().insertAll(blockUrls);
+                    } catch (IOException e) {
+                        Log.e(TAG, "Failed to download links from urlproviders", e);
+                    }
+
                     return null;
                 })
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe();
                 blockUrlProviderEditText.setText("");
+            } else {
+                Toast.makeText(getContext(), "Url is invalid", Toast.LENGTH_LONG).show();
             }
         });
 
         BlockUrlProvidersViewModel model = ViewModelProviders.of(getActivity()).get(BlockUrlProvidersViewModel.class);
         model.getBlockUrlProviders().observe(this, blockUrlProviders -> {
+
             BlockUrlProviderAdapter adapter = new BlockUrlProviderAdapter(this.getContext(), blockUrlProviders);
             blockListView.setAdapter(adapter);
         });

@@ -44,8 +44,9 @@ import java.util.List;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
+    public static final String ADHELL_STANDARD_PACKAGE = "http://getadhell.com/standard-package.txt";
+    public static final String ADHELL_USER_PACKAGE = "MyCustomPackage";
     private static final String TAG = MainActivity.class.getCanonicalName();
-    private static final String ADHELL_STANDARD_PACKAGE = "http://getadhell.com/standard-package.txt";
     private static FragmentManager fragmentManager;
     private static int tabState = R.id.blockerTab;
     protected DeviceAdminInteractor mAdminInteractor;
@@ -73,15 +74,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Answers(), new Crashlytics());
         setContentView(R.layout.activity_main);
+        fragmentManager = getSupportFragmentManager();
 
         adhellNotSupportedDialogFragment = AdhellNotSupportedDialogFragment.newInstance("Some title");
+        if (!DeviceUtils.isContentBlockerSupported()) {
+            Log.i(TAG, "Device not supported");
+            return;
+        }
+
         adhellTurnOnDialogFragment = AdhellTurnOnDialogFragment.newInstance("Adhell Turn On");
         noInternetConnectionDialogFragment = NoInternetConnectionDialogFragment.newInstance("No Internet connection");
         adhellNotSupportedDialogFragment.setCancelable(false);
         adhellTurnOnDialogFragment.setCancelable(false);
         noInternetConnectionDialogFragment.setCancelable(false);
 
-        fragmentManager = getSupportFragmentManager();
+
         BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
 
         bottomBar.setOnTabSelectListener(tabId -> {
@@ -96,10 +103,9 @@ public class MainActivity extends AppCompatActivity {
         }
         mAdminInteractor = DeviceAdminInteractor.getInstance();
 
-//        HeartbeatAlarmHelper.scheduleAlarm();
-
         AsyncTask.execute(() ->
         {
+//        HeartbeatAlarmHelper.scheduleAlarm();
             AppDatabase appDatabase = AppDatabase.getAppDatabase(getApplicationContext());
             if (appDatabase.applicationInfoDao().getAll().size() == 0) {
                 AppsListDBInitializer.getInstance().fillPackageDb(getPackageManager());
@@ -120,9 +126,9 @@ public class MainActivity extends AppCompatActivity {
                 blockUrlProvider.selected = true;
                 long ids[] = appDatabase.blockUrlProviderDao().insertAll(blockUrlProvider);
                 blockUrlProvider.id = ids[0];
-                List<BlockUrl> blockUrls = null;
+                List<BlockUrl> blockUrls;
                 try {
-                    blockUrls = BlockUrlUtils.loadBlockUrls(ADHELL_STANDARD_PACKAGE, blockUrlProvider);
+                    blockUrls = BlockUrlUtils.loadBlockUrls(blockUrlProvider);
                     blockUrlProvider.count = blockUrls.size();
                     Log.d(TAG, "Number of urls to insert: " + blockUrlProvider.count);
                     // Save url provider
@@ -132,9 +138,18 @@ public class MainActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     Log.e(TAG, "Failed to download urls", e);
                 }
-
             }
-
+            blockUrlProvider =
+                    appDatabase.blockUrlProviderDao().getByUrl(ADHELL_USER_PACKAGE);
+            if (blockUrlProvider == null) {
+                blockUrlProvider = new BlockUrlProvider();
+                blockUrlProvider.url = ADHELL_USER_PACKAGE;
+                blockUrlProvider.lastUpdated = new Date();
+                blockUrlProvider.deletable = false;
+                blockUrlProvider.selected = true;
+                blockUrlProvider.id = -1;
+                appDatabase.blockUrlProviderDao().insertAll(blockUrlProvider);
+            }
         });
     }
 
@@ -151,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        showDialog();
+
         if (!DeviceUtils.isContentBlockerSupported()) {
             Log.i(TAG, "Device not supported");
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -159,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.commit();
             return;
         }
+        showDialog();
         if (!mAdminInteractor.isActiveAdmin() || !mAdminInteractor.isKnoxEnbaled()) {
             Log.d(TAG, "Admin not active");
             return;

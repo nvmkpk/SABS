@@ -19,8 +19,8 @@ public class BlockUrlUtils {
     private static final String TAG = BlockUrlUtils.class.getCanonicalName();
 
     @NonNull
-    public static List<BlockUrl> loadBlockUrls(String urlProvider, BlockUrlProvider blockUrlProvider) throws IOException {
-        URL urlProviderUrl = new URL(urlProvider);
+    public static List<BlockUrl> loadBlockUrls(BlockUrlProvider blockUrlProvider) throws IOException {
+        URL urlProviderUrl = new URL(blockUrlProvider.url);
         URLConnection connection = urlProviderUrl.openConnection();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         List<BlockUrl> blockUrls = new ArrayList<>();

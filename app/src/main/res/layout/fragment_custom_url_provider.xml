@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/customUrlProviderExpTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:scrollbars="vertical"
+        android:text="@string/custom_url_provider_message"
+        android:textColor="#000"
+        android:ellipsize="none"
+        android:scrollHorizontally="false"
+        android:textSize="12sp"/>
 
     <EditText
         android:id="@+id/blockUrlProviderEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/customUrlProviderExpTextView"
         android:layout_toLeftOf="@+id/addBlockUrlProviderButton"
         android:layout_toStartOf="@+id/addBlockUrlProviderButton"
         android:inputType="textUri"
-        android:singleLine="true"/>
+        android:singleLine="true" />
 
     <Button
         android:id="@+id/addBlockUrlProviderButton"
@@ -18,14 +31,15 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:text="@string/add_provider"/>
+        android:layout_below="@id/customUrlProviderExpTextView"
+        android:text="@string/add_provider" />
 
     <Button
         android:id="@+id/updateBlockUrlProvidersButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/addBlockUrlProviderButton"
-        android:text="@string/update_all_providers"/>
+        android:text="@string/update_all_providers" />
 
     <ListView
         android:id="@+id/blockUrlProviderListView"

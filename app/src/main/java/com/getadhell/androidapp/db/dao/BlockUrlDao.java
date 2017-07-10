@@ -22,12 +22,21 @@ public interface BlockUrlDao {
     @Query("SELECT * FROM BlockUrl WHERE urlProviderId = :urlProviderId")
     List<BlockUrl> getUrlsByProviderId(long urlProviderId);
 
+    @Query("SELECT * FROM BlockUrl WHERE urlProviderId = :urlProviderId")
+    LiveData<List<BlockUrl>> getUrlsLiveDataByProviderId(long urlProviderId);
+
     @Query("DELETE FROM BlockUrl WHERE urlProviderId = :urlProviderId")
     void deleteByUrlProviderId(int urlProviderId);
+
+    @Query("DELETE FROM BlockUrl WHERE url = :url")
+    void deleteByUrl(String url);
 
     @Query("DELETE FROM BlockUrl")
     void deleteAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<BlockUrl> blockUrls);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insert(BlockUrl... blockUrls);
 }

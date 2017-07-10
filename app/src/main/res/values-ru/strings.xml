@@ -105,5 +105,12 @@
     <string name="delete_url">Удалить url</string>
     <string name="show_custom_providers">Показать провайдеров рекламы</string>
     <string name="subscribe">Подписаться за 89 руб. в мес.</string>
-
+    <string name="premium_subscriber_message">Спасибо за купленную подписку</string>
+    <string name="already_premium">Вы премиум пользователь</string>
+    <string name="custom_url_provider_message">
+        Важно. Вы можете добавлять ссылки на hosts файл (например, https://adaway.org/hosts.txt)
+        В зависимости от версии Knox вы можете блокировать до 15 000 доменов.
+        Но Adhell уже содержит хорошую базу в стандартном пакете, поэтому обычно вам не нужно добавлять ничего другого.
+        Эта функция еще экспериментальная, для энтузиастов.
+    </string>
 </resources>
