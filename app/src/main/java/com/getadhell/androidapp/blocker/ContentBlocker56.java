@@ -29,6 +29,7 @@ public class ContentBlocker56 implements ContentBlocker {
     private ServerContentBlockProvider contentBlockProvider;
     private Firewall mFirewall;
     private int urlBlockLimit = 3000;
+    private AppDatabase appDatabase;
 
 
     private ContentBlocker56() {
@@ -36,6 +37,7 @@ public class ContentBlocker56 implements ContentBlocker {
         EnterpriseDeviceManager mEnterpriseDeviceManager = DeviceUtils.getEnterpriseDeviceManager();
         contentBlockProvider = new ServerContentBlockProvider(context.getFilesDir());
         mFirewall = mEnterpriseDeviceManager.getFirewall();
+        appDatabase = AppDatabase.getAppDatabase(App.get().getApplicationContext());
     }
 
     public static ContentBlocker56 getInstance() {
@@ -57,12 +59,10 @@ public class ContentBlocker56 implements ContentBlocker {
         if (isEnabled()) {
             disableBlocker();
         }
-        AppDatabase appDatabase = AppDatabase.getAppDatabase(App.get().getApplicationContext());
-
         BlockUrlProvider standardBlockUrlProvider =
                 appDatabase.blockUrlProviderDao().getByUrl(MainActivity.ADHELL_STANDARD_PACKAGE);
         List<BlockUrl> standardList = appDatabase.blockUrlDao().getUrlsByProviderId(standardBlockUrlProvider.id);
-        List<UserBlockUrl> userBlockUrls = appDatabase.userBlockUrlDao().getAll().getValue();
+
         Set<BlockUrl> finalBlockList = new HashSet<>();
         finalBlockList.addAll(standardList);
         List<BlockUrlProvider> blockUrlProviders = appDatabase.blockUrlProviderDao().getBlockUrlProviderBySelectedFlag(1);
@@ -91,12 +91,18 @@ public class ContentBlocker56 implements ContentBlocker {
             }
         }
 
-        if (userBlockUrls != null) {
+        List<UserBlockUrl> userBlockUrls = appDatabase.userBlockUrlDao().getAll2();
+
+        if (userBlockUrls != null && userBlockUrls.size() > 0) {
+            Log.i(TAG, "UserBlockUrls size: " + userBlockUrls.size());
             for (UserBlockUrl userBlockUrl : userBlockUrls) {
                 if (Patterns.WEB_URL.matcher(userBlockUrl.url).matches()) {
                     denyList.add("*" + userBlockUrl.url + "*");
+                    Log.i(TAG, "UserBlockUrl: " + userBlockUrl.url);
                 }
             }
+        } else {
+            Log.i(TAG, "UserBlockUrls is empty.");
         }
 
         Log.d(TAG, "Number of block list: " + denyList.size());

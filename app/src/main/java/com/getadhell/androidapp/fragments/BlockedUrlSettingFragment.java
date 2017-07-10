@@ -25,7 +25,7 @@ public class BlockedUrlSettingFragment extends Fragment {
             Log.d(TAG, "Edit button click in Fragment1");
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragmentContainer, new BlockListFragment());
+            fragmentTransaction.replace(R.id.fragmentContainer, new WhiteListFragment());
             fragmentTransaction.addToBackStack("manage_url_to_manage_standard");
             fragmentTransaction.commit();
         });

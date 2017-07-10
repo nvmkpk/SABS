@@ -19,7 +19,10 @@ public interface UserBlockUrlDao {
     @Query("SELECT * FROM UserBlockUrl")
     LiveData<List<UserBlockUrl>> getAll();
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Query("SELECT * FROM UserBlockUrl")
+    List<UserBlockUrl> getAll2();
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insert(UserBlockUrl userBlockUrl);
 
     @Delete
