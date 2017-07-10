@@ -16,7 +16,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.getadhell.androidapp.App;
-import com.getadhell.androidapp.MainActivity;
 import com.getadhell.androidapp.R;
 import com.getadhell.androidapp.adapter.BlockUrlProviderAdapter;
 import com.getadhell.androidapp.db.AppDatabase;
@@ -62,9 +61,6 @@ public class CustomBlockUrlProviderFragment extends LifecycleFragment {
                 List<BlockUrlProvider> blockUrlProviders = mDb.blockUrlProviderDao().getAll2();
                 mDb.blockUrlDao().deleteAll();
                 for (BlockUrlProvider blockUrlProvider : blockUrlProviders) {
-                    if (blockUrlProvider.url.equals(MainActivity.ADHELL_USER_PACKAGE)) {
-                        continue;
-                    }
                     try {
                         List<BlockUrl> blockUrls = BlockUrlUtils.loadBlockUrls(blockUrlProvider);
                         blockUrlProvider.count = blockUrls.size();

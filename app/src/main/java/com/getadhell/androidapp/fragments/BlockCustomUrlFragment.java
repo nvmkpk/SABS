@@ -15,11 +15,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.getadhell.androidapp.MainActivity;
 import com.getadhell.androidapp.R;
 import com.getadhell.androidapp.db.AppDatabase;
-import com.getadhell.androidapp.db.entity.BlockUrl;
-import com.getadhell.androidapp.db.entity.BlockUrlProvider;
+import com.getadhell.androidapp.db.entity.UserBlockUrl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,29 +42,23 @@ public class BlockCustomUrlFragment extends LifecycleFragment {
         context = this.getActivity();
         View view = inflater.inflate(R.layout.fragment_manual_url_block, container, false);
         ListView listView = (ListView) view.findViewById(R.id.customUrlsListView);
-        appDatabase.blockUrlDao()
-                .getUrlsLiveDataByProviderId(-1)
-                .observe(this, blockUrls -> {
+        appDatabase.userBlockUrlDao()
+                .getAll()
+                .observe(this, userBlockUrls -> {
                     customUrlsToBlock.clear();
-                    if (blockUrls != null) {
-                        for (BlockUrl blockUrl : blockUrls) {
-                            customUrlsToBlock.add(blockUrl.url);
+                    if (userBlockUrls != null) {
+                        for (UserBlockUrl userBlockUrl : userBlockUrls) {
+                            customUrlsToBlock.add(userBlockUrl.url);
                         }
                     }
                     itemsAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_list_item_1, customUrlsToBlock);
 
                     listView.setAdapter(itemsAdapter);
-                    AsyncTask.execute(() -> {
-                        BlockUrlProvider blockUrlProvider =
-                                appDatabase.blockUrlProviderDao().getByUrl(MainActivity.ADHELL_USER_PACKAGE);
-                        blockUrlProvider.count = (blockUrls == null) ? 0 : blockUrls.size();
-                        appDatabase.blockUrlProviderDao().updateBlockUrlProviders(blockUrlProvider);
-                    });
                 });
+
         listView.setOnItemClickListener((parent, view1, position, id) -> {
             AsyncTask.execute(() -> {
-                appDatabase.blockUrlDao().deleteByUrl(customUrlsToBlock.get(position));
-
+                appDatabase.userBlockUrlDao().deleteByUrl(customUrlsToBlock.get(position));
             });
             itemsAdapter.notifyDataSetChanged();
             Toast.makeText(context, "Url removed", Toast.LENGTH_SHORT).show();
@@ -81,8 +73,8 @@ public class BlockCustomUrlFragment extends LifecycleFragment {
                 return;
             }
             AsyncTask.execute(() -> {
-                BlockUrl blockUrl = new BlockUrl(urlToAdd, -1);
-                appDatabase.blockUrlDao().insert(blockUrl);
+                UserBlockUrl userBlockUrl = new UserBlockUrl(urlToAdd);
+                appDatabase.userBlockUrlDao().insert(userBlockUrl);
             });
             addBlockedUrlEditText.setText("");
             Toast.makeText(context, "Url has been added", Toast.LENGTH_SHORT).show();

@@ -45,7 +45,6 @@ import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
     public static final String ADHELL_STANDARD_PACKAGE = "http://getadhell.com/standard-package.txt";
-    public static final String ADHELL_USER_PACKAGE = "MyCustomPackage";
     private static final String TAG = MainActivity.class.getCanonicalName();
     private static FragmentManager fragmentManager;
     private static int tabState = R.id.blockerTab;
@@ -138,17 +137,6 @@ public class MainActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     Log.e(TAG, "Failed to download urls", e);
                 }
-            }
-            blockUrlProvider =
-                    appDatabase.blockUrlProviderDao().getByUrl(ADHELL_USER_PACKAGE);
-            if (blockUrlProvider == null) {
-                blockUrlProvider = new BlockUrlProvider();
-                blockUrlProvider.url = ADHELL_USER_PACKAGE;
-                blockUrlProvider.lastUpdated = new Date();
-                blockUrlProvider.deletable = false;
-                blockUrlProvider.selected = true;
-                blockUrlProvider.id = -1;
-                appDatabase.blockUrlProviderDao().insertAll(blockUrlProvider);
             }
         });
     }
