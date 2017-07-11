@@ -94,10 +94,6 @@
         To take effect Turn off -> Turn on Adhell after editing list.
     </string>
 
-    <string name="download_manager_reference_id" translatable="false">
-        download_manager_reference_id
-    </string>
-
     <string name="package_disabler_fragment_title">Package disabler</string>
     <string name="package_disabler_bottombar_title">Package disabler</string>
     <string name="app_support_fragment_title">Soporte de aplicaciones</string>
@@ -119,4 +115,29 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hola parte blanca</string>
     <string name="whitelist_ad_url">URL de publicidad lista blanca</string>
+    <string name="valid_subs">Your subscription is valid</string>
+    <string name="your_device_running_old_knox_version">" Your device running old version of Knox.
+        So this function may work unstable. Sorry "
+    </string>
+    <string name="add_provider">Add Url Provider</string>
+    <string name="help_developers_to_keep_up_development">Support Adhell development.</string>
+    <string name="show_custom_providers">" There is no Pro features for now,"</string>
+    <string name="delete_url">" but you could really help us to develop cool product by
+        subscribing."
+    </string>
+    <string name="update_all_providers">" There will be pro features as well in near future)"
+    </string>
+    <string name="app_list_sorted_by_date">" You can cancel subscription anytime on Adhell Google
+        Play page"
+    </string>
+    <string name="app_list_sorted_by_alphabet">" List is sorted alphabetically"</string>
+    <string name="support_app_development">Support app development</string>
+    <string name="custom_url_provider_message">" Note. You can add your own hosts link (e.g.
+        https://adaway.org/hosts.txt). You can block up to 15 000 urls. Adhell already has decent
+        standard package so in general you does not need to add additional packages. This feature is
+        experimental for now and only for enthusiasts. "
+    </string>
+    <string name="already_premium">Already Premium</string>
+    <string name="premium_subscriber_message">Thank you for being premium subscriber</string>
+    <string name="subscribe">Subscribe for {{price}} per month</string>
 </resources>

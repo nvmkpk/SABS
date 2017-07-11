@@ -1,6 +1,7 @@
 package com.getadhell.androidapp.fragments;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -87,12 +88,13 @@ public class AppSupportFragment extends Fragment implements PurchasesUpdatedList
         return view;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onPurchasesUpdated(int responseCode, List<Purchase> purchases) {
         if (purchases != null && purchases.size() > 0) {
 //            purchases.getAll(0).
             supportDevelopmentTextView.setText("Thank you for being premium subscriber");
-            subscriptionButton.setText("Your subscription is valid");
+            subscriptionButton.setText(R.string.valid_subs);
             subscriptionButton.setEnabled(false);
         }
 

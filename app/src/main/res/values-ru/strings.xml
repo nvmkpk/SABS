@@ -119,4 +119,9 @@
         Эта функция еще экспериментальная, для энтузиастов.
     </string>
     <string name="whitelist_ad_url">Белый список рекламных URL</string>
+    <string name="valid_subs">Your subscription is valid</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="your_device_running_old_knox_version">" Your device running old version of Knox.
+        So this function may work unstable. Sorry"
+    </string>
 </resources>

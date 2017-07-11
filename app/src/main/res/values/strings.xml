@@ -149,5 +149,6 @@
     <string name="your_device_running_old_knox_version">
         Your device running old version of Knox. So this function may work unstable. Sorry
     </string>
+    <string name="valid_subs">Your subscription is valid</string>
 
 </resources>

@@ -1,4 +1,138 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="wait">Wait…</string>
+    <string name="Reports">Reports</string>
+    <string name="about">App for Samsung smartphones that blocks ads and trackers in Chrome. Website
+        loading increases up to 100%!
+    </string>
+    <string name="isSupported">Wait</string>
+    <string name="only_samsung">Only Samsung</string>
+    <string name="phone_not_supported">This device not supported FOR NOW</string>
+
+    <string name="preference_policy">policy-preference</string>
+    <string name="isPolicyEnabled">isPolicyEnabled</string>
+    <string name="block_enabled">Adhell enabled. You are safe now</string>
+    <string name="block_disabled">Adhell disabled</string>
+    <string name="enable_blocker">Enable content blocker</string>
+    <string name="disable_blocker">Disable Adhell</string>
+    <string name="works_whit_samsung">This device not supported. Works with Samsung only, at least
+        for now
+    </string>
+    <string name="android_version_not_supported">This Android version not supported</string>
+    <string name="please_wait">Please wait… Enabling Adhell</string>
+    <string name="wait_deleting">Please wat… Disabling Adhell</string>
+    <string name="adhell_not_supported">Adhell does not supported on your device yet.
+    </string>
+    <string name="yes_notify_me">Yes! Notify Me!</string>
+    <string name="no_thanks">No, Thanks!</string>
+    <string name="thank_you_we_will_notify_you">We will notify you right after add your
+        device to Adhell.
+    </string>
+    <string name="notify_you_2">Your device not supported. But we will notify you at {{email}} when
+        we will add your device to Adhell. Thank you
+    </string>
+    <string name="edit_email">Wrong email? Change it!</string>
+    <string name="edit">Edit</string>
+    <string name="to_enable_adhell">To enable Adhell you need to activate admin mode for app.
+        Adhell uses underlying Samsung instruments, and this instruments require Admin privilege.
+    </string>
+    <string name="turn_on_admin">Turn On Admin</string>
+    <string name="knox">To block ads Adhell uses Samsung Firewall, to use it please activate Samsung
+        license. It is free.
+    </string>
+    <string name="activate_knox">Activate Knox</string>
+    <string name="no_internet_connection">It seems that your device is not connected to the
+        internet
+    </string>
+    <string name="failed_to_activate_knox_message">Knox license activation failed
+    </string>
+    <string name="activating_knox_license">"Activating… "</string>
+    <string name="knox_license_activated">Activated</string>
+    <string name="block_button_text_turn_off">Turn Off</string>
+    <string name="block_button_text_turn_on">Turn On</string>
+    <string name="block_button_text_enabling">Enabling…</string>
+    <string name="block_button_text_disabling">Disabling…</string>
+    <string name="edit_block_list">Edit Blocked URL\'s</string>
+    <string name="whitelist">Show Whitelist</string>
+    <string name="blocklist">Show Blocklist</string>
+    <string name="back_to_main">Back to Main</string>
+    <string name="editAlert">After editing the whitelist return to main Adhell screen
+        and toggle "Turn off", then tap "Turn on" to apply the changes!
+    </string>
+    <string name="allow_apps">WhiteList Apps</string>
+    <string name="delete_app">Turn Off and Delete Adhell</string>
+    <string name="delete_app_dialog_title">Delete app</string>
+    <string name="delete_app_dialog_text">Do you really want to turn off and delete Adhell?</string>
+    <string name="applist">Show App List</string>
+    <string name="list_filter">Filter</string>
+    <string name="apply_filter">Filter</string>
+    <string name="applying_filter">Please Wait, Applying Filter</string>
+    <string name="block_app_tab_label">Active Apps</string>
+    <string name="allowed_app_tab_label">Excluded Apps</string>
+    <string name="block_url_tab_label">Blocked URLs</string>
+    <string name="allowed_url_tab_label">Allowed URLs</string>
+    <string name="test_report">Test report</string>
+    <string name="adhell_settings">Settings</string>
+    <string name="change_dns_button">Change DNS</string>
+    <string name="dns_1_address">DNS 1 Address</string>
+    <string name="dns_2_address">DNS 2 Address</string>
+    <string name="set_dns_button_text">Set DNS</string>
+    <string name="cancel_text">Cancel</string>
+    <string name="note_that_adhell_must_be_enabled">Use it only if you know what DNS for and what
+        benefits or problems editing could cause. Note that Adhell must be enabled.
+    </string>
+    <string name="restore_defaults">Restore Defaults</string>
+    <string name="block">Block</string>
+    <string name="manage_standard_url_package">Manage Standard Url Package</string>
+    <string name="whitelist_ad_url">Whitelist Ad URLs</string>
+    <string name="block_custom_urls">Block Custom Urls</string>
+    <string name="to_take_effect_turn_off_turn_on_adhell_after_editing_list">
+        To take effect Turn off -> Turn on Adhell after editing list.
+    </string>
+
+    <string name="package_disabler_fragment_title">Package disabler</string>
+    <string name="package_disabler_bottombar_title">Package disabler</string>
+    <string name="app_support_fragment_title">App support</string>
+    <string name="to_be_done">This feature is under development</string>
+    <string name="last_day_blocked">"Last 24 hours blocked: "</string>
+    <string name="loading_saved_dns">Loading saved dns addresses</string>
+    <string name="check_input_dns">Check your input data</string>
+    <string name="enable_adhell_for_dns">Adhell Must be enabled</string>
+    <string name="changed_dns">Dns addresses has been changed"</string>
+    <string name="restored_dns">DNS has been restored to defaults. You should to enable Adhell
+        again.
+    </string>
+    <string name="wait_loading_apps_list">"Please Wait, Loading Application List"</string>
+    <string name="wait_removing_app_from_whitelist">"Please Wait, Removing App From Whitelist"
+    </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="support_app_development">Support app development</string>
+    <string name="help_developers_to_keep_up_development">Support Adhell development.
+        There is no Pro features for now,
+        but you could really help us to develop cool product by subscribing.
+        There will be pro features as well in near future)
+        You can cancel subscription anytime on Adhell Google Play page
+    </string>
+    <string name="add_provider">Add Url Provider</string>
+    <string name="show_custom_providers">Show Custom Providers</string>
+    <string name="delete_url">Delete Url</string>
+    <string name="update_all_providers">Update All Providers</string>
+    <string name="app_list_sorted_by_date">List is sorted by installation time</string>
+    <string name="app_list_sorted_by_alphabet">List is sorted alphabetically</string>
+    <string name="subscribe">Subscribe for {{price}} per month</string>
+    <string name="premium_subscriber_message">Thank you for being premium subscriber</string>
+    <string name="already_premium">Already Premium</string>
+    <string name="custom_url_provider_message">
+        Note. You can add your own hosts link (e.g. https://adaway.org/hosts.txt).
+        You can block up to 15 000 urls.
+        Adhell already has decent standard package so in general you does not need to add additional
+        packages.
+        This feature is experimental for now and only for enthusiasts.
+    </string>
+    <string name="your_device_running_old_knox_version">
+        Your device running old version of Knox. So this function may work unstable. Sorry
+    </string>
+    <string name="valid_subs">Your subscription is valid</string>
 
 </resources>
