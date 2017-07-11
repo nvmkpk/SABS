@@ -50,7 +50,6 @@
     <string name="edit_email">Falsche E-Mail? Ändern Sie es!</string>
     <string name="enable_adhell_for_dns">Adhell ​​muss aktiviert sein.</string>
     <string name="enable_blocker">Inhaltsblocker aktivieren</string>
-    <string name="facebook_com">facebook.com</string>
     <string name="failed_to_activate_knox_message">Die Aktivierung der Knox-Lizenz ist
         fehlgeschlagen.
     </string>
@@ -112,16 +111,13 @@
         nur mit Samsung-Geräten zusammen.
     </string>
     <string name="yes_notify_me">Ja! Benachrichtigen sie mich!</string>
-    <string name="app_name">Adhell</string>
     <string name="appbar_scrolling_view_behavior">
         android.support.design.widget.AppBarLayout$ScrollingViewBehavior
     </string>
-    <string name="blocker_fragment_title">Adhell</string>
     <string name="bottom_sheet_behavior">android.support.design.widget.BottomSheetBehavior</string>
     <string name="download_manager_reference_id">download_manager_reference_id</string>
-    <string name="download_manager_sharedPrefs">download_manager_sharedPrefs</string>
-    <string name="google_dns_1">8.8.8.8</string>
-    <string name="google_dns_2">8.8.4.4</string>
     <string name="hello_blank_fragment">Hallo leeres Fragment</string>
-    <string name="zero_dns">0.0.0.0</string>
+    <string name="whitelist_ad_url">Whitelist Ad URLs</string>
+    <string name="your_device_running_old_knox_version">your_device_running_old_knox_version
+    </string>
 </resources>

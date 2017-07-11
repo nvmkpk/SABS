@@ -28,7 +28,7 @@ public interface AppInfoDao
     void deleteAppInfoByPackageName(String packageName);
 
     @Query("SELECT MAX(id) FROM AppInfo")
-    int getMaxId();
+    long getMaxId();
 
     @Query("SELECT * FROM AppInfo ORDER BY appName ASC")
     List<AppInfo> getAll();

@@ -3,7 +3,13 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
-
+    <TextView
+        android:id="@+id/warningMessageTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="@string/your_device_running_old_knox_version"
+    />
     <TextView
         android:id="@+id/isSupportedTextView"
         android:layout_width="wrap_content"

@@ -21,7 +21,8 @@ import com.getadhell.androidapp.db.entity.WhiteUrl;
 
 @Database(entities = {
         BlockUrlProvider.class,
-        BlockUrl.class, AppInfo.class,
+        BlockUrl.class,
+        AppInfo.class,
         ReportBlockedUrl.class,
         WhiteUrl.class,
         UserBlockUrl.class

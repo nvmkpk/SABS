@@ -5,10 +5,6 @@ import android.content.pm.PackageManager;
 
 import java.util.Comparator;
 
-/**
- * Created by Patrick.Lower on 6/14/2017.
- */
-
 public class ApplicationInfoNameComparator implements Comparator<ApplicationInfo> {
     PackageManager packageManager;
 

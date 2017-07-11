@@ -15,7 +15,7 @@
         android:id="@+id/addBlockedUrlEditText"
         android:layout_height="wrap_content"
         android:layout_below="@+id/noteTextView"
-        android:hint="@string/facebook_com"
+        android:hint="@string/example_com"
         android:inputType="textUri"
         app:layout_widthPercent="70%"/>
 

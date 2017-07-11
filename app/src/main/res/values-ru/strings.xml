@@ -81,7 +81,6 @@
     <string name="block">Заблокировать</string>
     <string name="block_custom_urls">Заблокировать свои адреса</string>
     <string name="manage_standard_url_package">Управлять списком блокировки</string>
-    <string name="facebook_com">facebook.com</string>
     <string name="to_take_effect_turn_off_turn_on_adhell_after_editing_list">После изменения списка
         выключите и включите блокировщик.
     </string>
@@ -119,4 +118,5 @@
         добавлять ничего другого.
         Эта функция еще экспериментальная, для энтузиастов.
     </string>
+    <string name="whitelist_ad_url">Белый список рекламных URL</string>
 </resources>

@@ -12,7 +12,7 @@ import com.getadhell.androidapp.db.DateConverter;
 @TypeConverters(DateConverter.class)
 public class AppInfo {
     @PrimaryKey
-    public int id;
+    public long id;
     public String packageName;
     public String appName;
     public long installTime;

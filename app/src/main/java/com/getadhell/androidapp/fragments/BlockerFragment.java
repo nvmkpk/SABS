@@ -1,9 +1,9 @@
 package com.getadhell.androidapp.fragments;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,10 +34,8 @@ public class BlockerFragment extends Fragment {
     private Button mPolicyChangeButton;
     private TextView isSupportedTextView;
     private ContentBlocker contentBlocker;
-
     private final Observable<Boolean> toggleAdhellSwitchObservable = Observable.create(emitter -> {
         try {
-
             if (contentBlocker.isEnabled()) {
                 // Enabled. Trying to disable
                 Log.d(TAG, "Firewall policy was enabled, trying to disable");
@@ -70,6 +68,7 @@ public class BlockerFragment extends Fragment {
             emitter.onComplete();
         }
     });
+    private TextView warningMessageTextView;
     private Button reportButton;
 
     @Override
@@ -111,9 +110,13 @@ public class BlockerFragment extends Fragment {
         mPolicyChangeButton = (Button) view.findViewById(R.id.policyChangeButton);
         isSupportedTextView = (TextView) view.findViewById(R.id.isSupportedTextView);
         reportButton = (Button) view.findViewById(R.id.adhellReportsButton);
-
+        warningMessageTextView = (TextView) view.findViewById(R.id.warningMessageTextView);
+        warningMessageTextView.setVisibility(View.GONE);
         contentBlocker = DeviceUtils.getContentBlocker();
-
+        if (!(contentBlocker instanceof ContentBlocker57
+                || contentBlocker instanceof ContentBlocker56)) {
+            warningMessageTextView.setVisibility(View.VISIBLE);
+        }
         if (contentBlocker != null && contentBlocker.isEnabled()) {
             mPolicyChangeButton.setText(R.string.block_button_text_turn_off);
             isSupportedTextView.setText(R.string.block_enabled);

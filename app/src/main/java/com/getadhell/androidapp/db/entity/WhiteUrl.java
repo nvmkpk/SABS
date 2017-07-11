@@ -2,6 +2,7 @@ package com.getadhell.androidapp.db.entity;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
@@ -24,4 +25,13 @@ public class WhiteUrl {
     public String url;
 
     public Date insertedAt;
+
+    @Ignore
+    public WhiteUrl(String url) {
+        this.url = url;
+        this.insertedAt = new Date();
+    }
+
+    public WhiteUrl() {
+    }
 }

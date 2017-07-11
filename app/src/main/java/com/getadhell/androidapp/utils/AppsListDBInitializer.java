@@ -11,24 +11,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class AppsListDBInitializer
-{
+public class AppsListDBInitializer {
     private static final AppsListDBInitializer instance = new AppsListDBInitializer();
 
-    public static AppsListDBInitializer getInstance()
-    {
+    private AppsListDBInitializer() {
+    }
+
+    public static AppsListDBInitializer getInstance() {
         return instance;
     }
 
-    private AppsListDBInitializer() {}
-
-    public void fillPackageDb(PackageManager packageManager)
-    {
+    public void fillPackageDb(PackageManager packageManager) {
         List<ApplicationInfo> applicationsInfo = packageManager.getInstalledApplications(PackageManager.GET_META_DATA);
         List<AppInfo> appsInfo = new ArrayList<>();
-        int id = 0;
-        for (ApplicationInfo applicationInfo : applicationsInfo)
-        {
+        long id = 0;
+        for (ApplicationInfo applicationInfo : applicationsInfo) {
             String pckg = App.get().getApplicationContext().getPackageName();
             if (applicationInfo.packageName.equals(pckg)) continue;
             AppInfo appInfo = new AppInfo();
@@ -37,18 +34,20 @@ public class AppsListDBInitializer
             appInfo.packageName = applicationInfo.packageName;
             int mask = ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP;
             appInfo.system = (applicationInfo.flags & mask) != 0;
-            try { appInfo.installTime = packageManager.getPackageInfo(applicationInfo.packageName, 0).firstInstallTime; }
-            catch (PackageManager.NameNotFoundException e) { e.printStackTrace(); appInfo.installTime = 0; }
+            try {
+                appInfo.installTime = packageManager.getPackageInfo(applicationInfo.packageName, 0).firstInstallTime;
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+                appInfo.installTime = 0;
+            }
             appsInfo.add(appInfo);
         }
         AppDatabase.getAppDatabase(App.get().getApplicationContext()).applicationInfoDao().insertAll(appsInfo);
     }
 
-    public AppInfo generateAppInfo(PackageManager packageManager, String packageName)
-    {
+    public AppInfo generateAppInfo(PackageManager packageManager, String packageName) {
         AppInfo appInfo = new AppInfo();
-        try
-        {
+        try {
             ApplicationInfo applicationInfo = packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA);
             AppDatabase mDb = AppDatabase.getAppDatabase(App.get().getApplicationContext());
             appInfo.id = mDb.applicationInfoDao().getMaxId() + 1;
@@ -57,8 +56,9 @@ public class AppsListDBInitializer
             int mask = ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP;
             appInfo.system = (applicationInfo.flags & mask) != 0;
             appInfo.installTime = packageManager.getPackageInfo(packageName, 0).firstInstallTime;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        catch (Exception e) { e.printStackTrace(); }
         return appInfo;
     }
 }

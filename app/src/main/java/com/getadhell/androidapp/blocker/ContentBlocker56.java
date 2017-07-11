@@ -12,6 +12,7 @@ import com.getadhell.androidapp.db.AppDatabase;
 import com.getadhell.androidapp.db.entity.BlockUrl;
 import com.getadhell.androidapp.db.entity.BlockUrlProvider;
 import com.getadhell.androidapp.db.entity.UserBlockUrl;
+import com.getadhell.androidapp.db.entity.WhiteUrl;
 import com.getadhell.androidapp.utils.DeviceUtils;
 import com.sec.enterprise.AppIdentity;
 import com.sec.enterprise.firewall.DomainFilterRule;
@@ -84,9 +85,19 @@ public class ContentBlocker56 implements ContentBlocker {
                 break;
             }
         }
+        List<WhiteUrl> whiteUrls = appDatabase.whiteUrlDao().getAll2();
+
+        List<String> whiteUrlsString = new ArrayList<>();
+        for (WhiteUrl whiteUrl : whiteUrls) {
+            whiteUrlsString.add(whiteUrl.url);
+        }
+
         List<String> denyList = new ArrayList<>();
         for (BlockUrl blockUrl : finalBlockList) {
             if (Patterns.WEB_URL.matcher(blockUrl.url).matches()) {
+                if (whiteUrlsString.contains(blockUrl.url)) {
+                    continue;
+                }
                 denyList.add("*" + blockUrl.url + "*");
             }
         }

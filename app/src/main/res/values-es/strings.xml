@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">Adhell</string>
     <string name="wait">Espere…</string>
     <string name="Reports">Informes</string>
     <string name="about">Aplicación para smartphones Samsung, que bloquea anuncios y rastreadores en
@@ -82,16 +81,12 @@
     <string name="change_dns_button">Cambiar DNS</string>
     <string name="dns_1_address">Dirección DNS 1</string>
     <string name="dns_2_address">Dirección DNS 2</string>
-    <string name="google_dns_1" translatable="false">8.8.8.8</string>
-    <string name="google_dns_2" translatable="false">8.8.4.4</string>
     <string name="set_dns_button_text">Establecer DNS</string>
     <string name="cancel_text">Cancelar</string>
     <string name="note_that_adhell_must_be_enabled">Use it only if you know what DNS for and what
         benefits or problems editing could cause. Note that Adhell must be enabled.
     </string>
     <string name="restore_defaults">Restaurar valores predeterminados</string>
-    <string name="zero_dns" translatable="false">0.0.0.0</string>
-    <string name="facebook_com">facebook.com</string>
     <string name="block">Bloquear</string>
     <string name="manage_standard_url_package">Manage Standard Url Package</string>
     <string name="block_custom_urls">Bloquear URLs personalizada</string>
@@ -99,13 +94,10 @@
         To take effect Turn off -> Turn on Adhell after editing list.
     </string>
 
-    <string name="download_manager_sharedPrefs" translatable="false">download_manager_sharedPrefs
-    </string>
     <string name="download_manager_reference_id" translatable="false">
         download_manager_reference_id
     </string>
 
-    <string name="blocker_fragment_title" translatable="false">Adhell</string>
     <string name="package_disabler_fragment_title">Package disabler</string>
     <string name="package_disabler_bottombar_title">Package disabler</string>
     <string name="app_support_fragment_title">Soporte de aplicaciones</string>
@@ -126,4 +118,5 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hola parte blanca</string>
+    <string name="whitelist_ad_url">URL de publicidad lista blanca</string>
 </resources>

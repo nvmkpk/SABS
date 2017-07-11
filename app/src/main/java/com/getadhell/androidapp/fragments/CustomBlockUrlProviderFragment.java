@@ -55,7 +55,7 @@ public class CustomBlockUrlProviderFragment extends LifecycleFragment {
         blockListView = (ListView) view.findViewById(R.id.blockUrlProviderListView);
         Button updateBlockUrlProvidersButton = (Button) view.findViewById(R.id.updateBlockUrlProvidersButton);
         updateBlockUrlProvidersButton.setOnClickListener(v -> {
-            // TODO: get all
+            // TODO: getAll all
             // TODO: then loop and delete and update
             Maybe.fromCallable(() -> {
                 List<BlockUrlProvider> blockUrlProviders = mDb.blockUrlProviderDao().getAll2();

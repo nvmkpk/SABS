@@ -34,12 +34,12 @@ public class BlockCustomUrlFragment extends LifecycleFragment {
         super.onCreate(savedInstanceState);
         appDatabase = AppDatabase.getAppDatabase(getContext());
         customUrlsToBlock = new ArrayList<>();
+        context = this.getActivity();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        context = this.getActivity();
         View view = inflater.inflate(R.layout.fragment_manual_url_block, container, false);
         ListView listView = (ListView) view.findViewById(R.id.customUrlsListView);
         appDatabase.userBlockUrlDao()
@@ -52,14 +52,11 @@ public class BlockCustomUrlFragment extends LifecycleFragment {
                         }
                     }
                     itemsAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_list_item_1, customUrlsToBlock);
-
                     listView.setAdapter(itemsAdapter);
                 });
 
         listView.setOnItemClickListener((parent, view1, position, id) -> {
-            AsyncTask.execute(() -> {
-                appDatabase.userBlockUrlDao().deleteByUrl(customUrlsToBlock.get(position));
-            });
+            AsyncTask.execute(() -> appDatabase.userBlockUrlDao().deleteByUrl(customUrlsToBlock.get(position)));
             itemsAdapter.notifyDataSetChanged();
             Toast.makeText(context, "Url removed", Toast.LENGTH_SHORT).show();
         });
@@ -67,7 +64,7 @@ public class BlockCustomUrlFragment extends LifecycleFragment {
         final EditText addBlockedUrlEditText = (EditText) view.findViewById(R.id.addBlockedUrlEditText);
         Button addCustomBlockedUrlButton = (Button) view.findViewById(R.id.addCustomBlockedUrlButton);
         addCustomBlockedUrlButton.setOnClickListener(v -> {
-            String urlToAdd = addBlockedUrlEditText.getText().toString();
+            String urlToAdd = addBlockedUrlEditText.getText().toString().trim().toLowerCase();
             if (!Patterns.WEB_URL.matcher(urlToAdd).matches()) {
                 Toast.makeText(context, "Url not valid. Please check", Toast.LENGTH_SHORT).show();
                 return;

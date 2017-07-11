@@ -56,7 +56,7 @@
     <string name="whitelist">Show Whitelist</string>
     <string name="blocklist">Show Blocklist</string>
     <string name="back_to_main">Back to Main</string>
-    <string name="editAlert">After editing the block list and whitelist return to main Adhell screen
+    <string name="editAlert">After editing the whitelist return to main Adhell screen
         and toggle "Turn off", then tap "Turn on" to apply the changes!
     </string>
     <string name="allow_apps">WhiteList Apps</string>
@@ -85,9 +85,10 @@
     </string>
     <string name="restore_defaults">Restore Defaults</string>
     <string name="zero_dns" translatable="false">0.0.0.0</string>
-    <string name="facebook_com">facebook.com</string>
+    <string name="example_com" translatable="false">example.com</string>
     <string name="block">Block</string>
     <string name="manage_standard_url_package">Manage Standard Url Package</string>
+    <string name="whitelist_ad_url">Whitelist Ad URLs</string>
     <string name="block_custom_urls">Block Custom Urls</string>
     <string name="to_take_effect_turn_off_turn_on_adhell_after_editing_list">
         To take effect Turn off -> Turn on Adhell after editing list.
@@ -139,10 +140,14 @@
     <string name="already_premium">Already Premium</string>
     <string name="custom_url_provider_message">
         Note. You can add your own hosts link (e.g. https://adaway.org/hosts.txt).
-        Depending on version you can block up to 15 000 urls.
+        You can block up to 15 000 urls.
         Adhell already has decent standard package so in general you does not need to add additional
         packages.
         This feature is experimental for now and only for enthusiasts.
+    </string>
+    <string name="ads_example_com" translatable="false">ads.example.com</string>
+    <string name="your_device_running_old_knox_version">
+        Your device running old version of Knox. So this function may work unstable. Sorry
     </string>
 
 </resources>

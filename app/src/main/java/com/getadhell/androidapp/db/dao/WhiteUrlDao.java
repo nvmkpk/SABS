@@ -18,7 +18,10 @@ import java.util.List;
 public interface WhiteUrlDao {
 
     @Query("SELECT * FROM WhiteUrl")
-    LiveData<List<WhiteUrl>> get();
+    LiveData<List<WhiteUrl>> getAll();
+
+    @Query("SELECT * FROM WhiteUrl")
+    List<WhiteUrl> getAll2();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(WhiteUrl whiteUrl);

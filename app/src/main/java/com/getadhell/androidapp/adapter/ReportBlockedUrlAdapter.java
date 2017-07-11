@@ -52,7 +52,7 @@ public class ReportBlockedUrlAdapter extends ArrayAdapter<ReportBlockedUrl> {
         try {
             icon = packageManager.getApplicationIcon(packageName);
         } catch (PackageManager.NameNotFoundException e) {
-            Log.e(TAG, "Failed to get application icon.", e);
+            Log.e(TAG, "Failed to getAll application icon.", e);
         }
 
 

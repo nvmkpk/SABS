@@ -90,7 +90,7 @@ public class AppSupportFragment extends Fragment implements PurchasesUpdatedList
     @Override
     public void onPurchasesUpdated(int responseCode, List<Purchase> purchases) {
         if (purchases != null && purchases.size() > 0) {
-//            purchases.get(0).
+//            purchases.getAll(0).
             supportDevelopmentTextView.setText("Thank you for being premium subscriber");
             subscriptionButton.setText("Your subscription is valid");
             subscriptionButton.setEnabled(false);

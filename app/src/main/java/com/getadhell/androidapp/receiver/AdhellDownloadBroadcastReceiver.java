@@ -45,7 +45,7 @@ public class AdhellDownloadBroadcastReceiver extends BroadcastReceiver {
                     return;
                 }
                 String downloadDir = fileDir.toString();
-                Log.i(TAG, "get dit: " + downloadDir);
+                Log.i(TAG, "getAll dit: " + downloadDir);
                 String apkFilePath = downloadDir + "/adhell.apk";
                 File apkFile = new File(apkFilePath);
 

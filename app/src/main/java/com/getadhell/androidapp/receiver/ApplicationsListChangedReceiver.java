@@ -3,10 +3,7 @@ package com.getadhell.androidapp.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 import com.getadhell.androidapp.App;
 import com.getadhell.androidapp.db.AppDatabase;
@@ -15,12 +12,10 @@ import com.getadhell.androidapp.utils.AppsListDBInitializer;
 
 import java.util.List;
 
-public class ApplicationsListChangedReceiver extends BroadcastReceiver
-{
+public class ApplicationsListChangedReceiver extends BroadcastReceiver {
 
     @Override
-    public void onReceive(Context context, Intent intent)
-    {
+    public void onReceive(Context context, Intent intent) {
         AsyncTask.execute(() ->
         {
             String packageName = intent.getData().getEncodedSchemeSpecificPart();
