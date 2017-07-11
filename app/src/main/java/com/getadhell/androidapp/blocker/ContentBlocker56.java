@@ -29,7 +29,7 @@ public class ContentBlocker56 implements ContentBlocker {
     private final String TAG = ContentBlocker56.class.getCanonicalName();
     private ServerContentBlockProvider contentBlockProvider;
     private Firewall mFirewall;
-    private int urlBlockLimit = 3000;
+    private int urlBlockLimit = 2700;
     private AppDatabase appDatabase;
 
 
