@@ -1,75 +1,76 @@
 <resources>
-    <string name="wait">Wait…</string>
-    <string name="Reports">Reports</string>
-    <string name="about">App for Samsung smartphones that blocks ads and trackers in Chrome. Website
-        loading increases up to 100%!
+    <string name="wait">Attendere…</string>
+    <string name="Reports">Resoconto</string>
+    <string name="about">Applicazione per smartphone Samsung che blocca ads e trackers in Chrome.
+        la velocità di caricamento aumenterà del 100%!
     </string>
-    <string name="isSupported">Wait</string>
-    <string name="only_samsung">Only Samsung</string>
-    <string name="phone_not_supported">This device not supported FOR NOW</string>
+    <string name="isSupported">Attendere</string>
+    <string name="only_samsung">Solo Samsung</string>
+    <string name="phone_not_supported">Questo dispositivo non è supportato PER ORA</string>
 
     <string name="preference_policy">policy-preference</string>
     <string name="isPolicyEnabled">isPolicyEnabled</string>
-    <string name="block_enabled">Adhell enabled. You are safe now</string>
-    <string name="block_disabled">Adhell disabled</string>
-    <string name="enable_blocker">Enable content blocker</string>
-    <string name="disable_blocker">Disable Adhell</string>
-    <string name="works_whit_samsung">This device not supported. Works with Samsung only, at least
-        for now
+    <string name="block_enabled">Adhell attivo. Sei al sicuro adesso/string>
+    <string name="block_disabled">Adhell disattivo</string>
+    <string name="enable_blocker">Attiva blocco contenuti</string>
+    <string name="disable_blocker">Disattiva Adhell</string>
+    <string name="works_whit_samsung">Questo dispositivo non è supportato. Adhell funziona solo con Samsung, almeno
+        per ora
     </string>
-    <string name="android_version_not_supported">This Android version not supported</string>
-    <string name="please_wait">Please wait… Enabling Adhell</string>
-    <string name="wait_deleting">Please wat… Disabling Adhell</string>
-    <string name="adhell_not_supported">Adhell does not supported on your device yet.
+    <string name="android_version_not_supported">Questa versione di Android non è supportata</string>
+    <string name="please_wait">Attendere… Attivazione di Adhell</string>
+    <string name="wait_deleting">Attendere… Disattivazione di Adhell</string>
+    <string name="adhell_not_supported">Adhell nnon supporta ancora il tuo dispositivo.
     </string>
-    <string name="yes_notify_me">Yes! Notify Me!</string>
-    <string name="no_thanks">No, Thanks!</string>
-    <string name="thank_you_we_will_notify_you">We will notify you right after add your
-        device to Adhell.
+    <string name="yes_notify_me">Si! Avvisami!</string>
+    <string name="no_thanks">No, Grazie!</string>
+    <string name="thank_you_we_will_notify_you">Ti invieremo una notifica dopo aver aggiunto
+        il tuo dispositivo ad Adhell.
     </string>
-    <string name="notify_you_2">Your device not supported. But we will notify you at {{email}} when
-        we will add your device to Adhell. Thank you
+    <string name="notify_you_2">DDispositivo non supportato. Invieremo una notifica a {{email}} quando
+        aggiungeremo il tuo disposutivodispositivo ad Adhell. Grazie
     </string>
-    <string name="edit_email">Wrong email? Change it!</string>
-    <string name="edit">Edit</string>
-    <string name="to_enable_adhell">To enable Adhell you need to activate admin mode for app.
-        Adhell uses underlying Samsung instruments, and this instruments require Admin privilege.
+    <string name="edit_email">Email errata? Cambiala!</string>
+    <string name="edit">Modifica</string>
+    <string name="to_enable_adhell">Per abilitare Adhell devi attivare la modalità amministratore per l'app.
+        Adhell usa strumenti nascosti Samsung, e questi ultimi richiedono privilegi da Amministratore.
     </string>
-    <string name="turn_on_admin">Turn On Admin</string>
-    <string name="knox">To block ads Adhell uses Samsung Firewall, to use it please activate Samsung
-        license. It is free.
+    <string name="turn_on_admin">Abilita Amministratore</string>
+    <string name="knox">Per bloccare gli ads Adhell usa il firewall Samsung, per usarlo accetta la licenza
+        Samsung. È gratis.
     </string>
-    <string name="activate_knox">Activate Knox</string>
-    <string name="no_internet_connection">It seems that your device is not connected to the
-        internet
+    <string name="activate_knox">Attiva Knox</string>
+    <string name="no_internet_connection">Sembra che tu non sia connesso ad internet
+        
     </string>
-    <string name="failed_to_activate_knox_message">Knox license activation failed
+    <string name="failed_to_activate_knox_message">Errore attivazione licenza Knox
     </string>
-    <string name="activating_knox_license">"Activating… "</string>
-    <string name="knox_license_activated">Activated</string>
-    <string name="block_button_text_turn_off">Turn Off</string>
-    <string name="block_button_text_turn_on">Turn On</string>
-    <string name="block_button_text_enabling">Enabling…</string>
-    <string name="block_button_text_disabling">Disabling…</string>
-    <string name="edit_block_list">Edit Blocked URL\'s</string>
-    <string name="whitelist">Show Whitelist</string>
-    <string name="blocklist">Show Blocklist</string>
-    <string name="back_to_main">Back to Main</string>
-    <string name="editAlert">After editing the whitelist return to main Adhell screen
-        and toggle "Turn off", then tap "Turn on" to apply the changes!
+    <string name="activating_knox_license">"Attivazione… "</string>
+    <string name="knox_license_activated">Attivato</string>
+    <string name="block_button_text_turn_off">Disattiva</string>
+    <string name="block_button_text_turn_on">Attiva</string>
+    <string name="block_button_text_enabling">Attivazione…</string>
+    <string name="block_button_text_disabling">Disattivazione…</string>
+    <string name="edit_block_list">Edita URL bloccati</string>
+    <string name="whitelist">Mostra Whitelist</string>
+    <string name="blocklist">Mostra Blocklist</string>
+    <string name="back_to_main">Schermata principale</string>
+    <string name="editAlert">Dopo aver editato la whitelist ritorna nella
+        schermata principale quindi tocca su "Disattiva" e dopo su "Attiva"
+        per salvare le modifiche!
     </string>
-    <string name="allow_apps">WhiteList Apps</string>
-    <string name="delete_app">Turn Off and Delete Adhell</string>
-    <string name="delete_app_dialog_title">Delete app</string>
-    <string name="delete_app_dialog_text">Do you really want to turn off and delete Adhell?</string>
-    <string name="applist">Show App List</string>
-    <string name="list_filter">Filter</string>
-    <string name="apply_filter">Filter</string>
-    <string name="applying_filter">Please Wait, Applying Filter</string>
-    <string name="block_app_tab_label">Active Apps</string>
-    <string name="allowed_app_tab_label">Excluded Apps</string>
-    <string name="block_url_tab_label">Blocked URLs</string>
-    <string name="allowed_url_tab_label">Allowed URLs</string>
+    <string name="allow_apps">WhiteList App</string>
+    <string name="delete_app">Disattiva ed Elimina Adhell</string>
+    <string name="delete_app_dialog_title">Elimina app</string>
+    <string name="delete_app_dialog_text">Sei sicuro di voler disattivare e eliminare Adhell?</string>
+    <string name="applist">Mostra lista App</string>
+    <string name="list_filter">Filtra</string>
+    <string name="apply_filter">Filtra</string>
+    <string name="applying_filter">Attendere, Applicazione Filtri</string>
+    <string name="block_app_tab_label">App Attive</string>
+    <string name="allowed_app_tab_label">App Escluse</string>
+    <string name="block_url_tab_label">URL Bloccati</string>
+    <string name="allowed_url_tab_label">URL Consentiti</string>
     <string name="test_report">Test report</string>
     <string name="adhell_settings">Settings</string>
     <string name="change_dns_button">Change DNS</string>
