@@ -10,7 +10,7 @@
 
     <string name="preference_policy">policy-preference</string>
     <string name="isPolicyEnabled">isPolicyEnabled</string>
-    <string name="block_enabled">Adhell attivo. Sei al sicuro adesso/string>
+    <string name="block_enabled">Adhell attivo. Sei al sicuro adesso</string>
     <string name="block_disabled">Adhell disattivo</string>
     <string name="enable_blocker">Attiva blocco contenuti</string>
     <string name="disable_blocker">Disattiva Adhell</string>
@@ -32,7 +32,7 @@
     </string>
     <string name="edit_email">Email errata? Cambiala!</string>
     <string name="edit">Modifica</string>
-    <string name="to_enable_adhell">Per abilitare Adhell devi attivare la modalità amministratore per l'app.
+    <string name="to_enable_adhell">Per abilitare Adhell devi attivare la modalità amministratore per l\'app.
         Adhell usa strumenti nascosti di Samsung, e questi ultimi richiedono privilegi da Amministratore.
     </string>
     <string name="turn_on_admin">Abilita Amministratore</string>
@@ -108,7 +108,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Ciao! Frammento vuoto</string>
-    <string name="support_app_development">Supporta lo sviluppo dell'App</string>
+    <string name="support_app_development">Supporta lo sviluppo dell\'App</string>
     <string name="help_developers_to_keep_up_development">Supporta lo sviluppo di Adhell.
         Non ci sono funzioni Pro per adesso,
         ma puoi realmente aiutarci a sviluppare bei prodotti abbonandoti.

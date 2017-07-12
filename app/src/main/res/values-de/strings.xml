@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="Reports">Berichte</string>
-    <string name="about">Dies ist eine App für Samsung Smartphones, die Anzeigen und Tracker in
-        Chrome blockiert. Das Laden von Webseiten erhöht sich bis zu 100%!
-    </string>
+    <string name="about">Dies ist eine App für Samsung Smartphones, die Anzeigen und Tracker in Chrome blockiert. Das Laden von Webseiten erhöht sich bis zu 100%!</string>
     <string name="activate_knox">Knox aktivieren</string>
-    <string name="activating_knox_license">"Wird aktiviert … "</string>
-    <string name="adhell_not_supported">Adhell ​​wird noch nicht auf Ihrem Gerät unterstützt.
-    </string>
+    <string name="activating_knox_license">"Wird aktiviert… "</string>
+    <string name="add_provider">URL-Anbieter hinzufügen</string>
+    <string name="adhell_not_supported">Adhell ​​wird noch nicht auf Ihrem Gerät unterstützt.</string>
     <string name="adhell_settings">Einstellungen</string>
     <string name="allow_apps">Erlaubte Apps</string>
     <string name="allowed_app_tab_label">Ausgeschlossene Apps</string>
     <string name="allowed_url_tab_label">Erlaubte URLs</string>
-    <string name="android_version_not_supported">Diese Android-Version wird nicht unterstützt.
-    </string>
+    <string name="already_premium">Sie sind bereits Premium-Abonnent</string>
+    <string name="android_version_not_supported">Diese Android-Version wird nicht unterstützt.</string>
+    <string name="app_list_sorted_by_alphabet">Liste ist alphabetisch sortiert</string>
+    <string name="app_list_sorted_by_date">Liste wird nach der Installationsdatum sortiert</string>
     <string name="app_support_fragment_title">App-Support</string>
     <string name="applist">App-Liste anzeigen</string>
     <string name="apply_filter">Filter</string>
@@ -34,106 +34,63 @@
     <string name="change_dns_button">DNS ändern</string>
     <string name="changed_dns">Die DNS-Adressen wurden geändert.</string>
     <string name="check_input_dns">Überprüfen Sie Ihre eingegebenen Daten.</string>
-    <string name="delete_app">"Ausschalten und Adhell löschen "</string>
-    <string name="delete_app_dialog_text">Möchten Sie wirklich Adhell ​​ausschalten und löschen?
-    </string>
+    <string name="custom_url_provider_message">Hinweis. Sie können Ihren eigenen Host-Link (z.B. https://adaway.org/hosts.txt) hinzufügen. Sie können bis zu 15.000 URLs blockieren. Adhell ​​enthält schon ein Standardpaket, so dass Sie normalerweise keine zusätzlichen Pakete hinzufügen müssen. Diese Funktion ist noch experimentell und nur für Enthusiasten.</string>
+    <string name="delete_app">"Ausschalten und Adhell löschen"</string>
+    <string name="delete_app_dialog_text">Möchten Sie wirklich Adhell ​​ausschalten und löschen?</string>
     <string name="delete_app_dialog_title">App löschen</string>
+    <string name="delete_url">URL löschen</string>
     <string name="disable_blocker">Adhell deaktivieren</string>
     <string name="dns_1_address">DNS-1 Adresse</string>
     <string name="dns_2_address">DNS-2 Adresse</string>
     <string name="edit">Bearbeiten</string>
-    <string name="editAlert">Nach dem Bearbeiten der Blockier-Liste und der Ausschlussliste kehren
-        Sie zum Haupt-Adhell-Bildschirm zurück und schalten Adhell aus und wieder ein, um die
-        Änderungen zu übernehmen.
-    </string>
+    <string name="editAlert">Nach dem Bearbeiten der Blockier-Liste und der Ausschlussliste kehren Sie zum Haupt-Adhell-Bildschirm zurück und schalten Adhell aus und wieder ein, um die Änderungen zu übernehmen.</string>
     <string name="edit_block_list">"Blockierte URL's bearbeiten"</string>
     <string name="edit_email">Falsche E-Mail? Ändern Sie es!</string>
     <string name="enable_adhell_for_dns">Adhell ​​muss aktiviert sein.</string>
     <string name="enable_blocker">Inhaltsblocker aktivieren</string>
-    <string name="failed_to_activate_knox_message">Die Aktivierung der Knox-Lizenz ist
-        fehlgeschlagen.
-    </string>
+    <string name="failed_to_activate_knox_message">Die Aktivierung der Knox-Lizenz ist fehlgeschlagen.</string>
+    <string name="hello_blank_fragment">Hallo leeres Fragment</string>
+    <string name="help_developers_to_keep_up_development">"Unterstützen Sie die Entwicklung von Adhell. Derzeit gibt es noch keine Pro-Funktionen, aber Sie können uns schon jetzt durch ein Abonnement helfen, ein cooles Produkt zu entwickeln. In naher Zukunft wird es auch Pro-Funktionen geben. Sie können das Abonnement jederzeit auf der Adhell Google Play Seite abbrechen. "</string>
     <string name="isPolicyEnabled">isPolicyEnabled</string>
     <string name="isSupported">Abwarten</string>
-    <string name="knox">Zum Blockieren von Werbung verwendet Adhell ​​die Samsung Firewall. Um diese
-        Funktion zu nutzen, aktivieren Sie bitte die Samsung Lizenz. Dies ist kostenlos.
-    </string>
+    <string name="knox">Zum Blockieren von Werbung verwendet Adhell ​​die Samsung Firewall. Um diese Funktion zu nutzen, aktivieren Sie bitte die Samsung Lizenz. Dies ist kostenlos.</string>
     <string name="knox_license_activated">Die Lizenz wurde aktiviert.</string>
     <string name="last_day_blocked">"In den letzten 24 Stunden blockiert: "</string>
     <string name="list_filter">Filter</string>
     <string name="loading_saved_dns">Laden der gespeicherten DNS-Adressen</string>
     <string name="manage_standard_url_package">Standard-URL-Paket verwalten</string>
-    <string name="no_internet_connection">Ihr Gerät ist vermutlich nicht mit dem Internet
-        verbunden.
-    </string>
+    <string name="no_internet_connection">Ihr Gerät ist vermutlich nicht mit dem Internet verbunden.</string>
     <string name="no_thanks">Nein Danke!</string>
-    <string name="note_that_adhell_must_be_enabled">Verwenden Sie diese Funktion nur, wenn Sie
-        wissen, was eine Bearbeitung von DNS-Adressen an Vor- und Nachteilen mit sich bringt.
-        Beachten Sie, dass Adhell ​​aktiviert sein muss.
-    </string>
-    <string name="notify_you_2">Ihr Gerät wird nicht unterstützt. Aber wir werden Sie per {{Email}}
-        benachrichtigen, wenn wir Ihr Gerät zu Adhell ​​hinzufügen. Vielen Dank.
-    </string>
+    <string name="note_that_adhell_must_be_enabled">Verwenden Sie diese Funktion nur, wenn Sie wissen, was eine Bearbeitung von DNS-Adressen an Vor- und Nachteilen mit sich bringt. Beachten Sie, dass Adhell ​​aktiviert sein muss.</string>
+    <string name="notify_you_2">Ihr Gerät wird nicht unterstützt. Aber wir werden Sie per {{Email}} benachrichtigen, wenn wir Ihr Gerät zu Adhell ​​hinzufügen. Vielen Dank.</string>
     <string name="only_samsung">Nur Samsung</string>
     <string name="package_disabler_bottombar_title">Paketdeaktivierung</string>
     <string name="package_disabler_fragment_title">Paketdeaktivierung</string>
     <string name="phone_not_supported">Dieses Gerät wird DERZEIT nicht unterstützt.</string>
     <string name="please_wait">Bitte warten … Adhell wird aktiviert.</string>
-    <string name="preference_policy">policy-preference</string>
+    <string name="preference_policy">Richtlinienpräferenz</string>
+    <string name="premium_subscriber_message">Vielen Dank an alle Premium-Abonnenten.</string>
     <string name="restore_defaults">Standard wiederherstellen</string>
-    <string name="restored_dns">Die DNS-Adressen wurden auf Standardwerte zurückgesetzt. Sie sollten
-        Adhell ​​wieder aktivieren.
-    </string>
+    <string name="restored_dns">Die DNS-Adressen wurden auf Standardwerte zurückgesetzt. Sie sollten Adhell ​​wieder aktivieren.</string>
     <string name="set_dns_button_text">DNS einsetzen</string>
+    <string name="show_custom_providers">Benutzerdefinierte Anbieter anzeigen</string>
+    <string name="subscribe">Zum Preis von {{price}} pro Monat abonnieren</string>
+    <string name="support_app_development">App-Entwicklung unterstützen</string>
     <string name="test_report">Testbericht</string>
-    <string name="thank_you_we_will_notify_you">Wir benachrichtigen Sie gleich, nachdem Sie Ihr
-        Gerät zu Adhell ​​hinzugefügt haben.
-    </string>
+    <string name="thank_you_we_will_notify_you">Wir benachrichtigen Sie, gleich nachdem Sie Ihr Gerät zu Adhell ​​hinzugefügt haben.</string>
     <string name="to_be_done">Diese Funktion befindet sich in der Entwicklung.</string>
-    <string name="to_enable_adhell">Um Adhell ​​zu aktivieren, müssen Sie den Admin-Modus für Apps
-        aktivieren. Adhell ​​verwendet zugrundeliegende Samsung-Instrumente, und diese Instrumente
-        benötigen Admin-Privilegien.
-    </string>
-    <string name="to_take_effect_turn_off_turn_on_adhell_after_editing_list">Schalten Sie Adhell aus
-        -&gt; und nach der Bearbeitung wieder ein, um den gewünschten Effekt zu erzielen.
-    </string>
+    <string name="to_enable_adhell">Um Adhell ​​zu aktivieren, müssen Sie den Admin-Modus für Apps aktivieren. Adhell ​​verwendet zugrundeliegende Samsung-Instrumente, und diese Instrumente benötigen Admin-Privilegien.</string>
+    <string name="to_take_effect_turn_off_turn_on_adhell_after_editing_list">Schalten Sie Adhell aus -&gt; und nach der Bearbeitung wieder ein, um den gewünschten Effekt zu erzielen.</string>
     <string name="turn_on_admin">Admin einschalten</string>
+    <string name="update_all_providers">Alle Anbieter aktualisieren</string>
+    <string name="valid_subs">Ihr Abonnement ist gültig.</string>
     <string name="wait">Warten …</string>
     <string name="wait_deleting">Bitte warten … Adhell wird deaktiviert.</string>
-    <string name="wait_loading_apps_list">Bitte warten Sie, während die Anwendungsliste geladen
-        wird.
-    </string>
-    <string name="wait_removing_app_from_whitelist">Bitte warten Sie, während die App aus der
-        Ausschlussliste entfernt wird.
-    </string>
+    <string name="wait_loading_apps_list">Bitte warten Sie, während die Anwendungsliste geladen wird.</string>
+    <string name="wait_removing_app_from_whitelist">Bitte warten Sie, während die App aus der Ausschlussliste entfernt wird.</string>
     <string name="whitelist">Ausschlussliste anzeigen</string>
-    <string name="works_whit_samsung">Dieses Gerät wird nicht unterstützt. Derzeit arbeitet die App
-        nur mit Samsung-Geräten zusammen.
-    </string>
+    <string name="whitelist_ad_url">AD-URL-Ausschlussliste</string>
+    <string name="works_whit_samsung">Dieses Gerät wird nicht unterstützt. Derzeit arbeitet die App nur mit Samsung-Geräten zusammen.</string>
     <string name="yes_notify_me">Ja! Benachrichtigen sie mich!</string>
-    <string name="hello_blank_fragment">Hallo leeres Fragment</string>
-    <string name="whitelist_ad_url">Whitelist Ad URLs</string>
-    <string name="your_device_running_old_knox_version">your_device_running_old_knox_version
-    </string>
-    <string name="valid_subs">Your subscription is valid</string>
-    <string name="support_app_development">Support app development</string>
-    <string name="add_provider">Add Url Provider</string>
-    <string name="help_developers_to_keep_up_development">"Support Adhell development. There is no
-        Pro features for now, but you could really help us to develop cool product by subscribing.
-        There will be pro features as well in near future) You can cancel subscription anytime on
-        Adhell Google Play page "
-    </string>
-    <string name="show_custom_providers">Show Custom Providers</string>
-    <string name="custom_url_provider_message">" Note. You can add your own hosts link (e.g.
-        https://adaway.org/hosts.txt). You can block up to 15 000 urls. Adhell already has decent
-        standard package so in general you does not need to add additional packages. This feature is
-        experimental for now and only for enthusiasts. "
-    </string>
-    <string name="delete_url">Delete Url</string>
-    <string name="update_all_providers">Update All Providers</string>
-    <string name="app_list_sorted_by_date">List is sorted by installation time</string>
-    <string name="app_list_sorted_by_alphabet">List is sorted alphabetically</string>
-    <string name="subscribe">Subscribe for {{price}} per month</string>
-    <string name="premium_subscriber_message">Thank you for being premium subscriber</string>
-    <string name="already_premium">Already Premium</string>
+    <string name="your_device_running_old_knox_version">Ihr Gerät läuft mit einer alten Knox-Version.</string>
 </resources>
