@@ -27,12 +27,14 @@ public class AppSupportFragment extends Fragment implements PurchasesUpdatedList
     private BillingClient mBillingClient;
     private TextView supportDevelopmentTextView;
     private Button subscriptionButton;
+    private Fragment fragment;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // TODO: check if in-app billing is available
         mBillingClient = new BillingClient.Builder(getActivity()).setListener(this).build();
+        fragment = this;
     }
 
     @Override
@@ -58,15 +60,17 @@ public class AppSupportFragment extends Fragment implements PurchasesUpdatedList
                         subscriptionButton.setText(R.string.already_premium);
                         subscriptionButton.setEnabled(false);
                     } else {
-                        // Get currency and price
-                        subscriptionButton.setEnabled(true);
                         List<String> subs = new ArrayList<>();
                         subs.add("basic_pro_subs");
                         mBillingClient.querySkuDetailsAsync(BillingClient.SkuType.SUBS, subs, result -> {
                             if (result.getResponseCode() == BillingClient.BillingResponse.OK) {
-                                subscriptionButton.setText(getString(R.string.subscribe).replace("{{price}}", result.getSkuDetailsList().get(0).getPrice()));
+                                if (fragment != null && fragment.isAdded()) {
+                                    subscriptionButton.setText(getString(R.string.subscribe).replace("{{price}}", result.getSkuDetailsList().get(0).getPrice()));
+                                }
                             }
                         });
+                        // Get currency and price
+                        subscriptionButton.setEnabled(true);
                         subscriptionButton.setOnClickListener(v -> {
                             BillingFlowParams.Builder builder = new BillingFlowParams.Builder()
                                     .setSku("basic_pro_subs").setType(BillingClient.SkuType.SUBS);
