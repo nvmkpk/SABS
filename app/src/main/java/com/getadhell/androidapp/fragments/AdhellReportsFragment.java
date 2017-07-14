@@ -54,9 +54,11 @@ public class AdhellReportsFragment extends Fragment {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(list -> {
-                    ReportBlockedUrlAdapter reportBlockedUrlAdapter = new ReportBlockedUrlAdapter(this.getActivity(), list);
-                    blockedDomainsListView.setAdapter(reportBlockedUrlAdapter);
-                    lastDayBlockedTextView.setText(String.valueOf(list.size()));
+                    if (getActivity() != null) {
+                        ReportBlockedUrlAdapter reportBlockedUrlAdapter = new ReportBlockedUrlAdapter(this.getActivity(), list);
+                        blockedDomainsListView.setAdapter(reportBlockedUrlAdapter);
+                        lastDayBlockedTextView.setText(String.valueOf(list.size()));
+                    }
                 });
         disposable.add(subscribe);
         return view;
