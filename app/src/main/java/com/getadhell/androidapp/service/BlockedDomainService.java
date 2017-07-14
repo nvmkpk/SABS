@@ -59,8 +59,11 @@ public class BlockedDomainService extends IntentService {
         }
 
         List<ReportBlockedUrl> reportBlockedUrls = new ArrayList<>();
-
-        for (DomainFilterReport b : firewall.getDomainFilterReport(null)) {
+        List<DomainFilterReport> reports = firewall.getDomainFilterReport(null);
+        if (reports == null) {
+            return;
+        }
+        for (DomainFilterReport b : reports) {
             if (b.getTimeStamp() > lastBlockedTimestamp) {
                 ReportBlockedUrl reportBlockedUrl =
                         new ReportBlockedUrl(b.getDomainUrl(), b.getPackageName(), new Date(b.getTimeStamp() * 1000));
