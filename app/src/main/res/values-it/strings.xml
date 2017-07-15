@@ -59,7 +59,7 @@
         schermata principale quindi tocca su "Disattiva" e dopo su "Attiva"
         per applicare le modifiche!
     </string>
-    <string name="allow_apps">WhiteList App</string>
+    <string name="allow_apps">Escludi App</string>
     <string name="delete_app">Disattiva ed Elimina Adhell</string>
     <string name="delete_app_dialog_title">Elimina app</string>
     <string name="delete_app_dialog_text">Sei sicuro di voler disattivare e eliminare Adhell?</string>
@@ -84,10 +84,10 @@
     <string name="restore_defaults">Ripristina Predefinite</string>
     <string name="block">Blocca</string>
     <string name="manage_standard_url_package">Gestisci URL Esclusi</string>
-    <string name="whitelist_ad_url">Aggiungi ad Esclusi</string>
+    <string name="whitelist_ad_url">Escludi</string>
     <string name="block_custom_urls">Blocca Url Personali</string>
     <string name="to_take_effect_turn_off_turn_on_adhell_after_editing_list">
-        Per apportare le modifiche Disattiva -> Riattiva Adhell dopo aver modificato le liste.
+        Per apportare le modifiche dopo aver editato le liste Disattiva -> Riattiva Adhell.
     </string>
 
     <string name="package_disabler_fragment_title">Disabilita App</string>
@@ -103,7 +103,7 @@
         Riattivare Adhell nuovamente.
     </string>
     <string name="wait_loading_apps_list">"Attendere, Caricamento Lista Applicazioni"</string>
-    <string name="wait_removing_app_from_whitelist">"Attendere, Rimozione App Dalla Whitelist"
+    <string name="wait_removing_app_from_whitelist">"Attendere, Rimozione App dalle escluse "
     </string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -115,9 +115,9 @@
         Probabilmente ci saranno funzioni Pro nell'immediato futuro)
         Puoi annullare l'abbonamento quando vuoi dalla pagina di AdHell del Play Store
     </string>
-    <string name="add_provider">Aggiungi Url Host</string>
-    <string name="show_custom_providers">Aggiungi URL file Host</string>
-    <string name="delete_url">Elimina Url</string>
+    <string name="add_provider">Aggiungi File Host</string>
+    <string name="show_custom_providers">Aggiungi Link file Host</string>
+    <string name="delete_url">Elimina Link</string>
     <string name="update_all_providers">Aggiorna i file host</string>
     <string name="app_list_sorted_by_date">Ordina per data installazione</string>
     <string name="app_list_sorted_by_alphabet">Ordine Alfabetico</string>
@@ -126,7 +126,7 @@
     <string name="already_premium">Sei già un Utente Premium</string>
     <string name="custom_url_provider_message">
         Nota. Puoi aggiungere il link di un file Host personalizzato (es. https://adaway.org/hosts.txt).
-        Puoi bloccare più di 15 000 url.
+        Puoi bloccare più di 15000 url.
         Adhell ha già un file host molto vasto, in generale non serve aggiungerne altri.
         Questa funzione è in fase sperimentale per ora, sconsigliata a chi poco pratico.
     </string>
