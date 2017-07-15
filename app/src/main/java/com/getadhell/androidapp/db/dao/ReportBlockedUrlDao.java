@@ -1,5 +1,6 @@
 package com.getadhell.androidapp.db.dao;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
@@ -23,7 +24,7 @@ public interface ReportBlockedUrlDao {
     void insertAll(List<ReportBlockedUrl> reportBlockedUrls);
 
     @Query("SELECT * FROM ReportBlockedUrl WHERE blockDate BETWEEN :startDate AND :endDate ORDER BY _id DESC")
-    List<ReportBlockedUrl> getReportBlockUrlBetween(Date startDate, Date endDate);
+    LiveData<List<ReportBlockedUrl>> getReportBlockUrlBetween(Date startDate, Date endDate);
 
     @Query("DELETE FROM ReportBlockedUrl WHERE blockDate < :blockDate")
     void deleteBefore(Date blockDate);

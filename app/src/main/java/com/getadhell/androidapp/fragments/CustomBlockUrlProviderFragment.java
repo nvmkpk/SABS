@@ -116,7 +116,6 @@ public class CustomBlockUrlProviderFragment extends LifecycleFragment {
 
         BlockUrlProvidersViewModel model = ViewModelProviders.of(getActivity()).get(BlockUrlProvidersViewModel.class);
         model.getBlockUrlProviders().observe(this, blockUrlProviders -> {
-
             BlockUrlProviderAdapter adapter = new BlockUrlProviderAdapter(this.getContext(), blockUrlProviders);
             blockListView.setAdapter(adapter);
         });
