@@ -92,20 +92,27 @@ public class MainActivity extends AppCompatActivity {
         adhellTurnOnDialogFragment.setCancelable(false);
         noInternetConnectionDialogFragment.setCancelable(false);
 
-
-        BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
-
-        bottomBar.setOnTabSelectListener(tabId -> {
-            tabState = tabId;
-            for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++)
-                fragmentManager.popBackStack();
-            changeFragment();
-        });
-
         if (!DeviceUtils.isContentBlockerSupported()) {
             return;
         }
         mAdminInteractor = DeviceAdminInteractor.getInstance();
+
+        BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+        bottomBar.setOnTabSelectListener(tabId -> {
+            tabState = tabId;
+            for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++)
+                fragmentManager.popBackStack();
+            if (!mAdminInteractor.isActiveAdmin()) {
+                Log.d(TAG, "Admin not active");
+                return;
+            }
+
+            if (!mAdminInteractor.isKnoxEnbaled()) {
+                Log.d(TAG, "Knox disabled");
+                return;
+            }
+            changeFragment();
+        });
 
         AsyncTask.execute(() ->
         {
@@ -177,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        Log.d(TAG, "onResume1");
         if (!DeviceUtils.isContentBlockerSupported()) {
             Log.i(TAG, "Device not supported");
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -186,8 +193,14 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         showDialog();
-        if (!mAdminInteractor.isActiveAdmin() || !mAdminInteractor.isKnoxEnbaled()) {
+        Log.d(TAG, "onResume!!!");
+        if (!mAdminInteractor.isActiveAdmin()) {
             Log.d(TAG, "Admin not active");
+            return;
+        }
+
+        if (!mAdminInteractor.isKnoxEnbaled()) {
+            Log.d(TAG, "Knox disabled");
             return;
         }
         Log.d(TAG, "Everything is okay");
@@ -203,6 +216,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void changeFragment() {
+        Log.d(TAG, "Entering changeFragment() method...");
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         Fragment replacing;
         if (tabState == R.id.blockerTab) replacing = new BlockerFragment();
