@@ -150,5 +150,6 @@
         Your device running old version of Knox. So this function may work unstable. Sorry
     </string>
     <string name="valid_subs">Your subscription is valid</string>
+    <string name="adblock_whitelist">Adblock Whitelist</string>
 
 </resources>

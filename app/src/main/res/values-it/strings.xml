@@ -134,5 +134,6 @@
         Il tuo dispositivo utilizza una versione antiquata di Knox. Questa funzione potrebbe risultare instabile.
     </string>
     <string name="valid_subs">Il tuo abbonamento è valido</string>
+    <string name="adblock_whitelist">Adblock Whitelist</string>
 
 </resources>
