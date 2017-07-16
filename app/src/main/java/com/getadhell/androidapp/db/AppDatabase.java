@@ -4,6 +4,7 @@ package com.getadhell.androidapp.db;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.migration.Migration;
 import android.content.Context;
 
 import com.getadhell.androidapp.db.dao.AppInfoDao;
@@ -18,6 +19,7 @@ import com.getadhell.androidapp.db.entity.BlockUrlProvider;
 import com.getadhell.androidapp.db.entity.ReportBlockedUrl;
 import com.getadhell.androidapp.db.entity.UserBlockUrl;
 import com.getadhell.androidapp.db.entity.WhiteUrl;
+import com.getadhell.androidapp.db.migration.Migration_14_15;
 
 @Database(entities = {
         BlockUrlProvider.class,
@@ -26,14 +28,17 @@ import com.getadhell.androidapp.db.entity.WhiteUrl;
         ReportBlockedUrl.class,
         WhiteUrl.class,
         UserBlockUrl.class
-}, version = 14)
+}, version = 15)
 public abstract class AppDatabase extends RoomDatabase {
+    private static final Migration MIGRATION_14_15 = new Migration_14_15(14, 15);
     private static AppDatabase INSTANCE;
 
     public static AppDatabase getAppDatabase(Context context) {
         if (INSTANCE == null) {
             INSTANCE =
-                    Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "adhell-database")
+                    Room.databaseBuilder(context.getApplicationContext(),
+                            AppDatabase.class, "adhell-database")
+                            .addMigrations(MIGRATION_14_15)
                             .build();
         }
         return INSTANCE;

@@ -1,14 +1,13 @@
 package com.getadhell.androidapp.blocker;
 
 import android.app.enterprise.EnterpriseDeviceManager;
-import android.content.Context;
 import android.util.Log;
 import android.util.Patterns;
 
 import com.getadhell.androidapp.App;
 import com.getadhell.androidapp.MainActivity;
-import com.getadhell.androidapp.contentprovider.ServerContentBlockProvider;
 import com.getadhell.androidapp.db.AppDatabase;
+import com.getadhell.androidapp.db.entity.AppInfo;
 import com.getadhell.androidapp.db.entity.BlockUrl;
 import com.getadhell.androidapp.db.entity.BlockUrlProvider;
 import com.getadhell.androidapp.db.entity.UserBlockUrl;
@@ -27,16 +26,13 @@ import java.util.Set;
 public class ContentBlocker56 implements ContentBlocker {
     private static ContentBlocker56 mInstance = null;
     private final String TAG = ContentBlocker56.class.getCanonicalName();
-    private ServerContentBlockProvider contentBlockProvider;
     private Firewall mFirewall;
     private int urlBlockLimit = 2700;
     private AppDatabase appDatabase;
 
 
     private ContentBlocker56() {
-        Context context = App.get().getApplicationContext();
         EnterpriseDeviceManager mEnterpriseDeviceManager = DeviceUtils.getEnterpriseDeviceManager();
-        contentBlockProvider = new ServerContentBlockProvider(context.getFilesDir());
         mFirewall = mEnterpriseDeviceManager.getFirewall();
         appDatabase = AppDatabase.getAppDatabase(App.get().getApplicationContext());
     }
@@ -123,8 +119,11 @@ public class ContentBlocker56 implements ContentBlocker {
         rules.add(new DomainFilterRule(appIdentity, denyList, allowList));
         List<String> superAllow = new ArrayList<>();
         superAllow.add("*");
-        for (String app : contentBlockProvider.loadAllowApps()) {
-            rules.add(new DomainFilterRule(new AppIdentity(app, null), new ArrayList<>(), superAllow));
+        List<AppInfo> appInfos = appDatabase.applicationInfoDao().getWhitelistedApps();
+        Log.d(TAG, "Whitelisted apps size: " + appInfos.size());
+        for (AppInfo app : appInfos) {
+            Log.d(TAG, app.packageName);
+            rules.add(new DomainFilterRule(new AppIdentity(app.packageName, null), new ArrayList<>(), superAllow));
         }
         try {
             FirewallResponse[] response = mFirewall.addDomainFilterRules(rules);

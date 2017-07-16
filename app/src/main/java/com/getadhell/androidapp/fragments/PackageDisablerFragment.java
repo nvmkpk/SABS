@@ -1,18 +1,15 @@
 package com.getadhell.androidapp.fragments;
 
 import android.annotation.SuppressLint;
-import android.support.v4.app.Fragment;
 import android.app.ProgressDialog;
 import android.app.enterprise.ApplicationPolicy;
 import android.content.Context;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,8 +19,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Switch;
@@ -34,17 +29,12 @@ import com.getadhell.androidapp.App;
 import com.getadhell.androidapp.R;
 import com.getadhell.androidapp.db.AppDatabase;
 import com.getadhell.androidapp.db.entity.AppInfo;
-import com.getadhell.androidapp.utils.ApplicationInfoNameComparator;
 import com.getadhell.androidapp.utils.AppsListDBInitializer;
 import com.getadhell.androidapp.utils.DeviceUtils;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
-public class PackageDisablerFragment extends Fragment
-{
+public class PackageDisablerFragment extends Fragment {
     private ListView installedAppsView;
     private Context context;
     private PackageManager packageManager;
@@ -56,7 +46,8 @@ public class PackageDisablerFragment extends Fragment
     private EditText editText;
     private boolean sortLexic = true;
 
-    public PackageDisablerFragment() {}
+    public PackageDisablerFragment() {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,8 +56,7 @@ public class PackageDisablerFragment extends Fragment
 
     @SuppressLint("StaticFieldLeak")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getActivity().setTitle(getString(R.string.package_disabler_fragment_title));
         View view = inflater.inflate(R.layout.fragment_package_disabler, container, false);
         context = getActivity().getApplicationContext();
@@ -87,14 +77,19 @@ public class PackageDisablerFragment extends Fragment
 
         loadApplicationsList(false);
 
-        editText.addTextChangedListener(new TextWatcher()
-        {
+        editText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
             @Override
-            public void afterTextChanged(Editable s) { loadApplicationsList(false); }
+            public void afterTextChanged(Editable s) {
+                loadApplicationsList(false);
+            }
         });
 
         /*view.findViewById(R.id.buttonFilterDisable).setOnClickListener(view1 ->
@@ -117,26 +112,21 @@ public class PackageDisablerFragment extends Fragment
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
-    {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.package_disabler_menu, menu);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.action_pack_dis_sort:
                 sortLexic = !sortLexic;
-                if (sortLexic)
-                {
+                if (sortLexic) {
                     item.setIcon(getResources().getDrawable(R.drawable.date_sort));
                     Toast.makeText(context, getString(R.string.app_list_sorted_by_alphabet), Toast.LENGTH_SHORT).show();
                     loadApplicationsList(false);
-                } else
-                {
+                } else {
                     item.setIcon(getResources().getDrawable(R.drawable.alpha_sort));
                     Toast.makeText(context, getString(R.string.app_list_sorted_by_date), Toast.LENGTH_SHORT).show();
                     loadApplicationsList(false);
@@ -150,17 +140,13 @@ public class PackageDisablerFragment extends Fragment
     }
 
     @SuppressLint("StaticFieldLeak")
-    private void loadApplicationsList(boolean clear)
-    {
-        new AsyncTask<Void, Void, Void>()
-        {
+    private void loadApplicationsList(boolean clear) {
+        new AsyncTask<Void, Void, Void>() {
             @Override
-            protected Void doInBackground(Void... o)
-            {
+            protected Void doInBackground(Void... o) {
                 mDb = AppDatabase.getAppDatabase(App.get().getApplicationContext());
                 if (clear) mDb.applicationInfoDao().deleteAll();
-                else
-                {
+                else {
                     packageList = getListFromDb();
                     if (packageList.size() != 0) return null;
                 }
@@ -170,8 +156,7 @@ public class PackageDisablerFragment extends Fragment
             }
 
             @Override
-            protected void onPostExecute(Void o)
-            {
+            protected void onPostExecute(Void o) {
                 super.onPostExecute(o);
                 adapter = new DisablerAppAdapter(packageList);
                 installedAppsView.setAdapter(adapter);
@@ -180,23 +165,19 @@ public class PackageDisablerFragment extends Fragment
         }.execute();
     }
 
-    private List<AppInfo> getListFromDb()
-    {
+    private List<AppInfo> getListFromDb() {
         String filterText = editText.getText().toString();
-        if (filterText.length() == 0)
-        {
+        if (filterText.length() == 0) {
             if (sortLexic) return mDb.applicationInfoDao().getAll();
             return mDb.applicationInfoDao().getAllRecentSort();
-        }
-        else
-        {
-            if (sortLexic) return mDb.applicationInfoDao().getAllAppsWithStrInName('%' + filterText + '%');
+        } else {
+            if (sortLexic)
+                return mDb.applicationInfoDao().getAllAppsWithStrInName('%' + filterText + '%');
             return mDb.applicationInfoDao().getAllAppsWithStrInNameTimeOrder('%' + filterText + '%');
         }
     }
 
-    public static class ViewHolder
-    {
+    public static class ViewHolder {
         TextView nameH;
         TextView packageH;
         Switch switchH;
@@ -209,8 +190,7 @@ public class PackageDisablerFragment extends Fragment
         //private List<AppInfo> filteredList = new ArrayList<>();
         //private ItemFilter filter;
 
-        public DisablerAppAdapter(List<AppInfo> appInfoList)
-        {
+        public DisablerAppAdapter(List<AppInfo> appInfoList) {
             applicationInfoList = appInfoList;
             /*for (AppInfo appInfo : appInfoList)
                 if (!appInfo.packageName.equals("com.getadhell.androidapp"))
@@ -218,6 +198,7 @@ public class PackageDisablerFragment extends Fragment
             //filter = new ItemFilter();
             filteredList = applicationInfoList;*/
         }
+
         @Override
         public int getCount() {
             return this.applicationInfoList.size();
@@ -239,8 +220,7 @@ public class PackageDisablerFragment extends Fragment
         }*/
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent)
-        {
+        public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder holder;
             if (convertView == null) {
                 convertView = LayoutInflater.from(context).inflate(R.layout.item_disable_app_list_view, parent, false);
@@ -256,10 +236,13 @@ public class PackageDisablerFragment extends Fragment
             holder.nameH.setText(appInfo.appName);
             holder.packageH.setText(appInfo.packageName);
             holder.switchH.setChecked(appPolicy.getApplicationStateEnabled(appInfo.packageName));
-            if (appInfo.system) convertView.findViewById(R.id.systemOrNot).setVisibility(View.VISIBLE);
+            if (appInfo.system)
+                convertView.findViewById(R.id.systemOrNot).setVisibility(View.VISIBLE);
             else convertView.findViewById(R.id.systemOrNot).setVisibility(View.GONE);
-            try { holder.imageH.setImageDrawable(packageManager.getApplicationIcon(appInfo.packageName)); }
-            catch (PackageManager.NameNotFoundException e) {}
+            try {
+                holder.imageH.setImageDrawable(packageManager.getApplicationIcon(appInfo.packageName));
+            } catch (PackageManager.NameNotFoundException e) {
+            }
 
             //holder.textH.setText(packageManager.getApplicationLabel(appInfo));
             //holder.switchH.setChecked(appPolicy.getApplicationStateEnabled(appInfo.packageName));

@@ -1,17 +1,18 @@
 package com.getadhell.androidapp.db.dao;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import com.getadhell.androidapp.db.entity.AppInfo;
 
 import java.util.List;
 
 @Dao
-public interface AppInfoDao
-{
+public interface AppInfoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<AppInfo> apps);
 
@@ -47,4 +48,16 @@ public interface AppInfoDao
 
     @Query("SELECT * FROM AppInfo ORDER BY installTime DESC")
     List<AppInfo> getAllRecentSort();
+
+    @Query("SELECT * FROM AppInfo ORDER BY adhellWhitelisted DESC, appName ASC")
+    LiveData<List<AppInfo>> getAllSortedByWhitelist();
+
+    @Query("SELECT * FROM AppInfo WHERE adhellWhitelisted = 1")
+    List<AppInfo> getWhitelistedApps();
+
+    @Query("SELECT * FROM AppInfo WHERE packageName = :packageName")
+    AppInfo getByPackageName(String packageName);
+
+    @Update
+    void update(AppInfo appInfo);
 }

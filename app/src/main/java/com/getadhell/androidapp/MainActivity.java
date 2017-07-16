@@ -20,6 +20,7 @@ import com.getadhell.androidapp.blocker.ContentBlocker;
 import com.getadhell.androidapp.blocker.ContentBlocker56;
 import com.getadhell.androidapp.blocker.ContentBlocker57;
 import com.getadhell.androidapp.db.AppDatabase;
+import com.getadhell.androidapp.db.entity.AppInfo;
 import com.getadhell.androidapp.db.entity.BlockUrl;
 import com.getadhell.androidapp.db.entity.BlockUrlProvider;
 import com.getadhell.androidapp.deviceadmin.DeviceAdminInteractor;
@@ -31,7 +32,6 @@ import com.getadhell.androidapp.fragments.AppSupportFragment;
 import com.getadhell.androidapp.fragments.BlockerFragment;
 import com.getadhell.androidapp.fragments.PackageDisablerFragment;
 import com.getadhell.androidapp.service.BlockedDomainService;
-import com.getadhell.androidapp.utils.AppWhiteList;
 import com.getadhell.androidapp.utils.AppsListDBInitializer;
 import com.getadhell.androidapp.utils.BlockUrlUtils;
 import com.getadhell.androidapp.utils.DeviceUtils;
@@ -114,10 +114,28 @@ public class MainActivity extends AppCompatActivity {
             if (appDatabase.applicationInfoDao().getAll().size() == 0) {
                 AppsListDBInitializer.getInstance().fillPackageDb(getPackageManager());
             }
-            // TODO: Make it with database
-            // Add to whitelist if not exists
-            AppWhiteList appWhiteList = new AppWhiteList();
-            appWhiteList.addToWhiteList("com.google.android.music");
+
+            List<AppInfo> appInfos = appDatabase.applicationInfoDao().getWhitelistedApps();
+            if (appInfos.size() == 0) {
+                Log.d(TAG, "Size of whitelist apps is 0. Whitelisting default package");
+                AppInfo appInfo = appDatabase.applicationInfoDao().getByPackageName("com.google.android.music");
+                if (appInfo != null) {
+                    appInfo.adhellWhitelisted = true;
+                    appDatabase.applicationInfoDao().update(appInfo);
+                }
+
+                appInfo = appDatabase.applicationInfoDao().getByPackageName("com.android.vending");
+                if (appInfo != null) {
+                    appInfo.adhellWhitelisted = true;
+                    appDatabase.applicationInfoDao().update(appInfo);
+                }
+
+                appInfo = appDatabase.applicationInfoDao().getByPackageName("com.google.android.gms");
+                if (appInfo != null) {
+                    appInfo.adhellWhitelisted = true;
+                    appDatabase.applicationInfoDao().update(appInfo);
+                }
+            }
 
             // Check if standard ad provider is exist. if not add
             BlockUrlProvider blockUrlProvider =

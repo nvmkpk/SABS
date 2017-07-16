@@ -28,9 +28,10 @@ public class AdhellReportsFragment extends LifecycleFragment {
 
         AdhellReportViewModel adhellReportViewModel = ViewModelProviders.of(getActivity()).get(AdhellReportViewModel.class);
         adhellReportViewModel.getReportBlockedUrls().observe(this, reportBlockedUrls -> {
-            ReportBlockedUrlAdapter reportBlockedUrlAdapter = new ReportBlockedUrlAdapter(this.getActivity(), reportBlockedUrls);
+            ReportBlockedUrlAdapter reportBlockedUrlAdapter = new ReportBlockedUrlAdapter(this.getContext(), reportBlockedUrls);
             blockedDomainsListView.setAdapter(reportBlockedUrlAdapter);
             lastDayBlockedTextView.setText(String.valueOf(reportBlockedUrls.size()));
+            reportBlockedUrlAdapter.notifyDataSetChanged();
         });
 
         return view;

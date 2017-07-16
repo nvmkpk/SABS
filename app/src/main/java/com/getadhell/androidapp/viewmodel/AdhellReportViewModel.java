@@ -6,7 +6,6 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
-import com.getadhell.androidapp.App;
 import com.getadhell.androidapp.db.AppDatabase;
 import com.getadhell.androidapp.db.entity.ReportBlockedUrl;
 
@@ -19,7 +18,7 @@ public class AdhellReportViewModel extends AndroidViewModel {
 
     public AdhellReportViewModel(Application application) {
         super(application);
-        mDb = AppDatabase.getAppDatabase(App.get().getApplicationContext());
+        mDb = AppDatabase.getAppDatabase(application);
     }
 
     public LiveData<List<ReportBlockedUrl>> getReportBlockedUrls() {

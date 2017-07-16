@@ -1,24 +1,35 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:orientation="horizontal">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal">
 
     <ImageView
-        android:id="@+id/appIcon"
+        android:id="@+id/appIconImageView"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:layout_marginBottom="1dp"
-        android:layout_marginLeft="1dp"
-        android:layout_marginRight="1dp"
-        android:layout_marginTop="1dp"
-        android:src="@mipmap/ic_launcher"/>
+        android:layout_marginBottom="5dp"
+        android:src="@mipmap/ic_launcher" />
 
     <TextView
-        android:id="@+id/appName"
+        android:id="@+id/appNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="5dp"
-        android:text="Adhell"
+        android:layout_margin="5dp"
+        android:layout_toEndOf="@+id/appIconImageView"
+        android:layout_toRightOf="@+id/appIconImageView"
+        android:text="@string/app_name"
         android:textColor="#000000"
-        android:textSize="15sp"/>
-</LinearLayout>
+        android:textSize="15sp" />
+
+    <Switch
+        android:id="@+id/adhellWhitelistAppSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="10dp"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false" />
+</RelativeLayout>
