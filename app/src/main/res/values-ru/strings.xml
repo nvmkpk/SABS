@@ -121,9 +121,7 @@
     <string name="whitelist_ad_url">Белый список рекламных URL</string>
     <string name="valid_subs">Your subscription is valid</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="your_device_running_old_knox_version">" Your device running old version of Knox.
-        So this function may work unstable. Sorry"
+    <string name="your_device_running_old_knox_version">Ваше устройство работает на старой версии Knox. Поэтому функция блокировки может работать не стабильно.
     </string>
-    <string name="adblock_whitelist">Adblock Whitelist</string>
     <string name="adblock_whitelist">Включить или выключить блокировку рекламы для приложений</string>
 </resources>
