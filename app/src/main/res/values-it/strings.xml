@@ -135,5 +135,6 @@
     </string>
     <string name="valid_subs">Il tuo abbonamento è valido</string>
     <string name="adblock_whitelist">Adblock Whitelist</string>
+    <string name="adblock_whitelist">Turn on or off Adblock for apps</string>
 
 </resources>

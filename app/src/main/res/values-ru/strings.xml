@@ -125,4 +125,5 @@
         So this function may work unstable. Sorry"
     </string>
     <string name="adblock_whitelist">Adblock Whitelist</string>
+    <string name="adblock_whitelist">Включить или выключить блокировку рекламы для приложений</string>
 </resources>
