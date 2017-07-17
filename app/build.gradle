@@ -26,8 +26,8 @@ android {
         applicationId "com.getadhell.androidapp"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 54
-        versionName "1.5.4"
+        versionCode 55
+        versionName "1.5.5"
     }
     buildTypes {
 //        release {
