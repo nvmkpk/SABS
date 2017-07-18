@@ -20,7 +20,7 @@
     </string>
     <string name="android_version_not_supported">This Android version not supported</string>
     <string name="please_wait">Please wait… Enabling Adhell</string>
-    <string name="wait_deleting">Please wat… Disabling Adhell</string>
+    <string name="wait_deleting">Please wait… Disabling Adhell</string>
     <string name="adhell_not_supported">Adhell does not supported on your device yet.
     </string>
     <string name="yes_notify_me">Yes! Notify Me!</string>
