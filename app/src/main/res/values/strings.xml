@@ -59,7 +59,7 @@
     <string name="editAlert">After editing the whitelist return to main Adhell screen
         and toggle "Turn off", then tap "Turn on" to apply the changes!
     </string>
-    <string name="allow_apps">WhiteList Apps</string>
+    <string name="allow_apps">Manage Adblocked Apps</string>
     <string name="delete_app">Turn Off and Delete Adhell</string>
     <string name="delete_app_dialog_title">Delete app</string>
     <string name="delete_app_dialog_text">Do you really want to turn off and delete Adhell?</string>
@@ -150,6 +150,6 @@
         Your device running old version of Knox. So this function may work unstable. Sorry
     </string>
     <string name="valid_subs">Your subscription is valid</string>
-    <string name="adblock_whitelist">Turn on or off Adblock for apps</string>
+    <string name="adblock_whitelist">Adblocked Apps</string>
 
 </resources>
