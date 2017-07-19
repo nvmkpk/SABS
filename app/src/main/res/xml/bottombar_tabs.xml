@@ -8,6 +8,10 @@
         id="@+id/packageDisablerTab"
         title="@string/package_disabler_bottombar_title"/>
     <tab
+        icon="@drawable/ic_report"
+        id="@+id/appPermissionsTab"
+        title="Permissions"/>
+    <tab
         icon="@drawable/ic_account_balance"
         id="@+id/appSupportTab"
         title="@string/app_support_fragment_title"/>
