@@ -14,6 +14,5 @@ public class AppPermissionsViewModel extends AndroidViewModel {
     public AppPermissionsViewModel(Application application) {
         super(application);
         mAppDatabase = AppDatabase.getAppDatabase(application);
-
     }
 }

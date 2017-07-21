@@ -27,6 +27,7 @@ import com.getadhell.androidapp.dialogfragment.AdhellNotSupportedDialogFragment;
 import com.getadhell.androidapp.dialogfragment.AdhellTurnOnDialogFragment;
 import com.getadhell.androidapp.dialogfragment.NoInternetConnectionDialogFragment;
 import com.getadhell.androidapp.fragments.AdhellNotSupportedFragment;
+import com.getadhell.androidapp.fragments.AdhellPermissionInfoFragment;
 import com.getadhell.androidapp.fragments.AppSupportFragment;
 import com.getadhell.androidapp.fragments.BlockerFragment;
 import com.getadhell.androidapp.fragments.PackageDisablerFragment;
@@ -196,9 +197,19 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "Entering changeFragment() method...");
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         Fragment replacing;
-        if (tabState == R.id.blockerTab) replacing = new BlockerFragment();
-        else if (tabState == R.id.packageDisablerTab) replacing = new PackageDisablerFragment();
-        else replacing = new AppSupportFragment();
+        switch (tabState) {
+            case R.id.blockerTab:
+                replacing = new BlockerFragment();
+                break;
+            case R.id.packageDisablerTab:
+                replacing = new PackageDisablerFragment();
+                break;
+            case R.id.appPermissionsTab:
+                replacing = new AdhellPermissionInfoFragment();
+                break;
+            default:
+                replacing = new AppSupportFragment();
+        }
         fragmentTransaction.replace(R.id.fragmentContainer, replacing);
         fragmentTransaction.commitAllowingStateLoss();
     }

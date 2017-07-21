@@ -141,4 +141,5 @@
     <string name="premium_subscriber_message">Thank you for being premium subscriber</string>
     <string name="subscribe">Subscribe for {{price}} per month</string>
     <string name="adblock_whitelist">Turn on or off Adblock for apps</string>
+    <string name="application_icon">App Icon</string>
 </resources>
