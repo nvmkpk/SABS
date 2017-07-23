@@ -22,10 +22,6 @@ public class AdhellPermissionInfoAdapter extends RecyclerView.Adapter<AdhellPerm
         mAdhellPermissionInfos = adhellPermissionInfos;
     }
 
-    private Context getContext() {
-        return mContext;
-    }
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
@@ -47,12 +43,11 @@ public class AdhellPermissionInfoAdapter extends RecyclerView.Adapter<AdhellPerm
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView permissionLabelTextView;
-        public TextView permissionNameTextView;
+        TextView permissionLabelTextView;
+        TextView permissionNameTextView;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
-
             permissionLabelTextView = (TextView) itemView.findViewById(R.id.permissionLabelTextView);
             permissionNameTextView = (TextView) itemView.findViewById(R.id.permissionNameTextView);
             itemView.setOnClickListener(this);
