@@ -20,7 +20,7 @@ import com.getadhell.androidapp.blocker.ContentBlocker;
 import com.getadhell.androidapp.blocker.ContentBlocker56;
 import com.getadhell.androidapp.blocker.ContentBlocker57;
 import com.getadhell.androidapp.utils.BlockedDomainAlarmHelper;
-import com.getadhell.androidapp.utils.DeviceUtils;
+import com.getadhell.androidapp.utils.DeviceAdminInteractor;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -112,7 +112,7 @@ public class BlockerFragment extends Fragment {
         reportButton = (Button) view.findViewById(R.id.adhellReportsButton);
         warningMessageTextView = (TextView) view.findViewById(R.id.warningMessageTextView);
         warningMessageTextView.setVisibility(View.GONE);
-        contentBlocker = DeviceUtils.getContentBlocker();
+        contentBlocker = DeviceAdminInteractor.getInstance().getContentBlocker();
         if (!(contentBlocker instanceof ContentBlocker57
                 || contentBlocker instanceof ContentBlocker56)) {
             warningMessageTextView.setVisibility(View.VISIBLE);

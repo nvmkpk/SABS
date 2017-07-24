@@ -1,15 +1,14 @@
 package com.getadhell.androidapp.fragments;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -22,9 +21,9 @@ import com.getadhell.androidapp.R;
 import com.getadhell.androidapp.blocker.ContentBlocker;
 import com.getadhell.androidapp.blocker.ContentBlocker56;
 import com.getadhell.androidapp.blocker.ContentBlocker57;
-import com.getadhell.androidapp.receiver.CustomDeviceAdminReceiver;
 import com.getadhell.androidapp.dialogfragment.DnsChangeDialogFragment;
-import com.getadhell.androidapp.utils.DeviceUtils;
+import com.getadhell.androidapp.receiver.CustomDeviceAdminReceiver;
+import com.getadhell.androidapp.utils.DeviceAdminInteractor;
 
 public class AppSettingsFragment extends Fragment {
     private static final String TAG = AppSettingsFragment.class.getCanonicalName();
@@ -37,13 +36,13 @@ public class AppSettingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_app_settings, container, false);
         mContext = this.getActivity().getApplicationContext();
-        contentBlocker = DeviceUtils.getContentBlocker();
-        try
-        {
+        contentBlocker = DeviceAdminInteractor.getInstance().getContentBlocker();
+        try {
             ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        catch (Exception e) { e.printStackTrace(); }
 
         Button editButton = (Button) view.findViewById(R.id.editUrls);
         editButton.setOnClickListener(v ->

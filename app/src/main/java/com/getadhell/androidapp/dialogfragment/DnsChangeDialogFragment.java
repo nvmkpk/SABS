@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.getadhell.androidapp.R;
 import com.getadhell.androidapp.blocker.ContentBlocker57;
-import com.getadhell.androidapp.utils.DeviceUtils;
+import com.getadhell.androidapp.utils.DeviceAdminInteractor;
 
 public class DnsChangeDialogFragment extends DialogFragment {
 
@@ -72,7 +72,7 @@ public class DnsChangeDialogFragment extends DialogFragment {
                 Toast.makeText(v.getContext(), getString(R.string.check_input_dns), Toast.LENGTH_LONG).show();
                 return;
             }
-            ContentBlocker57 contentBlocker57 = (ContentBlocker57) DeviceUtils.getContentBlocker();
+            ContentBlocker57 contentBlocker57 = (ContentBlocker57) DeviceAdminInteractor.getInstance().getContentBlocker();
             if (contentBlocker57 != null && !contentBlocker57.isEnabled()) {
                 Toast.makeText(v.getContext(), getString(R.string.enable_adhell_for_dns), Toast.LENGTH_LONG).show();
             }
@@ -92,7 +92,7 @@ public class DnsChangeDialogFragment extends DialogFragment {
             editor.remove("dns1");
             editor.remove("dns2");
             editor.apply();
-            ContentBlocker57 contentBlocker57 = (ContentBlocker57) DeviceUtils.getContentBlocker();
+            ContentBlocker57 contentBlocker57 = (ContentBlocker57) DeviceAdminInteractor.getInstance().getContentBlocker();
             contentBlocker57.disableBlocker();
             Toast.makeText(v.getContext(), getString(R.string.restored_dns), Toast.LENGTH_LONG).show();
             dismiss();

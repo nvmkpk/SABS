@@ -1,13 +1,11 @@
 package com.getadhell.androidapp.blocker;
 
-import android.app.enterprise.EnterpriseDeviceManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.util.Patterns;
 
 import com.getadhell.androidapp.App;
-import com.getadhell.androidapp.utils.DeviceUtils;
 import com.sec.enterprise.AppIdentity;
 import com.sec.enterprise.firewall.DomainFilterRule;
 import com.sec.enterprise.firewall.Firewall;
@@ -15,15 +13,18 @@ import com.sec.enterprise.firewall.Firewall;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class ContentBlocker57 implements ContentBlocker {
     private static final String TAG = ContentBlocker57.class.getCanonicalName();
     private static ContentBlocker57 mInstance = null;
-    private Firewall mFirewall;
+
+    @Inject
+    Firewall mFirewall;
+
     private ContentBlocker56 contentBlocker56;
 
     private ContentBlocker57() {
-        EnterpriseDeviceManager mEnterpriseDeviceManager = DeviceUtils.getEnterpriseDeviceManager();
-        mFirewall = mEnterpriseDeviceManager.getFirewall();
         contentBlocker56 = ContentBlocker56.getInstance();
     }
 

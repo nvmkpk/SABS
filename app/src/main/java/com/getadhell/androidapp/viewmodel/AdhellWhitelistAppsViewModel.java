@@ -7,9 +7,9 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.util.Log;
 
+import com.getadhell.androidapp.App;
 import com.getadhell.androidapp.db.AppDatabase;
 import com.getadhell.androidapp.db.entity.AppInfo;
-import com.getadhell.androidapp.utils.DeviceUtils;
 import com.sec.enterprise.AppIdentity;
 import com.sec.enterprise.firewall.DomainFilterRule;
 import com.sec.enterprise.firewall.Firewall;
@@ -18,18 +18,24 @@ import com.sec.enterprise.firewall.FirewallResponse;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.Maybe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class AdhellWhitelistAppsViewModel extends AndroidViewModel {
     private static final String TAG = AdhellWhitelistAppsViewModel.class.getCanonicalName();
-    private AppDatabase mAppDatabase;
+    @Inject
+    Firewall firewall;
+
+    @Inject
+    AppDatabase mAppDatabase;
     private LiveData<List<AppInfo>> appInfos;
 
     public AdhellWhitelistAppsViewModel(Application application) {
         super(application);
-        mAppDatabase = AppDatabase.getAppDatabase(application);
+        App.get().getAppComponent().inject(this);
     }
 
     public LiveData<List<AppInfo>> getSortedAppInfo() {
@@ -55,8 +61,7 @@ public class AdhellWhitelistAppsViewModel extends AndroidViewModel {
             superAllow.add("*");
             rules.add(new DomainFilterRule(new AppIdentity(appInfo.packageName, null), new ArrayList<>(), superAllow));
             try {
-                Firewall firewall = DeviceUtils.getEnterpriseDeviceManager().getFirewall();
-                if (!firewall.isFirewallEnabled()) {
+                if (firewall == null || !firewall.isFirewallEnabled()) {
                     return null;
                 }
                 FirewallResponse[] response = null;

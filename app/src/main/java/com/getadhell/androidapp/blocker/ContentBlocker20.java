@@ -1,8 +1,6 @@
 package com.getadhell.androidapp.blocker;
 
-import android.app.enterprise.EnterpriseDeviceManager;
 import android.app.enterprise.FirewallPolicy;
-import android.content.Context;
 import android.util.Log;
 
 import com.getadhell.androidapp.App;
@@ -12,7 +10,6 @@ import com.getadhell.androidapp.db.entity.BlockUrl;
 import com.getadhell.androidapp.db.entity.BlockUrlProvider;
 import com.getadhell.androidapp.db.entity.UserBlockUrl;
 import com.getadhell.androidapp.db.entity.WhiteUrl;
-import com.getadhell.androidapp.utils.DeviceUtils;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -21,21 +18,19 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.inject.Inject;
+
 public class ContentBlocker20 implements ContentBlocker {
     private static ContentBlocker20 mInstance = null;
     private final String LOG_TAG = ContentBlocker20.class.getCanonicalName();
+    @Inject
+    FirewallPolicy firewallPolicy;
+    @Inject
+    AppDatabase appDatabase;
     private int urlBlockLimit = 10;
-    private FirewallPolicy firewallPolicy;
-    private AppDatabase appDatabase;
 
     private ContentBlocker20() {
-        Context context = App.get().getApplicationContext();
-        Log.d(LOG_TAG, "Entering constructor...");
-        EnterpriseDeviceManager mEnterpriseDeviceManager = DeviceUtils.getEnterpriseDeviceManager();
-        firewallPolicy = mEnterpriseDeviceManager.getFirewallPolicy();
-        appDatabase = AppDatabase.getAppDatabase(context);
-        Log.d(LOG_TAG, "Number of urls to block: " + urlBlockLimit);
-        Log.d(LOG_TAG, "Leaving constructor.");
+        App.get().getAppComponent().inject(this);
     }
 
     public static ContentBlocker20 getInstance() {

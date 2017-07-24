@@ -17,7 +17,6 @@ import com.getadhell.androidapp.R;
 import com.getadhell.androidapp.model.AndroidDeviceForm;
 import com.getadhell.androidapp.net.AdhellInfoResponse;
 import com.getadhell.androidapp.net.CustomResponse;
-import com.getadhell.androidapp.utils.DeviceUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -137,7 +136,7 @@ public class HeartbeatIntentService extends IntentService {
         androidDeviceForm.deviceModel = android.os.Build.MODEL;
         androidDeviceForm.sdkVersion = android.os.Build.VERSION.SDK_INT;
         androidDeviceForm.releaseVersion = android.os.Build.VERSION.RELEASE;
-        androidDeviceForm.knoxStandardSdkVersion = DeviceUtils.getEnterpriseDeviceManager().getEnterpriseSdkVer().toString();
+//        androidDeviceForm.knoxStandardSdkVersion = DeviceUtils.getEnterpriseDeviceManager().getEnterpriseSdkVer().toString();
         androidDeviceForm.appId = id(mContext);
 
         final MediaType JSON = MediaType.parse("application/json; charset=utf-8");

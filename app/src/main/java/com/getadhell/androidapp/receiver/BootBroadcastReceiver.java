@@ -8,13 +8,13 @@ import com.getadhell.androidapp.blocker.ContentBlocker;
 import com.getadhell.androidapp.blocker.ContentBlocker56;
 import com.getadhell.androidapp.blocker.ContentBlocker57;
 import com.getadhell.androidapp.utils.BlockedDomainAlarmHelper;
-import com.getadhell.androidapp.utils.DeviceUtils;
+import com.getadhell.androidapp.utils.DeviceAdminInteractor;
 
 public class BootBroadcastReceiver extends WakefulBroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        ContentBlocker contentBlocker = DeviceUtils.getContentBlocker();
+        ContentBlocker contentBlocker = DeviceAdminInteractor.getInstance().getContentBlocker();
         if (contentBlocker != null && contentBlocker.isEnabled() && (contentBlocker instanceof ContentBlocker56
                 || contentBlocker instanceof ContentBlocker57)) {
             BlockedDomainAlarmHelper.scheduleAlarm();

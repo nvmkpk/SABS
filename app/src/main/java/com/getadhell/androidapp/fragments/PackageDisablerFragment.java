@@ -1,7 +1,6 @@
 package com.getadhell.androidapp.fragments;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.app.enterprise.ApplicationPolicy;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -30,19 +29,21 @@ import com.getadhell.androidapp.R;
 import com.getadhell.androidapp.db.AppDatabase;
 import com.getadhell.androidapp.db.entity.AppInfo;
 import com.getadhell.androidapp.utils.AppsListDBInitializer;
-import com.getadhell.androidapp.utils.DeviceUtils;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class PackageDisablerFragment extends Fragment {
+    @Inject
+    ApplicationPolicy appPolicy;
+    @Inject
+    AppDatabase mDb;
     private ListView installedAppsView;
     private Context context;
     private PackageManager packageManager;
-    private ApplicationPolicy appPolicy;
-    private ProgressDialog pd;
     private List<AppInfo> packageList;
     private DisablerAppAdapter adapter;
-    private AppDatabase mDb;
     private EditText editText;
     private boolean sortLexic = true;
 
@@ -52,6 +53,7 @@ public class PackageDisablerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        App.get().getAppComponent().inject(this);
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -64,7 +66,6 @@ public class PackageDisablerFragment extends Fragment {
         editText = (EditText) view.findViewById(R.id.disabledFilter);
         setHasOptionsMenu(true);
 
-        appPolicy = DeviceUtils.getEnterpriseDeviceManager().getApplicationPolicy();
         installedAppsView = (ListView) view.findViewById(R.id.installed_apps_list);
         installedAppsView.setOnItemClickListener((AdapterView<?> adView, View v, int i, long l) ->
         {
@@ -144,7 +145,6 @@ public class PackageDisablerFragment extends Fragment {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... o) {
-                mDb = AppDatabase.getAppDatabase(App.get().getApplicationContext());
                 if (clear) mDb.applicationInfoDao().deleteAll();
                 else {
                     packageList = getListFromDb();

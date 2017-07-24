@@ -1,6 +1,5 @@
 package com.getadhell.androidapp.blocker;
 
-import android.app.enterprise.EnterpriseDeviceManager;
 import android.util.Log;
 import android.util.Patterns;
 
@@ -12,7 +11,6 @@ import com.getadhell.androidapp.db.entity.BlockUrl;
 import com.getadhell.androidapp.db.entity.BlockUrlProvider;
 import com.getadhell.androidapp.db.entity.UserBlockUrl;
 import com.getadhell.androidapp.db.entity.WhiteUrl;
-import com.getadhell.androidapp.utils.DeviceUtils;
 import com.sec.enterprise.AppIdentity;
 import com.sec.enterprise.firewall.DomainFilterRule;
 import com.sec.enterprise.firewall.Firewall;
@@ -23,18 +21,19 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.inject.Inject;
+
 public class ContentBlocker56 implements ContentBlocker {
     private static ContentBlocker56 mInstance = null;
     private final String TAG = ContentBlocker56.class.getCanonicalName();
-    private Firewall mFirewall;
+    @Inject
+    Firewall mFirewall;
+    @Inject
+    AppDatabase appDatabase;
     private int urlBlockLimit = 2700;
-    private AppDatabase appDatabase;
-
 
     private ContentBlocker56() {
-        EnterpriseDeviceManager mEnterpriseDeviceManager = DeviceUtils.getEnterpriseDeviceManager();
-        mFirewall = mEnterpriseDeviceManager.getFirewall();
-        appDatabase = AppDatabase.getAppDatabase(App.get().getApplicationContext());
+        App.get().getAppComponent().inject(this);
     }
 
     public static ContentBlocker56 getInstance() {

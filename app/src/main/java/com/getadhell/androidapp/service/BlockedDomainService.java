@@ -1,7 +1,6 @@
 package com.getadhell.androidapp.service;
 
 import android.app.IntentService;
-import android.app.enterprise.EnterpriseDeviceManager;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -10,8 +9,7 @@ import com.getadhell.androidapp.App;
 import com.getadhell.androidapp.blocker.ContentBlocker;
 import com.getadhell.androidapp.db.AppDatabase;
 import com.getadhell.androidapp.db.entity.ReportBlockedUrl;
-import com.getadhell.androidapp.deviceadmin.DeviceAdminInteractor;
-import com.getadhell.androidapp.utils.DeviceUtils;
+import com.getadhell.androidapp.utils.DeviceAdminInteractor;
 import com.sec.enterprise.firewall.DomainFilterReport;
 import com.sec.enterprise.firewall.Firewall;
 
@@ -19,11 +17,23 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class BlockedDomainService extends IntentService {
-    public static final String TAG = BlockedDomainService.class.getCanonicalName();
+    private static final String TAG = BlockedDomainService.class.getCanonicalName();
+
+    @Inject
+    Firewall firewall;
+
+    @Inject
+    AppDatabase appDatabase;
+
+    private DeviceAdminInteractor deviceAdminInteractor;
 
     public BlockedDomainService() {
         super(TAG);
+        App.get().getAppComponent().inject(this);
+        deviceAdminInteractor = DeviceAdminInteractor.getInstance();
     }
 
     @Override
@@ -33,22 +43,22 @@ public class BlockedDomainService extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        if (!DeviceUtils.isContentBlockerSupported()) {
+        if (!deviceAdminInteractor.isContentBlockerSupported()) {
             return;
         }
-        if (!DeviceAdminInteractor.getInstance().isKnoxEnbaled()) {
+        if (!deviceAdminInteractor.isKnoxEnbaled()) {
             return;
         }
-        ContentBlocker contentBlocker = DeviceUtils.getContentBlocker();
+        ContentBlocker contentBlocker = deviceAdminInteractor.getContentBlocker();
         if (contentBlocker == null || !contentBlocker.isEnabled()) {
             return;
         }
 
-        Log.d(TAG, "Saving domain list");
-        EnterpriseDeviceManager mEnterpriseDeviceManager = DeviceUtils.getEnterpriseDeviceManager();
-        Firewall firewall = mEnterpriseDeviceManager.getFirewall();
+        if (firewall == null) {
+            return;
+        }
 
-        AppDatabase appDatabase = AppDatabase.getAppDatabase(App.get().getApplicationContext());
+        Log.d(TAG, "Saving domain list");
         Date yesterday = new Date(System.currentTimeMillis() - 24 * 3600 * 1000);
         appDatabase.reportBlockedUrlDao().deleteBefore(yesterday);
 

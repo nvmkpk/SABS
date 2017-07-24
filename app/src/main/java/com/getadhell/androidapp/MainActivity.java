@@ -22,7 +22,6 @@ import com.getadhell.androidapp.blocker.ContentBlocker57;
 import com.getadhell.androidapp.db.AppDatabase;
 import com.getadhell.androidapp.db.entity.BlockUrl;
 import com.getadhell.androidapp.db.entity.BlockUrlProvider;
-import com.getadhell.androidapp.deviceadmin.DeviceAdminInteractor;
 import com.getadhell.androidapp.dialogfragment.AdhellNotSupportedDialogFragment;
 import com.getadhell.androidapp.dialogfragment.AdhellTurnOnDialogFragment;
 import com.getadhell.androidapp.dialogfragment.NoInternetConnectionDialogFragment;
@@ -34,12 +33,14 @@ import com.getadhell.androidapp.fragments.PackageDisablerFragment;
 import com.getadhell.androidapp.service.BlockedDomainService;
 import com.getadhell.androidapp.utils.AppsListDBInitializer;
 import com.getadhell.androidapp.utils.BlockUrlUtils;
-import com.getadhell.androidapp.utils.DeviceUtils;
+import com.getadhell.androidapp.utils.DeviceAdminInteractor;
 import com.roughike.bottombar.BottomBar;
 
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -49,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
     private static FragmentManager fragmentManager;
     private static int tabState = R.id.blockerTab;
     protected DeviceAdminInteractor mAdminInteractor;
+    @Inject
+    AppDatabase appDatabase;
     private AdhellNotSupportedDialogFragment adhellNotSupportedDialogFragment;
     private AdhellTurnOnDialogFragment adhellTurnOnDialogFragment;
     private NoInternetConnectionDialogFragment noInternetConnectionDialogFragment;
@@ -76,12 +79,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        App.get().getAppComponent().inject(this);
+
         Fabric.with(this, new Answers(), new Crashlytics());
         setContentView(R.layout.activity_main);
         fragmentManager = getSupportFragmentManager();
-
+        mAdminInteractor = DeviceAdminInteractor.getInstance();
         adhellNotSupportedDialogFragment = AdhellNotSupportedDialogFragment.newInstance("Some title");
-        if (!DeviceUtils.isContentBlockerSupported()) {
+        if (!mAdminInteractor.isContentBlockerSupported()) {
             Log.i(TAG, "Device not supported");
             return;
         }
@@ -92,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         adhellTurnOnDialogFragment.setCancelable(false);
         noInternetConnectionDialogFragment.setCancelable(false);
 
-        if (!DeviceUtils.isContentBlockerSupported()) {
+        if (!mAdminInteractor.isContentBlockerSupported()) {
             return;
         }
         mAdminInteractor = DeviceAdminInteractor.getInstance();
@@ -117,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
         AsyncTask.execute(() ->
         {
 //        HeartbeatAlarmHelper.scheduleAlarm();
-            AppDatabase appDatabase = AppDatabase.getAppDatabase(getApplicationContext());
             if (appDatabase.applicationInfoDao().getAll().size() == 0) {
                 AppsListDBInitializer.getInstance().fillPackageDb(getPackageManager());
             }
@@ -163,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Log.d(TAG, "onResume1");
-        if (!DeviceUtils.isContentBlockerSupported()) {
+        if (!mAdminInteractor.isContentBlockerSupported()) {
             Log.i(TAG, "Device not supported");
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragmentContainer, new AdhellNotSupportedFragment());
@@ -184,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "Everything is okay");
         changeFragment();
 
-        ContentBlocker contentBlocker = DeviceUtils.getContentBlocker();
+        ContentBlocker contentBlocker = mAdminInteractor.getContentBlocker();
         if (contentBlocker != null && contentBlocker.isEnabled() && (contentBlocker instanceof ContentBlocker56
                 || contentBlocker instanceof ContentBlocker57)) {
             Intent i = new Intent(App.get().getApplicationContext(), BlockedDomainService.class);
@@ -216,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void showDialog() {
-        if (!(DeviceUtils.isSamsung() && DeviceUtils.isKnoxSupported())) {
+        if (!(DeviceAdminInteractor.isSamsung() && mAdminInteractor.isKnoxSupported())) {
             Log.i(TAG, "Device not supported");
             if (!adhellNotSupportedDialogFragment.isVisible()) {
                 adhellNotSupportedDialogFragment.show(fragmentManager, "dialog_fragment_adhell_not_supported");

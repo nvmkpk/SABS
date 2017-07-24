@@ -14,7 +14,7 @@ import android.widget.Button;
 import com.getadhell.androidapp.R;
 import com.getadhell.androidapp.blocker.ContentBlocker;
 import com.getadhell.androidapp.blocker.ContentBlocker57;
-import com.getadhell.androidapp.utils.DeviceUtils;
+import com.getadhell.androidapp.utils.DeviceAdminInteractor;
 
 public class BlockedUrlSettingFragment extends Fragment {
     private static final String TAG = BlockedUrlSettingFragment.class.getCanonicalName();
@@ -24,7 +24,7 @@ public class BlockedUrlSettingFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        contentBlocker = DeviceUtils.getContentBlocker();
+        contentBlocker = DeviceAdminInteractor.getInstance().getContentBlocker();
         fragmentManager = getFragmentManager();
     }
 

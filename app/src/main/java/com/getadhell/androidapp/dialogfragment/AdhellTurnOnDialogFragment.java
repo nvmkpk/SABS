@@ -16,7 +16,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.getadhell.androidapp.R;
-import com.getadhell.androidapp.deviceadmin.DeviceAdminInteractor;
+import com.getadhell.androidapp.utils.DeviceAdminInteractor;
 
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;

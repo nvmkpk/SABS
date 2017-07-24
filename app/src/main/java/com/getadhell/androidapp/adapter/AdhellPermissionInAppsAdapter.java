@@ -1,7 +1,6 @@
 package com.getadhell.androidapp.adapter;
 
 import android.app.enterprise.ApplicationPermissionControlPolicy;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,15 +14,17 @@ import android.widget.TextView;
 import com.getadhell.androidapp.R;
 import com.getadhell.androidapp.db.entity.AppInfo;
 import com.getadhell.androidapp.fragments.SharedAppPermissionViewModel;
-import com.getadhell.androidapp.utils.DeviceUtils;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 public class AdhellPermissionInAppsAdapter extends RecyclerView.Adapter<AdhellPermissionInAppsAdapter.ViewHolder> {
     private Context mContext;
     private List<AppInfo> appInfos;
     private PackageManager mPackageManager;
-    private ApplicationPermissionControlPolicy mAppControlPolicy;
+    @Inject
+    ApplicationPermissionControlPolicy mAppControlPolicy;
     private SharedAppPermissionViewModel sharedAppPermissionViewModel;
 
 
@@ -31,8 +32,6 @@ public class AdhellPermissionInAppsAdapter extends RecyclerView.Adapter<AdhellPe
         this.mContext = context;
         this.appInfos = packageInfos;
         this.mPackageManager = context.getPackageManager();
-        this.mAppControlPolicy =
-                DeviceUtils.getEnterpriseDeviceManager().getApplicationPermissionControlPolicy();
 //        sharedAppPermissionViewModel = ViewModelProviders.of(context).get(SharedAppPermissionViewModel.class);
     }
 

@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.getadhell.androidapp.App;
 import com.getadhell.androidapp.BuildConfig;
 import com.getadhell.androidapp.R;
-import com.getadhell.androidapp.deviceadmin.DeviceAdminInteractor;
+import com.getadhell.androidapp.utils.DeviceAdminInteractor;
 
 import java.io.File;
 
