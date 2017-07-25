@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.getadhell.androidapp.R;
 import com.getadhell.androidapp.model.AdhellPermissionInfo;
@@ -42,7 +41,7 @@ public class AdhellPermissionInfoAdapter extends RecyclerView.Adapter<AdhellPerm
         return mAdhellPermissionInfos.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         TextView permissionLabelTextView;
         TextView permissionNameTextView;
 
@@ -50,12 +49,6 @@ public class AdhellPermissionInfoAdapter extends RecyclerView.Adapter<AdhellPerm
             super(itemView);
             permissionLabelTextView = (TextView) itemView.findViewById(R.id.permissionLabelTextView);
             permissionNameTextView = (TextView) itemView.findViewById(R.id.permissionNameTextView);
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-            Toast.makeText(mContext, "Hello ", Toast.LENGTH_LONG).show();
         }
     }
 }

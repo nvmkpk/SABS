@@ -34,6 +34,9 @@ public interface AppInfoDao {
     @Query("SELECT * FROM AppInfo ORDER BY appName ASC")
     List<AppInfo> getAll();
 
+    @Query("SELECT * FROM AppInfo WHERE system = 0 ORDER BY appName ASC")
+    LiveData<List<AppInfo>> getAllNonSystemLiveData();
+
     @Query("SELECT * FROM AppInfo WHERE appName LIKE :str ORDER BY appName ASC")
     List<AppInfo> getAllAppsWithStrInName(String str);
 

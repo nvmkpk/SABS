@@ -2,6 +2,7 @@ package com.getadhell.androidapp.dagger.module;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.pm.PackageManager;
 
 import com.getadhell.androidapp.dagger.scope.AdhellApplicationScope;
 import com.getadhell.androidapp.db.AppDatabase;
@@ -34,5 +35,11 @@ public class AppModule {
     @AdhellApplicationScope
     AppDatabase providesAppDatabase() {
         return AppDatabase.getAppDatabase(mApplication.getApplicationContext());
+    }
+
+    @Provides
+    @AdhellApplicationScope
+    PackageManager providesPackageManager() {
+        return mApplication.getPackageManager();
     }
 }
