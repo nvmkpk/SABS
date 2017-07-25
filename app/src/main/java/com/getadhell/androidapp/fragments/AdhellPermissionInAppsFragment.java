@@ -37,6 +37,7 @@ public class AdhellPermissionInAppsFragment extends LifecycleFragment {
             appInfos = sharedAppPermissionViewModel.loadPermissionsApps(sharedAppPermissionViewModel.installedApps, permissionInfo.name);
             AdhellPermissionInAppsAdapter adhellPermissionInAppsAdapter = new AdhellPermissionInAppsAdapter(this.getContext(), appInfos);
             adhellPermissionInAppsAdapter.currentPermissionName = permissionInfo.name;
+            adhellPermissionInAppsAdapter.updateRestrictedPackages();
             permissionInAppsRecyclerView.setAdapter(adhellPermissionInAppsAdapter);
 //            adhellPermissionInAppsAdapter.notifyDataSetChanged();
         });

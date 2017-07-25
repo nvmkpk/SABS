@@ -33,5 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:enabled="true"/>
+        android:clickable="false"
+        android:enabled="true"
+        android:focusable="false"/>
 </RelativeLayout>

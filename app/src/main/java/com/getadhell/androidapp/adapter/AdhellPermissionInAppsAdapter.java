@@ -41,11 +41,12 @@ public class AdhellPermissionInAppsAdapter extends RecyclerView.Adapter<AdhellPe
         updateRestrictedPackages();
     }
 
-    private void updateRestrictedPackages() {
+    public void updateRestrictedPackages() {
         List<AppPermissionControlInfo> appPermissionControlInfos = mAppControlPolicy.getPackagesFromPermissionBlackList();
         if (appPermissionControlInfos == null
                 || appPermissionControlInfos.size() == 0
                 ) {
+            restrictedPackageNames = null;
             return;
         }
         Log.w(TAG, appPermissionControlInfos.toString());
@@ -54,7 +55,7 @@ public class AdhellPermissionInAppsAdapter extends RecyclerView.Adapter<AdhellPe
                 continue;
             }
             if (appPermissionControlInfo.mapEntries == null || appPermissionControlInfo.mapEntries.size() == 0) {
-                return;
+                continue;
             }
             restrictedPackageNames = appPermissionControlInfo.mapEntries.get(currentPermissionName);
         }
@@ -122,7 +123,6 @@ public class AdhellPermissionInAppsAdapter extends RecyclerView.Adapter<AdhellPe
             Log.d(TAG, appInfo.packageName);
             List<String> list = new ArrayList<>();
             list.add(appInfo.packageName);
-            updateRestrictedPackages();
             if (restrictedPackageNames != null && restrictedPackageNames.contains(appInfo.packageName)) {
                 boolean isBlacklisted = mAppControlPolicy.removePackagesFromPermissionBlackList(currentPermissionName, list);
                 Log.d(TAG, "Is removed: " + isBlacklisted);
@@ -132,6 +132,7 @@ public class AdhellPermissionInAppsAdapter extends RecyclerView.Adapter<AdhellPe
                 Log.d(TAG, "Is added to blacklist: " + success);
                 appPermissionSwitch.setChecked(false);
             }
+            updateRestrictedPackages();
         }
     }
 }
