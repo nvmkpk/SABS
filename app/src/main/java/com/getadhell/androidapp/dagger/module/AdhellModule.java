@@ -14,15 +14,15 @@ import dagger.Module;
 @Module
 public class AdhellModule {
 
-    DeviceAdminInteractor providesDeviceAdminInteractor(EnterpriseDeviceManager enterpriseDeviceManager,
-                                                        DevicePolicyManager devicePolicyManager,
-                                                        ApplicationPolicy mApplicationPolicy,
-                                                        Context mContext,
-                                                        ComponentName componentName,
-                                                        EnterpriseLicenseManager enterpriseLicenseManager) {
-
-
-        return null;
-    }
+//    DeviceAdminInteractor providesDeviceAdminInteractor(EnterpriseDeviceManager enterpriseDeviceManager,
+//                                                        DevicePolicyManager devicePolicyManager,
+//                                                        ApplicationPolicy mApplicationPolicy,
+//                                                        Context mContext,
+//                                                        ComponentName componentName,
+//                                                        EnterpriseLicenseManager enterpriseLicenseManager) {
+//
+//
+//        return null;
+//    }
 
 }

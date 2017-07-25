@@ -19,9 +19,6 @@ public class ContentBlocker57 implements ContentBlocker {
     private static final String TAG = ContentBlocker57.class.getCanonicalName();
     private static ContentBlocker57 mInstance = null;
 
-    @Inject
-    Firewall mFirewall;
-
     private ContentBlocker56 contentBlocker56;
 
     private ContentBlocker57() {
@@ -78,7 +75,7 @@ public class ContentBlocker57 implements ContentBlocker {
         domainFilterRule.setDns2(dns2);
         List<DomainFilterRule> rules = new ArrayList<>();
         rules.add(domainFilterRule);
-        mFirewall.addDomainFilterRules(rules);
+        contentBlocker56.mFirewall.addDomainFilterRules(rules);
         Log.d(TAG, "DNS1: " + domainFilterRule.getDns1());
         Log.d(TAG, "DNS2: " + domainFilterRule.getDns2());
     }

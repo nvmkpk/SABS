@@ -1,7 +1,8 @@
 package com.getadhell.androidapp.dagger.component;
 
 import com.getadhell.androidapp.MainActivity;
-import com.getadhell.androidapp.blocker.ContentBlocker;
+import com.getadhell.androidapp.blocker.ContentBlocker20;
+import com.getadhell.androidapp.blocker.ContentBlocker56;
 import com.getadhell.androidapp.dagger.module.AdhellModule;
 import com.getadhell.androidapp.dagger.module.AdminModule;
 import com.getadhell.androidapp.dagger.module.AppModule;
@@ -17,11 +18,13 @@ import com.getadhell.androidapp.viewmodel.AdhellWhitelistAppsViewModel;
 import dagger.Component;
 
 @AdhellApplicationScope
-@Component(modules = {AppModule.class, EnterpriseModule.class, AdminModule.class, AdhellModule.class, NetworkModule.class})
+@Component(modules = {AppModule.class, AdminModule.class, EnterpriseModule.class, AdhellModule.class, NetworkModule.class})
 public interface AppComponent {
     void inject(DeviceAdminInteractor deviceAdminInteractor);
 
-    void inject(ContentBlocker contentBlocker);
+    void inject(ContentBlocker56 contentBlocker56);
+
+    void inject(ContentBlocker20 contentBlocker20);
 
     void inject(BlockedDomainService blockedDomainService);
 
