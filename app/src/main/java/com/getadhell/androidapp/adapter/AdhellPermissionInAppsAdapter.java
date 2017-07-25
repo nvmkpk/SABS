@@ -126,11 +126,15 @@ public class AdhellPermissionInAppsAdapter extends RecyclerView.Adapter<AdhellPe
             if (restrictedPackageNames != null && restrictedPackageNames.contains(appInfo.packageName)) {
                 boolean isBlacklisted = mAppControlPolicy.removePackagesFromPermissionBlackList(currentPermissionName, list);
                 Log.d(TAG, "Is removed: " + isBlacklisted);
-                appPermissionSwitch.setChecked(true);
+                if (isBlacklisted) {
+                    appPermissionSwitch.setChecked(true);
+                }
             } else {
                 boolean success = mAppControlPolicy.addPackagesToPermissionBlackList(currentPermissionName, list);
                 Log.d(TAG, "Is added to blacklist: " + success);
-                appPermissionSwitch.setChecked(false);
+                if (success) {
+                    appPermissionSwitch.setChecked(false);
+                }
             }
             updateRestrictedPackages();
         }
