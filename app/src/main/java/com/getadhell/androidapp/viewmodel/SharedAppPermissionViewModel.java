@@ -23,7 +23,7 @@ public class SharedAppPermissionViewModel extends ViewModel {
     private final MutableLiveData<AdhellPermissionInfo> selected = new MutableLiveData<AdhellPermissionInfo>();
     public List<AppInfo> installedApps;
     LiveData<List<AppInfo>> installedAppsLiveData;
-    List<AppInfo> permissionApps;
+
     @Inject
     AppDatabase appDatabase;
 

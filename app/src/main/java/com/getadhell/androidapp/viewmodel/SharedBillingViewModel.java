@@ -18,7 +18,7 @@ import java.util.List;
 
 public class SharedBillingViewModel extends AndroidViewModel {
     private static final String TAG = SharedAppPermissionViewModel.class.getCanonicalName();
-    public BillingClient mBillingClient;
+    private BillingClient mBillingClient;
     public BillingModel billingModel;
     private Context mContext;
 
