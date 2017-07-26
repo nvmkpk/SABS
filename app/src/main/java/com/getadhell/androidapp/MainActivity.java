@@ -1,5 +1,6 @@
 package com.getadhell.androidapp;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -29,11 +30,13 @@ import com.getadhell.androidapp.fragments.AdhellNotSupportedFragment;
 import com.getadhell.androidapp.fragments.AdhellPermissionInfoFragment;
 import com.getadhell.androidapp.fragments.AppSupportFragment;
 import com.getadhell.androidapp.fragments.BlockerFragment;
+import com.getadhell.androidapp.fragments.OnlyPremiumFragment;
 import com.getadhell.androidapp.fragments.PackageDisablerFragment;
 import com.getadhell.androidapp.service.BlockedDomainService;
 import com.getadhell.androidapp.utils.AppsListDBInitializer;
 import com.getadhell.androidapp.utils.BlockUrlUtils;
 import com.getadhell.androidapp.utils.DeviceAdminInteractor;
+import com.getadhell.androidapp.viewmodel.SharedBillingViewModel;
 import com.roughike.bottombar.BottomBar;
 
 import java.io.IOException;
@@ -55,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private AdhellNotSupportedDialogFragment adhellNotSupportedDialogFragment;
     private AdhellTurnOnDialogFragment adhellTurnOnDialogFragment;
     private NoInternetConnectionDialogFragment noInternetConnectionDialogFragment;
+    private SharedBillingViewModel sharedBillingViewModel;
 
     @Override
     public void onBackPressed() {
@@ -151,6 +155,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        sharedBillingViewModel = ViewModelProviders.of(this).get(SharedBillingViewModel.class);
+        sharedBillingViewModel.startBillingConnection();
     }
 
     @Override
@@ -209,7 +215,11 @@ public class MainActivity extends AppCompatActivity {
                 replacing = new PackageDisablerFragment();
                 break;
             case R.id.appPermissionsTab:
-                replacing = new AdhellPermissionInfoFragment();
+                if (sharedBillingViewModel.billingModel.isPremiumLiveData.getValue()) {
+                    replacing = new AdhellPermissionInfoFragment();
+                } else {
+                    replacing = new OnlyPremiumFragment();
+                }
                 break;
             default:
                 replacing = new AppSupportFragment();

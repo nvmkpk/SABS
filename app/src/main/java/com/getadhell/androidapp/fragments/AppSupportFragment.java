@@ -1,10 +1,10 @@
 package com.getadhell.androidapp.fragments;
 
 
-import android.annotation.SuppressLint;
+import android.arch.lifecycle.LifecycleFragment;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,29 +12,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.android.billingclient.api.BillingClient;
-import com.android.billingclient.api.BillingClientStateListener;
-import com.android.billingclient.api.BillingFlowParams;
-import com.android.billingclient.api.Purchase;
-import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.getadhell.androidapp.R;
+import com.getadhell.androidapp.viewmodel.SharedBillingViewModel;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class AppSupportFragment extends Fragment implements PurchasesUpdatedListener {
+public class AppSupportFragment extends LifecycleFragment {
     private static final String TAG = AppSupportFragment.class.getCanonicalName();
-    private BillingClient mBillingClient;
     private TextView supportDevelopmentTextView;
     private Button subscriptionButton;
-    private Fragment fragment;
+    private SharedBillingViewModel sharedBillingViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO: check if in-app billing is available
-        mBillingClient = new BillingClient.Builder(getActivity()).setListener(this).build();
-        fragment = this;
+        sharedBillingViewModel = ViewModelProviders.of(this).get(SharedBillingViewModel.class);
     }
 
     @Override
@@ -47,60 +37,30 @@ public class AppSupportFragment extends Fragment implements PurchasesUpdatedList
         subscriptionButton = (Button) view.findViewById(R.id.subscriptionButton);
         subscriptionButton.setEnabled(false);
 
-        mBillingClient.startConnection(new BillingClientStateListener() {
-            @Override
-            public void onBillingSetupFinished(@BillingClient.BillingResponse int billingResponse) {
-                if (billingResponse == BillingClient.BillingResponse.OK) {
-                    Log.i(TAG, "onBillingSetupFinished() response: " + billingResponse);
-
-                    // Check for purchased items
-                    Purchase.PurchasesResult purchasesResult = mBillingClient.queryPurchases(BillingClient.SkuType.SUBS);
-                    if (purchasesResult.getPurchasesList().size() > 0) {
+        sharedBillingViewModel.billingModel.isSupportedLiveData.observe(this, (isSupported) -> {
+            if (isSupported) {
+                sharedBillingViewModel.billingModel.isPremiumLiveData.observe(this, (isPremium) -> {
+                    if (isPremium) {
                         supportDevelopmentTextView.setText(R.string.premium_subscriber_message);
                         subscriptionButton.setText(R.string.already_premium);
                         subscriptionButton.setEnabled(false);
                     } else {
-                        List<String> subs = new ArrayList<>();
-                        subs.add("basic_pro_subs");
-                        mBillingClient.querySkuDetailsAsync(BillingClient.SkuType.SUBS, subs, result -> {
-                            if (result.getResponseCode() == BillingClient.BillingResponse.OK) {
-                                if (fragment != null && fragment.isAdded()) {
-                                    subscriptionButton.setText(getString(R.string.subscribe).replace("{{price}}", result.getSkuDetailsList().get(0).getPrice()));
-                                }
-                            }
+                        sharedBillingViewModel.billingModel.priceLiveData.observe(this, (text) -> {
+                            subscriptionButton.setText(text);
                         });
-                        // Get currency and price
                         subscriptionButton.setEnabled(true);
                         subscriptionButton.setOnClickListener(v -> {
-                            BillingFlowParams.Builder builder = new BillingFlowParams.Builder()
-                                    .setSku("basic_pro_subs").setType(BillingClient.SkuType.SUBS);
-                            int responseCode = mBillingClient.launchBillingFlow(getActivity(), builder.build());
+                            sharedBillingViewModel.startSubscriptionDialog(this.getActivity());
                         });
                     }
-
-                } else {
-                    Log.w(TAG, "onBillingSetupFinished() error code: " + billingResponse);
-                }
-            }
-
-            @Override
-            public void onBillingServiceDisconnected() {
-                Log.w(TAG, "onBillingServiceDisconnected()");
+                });
+            } else {
+                supportDevelopmentTextView.setText(R.string.subs_not_supported_text_view);
+                subscriptionButton.setText(R.string.billing_not_supported);
+                subscriptionButton.setEnabled(false);
+                Log.w(TAG, "Billing not supported");
             }
         });
-
         return view;
-    }
-
-    @SuppressLint("SetTextI18n")
-    @Override
-    public void onPurchasesUpdated(int responseCode, List<Purchase> purchases) {
-        if (purchases != null && purchases.size() > 0) {
-//            purchases.getAll(0).
-            supportDevelopmentTextView.setText("Thank you for being premium subscriber");
-            subscriptionButton.setText(R.string.valid_subs);
-            subscriptionButton.setEnabled(false);
-        }
-
     }
 }

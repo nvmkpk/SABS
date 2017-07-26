@@ -152,5 +152,13 @@
     <string name="valid_subs">Your subscription is valid</string>
     <string name="adblock_whitelist">Adblocked Apps</string>
     <string name="application_icon">App Icon</string>
+    <string name="only_for_premium">App Permissions available only for premium subscribers. Note
+        that App Permissions work only with non-system apps (apps that you have installed manually).
+        For now only 4 permissions are available
+    </string>
+    <string name="subs_not_supported_text_view">Subscription mode are not supported. Please update
+        Google Play Services
+    </string>
+    <string name="billing_not_supported">Not Supported</string>
 
 </resources>
