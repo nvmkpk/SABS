@@ -42,10 +42,6 @@ public class AdhellPermissionInAppsFragment extends LifecycleFragment {
             permissionInAppsRecyclerView.setAdapter(adhellPermissionInAppsAdapter);
             adhellPermissionInAppsAdapter.notifyDataSetChanged();
         });
-        // TODO: Check if premium user
-        // TODO: Check if admin has permission android.permission.sec.MDM_APP_PERMISSION_MGMT
-        // TODO: if admin does not have this permission then ask for it
-
         return view;
     }
 }
