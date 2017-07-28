@@ -134,15 +134,15 @@
         Il tuo dispositivo utilizza una versione antiquata di Knox. Questa funzione potrebbe risultare instabile.
     </string>
     <string name="valid_subs">Il tuo abbonamento è valido</string>
-    <string name="adblock_whitelist">Turn on or off Adblock for apps</string>
-    <string name="application_icon">App Icon</string>
-    <string name="only_for_premium">App Permissions available only for premium subscribers. Note
-        that App Permissions work only with non-system apps (apps that you have installed manually).
-        For now only 4 permissions are available
+    <string name="adblock_whitelist">Attiva o Disattiva Adblock nelle app</string>
+    <string name="application_icon">Icona App</string>
+    <string name="only_for_premium">Permessi App è una funzione riservata agli Utenti Premium.
+        Questa funzione è disponibile solo per le applicazioni utente (non quelle di sistema).
+        Per adesso sono disponibili solo 4 permessi.
     </string>
-    <string name="subs_not_supported_text_view">Subscription mode are not supported. Please update
+    <string name="subs_not_supported_text_view">Modalità di abbonamento non supportata. Per favore aggiorna i
         Google Play Services
     </string>
-    <string name="billing_not_supported">Not Supported</string>
+    <string name="billing_not_supported">Non supportato</string>
 
 </resources>
