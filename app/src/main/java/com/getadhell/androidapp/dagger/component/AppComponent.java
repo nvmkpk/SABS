@@ -13,6 +13,7 @@ import com.getadhell.androidapp.dagger.scope.AdhellApplicationScope;
 import com.getadhell.androidapp.fragments.BlockedUrlSettingFragment;
 import com.getadhell.androidapp.fragments.PackageDisablerFragment;
 import com.getadhell.androidapp.service.BlockedDomainService;
+import com.getadhell.androidapp.utils.AppsListDBInitializer;
 import com.getadhell.androidapp.utils.DeviceAdminInteractor;
 import com.getadhell.androidapp.viewmodel.AdhellWhitelistAppsViewModel;
 import com.getadhell.androidapp.viewmodel.SharedAppPermissionViewModel;
@@ -41,4 +42,6 @@ public interface AppComponent {
     void inject(SharedAppPermissionViewModel sharedAppPermissionViewModel);
 
     void inject(AdhellPermissionInAppsAdapter adhellPermissionInAppsAdapter);
+
+    void inject(AppsListDBInitializer appsListDBInitializer);
 }

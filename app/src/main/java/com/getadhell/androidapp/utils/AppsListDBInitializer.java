@@ -1,5 +1,6 @@
 package com.getadhell.androidapp.utils;
 
+import android.app.enterprise.ApplicationPolicy;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 
@@ -10,18 +11,29 @@ import com.getadhell.androidapp.db.entity.AppInfo;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
 
-public class AppsListDBInitializer {
+
+public class AppsListDBInitializer
+{
+    @Inject
+    ApplicationPolicy appPolicy;
+    @Inject
+    AppDatabase appDatabase;
+
     private static final AppsListDBInitializer instance = new AppsListDBInitializer();
 
     private AppsListDBInitializer() {
+        App.get().getAppComponent().inject(this);
     }
+
 
     public static AppsListDBInitializer getInstance() {
         return instance;
     }
 
-    public void fillPackageDb(PackageManager packageManager) {
+    public void fillPackageDb(PackageManager packageManager)
+    {
         List<ApplicationInfo> applicationsInfo = packageManager.getInstalledApplications(PackageManager.GET_META_DATA);
         List<AppInfo> appsInfo = new ArrayList<>();
         long id = 0;
@@ -32,6 +44,7 @@ public class AppsListDBInitializer {
             appInfo.id = id++;
             appInfo.appName = packageManager.getApplicationLabel(applicationInfo).toString();
             appInfo.packageName = applicationInfo.packageName;
+            appInfo.disabled = !appPolicy.getApplicationStateEnabled(appInfo.packageName);
             int mask = ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP;
             appInfo.system = (applicationInfo.flags & mask) != 0;
             try {
@@ -42,15 +55,14 @@ public class AppsListDBInitializer {
             }
             appsInfo.add(appInfo);
         }
-        AppDatabase.getAppDatabase(App.get().getApplicationContext()).applicationInfoDao().insertAll(appsInfo);
+        appDatabase.applicationInfoDao().insertAll(appsInfo);
     }
 
     public AppInfo generateAppInfo(PackageManager packageManager, String packageName) {
         AppInfo appInfo = new AppInfo();
         try {
             ApplicationInfo applicationInfo = packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA);
-            AppDatabase mDb = AppDatabase.getAppDatabase(App.get().getApplicationContext());
-            appInfo.id = mDb.applicationInfoDao().getMaxId() + 1;
+            appInfo.id = appDatabase.applicationInfoDao().getMaxId() + 1;
             appInfo.packageName = packageName;
             appInfo.appName = packageManager.getApplicationLabel(applicationInfo).toString();
             int mask = ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP;

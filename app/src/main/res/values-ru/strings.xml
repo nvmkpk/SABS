@@ -133,4 +133,8 @@
         Google Play Services
     </string>
     <string name="billing_not_supported">Not Supported</string>
+    <string name="sort_by_alphabet">Сортировать по алфавиту</string>
+    <string name="sort_by_install_time">Сортировать по времени установки</string>
+    <string name="sort_by_disabled">Показать сначала блокированные</string>
+    <string name="app_list_sorted_by_disabled">Первыми отображаются блокированные приложения</string>
 </resources>

@@ -34,7 +34,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class PackageDisablerFragment extends Fragment {
+public class PackageDisablerFragment extends Fragment
+{
     @Inject
     ApplicationPolicy appPolicy;
     @Inject
@@ -45,7 +46,11 @@ public class PackageDisablerFragment extends Fragment {
     private List<AppInfo> packageList;
     private DisablerAppAdapter adapter;
     private EditText editText;
-    private boolean sortLexic = true;
+    private final int SORTED_ALPHABETICALLY = 0;
+    private final int SORTED_INSTALL_TIME = 1;
+    private final int SORTED_DISABLED = 2;
+    private int sortState = SORTED_ALPHABETICALLY;
+
 
     public PackageDisablerFragment() {
     }
@@ -69,45 +74,39 @@ public class PackageDisablerFragment extends Fragment {
         installedAppsView = (ListView) view.findViewById(R.id.installed_apps_list);
         installedAppsView.setOnItemClickListener((AdapterView<?> adView, View v, int i, long l) ->
         {
-            String name = ((DisablerAppAdapter) adView.getAdapter()).getItem(i).packageName;
-            boolean enabled = appPolicy.getApplicationStateEnabled(name);
-            if (enabled) appPolicy.setDisableApplication(name);
-            else appPolicy.setEnableApplication(name);
-            ((Switch) v.findViewById(R.id.switchDisable)).setChecked(!enabled);
+            DisablerAppAdapter disablerAppAdapter = (DisablerAppAdapter) adView.getAdapter();
+            final String name = disablerAppAdapter.getItem(i).packageName;
+            new AsyncTask<Void, Void, Boolean>()
+            {
+                @Override
+                protected Boolean doInBackground(Void... o)
+                {
+                    AppInfo appInfo = mDb.applicationInfoDao().getByPackageName(name);
+                    appInfo.disabled = !appInfo.disabled;
+                    if (appInfo.disabled) appPolicy.setDisableApplication(name);
+                    else appPolicy.setEnableApplication(name);
+                    mDb.applicationInfoDao().insert(appInfo);
+                    disablerAppAdapter.applicationInfoList.set(i, appInfo);
+                    return appInfo.disabled;
+                }
+                @Override
+                protected void onPostExecute(Boolean b) { ((Switch) v.findViewById(R.id.switchDisable)).setChecked(!b); }
+            }.execute();
         });
 
         loadApplicationsList(false);
 
-        editText.addTextChangedListener(new TextWatcher() {
+        editText.addTextChangedListener(new TextWatcher()
+        {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
             @Override
             public void afterTextChanged(Editable s) {
                 loadApplicationsList(false);
             }
         });
-
-        /*view.findViewById(R.id.buttonFilterDisable).setOnClickListener(view1 ->
-        {
-            loadApplicationsList(false);
-            /*
-            new AsyncTask<Boolean, Void, Void>() {
-                protected void onPreExecute() {
-                    pd = ProgressDialog.show(getActivity(), "", getString(R.string.applying_filter));
-                }
-
-                protected Void doInBackground(Boolean... switchers) {
-                    if (adapter != null) adapter.getFilter().filter(text);
-                    return null;
-                }
-            }.execute(false);
-        });*/
 
         return view;
     }
@@ -121,17 +120,23 @@ public class PackageDisablerFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_pack_dis_sort:
-                sortLexic = !sortLexic;
-                if (sortLexic) {
-                    item.setIcon(getResources().getDrawable(R.drawable.date_sort));
-                    Toast.makeText(context, getString(R.string.app_list_sorted_by_alphabet), Toast.LENGTH_SHORT).show();
-                    loadApplicationsList(false);
-                } else {
-                    item.setIcon(getResources().getDrawable(R.drawable.alpha_sort));
-                    Toast.makeText(context, getString(R.string.app_list_sorted_by_date), Toast.LENGTH_SHORT).show();
-                    loadApplicationsList(false);
-                }
+            case R.id.action_pack_dis_sort: break;
+            case R.id.sort_alphabetically_item:
+                if (sortState == SORTED_ALPHABETICALLY) break;
+                sortState = SORTED_ALPHABETICALLY;
+                Toast.makeText(context, getString(R.string.app_list_sorted_by_alphabet), Toast.LENGTH_SHORT).show();
+                loadApplicationsList(false);
+                break;
+            case R.id.sort_by_time_item:
+                if (sortState == SORTED_INSTALL_TIME) break;
+                sortState = SORTED_INSTALL_TIME;
+                Toast.makeText(context, getString(R.string.app_list_sorted_by_date), Toast.LENGTH_SHORT).show();
+                loadApplicationsList(false);
+                break;
+            case R.id.sort_disabled_item:
+                sortState = SORTED_DISABLED;
+                Toast.makeText(context, getString(R.string.app_list_sorted_by_disabled), Toast.LENGTH_SHORT).show();
+                loadApplicationsList(false);
                 break;
             case R.id.action_pack_dis_reload:
                 editText.setText("");
@@ -141,12 +146,16 @@ public class PackageDisablerFragment extends Fragment {
     }
 
     @SuppressLint("StaticFieldLeak")
-    private void loadApplicationsList(boolean clear) {
-        new AsyncTask<Void, Void, Void>() {
+    private void loadApplicationsList(boolean clear)
+    {
+        new AsyncTask<Void, Void, Void>()
+        {
             @Override
-            protected Void doInBackground(Void... o) {
+            protected Void doInBackground(Void... o)
+            {
                 if (clear) mDb.applicationInfoDao().deleteAll();
-                else {
+                else
+                {
                     packageList = getListFromDb();
                     if (packageList.size() != 0) return null;
                 }
@@ -165,16 +174,22 @@ public class PackageDisablerFragment extends Fragment {
         }.execute();
     }
 
-    private List<AppInfo> getListFromDb() {
-        String filterText = editText.getText().toString();
-        if (filterText.length() == 0) {
-            if (sortLexic) return mDb.applicationInfoDao().getAll();
-            return mDb.applicationInfoDao().getAllRecentSort();
-        } else {
-            if (sortLexic)
-                return mDb.applicationInfoDao().getAllAppsWithStrInName('%' + filterText + '%');
-            return mDb.applicationInfoDao().getAllAppsWithStrInNameTimeOrder('%' + filterText + '%');
+    private List<AppInfo> getListFromDb()
+    {
+        String filterText = '%' + editText.getText().toString() + '%';
+        switch (sortState)
+        {
+            case SORTED_ALPHABETICALLY:
+                if (filterText.length() == 0) return mDb.applicationInfoDao().getAll();
+                return mDb.applicationInfoDao().getAllAppsWithStrInName(filterText);
+            case SORTED_INSTALL_TIME:
+                if (filterText.length() == 0) return mDb.applicationInfoDao().getAllRecentSort();
+                return mDb.applicationInfoDao().getAllAppsWithStrInNameTimeOrder(filterText);
+            case SORTED_DISABLED:
+                if (filterText.length() == 0) return mDb.applicationInfoDao().getAllSortedByDisabled();
+                return mDb.applicationInfoDao().getAllAppsWithStrInNameDisabledOrder(filterText);
         }
+        return null;
     }
 
     public static class ViewHolder {
@@ -184,20 +199,11 @@ public class PackageDisablerFragment extends Fragment {
         ImageView imageH;
     }
 
-    private class DisablerAppAdapter extends BaseAdapter// implements Filterable
+    private class DisablerAppAdapter extends BaseAdapter
     {
-        private List<AppInfo> applicationInfoList;
-        //private List<AppInfo> filteredList = new ArrayList<>();
-        //private ItemFilter filter;
+        public List<AppInfo> applicationInfoList;
 
-        public DisablerAppAdapter(List<AppInfo> appInfoList) {
-            applicationInfoList = appInfoList;
-            /*for (AppInfo appInfo : appInfoList)
-                if (!appInfo.packageName.equals("com.getadhell.androidapp"))
-                    applicationInfoList.add(appInfo);
-            //filter = new ItemFilter();
-            filteredList = applicationInfoList;*/
-        }
+        public DisablerAppAdapter(List<AppInfo> appInfoList) { applicationInfoList = appInfoList; }
 
         @Override
         public int getCount() {
@@ -214,15 +220,12 @@ public class PackageDisablerFragment extends Fragment {
             return position;
         }
 
-        /*@Override
-        public Filter getFilter() {
-            return filter;
-        }*/
-
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(int position, View convertView, ViewGroup parent)
+        {
             ViewHolder holder;
-            if (convertView == null) {
+            if (convertView == null)
+            {
                 convertView = LayoutInflater.from(context).inflate(R.layout.item_disable_app_list_view, parent, false);
                 holder = new ViewHolder();
                 holder.nameH = (TextView) convertView.findViewById(R.id.appName);
@@ -230,50 +233,19 @@ public class PackageDisablerFragment extends Fragment {
                 holder.switchH = (Switch) convertView.findViewById(R.id.switchDisable);
                 holder.imageH = (ImageView) convertView.findViewById(R.id.appIcon);
                 convertView.setTag(holder);
-            } else holder = (ViewHolder) convertView.getTag();
+            }
+            else holder = (ViewHolder) convertView.getTag();
 
             AppInfo appInfo = applicationInfoList.get(position);
             holder.nameH.setText(appInfo.appName);
             holder.packageH.setText(appInfo.packageName);
-            holder.switchH.setChecked(appPolicy.getApplicationStateEnabled(appInfo.packageName));
-            if (appInfo.system)
-                convertView.findViewById(R.id.systemOrNot).setVisibility(View.VISIBLE);
+            holder.switchH.setChecked(!appInfo.disabled);
+            if (appInfo.system) convertView.findViewById(R.id.systemOrNot).setVisibility(View.VISIBLE);
             else convertView.findViewById(R.id.systemOrNot).setVisibility(View.GONE);
-            try {
-                holder.imageH.setImageDrawable(packageManager.getApplicationIcon(appInfo.packageName));
-            } catch (PackageManager.NameNotFoundException e) {
-            }
-
-            //holder.textH.setText(packageManager.getApplicationLabel(appInfo));
-            //holder.switchH.setChecked(appPolicy.getApplicationStateEnabled(appInfo.packageName));
-            //holder.imageH.setImageDrawable(packageManager.getApplicationIcon(appInfo));
+            try { holder.imageH.setImageDrawable(packageManager.getApplicationIcon(appInfo.packageName)); }
+            catch (PackageManager.NameNotFoundException e) {}
 
             return convertView;
         }
-
-        /*private class ItemFilter extends Filter {
-            @Override
-            protected FilterResults performFiltering(CharSequence constraint) {
-                String filterString = constraint.toString().toLowerCase();
-                FilterResults results = new FilterResults();
-                final ArrayList<AppInfo> nlist = new ArrayList<>();
-                for (AppInfo appInfo : applicationInfoList)
-                    if (appInfo.appName.toLowerCase().contains(filterString))
-                        nlist.add(appInfo);
-
-                results.values = nlist;
-                results.count = nlist.size();
-                return results;
-            }
-
-            @SuppressWarnings("unchecked")
-            @Override
-            protected void publishResults(CharSequence constraint, FilterResults results) {
-                if (pd != null) pd.dismiss();
-                if (results.values == null) return;
-                filteredList = (List<AppInfo>) results.values;
-                notifyDataSetChanged();
-            }
-        }*/
     }
 }

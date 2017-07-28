@@ -5,12 +5,18 @@
         android:id="@+id/action_pack_dis_reload"
         android:icon="@drawable/reload"
         android:orderInCategory="100"
-        android:title="@string/adhell_settings"
+        android:title="Reload"
         app:showAsAction="always"/>
     <item
         android:id="@+id/action_pack_dis_sort"
-        android:icon="@drawable/date_sort"
+        android:icon="@drawable/sort"
         android:orderInCategory="100"
-        android:title="@string/adhell_settings"
-        app:showAsAction="always"/>
+        android:title="Sort"
+        app:showAsAction="always">
+        <menu>
+            <item android:title="@string/sort_by_alphabet" android:id="@+id/sort_alphabetically_item"/>
+            <item android:title="@string/sort_by_install_time" android:id="@+id/sort_by_time_item"/>
+            <item android:title="@string/sort_by_disabled" android:id="@+id/sort_disabled_item"/>
+        </menu>
+    </item>
 </menu>

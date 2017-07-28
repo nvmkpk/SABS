@@ -22,8 +22,9 @@ public interface AppInfoDao {
     @Query("DELETE FROM AppInfo")
     void deleteAll();
 
-    @Query("DELETE FROM AppInfo WHERE id = :id")
-    void deleteAppInfoById(int id);
+
+    @Query("SELECT * FROM AppInfo WHERE packageName = :packageName")
+    AppInfo getByPackageName(String packageName);
 
     @Query("DELETE FROM AppInfo WHERE packageName = :packageName")
     void deleteAppInfoByPackageName(String packageName);
@@ -31,36 +32,42 @@ public interface AppInfoDao {
     @Query("SELECT MAX(id) FROM AppInfo")
     long getMaxId();
 
-    @Query("SELECT * FROM AppInfo ORDER BY appName ASC")
-    List<AppInfo> getAll();
-
-    @Query("SELECT * FROM AppInfo WHERE system = 0 ORDER BY appName ASC")
-    LiveData<List<AppInfo>> getAllNonSystemLiveData();
-
-    @Query("SELECT * FROM AppInfo WHERE appName LIKE :str ORDER BY appName ASC")
-    List<AppInfo> getAllAppsWithStrInName(String str);
-
-    @Query("SELECT * FROM AppInfo WHERE packageName LIKE :str ORDER BY appName ASC")
-    List<AppInfo> getAllPackagesWithStrInName(String str);
-
-    @Query("SELECT * FROM AppInfo WHERE appName LIKE :str ORDER BY installTime DESC")
-    List<AppInfo> getAllAppsWithStrInNameTimeOrder(String str);
-
-    @Query("SELECT * FROM AppInfo WHERE packageName LIKE :str ORDER BY installTime DESC")
-    List<AppInfo> getAllPackagesWithStrInNameAlphOrder(String str);
-
-    @Query("SELECT * FROM AppInfo ORDER BY installTime DESC")
-    List<AppInfo> getAllRecentSort();
+    @Query("SELECT * FROM AppInfo WHERE adhellWhitelisted = 1")
+    List<AppInfo> getWhitelistedApps();
 
     @Query("SELECT * FROM AppInfo ORDER BY adhellWhitelisted DESC, appName ASC")
     LiveData<List<AppInfo>> getAllSortedByWhitelist();
 
-    @Query("SELECT * FROM AppInfo WHERE adhellWhitelisted = 1")
-    List<AppInfo> getWhitelistedApps();
+    @Query("SELECT * FROM AppInfo WHERE system = 0 ORDER BY appName ASC")
+    LiveData<List<AppInfo>> getAllNonSystemLiveData();
 
-    @Query("SELECT * FROM AppInfo WHERE packageName = :packageName")
-    AppInfo getByPackageName(String packageName);
+    @Query("SELECT * FROM AppInfo ORDER BY appName ASC")
+    List<AppInfo> getAll();
+
+    @Query("SELECT * FROM AppInfo ORDER BY installTime DESC")
+    List<AppInfo> getAllRecentSort();
+
+    @Query("SELECT * FROM AppInfo ORDER BY disabled DESC, appName ASC")
+    List<AppInfo> getAllSortedByDisabled();
+
+    @Query("SELECT * FROM AppInfo WHERE appName LIKE :str ORDER BY appName ASC")
+    List<AppInfo> getAllAppsWithStrInName(String str);
+
+    @Query("SELECT * FROM AppInfo WHERE appName LIKE :str ORDER BY installTime DESC")
+    List<AppInfo> getAllAppsWithStrInNameTimeOrder(String str);
+
+    @Query("SELECT * FROM AppInfo WHERE appName LIKE :str ORDER BY disabled DESC, appName ASC")
+    List<AppInfo> getAllAppsWithStrInNameDisabledOrder(String str);
 
     @Update
     void update(AppInfo appInfo);
+
+    /*@Query("DELETE FROM AppInfo WHERE id = :id")
+    void deleteAppInfoById(int id);
+
+    @Query("SELECT * FROM AppInfo WHERE packageName LIKE :str ORDER BY appName ASC")
+    List<AppInfo> getAllPackagesWithStrInName(String str);
+
+    @Query("SELECT * FROM AppInfo WHERE packageName LIKE :str ORDER BY installTime DESC")
+    List<AppInfo> getAllPackagesWithStrInNameAlphOrder(String str);*/
 }

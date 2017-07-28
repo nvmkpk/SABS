@@ -11,7 +11,7 @@ import com.getadhell.androidapp.db.DateConverter;
 
 @Entity(
         tableName = "AppInfo",
-        indices = {@Index("appName"), @Index("installTime")}
+        indices = {@Index("appName"), @Index("installTime"), @Index("disabled")}
 )
 @TypeConverters(DateConverter.class)
 public class AppInfo {
@@ -22,7 +22,6 @@ public class AppInfo {
     public String packageName;
 
     @ColumnInfo(name = "appName")
-
     public String appName;
 
     @ColumnInfo(name = "installTime")
@@ -33,4 +32,7 @@ public class AppInfo {
 
     @ColumnInfo(name = "adhellWhitelisted")
     public boolean adhellWhitelisted;
+
+    @ColumnInfo(name = "disabled")
+    public boolean disabled;
 }
