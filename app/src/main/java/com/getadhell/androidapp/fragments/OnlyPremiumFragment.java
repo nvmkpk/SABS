@@ -4,6 +4,7 @@ import android.arch.lifecycle.LifecycleFragment;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.getadhell.androidapp.R;
 import com.getadhell.androidapp.viewmodel.SharedBillingViewModel;
 
 public class OnlyPremiumFragment extends LifecycleFragment {
+    private static final String TAG = OnlyPremiumFragment.class.getCanonicalName();
     private Button goPremiumButton;
     private TextView goPremiumTextView;
 
@@ -33,11 +35,20 @@ public class OnlyPremiumFragment extends LifecycleFragment {
 
         SharedBillingViewModel sharedBillingViewModel = ViewModelProviders.of(this).get(SharedBillingViewModel.class);
         sharedBillingViewModel.billingModel.isSupportedLiveData.observe(this, aBoolean -> {
-            if (aBoolean) {
+            Log.w(TAG, "Is subscription mode supported: " + aBoolean);
+            if (aBoolean != null && aBoolean) {
+                Log.w(TAG, "Subscription mode supported");
+                goPremiumTextView.setText(R.string.only_for_premium);
+                goPremiumButton.setEnabled(true);
+                sharedBillingViewModel.billingModel.priceLiveData.observe(this, s -> {
+                    goPremiumButton.setText(s);
+                });
+
                 goPremiumButton.setOnClickListener(v -> {
                     sharedBillingViewModel.startSubscriptionDialog(this.getActivity());
                 });
             } else {
+                Log.w(TAG, "Subscription mode is not supported");
                 goPremiumTextView.setText(R.string.subs_not_supported_text_view);
                 goPremiumButton.setText(R.string.billing_not_supported);
                 goPremiumButton.setEnabled(false);

@@ -38,9 +38,9 @@ public class AppSupportFragment extends LifecycleFragment {
         subscriptionButton.setEnabled(false);
 
         sharedBillingViewModel.billingModel.isSupportedLiveData.observe(this, (isSupported) -> {
-            if (isSupported) {
+            if (isSupported != null && isSupported) {
                 sharedBillingViewModel.billingModel.isPremiumLiveData.observe(this, (isPremium) -> {
-                    if (isPremium) {
+                    if (isPremium != null && isPremium) {
                         supportDevelopmentTextView.setText(R.string.premium_subscriber_message);
                         subscriptionButton.setText(R.string.already_premium);
                         subscriptionButton.setEnabled(false);
