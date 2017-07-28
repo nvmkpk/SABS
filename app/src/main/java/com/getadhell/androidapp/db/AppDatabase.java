@@ -29,7 +29,7 @@ import com.getadhell.androidapp.db.migration.Migration_15_16;
         ReportBlockedUrl.class,
         WhiteUrl.class,
         UserBlockUrl.class
-}, version = 15)
+}, version = 16)
 public abstract class AppDatabase extends RoomDatabase {
     private static final Migration MIGRATION_14_15 = new Migration_14_15(14, 15);
     private static final Migration MIGRATION_15_16 = new Migration_15_16(15, 16);
