@@ -140,8 +140,8 @@
         Questa funzione è disponibile solo per le applicazioni utente (non quelle di sistema).
         Per adesso sono disponibili solo 4 permessi.
     </string>
-    <string name="subs_not_supported_text_view">Modalità di abbonamento non supportata. Per favore aggiorna i
-        Google Play Services
+    <string name="subs_not_supported_text_view">Modalità di abbonamento non supportata. Per favore
+        aggiorna i Google Play Services
     </string>
     <string name="billing_not_supported">Non Supportato</string>
 
