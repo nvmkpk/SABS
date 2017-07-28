@@ -143,6 +143,6 @@
     <string name="subs_not_supported_text_view">Modalità di abbonamento non supportata. Per favore aggiorna i
         Google Play Services
     </string>
-    <string name="billing_not_supported">Non supportato</string>
+    <string name="billing_not_supported">Non Supportato</string>
 
 </resources>
