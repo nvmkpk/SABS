@@ -3,6 +3,7 @@ package com.getadhell.androidapp.utils;
 import android.app.enterprise.ApplicationPolicy;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.support.annotation.Nullable;
 
 import com.getadhell.androidapp.App;
 import com.getadhell.androidapp.db.AppDatabase;
@@ -16,6 +17,7 @@ import javax.inject.Inject;
 
 public class AppsListDBInitializer
 {
+    @Nullable
     @Inject
     ApplicationPolicy appPolicy;
     @Inject

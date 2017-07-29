@@ -22,6 +22,7 @@ import javax.inject.Inject;
 public class BlockedDomainService extends IntentService {
     private static final String TAG = BlockedDomainService.class.getCanonicalName();
 
+    @Nullable
     @Inject
     Firewall firewall;
 

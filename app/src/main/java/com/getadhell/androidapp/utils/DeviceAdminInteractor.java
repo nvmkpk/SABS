@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.getadhell.androidapp.App;
@@ -38,12 +39,19 @@ public class DeviceAdminInteractor {
     private static final String TAG = DeviceAdminInteractor.class.getCanonicalName();
     private static DeviceAdminInteractor mInstance = null;
 
+    @Nullable
+    @Inject
+    EnterpriseLicenseManager enterpriseLicenseManager;
+
+    @Nullable
     @Inject
     EnterpriseDeviceManager enterpriseDeviceManager;
 
+    @Nullable
     @Inject
     DevicePolicyManager devicePolicyManager;
 
+    @Nullable
     @Inject
     ApplicationPolicy mApplicationPolicy;
 
@@ -52,9 +60,6 @@ public class DeviceAdminInteractor {
 
     @Inject
     ComponentName componentName;
-
-    @Inject
-    EnterpriseLicenseManager enterpriseLicenseManager;
 
     @Inject
     Gson gson;

@@ -1,5 +1,6 @@
 package com.getadhell.androidapp.blocker;
 
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.util.Patterns;
 
@@ -26,6 +27,8 @@ import javax.inject.Inject;
 public class ContentBlocker56 implements ContentBlocker {
     private static ContentBlocker56 mInstance = null;
     private final String TAG = ContentBlocker56.class.getCanonicalName();
+
+    @Nullable
     @Inject
     Firewall mFirewall;
     @Inject

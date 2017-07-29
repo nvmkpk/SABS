@@ -1,6 +1,7 @@
 package com.getadhell.androidapp.blocker;
 
 import android.app.enterprise.FirewallPolicy;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.getadhell.androidapp.App;
@@ -23,6 +24,8 @@ import javax.inject.Inject;
 public class ContentBlocker20 implements ContentBlocker {
     private static ContentBlocker20 mInstance = null;
     private final String LOG_TAG = ContentBlocker20.class.getCanonicalName();
+
+    @Nullable
     @Inject
     FirewallPolicy firewallPolicy;
     @Inject

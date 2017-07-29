@@ -5,6 +5,7 @@ import android.app.enterprise.ApplicationPermissionControlPolicy;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +30,8 @@ public class AdhellPermissionInAppsAdapter extends RecyclerView.Adapter<AdhellPe
     public String currentPermissionName;
     @Inject
     PackageManager mPackageManager;
+
+    @Nullable
     @Inject
     ApplicationPermissionControlPolicy mAppControlPolicy;
     Set<String> restrictedPackageNames;

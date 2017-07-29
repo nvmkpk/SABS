@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -36,6 +37,7 @@ import javax.inject.Inject;
 
 public class PackageDisablerFragment extends Fragment
 {
+    @Nullable
     @Inject
     ApplicationPolicy appPolicy;
     @Inject

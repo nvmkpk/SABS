@@ -1,5 +1,7 @@
 package com.getadhell.androidapp.dagger.component;
 
+import android.support.annotation.Nullable;
+
 import com.getadhell.androidapp.MainActivity;
 import com.getadhell.androidapp.adapter.AdhellPermissionInAppsAdapter;
 import com.getadhell.androidapp.blocker.ContentBlocker20;

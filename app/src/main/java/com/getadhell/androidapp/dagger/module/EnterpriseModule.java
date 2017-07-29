@@ -6,6 +6,7 @@ import android.app.enterprise.EnterpriseDeviceManager;
 import android.app.enterprise.FirewallPolicy;
 import android.app.enterprise.license.EnterpriseLicenseManager;
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.getadhell.androidapp.dagger.scope.AdhellApplicationScope;
@@ -18,6 +19,7 @@ import dagger.Provides;
 public class EnterpriseModule {
     private static final String TAG = EnterpriseModule.class.getCanonicalName();
 
+    @Nullable
     @Provides
     @AdhellApplicationScope
     EnterpriseLicenseManager providesEnterpriseLicenseManager(Context appContext) {
@@ -30,6 +32,7 @@ public class EnterpriseModule {
         return null;
     }
 
+    @Nullable
     @Provides
     @AdhellApplicationScope
     EnterpriseDeviceManager providesEnterpriseDeviceManager(Context appContext) {
@@ -42,18 +45,20 @@ public class EnterpriseModule {
         }
     }
 
+    @Nullable
     @Provides
     @AdhellApplicationScope
-    ApplicationPolicy providesApplicationPolicy(EnterpriseDeviceManager enterpriseDeviceManager) {
+    ApplicationPolicy providesApplicationPolicy(@Nullable EnterpriseDeviceManager enterpriseDeviceManager) {
         if (enterpriseDeviceManager == null) {
             return null;
         }
         return enterpriseDeviceManager.getApplicationPolicy();
     }
 
+    @Nullable
     @Provides
     @AdhellApplicationScope
-    ApplicationPermissionControlPolicy providesApplicationPermissionControlPolicy(EnterpriseDeviceManager enterpriseDeviceManager) {
+    ApplicationPermissionControlPolicy providesApplicationPermissionControlPolicy(@Nullable EnterpriseDeviceManager enterpriseDeviceManager) {
         if (enterpriseDeviceManager == null) {
             Log.w(TAG, "enterpriseDeviceManager is null. Can't get ApplicationPermissionControlPolicy");
             return null;
@@ -61,11 +66,13 @@ public class EnterpriseModule {
         return enterpriseDeviceManager.getApplicationPermissionControlPolicy();
     }
 
+    @Nullable
     @Provides
     @AdhellApplicationScope
-    FirewallPolicy providesFirewallPolicy(EnterpriseDeviceManager enterpriseDeviceManager) {
+    FirewallPolicy providesFirewallPolicy(@Nullable EnterpriseDeviceManager enterpriseDeviceManager) {
         if (enterpriseDeviceManager == null) {
             Log.w(TAG, "enterpriseDeviceManager is null. Can't get FirewallPolicy");
+            return null;
         }
         try {
             Log.i(TAG, "Trying to get FirewallPolicy");
@@ -76,11 +83,13 @@ public class EnterpriseModule {
         return null;
     }
 
+    @Nullable
     @Provides
     @AdhellApplicationScope
-    Firewall providesFirewall(EnterpriseDeviceManager enterpriseDeviceManager) {
+    Firewall providesFirewall(@Nullable EnterpriseDeviceManager enterpriseDeviceManager) {
         if (enterpriseDeviceManager == null) {
             Log.w(TAG, "enterpriseDeviceManager is null. Can't get firewall");
+            return null;
         }
         try {
             Log.i(TAG, "Trying to get Firewall");

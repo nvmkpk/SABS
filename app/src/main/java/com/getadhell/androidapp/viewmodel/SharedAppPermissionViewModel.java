@@ -22,7 +22,7 @@ public class SharedAppPermissionViewModel extends ViewModel {
     private static final String TAG = SharedAppPermissionViewModel.class.getCanonicalName();
     private final MutableLiveData<AdhellPermissionInfo> selected = new MutableLiveData<AdhellPermissionInfo>();
     public List<AppInfo> installedApps;
-    LiveData<List<AppInfo>> installedAppsLiveData;
+    private LiveData<List<AppInfo>> installedAppsLiveData;
 
     @Inject
     AppDatabase appDatabase;
