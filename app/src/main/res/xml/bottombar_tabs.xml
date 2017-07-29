@@ -8,7 +8,7 @@
         id="@+id/packageDisablerTab"
         title="@string/package_disabler_bottombar_title"/>
     <tab
-        icon="@drawable/ic_report"
+        icon="@drawable/ic_lock_outline"
         id="@+id/appPermissionsTab"
         title="Permissions"/>
     <tab
