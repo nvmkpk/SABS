@@ -33,7 +33,7 @@ public class AdhellPermissionInfoFragment extends LifecycleFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getActivity().setTitle("App Permissions");
         sharedAppPermissionViewModel = ViewModelProviders.of(getActivity()).get(SharedAppPermissionViewModel.class);
-        fragmentManager = getFragmentManager();
+        fragmentManager = getActivity().getSupportFragmentManager();
         adhellPermissionInfos = AdhellPermissionInfo.loadPermissions();
         View view = inflater.inflate(R.layout.fragment_adhell_permission_info, container, false);
         permissionInfoRecyclerView = (RecyclerView) view.findViewById(R.id.permissionInfoRecyclerView);

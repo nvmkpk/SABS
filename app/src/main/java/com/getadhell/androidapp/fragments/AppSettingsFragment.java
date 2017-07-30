@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -27,9 +28,15 @@ import com.getadhell.androidapp.utils.DeviceAdminInteractor;
 
 public class AppSettingsFragment extends Fragment {
     private static final String TAG = AppSettingsFragment.class.getCanonicalName();
+    private FragmentManager fragmentManager;
     private ContentBlocker contentBlocker;
     private Context mContext;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        fragmentManager = getActivity().getSupportFragmentManager();
+    }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
@@ -48,7 +55,6 @@ public class AppSettingsFragment extends Fragment {
         editButton.setOnClickListener(v ->
         {
             Log.d(TAG, "Edit button click in Fragment1");
-            FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragmentContainer, new BlockedUrlSettingFragment());
             fragmentTransaction.addToBackStack("main_to_editUrl");
@@ -60,7 +66,6 @@ public class AppSettingsFragment extends Fragment {
             appButton.setOnClickListener(v ->
             {
                 Log.d(TAG, "Allow Apps button click in Fragment1");
-                FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragmentContainer, new AppListFragment());
                 fragmentTransaction.addToBackStack("main_to_editApp");
@@ -92,7 +97,6 @@ public class AppSettingsFragment extends Fragment {
             changeDnsButton.setOnClickListener(v ->
             {
                 Log.d(TAG, "Show dns change dialog");
-                FragmentManager fragmentManager = getFragmentManager();
                 DnsChangeDialogFragment dnsChangeDialogFragment = DnsChangeDialogFragment.newInstance("Some title");
                 dnsChangeDialogFragment.show(fragmentManager, "dialog_fragment_dns");
             });

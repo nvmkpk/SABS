@@ -25,7 +25,7 @@ public class BlockedUrlSettingFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         contentBlocker = DeviceAdminInteractor.getInstance().getContentBlocker();
-        fragmentManager = getFragmentManager();
+        fragmentManager = getActivity().getSupportFragmentManager();
     }
 
     @Nullable

@@ -3,6 +3,7 @@ package com.getadhell.androidapp;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -55,6 +56,10 @@ public class MainActivity extends AppCompatActivity {
     protected DeviceAdminInteractor mAdminInteractor;
     @Inject
     AppDatabase appDatabase;
+
+    @Inject
+    SharedPreferences appSharedPreferences;
+
     private AdhellNotSupportedDialogFragment adhellNotSupportedDialogFragment;
     private AdhellTurnOnDialogFragment adhellTurnOnDialogFragment;
     private NoInternetConnectionDialogFragment noInternetConnectionDialogFragment;
@@ -89,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         fragmentManager = getSupportFragmentManager();
         mAdminInteractor = DeviceAdminInteractor.getInstance();
-        adhellNotSupportedDialogFragment = AdhellNotSupportedDialogFragment.newInstance("Some title");
+        adhellNotSupportedDialogFragment = AdhellNotSupportedDialogFragment.newInstance("App not supported");
         if (!mAdminInteractor.isContentBlockerSupported()) {
             Log.i(TAG, "Device not supported");
             return;
@@ -104,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
         if (!mAdminInteractor.isContentBlockerSupported()) {
             return;
         }
-        mAdminInteractor = DeviceAdminInteractor.getInstance();
 
         BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
         bottomBar.setOnTabSelectListener(tabId -> {
@@ -181,7 +185,6 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         showDialog();
-        Log.d(TAG, "onResume!!!");
         if (!mAdminInteractor.isActiveAdmin()) {
             Log.d(TAG, "Admin not active");
             return;
@@ -192,7 +195,19 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         Log.d(TAG, "Everything is okay");
-        changeFragment();
+
+        String fragmentName = appSharedPreferences.getString(getString(R.string.currentFragmentName), null);
+        Log.d(TAG, "Current fragment name: " + fragmentName);
+        if (fragmentName != null) {
+            boolean popped = fragmentManager.popBackStackImmediate(fragmentName, 0);
+            if (!popped) {
+                Log.w(TAG, "Fragment not popped");
+                changeFragment();
+            }
+        } else {
+            changeFragment();
+        }
+
 
         ContentBlocker contentBlocker = mAdminInteractor.getContentBlocker();
         if (contentBlocker != null && contentBlocker.isEnabled() && (contentBlocker instanceof ContentBlocker56
@@ -203,28 +218,47 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        appSharedPreferences.edit().remove(getString(R.string.currentFragmentName)).apply();
+        Log.d(TAG, "Destroying activity");
+    }
+
     private void changeFragment() {
         Log.d(TAG, "Entering changeFragment() method...");
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         Fragment replacing;
+
+
+        String currentFragmentName = null;
         switch (tabState) {
             case R.id.blockerTab:
                 replacing = new BlockerFragment();
+                currentFragmentName = BlockerFragment.class.getCanonicalName();
                 break;
             case R.id.packageDisablerTab:
                 replacing = new PackageDisablerFragment();
+                currentFragmentName = PackageDisablerFragment.class.getCanonicalName();
                 break;
             case R.id.appPermissionsTab:
                 if (sharedBillingViewModel.billingModel.isPremiumLiveData.getValue()) {
                     replacing = new AdhellPermissionInfoFragment();
+                    currentFragmentName = AdhellPermissionInfoFragment.class.getCanonicalName();
                 } else {
                     replacing = new OnlyPremiumFragment();
+                    currentFragmentName = OnlyPremiumFragment.class.getCanonicalName();
                 }
                 break;
             default:
                 replacing = new AppSupportFragment();
+                currentFragmentName = AppSupportFragment.class.getCanonicalName();
         }
+        appSharedPreferences.edit()
+                .putString(getString(R.string.currentFragmentName), currentFragmentName)
+                .apply();
         fragmentTransaction.replace(R.id.fragmentContainer, replacing);
+        fragmentTransaction.addToBackStack(currentFragmentName);
         fragmentTransaction.commitAllowingStateLoss();
     }
 

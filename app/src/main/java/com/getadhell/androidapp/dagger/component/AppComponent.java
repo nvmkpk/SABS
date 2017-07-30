@@ -1,7 +1,5 @@
 package com.getadhell.androidapp.dagger.component;
 
-import android.support.annotation.Nullable;
-
 import com.getadhell.androidapp.MainActivity;
 import com.getadhell.androidapp.adapter.AdhellPermissionInAppsAdapter;
 import com.getadhell.androidapp.blocker.ContentBlocker20;
@@ -13,6 +11,7 @@ import com.getadhell.androidapp.dagger.module.EnterpriseModule;
 import com.getadhell.androidapp.dagger.module.NetworkModule;
 import com.getadhell.androidapp.dagger.scope.AdhellApplicationScope;
 import com.getadhell.androidapp.fragments.BlockedUrlSettingFragment;
+import com.getadhell.androidapp.fragments.BlockerFragment;
 import com.getadhell.androidapp.fragments.PackageDisablerFragment;
 import com.getadhell.androidapp.service.BlockedDomainService;
 import com.getadhell.androidapp.utils.AppsListDBInitializer;
@@ -46,4 +45,7 @@ public interface AppComponent {
     void inject(AdhellPermissionInAppsAdapter adhellPermissionInAppsAdapter);
 
     void inject(AppsListDBInitializer appsListDBInitializer);
+
+    void inject(BlockerFragment blockerFragment);
+
 }
