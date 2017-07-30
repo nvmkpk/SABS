@@ -88,10 +88,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        App.get().getAppComponent().inject(this);
-
-        Fabric.with(this, new Answers(), new Crashlytics());
         setContentView(R.layout.activity_main);
+
+        App.get().getAppComponent().inject(this);
+        Fabric.with(this, new Answers(), new Crashlytics());
+
         fragmentManager = getSupportFragmentManager();
         mAdminInteractor = DeviceAdminInteractor.getInstance();
         adhellNotSupportedDialogFragment = AdhellNotSupportedDialogFragment.newInstance("App not supported");
@@ -127,8 +128,7 @@ public class MainActivity extends AppCompatActivity {
             changeFragment();
         });
 
-        AsyncTask.execute(() ->
-        {
+        AsyncTask.execute(() -> {
 //        HeartbeatAlarmHelper.scheduleAlarm();
             if (appDatabase.applicationInfoDao().getAll().size() == 0) {
                 AppsListDBInitializer.getInstance().fillPackageDb(getPackageManager());
@@ -198,15 +198,8 @@ public class MainActivity extends AppCompatActivity {
 
         String fragmentName = appSharedPreferences.getString(getString(R.string.currentFragmentName), null);
         Log.d(TAG, "Current fragment name: " + fragmentName);
-        if (fragmentName != null) {
-            boolean popped = fragmentManager.popBackStackImmediate(fragmentName, 0);
-            if (!popped) {
-                Log.w(TAG, "Fragment not popped");
-                changeFragment();
-            }
-        } else {
-            changeFragment();
-        }
+
+        changeFragment();
 
 
         ContentBlocker contentBlocker = mAdminInteractor.getContentBlocker();
@@ -227,6 +220,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void changeFragment() {
         Log.d(TAG, "Entering changeFragment() method...");
+
+        if (fragmentManager.popBackStackImmediate()) {
+            return;
+        }
+
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         Fragment replacing;
 

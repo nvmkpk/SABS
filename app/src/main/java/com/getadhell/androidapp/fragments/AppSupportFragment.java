@@ -45,6 +45,7 @@ public class AppSupportFragment extends LifecycleFragment {
                         subscriptionButton.setText(R.string.already_premium);
                         subscriptionButton.setEnabled(false);
                     } else {
+                        supportDevelopmentTextView.setText(R.string.help_developers_to_keep_up_development);
                         sharedBillingViewModel.billingModel.priceLiveData.observe(this, (text) -> {
                             subscriptionButton.setText(text);
                         });
