@@ -103,4 +103,8 @@
         Google Play Services
     </string>
     <string name="billing_not_supported">Not Supported</string>
+    <string name="sort_by_alphabet">Sort alphabetically</string>
+    <string name="sort_by_install_time">Sort by install time</string>
+    <string name="sort_by_disabled">Show disabled first</string>
+    <string name="app_list_sorted_by_disabled">Disabled apps are shown first</string>
 </resources>

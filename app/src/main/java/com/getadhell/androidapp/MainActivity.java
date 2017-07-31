@@ -56,8 +56,6 @@ public class MainActivity extends AppCompatActivity {
     protected DeviceAdminInteractor mAdminInteractor;
     @Inject
     AppDatabase appDatabase;
-    @Inject
-    SharedPreferences appSharedPreferences;
     private AdhellNotSupportedDialogFragment adhellNotSupportedDialogFragment;
     private AdhellTurnOnDialogFragment adhellTurnOnDialogFragment;
     private NoInternetConnectionDialogFragment noInternetConnectionDialogFragment;
@@ -191,8 +189,6 @@ public class MainActivity extends AppCompatActivity {
         }
         Log.d(TAG, "Everything is okay");
 
-        String fragmentName = appSharedPreferences.getString(getString(R.string.currentFragmentName), null);
-        Log.d(TAG, "Current fragment name: " + fragmentName);
 
         ContentBlocker contentBlocker = mAdminInteractor.getContentBlocker();
         if (contentBlocker != null && contentBlocker.isEnabled() && (contentBlocker instanceof ContentBlocker56
@@ -206,7 +202,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        appSharedPreferences.edit().remove(getString(R.string.currentFragmentName)).apply();
         Log.d(TAG, "Destroying activity");
     }
 

@@ -2,6 +2,6 @@
 <resources
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingTranslation">
-    <string name="currentFragmentName">currentFragmentName</string>
+    <string name="currentFragmentName" translatable="false">currentFragmentName</string>
 
 </resources>

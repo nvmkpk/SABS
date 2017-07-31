@@ -50,13 +50,13 @@ public interface AppInfoDao {
     @Query("SELECT * FROM AppInfo ORDER BY disabled DESC, appName ASC")
     List<AppInfo> getAllSortedByDisabled();
 
-    @Query("SELECT * FROM AppInfo WHERE appName LIKE :str ORDER BY appName ASC")
+    @Query("SELECT * FROM AppInfo WHERE (appName LIKE :str OR packageName LIKE :str) ORDER BY appName ASC")
     List<AppInfo> getAllAppsWithStrInName(String str);
 
-    @Query("SELECT * FROM AppInfo WHERE appName LIKE :str ORDER BY installTime DESC")
+    @Query("SELECT * FROM AppInfo WHERE (appName LIKE :str OR packageName LIKE :str) ORDER BY installTime DESC")
     List<AppInfo> getAllAppsWithStrInNameTimeOrder(String str);
 
-    @Query("SELECT * FROM AppInfo WHERE appName LIKE :str ORDER BY disabled DESC, appName ASC")
+    @Query("SELECT * FROM AppInfo WHERE (appName LIKE :str OR packageName LIKE :str) ORDER BY disabled DESC, appName ASC")
     List<AppInfo> getAllAppsWithStrInNameDisabledOrder(String str);
 
     @Update

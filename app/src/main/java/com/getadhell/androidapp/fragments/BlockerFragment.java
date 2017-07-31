@@ -1,7 +1,6 @@
 package com.getadhell.androidapp.fragments;
 
 import android.arch.lifecycle.LifecycleFragment;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -24,8 +23,6 @@ import com.getadhell.androidapp.blocker.ContentBlocker57;
 import com.getadhell.androidapp.utils.BlockedDomainAlarmHelper;
 import com.getadhell.androidapp.utils.DeviceAdminInteractor;
 
-import javax.inject.Inject;
-
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -35,8 +32,6 @@ import io.reactivex.schedulers.Schedulers;
 public class BlockerFragment extends LifecycleFragment {
 
     private static final String TAG = BlockerFragment.class.getCanonicalName();
-    @Inject
-    SharedPreferences appSharedPreferences;
 
     FragmentManager fragmentManager;
 
@@ -112,10 +107,6 @@ public class BlockerFragment extends LifecycleFragment {
                         .replace(R.id.fragmentContainer, new AppSettingsFragment(), AppSettingsFragment.class.getCanonicalName())
                         .addToBackStack(AppSettingsFragment.class.getCanonicalName())
                         .commit();
-
-                appSharedPreferences.edit()
-                        .putString(getString(R.string.currentFragmentName), AppSettingsFragment.class.getCanonicalName())
-                        .apply();
                 return true;
         }
         return super.onOptionsItemSelected(item);

@@ -2,14 +2,15 @@ package com.getadhell.androidapp.fragments;
 
 import android.annotation.SuppressLint;
 import android.app.enterprise.ApplicationPolicy;
+import android.arch.lifecycle.LifecycleFragment;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,8 +36,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class PackageDisablerFragment extends Fragment
-{
+public class PackageDisablerFragment extends LifecycleFragment {
+    private static final String TAG = PackageDisablerFragment.class.getCanonicalName();
+    private final int SORTED_ALPHABETICALLY = 0;
+    private final int SORTED_INSTALL_TIME = 1;
+    private final int SORTED_DISABLED = 2;
     @Nullable
     @Inject
     ApplicationPolicy appPolicy;
@@ -48,9 +52,6 @@ public class PackageDisablerFragment extends Fragment
     private List<AppInfo> packageList;
     private DisablerAppAdapter adapter;
     private EditText editText;
-    private final int SORTED_ALPHABETICALLY = 0;
-    private final int SORTED_INSTALL_TIME = 1;
-    private final int SORTED_DISABLED = 2;
     private int sortState = SORTED_ALPHABETICALLY;
 
 
@@ -74,15 +75,12 @@ public class PackageDisablerFragment extends Fragment
         setHasOptionsMenu(true);
 
         installedAppsView = (ListView) view.findViewById(R.id.installed_apps_list);
-        installedAppsView.setOnItemClickListener((AdapterView<?> adView, View v, int i, long l) ->
-        {
+        installedAppsView.setOnItemClickListener((AdapterView<?> adView, View v, int i, long l) -> {
             DisablerAppAdapter disablerAppAdapter = (DisablerAppAdapter) adView.getAdapter();
             final String name = disablerAppAdapter.getItem(i).packageName;
-            new AsyncTask<Void, Void, Boolean>()
-            {
+            new AsyncTask<Void, Void, Boolean>() {
                 @Override
-                protected Boolean doInBackground(Void... o)
-                {
+                protected Boolean doInBackground(Void... o) {
                     AppInfo appInfo = mDb.applicationInfoDao().getByPackageName(name);
                     appInfo.disabled = !appInfo.disabled;
                     if (appInfo.disabled) appPolicy.setDisableApplication(name);
@@ -91,19 +89,25 @@ public class PackageDisablerFragment extends Fragment
                     disablerAppAdapter.applicationInfoList.set(i, appInfo);
                     return appInfo.disabled;
                 }
+
                 @Override
-                protected void onPostExecute(Boolean b) { ((Switch) v.findViewById(R.id.switchDisable)).setChecked(!b); }
+                protected void onPostExecute(Boolean b) {
+                    ((Switch) v.findViewById(R.id.switchDisable)).setChecked(!b);
+                }
             }.execute();
         });
 
         loadApplicationsList(false);
 
-        editText.addTextChangedListener(new TextWatcher()
-        {
+        editText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
             @Override
             public void afterTextChanged(Editable s) {
                 loadApplicationsList(false);
@@ -122,7 +126,8 @@ public class PackageDisablerFragment extends Fragment
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_pack_dis_sort: break;
+            case R.id.action_pack_dis_sort:
+                break;
             case R.id.sort_alphabetically_item:
                 if (sortState == SORTED_ALPHABETICALLY) break;
                 sortState = SORTED_ALPHABETICALLY;
@@ -148,16 +153,12 @@ public class PackageDisablerFragment extends Fragment
     }
 
     @SuppressLint("StaticFieldLeak")
-    private void loadApplicationsList(boolean clear)
-    {
-        new AsyncTask<Void, Void, Void>()
-        {
+    private void loadApplicationsList(boolean clear) {
+        new AsyncTask<Void, Void, Void>() {
             @Override
-            protected Void doInBackground(Void... o)
-            {
+            protected Void doInBackground(Void... o) {
                 if (clear) mDb.applicationInfoDao().deleteAll();
-                else
-                {
+                else {
                     packageList = getListFromDb();
                     if (packageList.size() != 0) return null;
                 }
@@ -176,11 +177,9 @@ public class PackageDisablerFragment extends Fragment
         }.execute();
     }
 
-    private List<AppInfo> getListFromDb()
-    {
+    private List<AppInfo> getListFromDb() {
         String filterText = '%' + editText.getText().toString() + '%';
-        switch (sortState)
-        {
+        switch (sortState) {
             case SORTED_ALPHABETICALLY:
                 if (filterText.length() == 0) return mDb.applicationInfoDao().getAll();
                 return mDb.applicationInfoDao().getAllAppsWithStrInName(filterText);
@@ -188,7 +187,8 @@ public class PackageDisablerFragment extends Fragment
                 if (filterText.length() == 0) return mDb.applicationInfoDao().getAllRecentSort();
                 return mDb.applicationInfoDao().getAllAppsWithStrInNameTimeOrder(filterText);
             case SORTED_DISABLED:
-                if (filterText.length() == 0) return mDb.applicationInfoDao().getAllSortedByDisabled();
+                if (filterText.length() == 0)
+                    return mDb.applicationInfoDao().getAllSortedByDisabled();
                 return mDb.applicationInfoDao().getAllAppsWithStrInNameDisabledOrder(filterText);
         }
         return null;
@@ -201,11 +201,12 @@ public class PackageDisablerFragment extends Fragment
         ImageView imageH;
     }
 
-    private class DisablerAppAdapter extends BaseAdapter
-    {
+    private class DisablerAppAdapter extends BaseAdapter {
         public List<AppInfo> applicationInfoList;
 
-        public DisablerAppAdapter(List<AppInfo> appInfoList) { applicationInfoList = appInfoList; }
+        public DisablerAppAdapter(List<AppInfo> appInfoList) {
+            applicationInfoList = appInfoList;
+        }
 
         @Override
         public int getCount() {
@@ -223,11 +224,9 @@ public class PackageDisablerFragment extends Fragment
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent)
-        {
+        public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder holder;
-            if (convertView == null)
-            {
+            if (convertView == null) {
                 convertView = LayoutInflater.from(context).inflate(R.layout.item_disable_app_list_view, parent, false);
                 holder = new ViewHolder();
                 holder.nameH = (TextView) convertView.findViewById(R.id.appName);
@@ -235,17 +234,20 @@ public class PackageDisablerFragment extends Fragment
                 holder.switchH = (Switch) convertView.findViewById(R.id.switchDisable);
                 holder.imageH = (ImageView) convertView.findViewById(R.id.appIcon);
                 convertView.setTag(holder);
-            }
-            else holder = (ViewHolder) convertView.getTag();
+            } else holder = (ViewHolder) convertView.getTag();
 
             AppInfo appInfo = applicationInfoList.get(position);
             holder.nameH.setText(appInfo.appName);
             holder.packageH.setText(appInfo.packageName);
             holder.switchH.setChecked(!appInfo.disabled);
-            if (appInfo.system) convertView.findViewById(R.id.systemOrNot).setVisibility(View.VISIBLE);
+            if (appInfo.system)
+                convertView.findViewById(R.id.systemOrNot).setVisibility(View.VISIBLE);
             else convertView.findViewById(R.id.systemOrNot).setVisibility(View.GONE);
-            try { holder.imageH.setImageDrawable(packageManager.getApplicationIcon(appInfo.packageName)); }
-            catch (PackageManager.NameNotFoundException e) {}
+            try {
+                holder.imageH.setImageDrawable(packageManager.getApplicationIcon(appInfo.packageName));
+            } catch (PackageManager.NameNotFoundException e) {
+                Log.e(TAG, "Failed to get ImageDrawable", e);
+            }
 
             return convertView;
         }
