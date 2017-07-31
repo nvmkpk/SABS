@@ -51,15 +51,13 @@ import io.fabric.sdk.android.Fabric;
 public class MainActivity extends AppCompatActivity {
     public static final String ADHELL_STANDARD_PACKAGE = "http://getadhell.com/standard-package.txt";
     private static final String TAG = MainActivity.class.getCanonicalName();
+    private static final String BACK_STACK_TAB_TAG = "tab_fragment";
     private static FragmentManager fragmentManager;
-    private static int tabState = R.id.blockerTab;
     protected DeviceAdminInteractor mAdminInteractor;
     @Inject
     AppDatabase appDatabase;
-
     @Inject
     SharedPreferences appSharedPreferences;
-
     private AdhellNotSupportedDialogFragment adhellNotSupportedDialogFragment;
     private AdhellTurnOnDialogFragment adhellTurnOnDialogFragment;
     private NoInternetConnectionDialogFragment noInternetConnectionDialogFragment;
@@ -68,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         int count = fragmentManager.getBackStackEntryCount();
-        if (count == 0) {
+        if (count == 1) {
             super.onBackPressed();
         } else {
             fragmentManager.popBackStack();
@@ -113,9 +111,6 @@ public class MainActivity extends AppCompatActivity {
 
         BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
         bottomBar.setOnTabSelectListener(tabId -> {
-            tabState = tabId;
-            for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++)
-                fragmentManager.popBackStack();
             if (!mAdminInteractor.isActiveAdmin()) {
                 Log.d(TAG, "Admin not active");
                 return;
@@ -125,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "Knox disabled");
                 return;
             }
-            changeFragment();
+            onTabSelected(tabId);
         });
 
         AsyncTask.execute(() -> {
@@ -199,9 +194,6 @@ public class MainActivity extends AppCompatActivity {
         String fragmentName = appSharedPreferences.getString(getString(R.string.currentFragmentName), null);
         Log.d(TAG, "Current fragment name: " + fragmentName);
 
-        changeFragment();
-
-
         ContentBlocker contentBlocker = mAdminInteractor.getContentBlocker();
         if (contentBlocker != null && contentBlocker.isEnabled() && (contentBlocker instanceof ContentBlocker56
                 || contentBlocker instanceof ContentBlocker57)) {
@@ -218,48 +210,32 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "Destroying activity");
     }
 
-    private void changeFragment() {
-        Log.d(TAG, "Entering changeFragment() method...");
-
-        if (fragmentManager.popBackStackImmediate()) {
-            return;
-        }
-
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+    private void onTabSelected(int tabId) {
+        fragmentManager.popBackStack(BACK_STACK_TAB_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         Fragment replacing;
-
-
-        String currentFragmentName = null;
-        switch (tabState) {
+        switch (tabId) {
             case R.id.blockerTab:
                 replacing = new BlockerFragment();
-                currentFragmentName = BlockerFragment.class.getCanonicalName();
                 break;
             case R.id.packageDisablerTab:
                 replacing = new PackageDisablerFragment();
-                currentFragmentName = PackageDisablerFragment.class.getCanonicalName();
                 break;
             case R.id.appPermissionsTab:
                 if (sharedBillingViewModel.billingModel.isPremiumLiveData.getValue()) {
                     replacing = new AdhellPermissionInfoFragment();
-                    currentFragmentName = AdhellPermissionInfoFragment.class.getCanonicalName();
                 } else {
                     replacing = new OnlyPremiumFragment();
-                    currentFragmentName = OnlyPremiumFragment.class.getCanonicalName();
                 }
                 break;
             default:
                 replacing = new AppSupportFragment();
-                currentFragmentName = AppSupportFragment.class.getCanonicalName();
         }
-        appSharedPreferences.edit()
-                .putString(getString(R.string.currentFragmentName), currentFragmentName)
-                .apply();
-        fragmentTransaction.replace(R.id.fragmentContainer, replacing);
-        fragmentTransaction.addToBackStack(currentFragmentName);
-        fragmentTransaction.commitAllowingStateLoss();
-    }
 
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, replacing)
+                .addToBackStack(BACK_STACK_TAB_TAG)
+                .commit();
+    }
 
     public void showDialog() {
         if (!(DeviceAdminInteractor.isSamsung() && mAdminInteractor.isKnoxSupported())) {
