@@ -66,10 +66,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         int count = fragmentManager.getBackStackEntryCount();
-        if (count == 1) {
-            super.onBackPressed();
+        if (count <= 1) {
+            finish();
         } else {
-            fragmentManager.popBackStack();
+            fragmentManager.popBackStackImmediate();
         }
     }
 
