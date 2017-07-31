@@ -102,8 +102,8 @@ public class BlockerFragment extends LifecycleFragment {
         switch (item.getItemId()) {
             case R.id.action_app_settings:
                 Log.d(TAG, "App setting action clicked");
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction
+                fragmentManager
+                        .beginTransaction()
                         .replace(R.id.fragmentContainer, new AppSettingsFragment(), AppSettingsFragment.class.getCanonicalName())
                         .addToBackStack(AppSettingsFragment.class.getCanonicalName())
                         .commit();
