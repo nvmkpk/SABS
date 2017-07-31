@@ -38,7 +38,7 @@ public interface AppInfoDao {
     @Query("SELECT * FROM AppInfo WHERE disabled = 0 ORDER BY adhellWhitelisted DESC, appName ASC")
     LiveData<List<AppInfo>> getAllSortedByWhitelist();
 
-    @Query("SELECT * FROM AppInfo WHERE system = 0 ORDER BY appName ASC")
+    @Query("SELECT * FROM AppInfo WHERE system = 0 AND disabled = 0 ORDER BY appName ASC")
     LiveData<List<AppInfo>> getAllNonSystemLiveData();
 
     @Query("SELECT * FROM AppInfo ORDER BY appName ASC")

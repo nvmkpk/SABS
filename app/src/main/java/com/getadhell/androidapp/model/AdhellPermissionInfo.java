@@ -18,11 +18,13 @@ public class AdhellPermissionInfo {
         AdhellPermissionInfo accessFineLocationAdhellPermissionInfo = new AdhellPermissionInfo("android.permission.ACCESS_FINE_LOCATION", "GPS Sensor");
         AdhellPermissionInfo cameraAdhellPermissionInfo = new AdhellPermissionInfo("android.permission.CAMERA", "Camera");
         AdhellPermissionInfo micAdhellPermissionInfo = new AdhellPermissionInfo("android.permission.RECORD_AUDIO", "Microphone");
+        AdhellPermissionInfo wakeLockPerm = new AdhellPermissionInfo("android.permission.WAKE_LOCK", "Wake Lock");
         List<AdhellPermissionInfo> lis = new ArrayList<>();
         lis.add(internetAdhellPermissionInfo);
         lis.add(accessFineLocationAdhellPermissionInfo);
         lis.add(cameraAdhellPermissionInfo);
         lis.add(micAdhellPermissionInfo);
+        lis.add(wakeLockPerm);
         return lis;
     }
 }
