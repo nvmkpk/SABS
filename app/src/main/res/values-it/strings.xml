@@ -134,7 +134,7 @@
         Il tuo dispositivo utilizza una versione antiquata di Knox. Questa funzione potrebbe risultare instabile.
     </string>
     <string name="valid_subs">Il tuo abbonamento è valido</string>
-    <string name="adblock_whitelist">Attiva o Disattiva Adblock nelle app</string>
+    <string name="adblock_whitelist">Attiva o Disattiva Adblock nelle App</string>
     <string name="application_icon">Icona App</string>
     <string name="only_for_premium">Permessi App è una funzione riservata agli Utenti Premium.
         Questa funzione è disponibile solo per le applicazioni utente (non quelle di sistema).
@@ -144,9 +144,9 @@
         aggiorna i Google Play Services
     </string>
     <string name="billing_not_supported">Non Supportato</string>
-    <string name="sort_by_alphabet">Sort alphabetically</string>
-    <string name="sort_by_install_time">Sort by install time</string>
-    <string name="sort_by_disabled">Show disabled first</string>
-    <string name="app_list_sorted_by_disabled">Disabled apps are shown first</string>
+    <string name="sort_by_alphabet">Ordine alfabetico</string>
+    <string name="sort_by_install_time">Ordina per data</string>
+    <string name="sort_by_disabled">Prima quelle Disattive</string>
+    <string name="app_list_sorted_by_disabled">Le App disattivate sono mostrate prima</string>
 
 </resources>
