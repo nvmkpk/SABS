@@ -21,8 +21,10 @@
         android:id="@+id/disabledFilter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/buttonFilterDisable"
-        android:lines="1"/>
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        android:lines="1"
+        android:singleLine="true"/>
     <!--</RelativeLayout>-->
 
     <ListView
