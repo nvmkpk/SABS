@@ -138,7 +138,7 @@
     <string name="application_icon">Icona App</string>
     <string name="only_for_premium">Permessi App è una funzione riservata agli Utenti Premium.
         Questa funzione è disponibile solo per le applicazioni utente (non quelle di sistema).
-        Per adesso sono disponibili solo 4 permessi.
+        Per adesso sono disponibili solo 5 permessi.
     </string>
     <string name="subs_not_supported_text_view">Modalità di abbonamento non supportata. Per favore
         aggiorna i Google Play Services
