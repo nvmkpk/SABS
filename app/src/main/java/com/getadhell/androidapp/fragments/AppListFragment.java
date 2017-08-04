@@ -29,8 +29,12 @@ public class AppListFragment extends LifecycleFragment {
 
         AdhellWhitelistAppsViewModel adhellWhitelistAppsViewModel = ViewModelProviders.of(getActivity()).get(AdhellWhitelistAppsViewModel.class);
         adhellWhitelistAppsViewModel.getSortedAppInfo().observe(this, appInfos -> {
-            appWhitelistAdapter = new AppWhitelistAdapter(this.getContext(), appInfos);
-            appListView.setAdapter(appWhitelistAdapter);
+            if (appWhitelistAdapter == null) {
+                appWhitelistAdapter = new AppWhitelistAdapter(this.getContext(), appInfos);
+                appListView.setAdapter(appWhitelistAdapter);
+            } else {
+                appWhitelistAdapter.notifyDataSetChanged();
+            }
         });
 
         appListView.setOnItemClickListener((parent, view1, position, id) -> {
