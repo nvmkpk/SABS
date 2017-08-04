@@ -27,11 +27,9 @@ import io.reactivex.schedulers.Schedulers;
 
 public class AdhellWhitelistAppsViewModel extends AndroidViewModel {
     private static final String TAG = AdhellWhitelistAppsViewModel.class.getCanonicalName();
-
     @Nullable
     @Inject
     Firewall firewall;
-
     @Inject
     AppDatabase mAppDatabase;
     private LiveData<List<AppInfo>> appInfos;
