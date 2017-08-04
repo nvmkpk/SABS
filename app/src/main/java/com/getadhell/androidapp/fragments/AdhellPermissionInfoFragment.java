@@ -34,7 +34,6 @@ public class AdhellPermissionInfoFragment extends LifecycleFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().setTitle("App Permissions");
         boolean isPermissionGranted = (this.getContext()
                 .checkCallingOrSelfPermission("android.permission.sec.MDM_APP_PERMISSION_MGMT")
                 == PackageManager.PERMISSION_GRANTED);
@@ -50,10 +49,8 @@ public class AdhellPermissionInfoFragment extends LifecycleFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         // TODO: Check if premium
-
-
+        getActivity().setTitle("App Permissions");
         sharedAppPermissionViewModel = ViewModelProviders.of(getActivity()).get(SharedAppPermissionViewModel.class);
         fragmentManager = getActivity().getSupportFragmentManager();
         adhellPermissionInfos = AdhellPermissionInfo.loadPermissions();
