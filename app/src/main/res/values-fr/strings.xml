@@ -54,7 +54,7 @@
     <string name="edit_block_list">Modifier les URLs bloquées</string>
     <string name="whitelist">Afficher la liste blanche</string>
     <string name="blocklist">Afficher la liste de blocage</string>
-    <string name="back_to_main"Retour à l\'accueil</string>
+    <string name="back_to_main">Retour à l\'accueil</string>
     <string name="editAlert">Après édition de la liste blanche, retourner à l\'accueil d\'Adhell
         et appuyez sur "Désactiver", puis "Activer" pour appliquer les modifications !
     </string>
@@ -82,7 +82,7 @@
     <string name="note_that_adhell_must_be_enabled">Utilisez-le uniquement si vous savez ce qu\'est un DNS et quels
         avantages ou inconvénients ces modifications pourraient causer. Notez que Adhell doit être activé.
     </string>
-    <string name="restore_defaults">Réinitialiser/string>
+    <string name="restore_defaults">Réinitialiser</string>
     <string name="zero_dns" translatable="false">0.0.0.0</string>
     <string name="example_com" translatable="false">example.com</string>
     <string name="block">Bloquer</string>

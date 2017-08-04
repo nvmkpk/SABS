@@ -24,7 +24,8 @@ public class AppListFragment extends LifecycleFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_app_list, container, false);
-        appListView = (ListView) view.findViewById(R.id.appList);
+        appListView = view.findViewById(R.id.appList);
+        this.getActivity().setTitle(R.string.adblock_whitelist);
 
         AdhellWhitelistAppsViewModel adhellWhitelistAppsViewModel = ViewModelProviders.of(getActivity()).get(AdhellWhitelistAppsViewModel.class);
         adhellWhitelistAppsViewModel.getSortedAppInfo().observe(this, appInfos -> {
