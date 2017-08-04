@@ -5,18 +5,6 @@
               android:orientation="vertical"
               tools:context="com.getadhell.androidapp.fragments.PackageDisablerFragment">
 
-    <!--<RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/buttonFilterDisable"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:text="@string/apply_filter" />-->
-
     <EditText
         android:id="@+id/disabledFilter"
         android:layout_width="match_parent"
@@ -25,7 +13,6 @@
         android:inputType="text"
         android:lines="1"
         android:singleLine="true"/>
-    <!--</RelativeLayout>-->
 
     <ListView
         android:id="@+id/installed_apps_list"
