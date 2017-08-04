@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name" translatable="false">Adhell</string>
     <string name="wait">Attendez…</string>
     <string name="Reports">Rapports</string>
     <string name="about">Cette application pour smartphones Samsung bloque les publicités
@@ -75,16 +74,12 @@
     <string name="change_dns_button">Changer les DNS</string>
     <string name="dns_1_address">Adresse DNS 1</string>
     <string name="dns_2_address">Adresse DNS 2</string>
-    <string name="google_dns_1" translatable="false">8.8.8.8</string>
-    <string name="google_dns_2" translatable="false">8.8.4.4</string>
     <string name="set_dns_button_text">Définir les DNS</string>
     <string name="cancel_text">Annuler</string>
     <string name="note_that_adhell_must_be_enabled">Utilisez-le uniquement si vous savez ce qu\'est un DNS et quels
         avantages ou inconvénients ces modifications pourraient causer. Notez que Adhell doit être activé.
     </string>
     <string name="restore_defaults">Réinitialiser</string>
-    <string name="zero_dns" translatable="false">0.0.0.0</string>
-    <string name="example_com" translatable="false">example.com</string>
     <string name="block">Bloquer</string>
     <string name="manage_standard_url_package">Gérer le package standard d\'url</string>
     <string name="whitelist_ad_url">Mettre des URLs en liste blanche</string>
@@ -93,12 +88,6 @@
         Désactiver puis ré-activer Adhell pour que les changements prennent effet.
     </string>
 
-    <string name="download_manager_sharedPrefs" translatable="false">download_manager_sharedPrefs
-    </string>
-    <string name="download_manager_reference_id" translatable="false">download_manager_reference_id
-    </string>
-
-    <string name="blocker_fragment_title" translatable="false">Adhell</string>
     <string name="package_disabler_fragment_title">Gestionnaire de package</string>
     <string name="package_disabler_bottombar_title">Gestionnaire de package</string>
     <string name="app_support_fragment_title">Encourager le développeur</string>
@@ -124,12 +113,9 @@
         Vous pouvez annuler l\'abonnement à tout moment sur la page Adhell Google Play
     </string>
     <string name="add_provider">Ajouter un fournisseur d\'URL</string>
-    <string name="adaway_hosts" translatable="false">https://adaway.org/hosts.txt</string>
-    <string name="_2597" translatable="false">2597</string>
     <string name="show_custom_providers">Afficher les fournisseurs personnalisés</string>
     <string name="delete_url">Supprimer l\'URL</string>
     <string name="update_all_providers">Mettre à jour tous les fournisseurs</string>
-    <string name="_2017_06_30_16_00_00" translatable="false">2017-06-30 16:00:00</string>
     <string name="app_list_sorted_by_date">La liste est triée par date d\'installation</string>
     <string name="app_list_sorted_by_alphabet">La liste est triée par ordre alphabétique</string>
     <string name="subscribe">S\'abonner à {{price}} par mois</string>
@@ -141,7 +127,6 @@
         Adhell a déjà un package standard convenable, donc, en général, vous n\'avez pas besoin d\'ajouter d\'autres
         Cette fonctionnalité est expérimentale pour l\'instant et uniquement pour les passionnés.
     </string>
-    <string name="ads_example_com" translatable="false">ads.example.com</string>
     <string name="your_device_running_old_knox_version">
         Votre appareil exécute une ancienne version de Knox. Cette fonction peut donc être instable. Désolé
     </string>
