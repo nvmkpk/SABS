@@ -1,152 +1,146 @@
-<resources>
-    <string name="wait">Wait…</string>
-    <string name="Reports">Reports</string>
-    <string name="about">App for Samsung smartphones that blocks ads and trackers in Chrome. Website
-        loading increases up to 100%!
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"><resources>
+    <string name="wait">Wachten…</string>
+    <string name="Reports">Rapporten</string>
+    <string name="about">App voor Samsung smartphones die ads en trackers in Chrome blokkeert. Laden van websites
+        gaat tot 100% sneller!
     </string>
-    <string name="isSupported">Wait</string>
-    <string name="only_samsung">Only Samsung</string>
-    <string name="phone_not_supported">This device not supported FOR NOW</string>
+    <string name="isSupported">Wachten</string>
+    <string name="only_samsung">Uitsluitend Samsung</string>
+    <string name="phone_not_supported">Dit apparaat wordt NOG niet ondersteund</string>
 
     <string name="preference_policy">policy-preference</string>
     <string name="isPolicyEnabled">isPolicyEnabled</string>
-    <string name="block_enabled">Adhell enabled. You are safe now</string>
-    <string name="block_disabled">Adhell disabled</string>
-    <string name="enable_blocker">Enable content blocker</string>
-    <string name="disable_blocker">Disable Adhell</string>
-    <string name="works_whit_samsung">This device not supported. Works with Samsung only, at least
-        for now
+    <string name="block_enabled">Adhell ingeschakeld. U bent nu veilig</string>
+    <string name="block_disabled">Adhell uitgeschakeld</string>
+    <string name="enable_blocker">Content blocker inschakelen</string>
+    <string name="disable_blocker">Adhell uitschakelen</string>
+    <string name="works_whit_samsung">Dit apparaat wordt niet ondersteund. Werkt alleen met Samsung, op dit moment
     </string>
-    <string name="android_version_not_supported">This Android version not supported</string>
-    <string name="please_wait">Please wait… Enabling Adhell</string>
-    <string name="wait_deleting">Please wait… Disabling Adhell</string>
-    <string name="adhell_not_supported">Adhell does not supported on your device yet.
+    <string name="android_version_not_supported">Deze Android versie wordt niet ondersteund</string>
+    <string name="please_wait">Even geduld… Adhell inschakelen</string>
+    <string name="wait_deleting">Even geduld… Adhell uitschakelen</string>
+    <string name="adhell_not_supported">Adhell wordt op uw apparaat nog niet ondersteund.
     </string>
-    <string name="yes_notify_me">Yes! Notify Me!</string>
-    <string name="no_thanks">No, Thanks!</string>
-    <string name="thank_you_we_will_notify_you">We will notify you right after add your
-        device to Adhell.
+    <string name="yes_notify_me">Ja! Laat het me weten!</string>
+    <string name="no_thanks">Nee, bedankt!</string>
+    <string name="thank_you_we_will_notify_you">We laten het u weten als uw apparaat door Adhell wordt ondersteund.
     </string>
-    <string name="notify_you_2">Your device not supported. But we will notify you at {{email}} when
-        we will add your device to Adhell. Thank you
+    <string name="notify_you_2">Uw apparaat wordt niet ondersteund. We laten het weten aan {{email}} als we uw apparaat toevoegen aan Adhell. Dank u.
     </string>
-    <string name="edit_email">Wrong email? Change it!</string>
-    <string name="edit">Edit</string>
-    <string name="to_enable_adhell">To enable Adhell you need to activate admin mode for app.
-        Adhell uses underlying Samsung instruments, and this instruments require Admin privilege.
+    <string name="edit_email">Verkeerde e-mail? Pas deze aan!</string>
+    <string name="edit">Wijzig</string>
+    <string name="to_enable_adhell">Om Adhell in te schakelen moet u admin mode activeren voor de app.
+        Adhell gebruikt onderliggende Samsung code, en deze heeft Admin privileges nodig.
     </string>
-    <string name="turn_on_admin">Turn On Admin</string>
-    <string name="knox">To block ads Adhell uses Samsung Firewall, to use it please activate Samsung
-        license. It is free.
+    <string name="turn_on_admin">Admin inschakelen</string>
+    <string name="knox">Adhell gebruikt Samsung Firewall om advertenties te blokkeren, activeer de Samsung
+        licentie om deze te activeren. Dat is gratis.
     </string>
-    <string name="activate_knox">Activate Knox</string>
-    <string name="no_internet_connection">It seems that your device is not connected to the
-        internet
+    <string name="activate_knox">Activeer Knox</string>
+    <string name="no_internet_connection">Uw apparaat lijkt geen internetverbinding te hebben
     </string>
-    <string name="failed_to_activate_knox_message">Knox license activation failed
+    <string name="failed_to_activate_knox_message">Knox licentie-activatie mislukt
     </string>
-    <string name="activating_knox_license">"Activating… "</string>
-    <string name="knox_license_activated">Activated</string>
-    <string name="block_button_text_turn_off">Turn Off</string>
-    <string name="block_button_text_turn_on">Turn On</string>
-    <string name="block_button_text_enabling">Enabling…</string>
-    <string name="block_button_text_disabling">Disabling…</string>
-    <string name="edit_block_list">Edit Blocked URL\'s</string>
-    <string name="whitelist">Show Whitelist</string>
-    <string name="blocklist">Show Blocklist</string>
-    <string name="back_to_main">Back to Main</string>
-    <string name="editAlert">After editing the whitelist return to main Adhell screen
-        and toggle "Turn off", then tap "Turn on" to apply the changes!
+    <string name="activating_knox_license">"Activeren… "</string>
+    <string name="knox_license_activated">Geactiveerd</string>
+    <string name="block_button_text_turn_off">Uitschakelen</string>
+    <string name="block_button_text_turn_on">Inschakelen</string>
+    <string name="block_button_text_enabling">Inschakelen…</string>
+    <string name="block_button_text_disabling">Uitschakelen…</string>
+    <string name="edit_block_list">Wijzig geblokkeerde URL\'s</string>
+    <string name="whitelist">Toon witte lijst</string>
+    <string name="blocklist">Toon zwarte lijst</string>
+    <string name="back_to_main">Terug naar hoofdscherm</string>
+    <string name="editAlert">Ga terug naar het hoofdscherm na het aanpassen van de witte lijst
+        en kies "Uitschakelen", daarna "Inschakelen" om de wijzigingen actief te maken!
     </string>
-    <string name="allow_apps">Manage Adblocked Apps</string>
-    <string name="delete_app">Turn Off and Delete Adhell</string>
-    <string name="delete_app_dialog_title">Delete app</string>
-    <string name="delete_app_dialog_text">Do you really want to turn off and delete Adhell?</string>
-    <string name="applist">Show App List</string>
+    <string name="allow_apps">Beheer de ad-blocked apps</string>
+    <string name="delete_app">Adhell uitschakelen en verwijderen</string>
+    <string name="delete_app_dialog_title">Verwijder app</string>
+    <string name="delete_app_dialog_text">Wilt u Adhell echt uitschakelen en verwijderen?</string>
+    <string name="applist">Toon app-lijst</string>
     <string name="list_filter">Filter</string>
     <string name="apply_filter">Filter</string>
-    <string name="applying_filter">Please Wait, Applying Filter</string>
-    <string name="block_app_tab_label">Active Apps</string>
-    <string name="allowed_app_tab_label">Excluded Apps</string>
-    <string name="block_url_tab_label">Blocked URLs</string>
-    <string name="allowed_url_tab_label">Allowed URLs</string>
-    <string name="test_report">Test report</string>
-    <string name="adhell_settings">Settings</string>
-    <string name="change_dns_button">Change DNS</string>
-    <string name="dns_1_address">DNS 1 Address</string>
-    <string name="dns_2_address">DNS 2 Address</string>
-    <string name="set_dns_button_text">Set DNS</string>
-    <string name="cancel_text">Cancel</string>
-    <string name="note_that_adhell_must_be_enabled">Use it only if you know what DNS for and what
-        benefits or problems editing could cause. Note that Adhell must be enabled.
+    <string name="applying_filter">Even geduld, filter wordt toegepast</string>
+    <string name="block_app_tab_label">Actieve Apps</string>
+    <string name="allowed_app_tab_label">Uitgesloten Apps</string>
+    <string name="block_url_tab_label">Geblokkeerde URLs</string>
+    <string name="allowed_url_tab_label">Toegestane URLs</string>
+    <string name="test_report">Test rapport</string>
+    <string name="adhell_settings">Instellingen</string>
+    <string name="change_dns_button">DNS wijzigen</string>
+    <string name="dns_1_address">DNS 1 Adres</string>
+    <string name="dns_2_address">DNS 2 Adres</string>
+    <string name="set_dns_button_text">DNS instellen</string>
+    <string name="cancel_text">Annuleren</string>
+    <string name="note_that_adhell_must_be_enabled">Gebruik dit alleen als u weet waar DNS voor is en tot welke
+        voordelen of problemen de aanpassing kan leiden. Let erop dat Adhell ingeschakeld moet zijn.
     </string>
-    <string name="restore_defaults">Restore Defaults</string>
-    <string name="block">Block</string>
-    <string name="manage_standard_url_package">Manage Standard Url Package</string>
-    <string name="whitelist_ad_url">Whitelist Ad URLs</string>
-    <string name="block_custom_urls">Block Custom Urls</string>
+    <string name="restore_defaults">Standaardwaarden herstellen</string>
+    <string name="block">Blokkeer</string>
+    <string name="manage_standard_url_package">Beheer standaard URL pakket</string>
+    <string name="whitelist_ad_url">Witte lijst Ad URLs</string>
+    <string name="block_custom_urls">Blokkeer Aangepaste Urls</string>
     <string name="to_take_effect_turn_off_turn_on_adhell_after_editing_list">
-        To take effect Turn off -> Turn on Adhell after editing list.
+        Om lijstaanpassingen actief te maken Adhell Uitschakelen -> Inschakelen.
     </string>
 
-    <string name="package_disabler_fragment_title">Package disabler</string>
-    <string name="package_disabler_bottombar_title">Package disabler</string>
-    <string name="app_support_fragment_title">App support</string>
-    <string name="to_be_done">This feature is under development</string>
-    <string name="last_day_blocked">"Last 24 hours blocked: "</string>
-    <string name="loading_saved_dns">Loading saved dns addresses</string>
-    <string name="check_input_dns">Check your input data</string>
-    <string name="enable_adhell_for_dns">Adhell Must be enabled</string>
-    <string name="changed_dns">Dns addresses has been changed"</string>
-    <string name="restored_dns">DNS has been restored to defaults. You should to enable Adhell
-        again.
+    <string name="package_disabler_fragment_title">Packages uitschakelen</string>
+    <string name="package_disabler_bottombar_title">Packages uitschakelen</string>
+    <string name="app_support_fragment_title">App ondersteuning</string>
+    <string name="to_be_done">Deze functie is nog in ontwikkeling.</string>
+    <string name="last_day_blocked">"Afgelopen 24 uur geblokkeerd: "</string>
+    <string name="loading_saved_dns">Laden van opgeslagen DNS adressen</string>
+    <string name="check_input_dns">Controleer de opgegeven gegevens</string>
+    <string name="enable_adhell_for_dns">Adhell Moet ingeschakeld zijn</string>
+    <string name="changed_dns">DNS adressen zijn aangepast"</string>
+    <string name="restored_dns">DNS is teruggezet naar standaard. U zou Adhell opnieuw moeten inschakelen.
     </string>
-    <string name="wait_loading_apps_list">"Please Wait, Loading Application List"</string>
-    <string name="wait_removing_app_from_whitelist">"Please Wait, Removing App From Whitelist"
+    <string name="wait_loading_apps_list">"Even geduld, applicatielijst wordt geladen"</string>
+    <string name="wait_removing_app_from_whitelist">"Even geduld, app verwijderen van de witte lijst"
     </string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="support_app_development">Support app development</string>
-    <string name="help_developers_to_keep_up_development">Support Adhell development.
-        There is only one premium feature for now,
-        but you could really help us to develop cool product by subscribing.
-        There will be more pro features in near future.
-        You can cancel subscription anytime on Adhell Google Play page
+    <string name="hello_blank_fragment">Hallo leeg fragment</string>
+    <string name="support_app_development">Ondersteun ontwikkeling van deze app</string>
+    <string name="help_developers_to_keep_up_development">Ondersteun de ontwikkeling van Adhell.
+        Er is nu nog maar een Premium functie,
+        maar u kunt ons helpen om meer functies toe te voegen door u te abonneren.
+        Er zullen spoedig meer Pro functies toegevoegd worden.
+        U kunt uw abonnement altijd stopzetten op de Adhell Google Play pagina.
     </string>
-    <string name="add_provider">Add Url Provider</string>
-    <string name="show_custom_providers">Show Custom Providers</string>
-    <string name="delete_url">Delete Url</string>
-    <string name="update_all_providers">Update All Providers</string>
-    <string name="app_list_sorted_by_date">List is sorted by installation time</string>
-    <string name="app_list_sorted_by_alphabet">List is sorted alphabetically</string>
-    <string name="subscribe">Subscribe for {{price}} per month</string>
-    <string name="premium_subscriber_message">Thank you for being premium subscriber</string>
-    <string name="already_premium">Already Premium</string>
+    <string name="add_provider">Url provider toevoegen</string>
+    <string name="show_custom_providers">Toon eigen providers</string>
+    <string name="delete_url">Verwijder Url</string>
+    <string name="update_all_providers">Alle providers bijwerken</string>
+    <string name="app_list_sorted_by_date">Lijst is gesorteerd op installatiedatum</string>
+    <string name="app_list_sorted_by_alphabet">Lijst is alfabetisch gesorteerd</string>
+    <string name="subscribe">Abonneren voor {{price}} per maand</string>
+    <string name="premium_subscriber_message">Dank u dat u premium abonnee bent</string>
+    <string name="already_premium">Reeds Premium</string>
     <string name="custom_url_provider_message">
-        Note. You can add your own hosts link (e.g. https://adaway.org/hosts.txt).
-        You can block up to 15 000 urls.
-        Adhell already has decent standard package so in general you does not need to add additional
-        packages.
-        This feature is experimental for now and only for enthusiasts.
+        N.B. U kunt uw eigen hosts link toevoegen (b.v. https://adaway.org/hosts.txt).
+        U kunt maximaal 15 duizend Url's blokkeren.
+        Adhell heeft al een erg compleet standaardpakket dus in de meeste gevallen hoeft u geen extra pakketten toe te voegen,
+        Deze functie is experimenteel en alleen voor enthousiastelingen.
     </string>
     <string name="your_device_running_old_knox_version">
-        Your device running old version of Knox. So this function may work unstable. Sorry
+        Uw apparaat heeft een oude versie van Knox. Deze functie kan instabiel zijn. Sorry.
     </string>
-    <string name="valid_subs">Your subscription is valid</string>
-    <string name="adblock_whitelist">Adblocked Apps</string>
-    <string name="application_icon">App Icon</string>
-    <string name="only_for_premium">App Permissions available only for premium subscribers. Note
-        that App Permissions work only with non-system apps (apps that you have installed manually).
-        For now only 4 permissions are available
+    <string name="valid_subs">U heeft een geldig abonnementd</string>
+    <string name="adblock_whitelist">Ad-geblokkeerde Apps</string>
+    <string name="application_icon">App Icoon</string>
+    <string name="only_for_premium">App Permissies zijn alleen beschikbaar voor Premium abonnees. Denk eraan
+        dat App Permissies alleen met niet-system apps werken (apps die u zelf heeft geïnstalleerd).
+        Momenteel zijn er 4 permissies beschikbaar
     </string>
-    <string name="subs_not_supported_text_view">Subscription mode are not supported. Please update
-        Google Play Services
+    <string name="subs_not_supported_text_view">Abonnementen worden niet ondersteund. Update Google Play Services alstublieft
     </string>
-    <string name="billing_not_supported">Not Supported</string>
-    <string name="sort_by_alphabet">Sort alphabetically</string>
-    <string name="sort_by_install_time">Sort by install time</string>
-    <string name="sort_by_disabled">Show disabled first</string>
-    <string name="app_list_sorted_by_disabled">Disabled apps are shown first</string>
+    <string name="billing_not_supported">Niet ondersteund</string>
+    <string name="sort_by_alphabet">Sorteer alfabetisch</string>
+    <string name="sort_by_install_time">Sorteer op installatiedatum</string>
+    <string name="sort_by_disabled">Toon uitgeschakelde eerst</string>
+    <string name="app_list_sorted_by_disabled">Uitgeschakelde apps worden eerst getoond</string>
 
 </resources>
