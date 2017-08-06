@@ -19,6 +19,7 @@ public class AppSupportFragment extends LifecycleFragment {
     private static final String TAG = AppSupportFragment.class.getCanonicalName();
     private TextView supportDevelopmentTextView;
     private Button subscriptionButton;
+    private Button goThreeMonthPremium;
     private SharedBillingViewModel sharedBillingViewModel;
 
     @Override
@@ -33,9 +34,11 @@ public class AppSupportFragment extends LifecycleFragment {
         getActivity().setTitle(getString(R.string.app_support_fragment_title));
         View view = inflater.inflate(R.layout.fragment_app_support, container, false);
 
-        supportDevelopmentTextView = (TextView) view.findViewById(R.id.supportDevelopmentTextView);
-        subscriptionButton = (Button) view.findViewById(R.id.subscriptionButton);
+        supportDevelopmentTextView = view.findViewById(R.id.supportDevelopmentTextView);
+        subscriptionButton = view.findViewById(R.id.subscriptionButton);
+        goThreeMonthPremium = view.findViewById(R.id.goThreeMonthPremium);
         subscriptionButton.setEnabled(false);
+        goThreeMonthPremium.setEnabled(false);
 
         sharedBillingViewModel.billingModel.isSupportedLiveData.observe(this, (isSupported) -> {
             if (isSupported != null && isSupported) {
@@ -44,6 +47,8 @@ public class AppSupportFragment extends LifecycleFragment {
                         supportDevelopmentTextView.setText(R.string.premium_subscriber_message);
                         subscriptionButton.setText(R.string.already_premium);
                         subscriptionButton.setEnabled(false);
+                        goThreeMonthPremium.setText(R.string.already_premium);
+                        goThreeMonthPremium.setEnabled(false);
                     } else {
                         supportDevelopmentTextView.setText(R.string.help_developers_to_keep_up_development);
                         sharedBillingViewModel.billingModel.priceLiveData.observe(this, (text) -> {
@@ -51,7 +56,15 @@ public class AppSupportFragment extends LifecycleFragment {
                         });
                         subscriptionButton.setEnabled(true);
                         subscriptionButton.setOnClickListener(v -> {
-                            sharedBillingViewModel.startSubscriptionDialog(this.getActivity());
+                            sharedBillingViewModel.startSubscriptionDialog(this.getActivity(), "basic_pro_subs");
+                        });
+
+                        sharedBillingViewModel.billingModel.threeMonthPriceLiveData.observe(this, (text) -> {
+                            goThreeMonthPremium.setText(text);
+                        });
+                        goThreeMonthPremium.setEnabled(true);
+                        goThreeMonthPremium.setOnClickListener(v -> {
+                            sharedBillingViewModel.startSubscriptionDialog(this.getActivity(), "basic_premium_three_months");
                         });
                     }
                 });
@@ -59,6 +72,8 @@ public class AppSupportFragment extends LifecycleFragment {
                 supportDevelopmentTextView.setText(R.string.subs_not_supported_text_view);
                 subscriptionButton.setText(R.string.billing_not_supported);
                 subscriptionButton.setEnabled(false);
+                goThreeMonthPremium.setText(R.string.billing_not_supported);
+                goThreeMonthPremium.setEnabled(false);
                 Log.w(TAG, "Billing not supported");
             }
         });

@@ -124,7 +124,8 @@
         There is only one premium feature for now,
         but you could really help us to develop cool product by subscribing.
         There will be more pro features in near future.
-        You can cancel subscription anytime on Adhell Google Play page
+        We offer 7 days free trial.
+        You can cancel subscription anytime on Adhell Google Play page.
     </string>
     <string name="add_provider">Add Url Provider</string>
     <string name="adaway_hosts" translatable="false">https://adaway.org/hosts.txt</string>
@@ -136,6 +137,7 @@
     <string name="app_list_sorted_by_date">List is sorted by installation time</string>
     <string name="app_list_sorted_by_alphabet">List is sorted alphabetically</string>
     <string name="subscribe">Subscribe for {{price}} per month</string>
+    <string name="subscribe_three_month">Subscribe for {{price}} per 3 month with 20% discount</string>
     <string name="premium_subscriber_message">Thank you for being premium subscriber</string>
     <string name="already_premium">Already Premium</string>
     <string name="custom_url_provider_message">
@@ -154,7 +156,7 @@
     <string name="application_icon">App Icon</string>
     <string name="only_for_premium">App Permissions available only for premium subscribers. Note
         that App Permissions work only with non-system apps (apps that you have installed manually).
-        For now only 4 permissions are available
+        We offer 7 days free trial.
     </string>
     <string name="subs_not_supported_text_view">Subscription mode are not supported. Please update
         Google Play Services

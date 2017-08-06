@@ -107,4 +107,5 @@
     <string name="sort_by_install_time">Sort by install time</string>
     <string name="sort_by_disabled">Show disabled first</string>
     <string name="app_list_sorted_by_disabled">Disabled apps are shown first</string>
+    <string name="subscribe_three_month">Subscribe for {{price}} per 3 month with 20% discount</string>
 </resources>

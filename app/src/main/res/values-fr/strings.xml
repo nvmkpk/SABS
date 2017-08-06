@@ -145,5 +145,6 @@
     <string name="sort_by_install_time">Trier par date d\'installation</string>
     <string name="sort_by_disabled">Afficher désactivés en premier</string>
     <string name="app_list_sorted_by_disabled">Les applications désactivées sont affichées en premier</string>
+    <string name="subscribe_three_month">Subscribe for {{price}} per 3 month with 20% discount</string>
 
 </resources>

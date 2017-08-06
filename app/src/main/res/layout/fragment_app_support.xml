@@ -26,4 +26,12 @@
         android:layout_margin="10dp"
         android:text="@string/subscribe" />
 
+    <Button
+        android:id="@+id/goThreeMonthPremium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/subscriptionButton"
+        android:layout_margin="10dp"
+        android:text="@string/subscribe_three_month" />
+
 </RelativeLayout>

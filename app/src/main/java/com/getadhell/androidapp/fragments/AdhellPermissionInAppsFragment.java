@@ -28,13 +28,13 @@ public class AdhellPermissionInAppsFragment extends LifecycleFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         sharedAppPermissionViewModel = ViewModelProviders.of(getActivity()).get(SharedAppPermissionViewModel.class);
         View view = inflater.inflate(R.layout.fragment_permission_in_apps, container, false);
-        permissionInAppsRecyclerView = (RecyclerView) view.findViewById(R.id.permissionInAppsRecyclerView);
+        permissionInAppsRecyclerView = view.findViewById(R.id.permissionInAppsRecyclerView);
         permissionInAppsRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this.getContext(), DividerItemDecoration.VERTICAL);
         permissionInAppsRecyclerView.addItemDecoration(itemDecoration);
 
         sharedAppPermissionViewModel.getSelected().observe(this, permissionInfo -> {
-            getActivity().setTitle(permissionInfo.label);
+            getActivity().setTitle(permissionInfo.name);
             appInfos = sharedAppPermissionViewModel.loadPermissionsApps(sharedAppPermissionViewModel.installedApps, permissionInfo.name);
             AdhellPermissionInAppsAdapter adhellPermissionInAppsAdapter = new AdhellPermissionInAppsAdapter(this.getContext(), appInfos);
             adhellPermissionInAppsAdapter.currentPermissionName = permissionInfo.name;

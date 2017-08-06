@@ -125,16 +125,18 @@
     </string>
     <string name="adblock_whitelist">Включить или выключить блокировку рекламы для приложений</string>
     <string name="application_icon">App Icon</string>
-    <string name="only_for_premium">App Permissions available only for premium subscribers. Note
-        that App Permissions work only with non-system apps (apps that you have installed manually).
-        For now only 4 permissions are available
+    <string name="only_for_premium">
+        Управление разрешениями в приложениях только для подписчиков.
+        Заметьте, что данная функция работает только в не системных приложениях (которые вы установили самостоятельно).
+        Мы предлагаем бесплатный недельный период.
     </string>
-    <string name="subs_not_supported_text_view">Subscription mode are not supported. Please update
-        Google Play Services
+    <string name="subs_not_supported_text_view">
+        Режим подписки не поддерживается. Пожалуйста обновите Google Play Services
     </string>
-    <string name="billing_not_supported">Not Supported</string>
+    <string name="billing_not_supported">Не поддерживается</string>
     <string name="sort_by_alphabet">Сортировать по алфавиту</string>
     <string name="sort_by_install_time">Сортировать по времени установки</string>
     <string name="sort_by_disabled">Показать сначала блокированные</string>
     <string name="app_list_sorted_by_disabled">Первыми отображаются блокированные приложения</string>
+    <string name="subscribe_three_month">Подпишитесь за {{price}} на 3 месяца с 20% скидкой</string>
 </resources>

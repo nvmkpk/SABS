@@ -142,5 +142,6 @@
     <string name="sort_by_install_time">Sorteer op installatiedatum</string>
     <string name="sort_by_disabled">Toon uitgeschakelde eerst</string>
     <string name="app_list_sorted_by_disabled">Uitgeschakelde apps worden eerst getoond</string>
+    <string name="subscribe_three_month">Subscribe for {{price}} per 3 month with 20% discount</string>
 
 </resources>

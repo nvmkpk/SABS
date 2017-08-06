@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/goPremiumTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:text="@string/only_for_premium"/>
+        android:text="@string/only_for_premium"
+        android:textColor="#000"
+        android:textSize="15sp" />
 
     <Button
         android:id="@+id/goPremiumButton"
@@ -17,6 +19,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/goPremiumTextView"
         android:layout_margin="20dp"
-        android:text=""/>
+        android:text="" />
+
+    <Button
+        android:id="@+id/goThreeMonthPremium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/goPremiumButton"
+        android:layout_margin="20dp"
+        android:text="" />
 
 </RelativeLayout>

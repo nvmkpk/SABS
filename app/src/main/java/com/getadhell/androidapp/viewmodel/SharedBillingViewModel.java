@@ -18,8 +18,8 @@ import java.util.List;
 
 public class SharedBillingViewModel extends AndroidViewModel {
     private static final String TAG = SharedAppPermissionViewModel.class.getCanonicalName();
-    private BillingClient mBillingClient;
     public BillingModel billingModel;
+    private BillingClient mBillingClient;
     private Context mContext;
 
 
@@ -55,9 +55,20 @@ public class SharedBillingViewModel extends AndroidViewModel {
                         billingModel.isPremiumLiveData.postValue(false);
                         List<String> subs = new ArrayList<>();
                         subs.add("basic_pro_subs");
+                        subs.add("basic_premium_three_months");
                         mBillingClient.querySkuDetailsAsync(BillingClient.SkuType.SUBS, subs, result -> {
                             if (result.getResponseCode() == BillingClient.BillingResponse.OK) {
-                                billingModel.priceLiveData.postValue(mContext.getString(R.string.subscribe).replace("{{price}}", result.getSkuDetailsList().get(0).getPrice()));
+                                String price1Month;
+                                String price3Months;
+                                if (result.getSkuDetailsList().get(0).getSku().equals("basic_pro_subs")) {
+                                    price1Month = result.getSkuDetailsList().get(0).getPrice();
+                                    price3Months = result.getSkuDetailsList().get(1).getPrice();
+                                } else {
+                                    price1Month = result.getSkuDetailsList().get(1).getPrice();
+                                    price3Months = result.getSkuDetailsList().get(0).getPrice();
+                                }
+                                billingModel.priceLiveData.postValue(mContext.getString(R.string.subscribe).replace("{{price}}", price1Month));
+                                billingModel.threeMonthPriceLiveData.postValue(mContext.getString(R.string.subscribe_three_month).replace("{{price}}", price3Months));
                             }
                         });
                     }
@@ -75,9 +86,9 @@ public class SharedBillingViewModel extends AndroidViewModel {
         });
     }
 
-    public void startSubscriptionDialog(Activity activity) {
+    public void startSubscriptionDialog(Activity activity, String subsId) {
         BillingFlowParams.Builder builder = new BillingFlowParams.Builder()
-                .setSku("basic_pro_subs").setType(BillingClient.SkuType.SUBS);
+                .setSku(subsId).setType(BillingClient.SkuType.SUBS);
         int responseCode = mBillingClient.launchBillingFlow(activity, builder.build());
     }
 

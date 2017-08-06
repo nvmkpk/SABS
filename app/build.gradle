@@ -26,8 +26,8 @@ android {
         applicationId "com.getadhell.androidapp"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 61
-        versionName "1.6.1"
+        versionCode 62
+        versionName "1.6.2"
     }
     buildTypes {
 //        release {
@@ -86,12 +86,12 @@ dependencies {
     compile 'com.roughike:bottom-bar:2.3.1'
     compile 'com.android.billingclient:billing:dp-1'
 
-    compile "android.arch.lifecycle:runtime:1.0.0-alpha5"
-    compile "android.arch.lifecycle:extensions:1.0.0-alpha5"
-    compile "android.arch.persistence.room:runtime:1.0.0-alpha5"
-    annotationProcessor "android.arch.lifecycle:compiler:1.0.0-alpha5"
-    annotationProcessor "android.arch.persistence.room:compiler:1.0.0-alpha5"
-    compile "android.arch.persistence.room:rxjava2:1.0.0-alpha5"
+    compile "android.arch.lifecycle:runtime:1.0.0-alpha7"
+    compile "android.arch.lifecycle:extensions:1.0.0-alpha7"
+    compile "android.arch.persistence.room:runtime:1.0.0-alpha7"
+    annotationProcessor "android.arch.lifecycle:compiler:1.0.0-alpha7"
+    annotationProcessor "android.arch.persistence.room:compiler:1.0.0-alpha7"
+    compile "android.arch.persistence.room:rxjava2:1.0.0-alpha7"
 
     compile "com.google.dagger:dagger:2.11"
     annotationProcessor "com.google.dagger:dagger-compiler:2.11"

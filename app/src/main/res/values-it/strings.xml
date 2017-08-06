@@ -148,5 +148,6 @@
     <string name="sort_by_install_time">Ordina per data</string>
     <string name="sort_by_disabled">Prima quelle Disattive</string>
     <string name="app_list_sorted_by_disabled">Le App disattivate sono mostrate prima</string>
+    <string name="subscribe_three_month">Subscribe for {{price}} per 3 month with 20% discount</string>
 
 </resources>
