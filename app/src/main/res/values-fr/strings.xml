@@ -23,8 +23,8 @@
     </string>
     <string name="yes_notify_me">Oui ! Alertez-moi !</string>
     <string name="no_thanks">Non merci !</string>
-    <string name="thank_you_we_will_notify_you">Nous vous informerons tout de suite après
-        avoir ajouté la prise en charge de votre périphérique par Adhell.
+    <string name="thank_you_we_will_notify_you">Nous vous informerons dès
+        la prise en charge de votre périphérique par Adhell.
     </string>
     <string name="notify_you_2">Votre périphérique n\'est pas pris en charge. Mais nous vous écrirons à {{email}} lorsque
         nous ajouterons la prise en charge de votre appareil. Merci
@@ -81,9 +81,9 @@
     </string>
     <string name="restore_defaults">Réinitialiser</string>
     <string name="block">Bloquer</string>
-    <string name="manage_standard_url_package">Gérer le package standard d\'url</string>
+    <string name="manage_standard_url_package">Gérer le package standard d\'URL</string>
     <string name="whitelist_ad_url">Mettre des URLs en liste blanche</string>
-    <string name="block_custom_urls">Block Custom Urls</string>
+    <string name="block_custom_urls">Bloquer des URLs personnalisées</string>
     <string name="to_take_effect_turn_off_turn_on_adhell_after_editing_list">
         Désactiver puis ré-activer Adhell pour que les changements prennent effet.
     </string>
@@ -93,10 +93,10 @@
     <string name="app_support_fragment_title">Encourager le développeur</string>
     <string name="to_be_done">Cette fonctionnalité est en cours de développement</string>
     <string name="last_day_blocked">"Bloqué ces dernières 24 heures :"</string>
-    <string name="loading_saved_dns">Chargement des adresses dns enregistrées</string>
+    <string name="loading_saved_dns">Chargement des adresses DNS enregistrées</string>
     <string name="check_input_dns">Vérifiez les données saisies</string>
-    <string name="enable_adhell_for_dns">Adhell ??doit être activé</string>
-    <string name="changed_dns">Les adresses Dns ont été modifiées"</string>
+    <string name="enable_adhell_for_dns">Adhell doit être activé</string>
+    <string name="changed_dns">Les adresses DNS ont été modifiées"</string>
     <string name="restored_dns">Les DNS par défaut ont été restaurés. Vous devez ré-activer Adhell
     </string>
     <string name="wait_loading_apps_list">"Veuillez patienter, chargement de la liste des applications"</string>
@@ -134,8 +134,8 @@
     <string name="adblock_whitelist">Applications ad-bloquées</string>
     <string name="application_icon">Icone de l\'application</string>
     <string name="only_for_premium">Edition des permissions d\'application disponibles uniquement pour les abonnés premium.
-        Notez que les autorisations de l\'application ne fonctionnent qu\'avec des applications non-système (applications que vous avez installées manuellement).
-        Pour l\'instant, seulement 4 autorisations sont disponibles
+        Notez que les permissions de l\'application ne fonctionnent qu\'avec des applications non-système (applications que vous avez installées manuellement).
+        Pour l\'instant, seulement 5 permissions sont disponibles
     </string>
     <string name="subs_not_supported_text_view">Le mode d\'abonnement n\'est pas pris en charge.
         Merci de mettre à jour Google Play Services
