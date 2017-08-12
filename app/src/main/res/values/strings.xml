@@ -120,12 +120,14 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="support_app_development">Support app development</string>
-    <string name="help_developers_to_keep_up_development">Support Adhell development.
-        There is only one premium feature for now,
-        but you could really help us to develop cool product by subscribing.
-        There will be more pro features in near future.
-        We offer 7 days free trial.
-        You can cancel subscription anytime on Adhell Google Play page.
+    <string name="help_developers_to_keep_up_development">
+        Here you can support Adhell\'s development. \n
+        There is only one premium feature for now. \n
+        Though you can really help us develop the cool product by subscribing. \n
+        More pro features will be available in the near future. \n
+        \n
+        - We offer 7 days free trial \n
+        - You can cancel the subscription anytime from Adhell\'s Google Play Store page \n
     </string>
     <string name="add_provider">Add Url Provider</string>
     <string name="adaway_hosts" translatable="false">https://adaway.org/hosts.txt</string>
