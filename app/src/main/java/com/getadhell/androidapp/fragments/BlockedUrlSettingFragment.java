@@ -1,8 +1,8 @@
 package com.getadhell.androidapp.fragments;
 
+import android.arch.lifecycle.LifecycleFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -16,7 +16,7 @@ import com.getadhell.androidapp.blocker.ContentBlocker;
 import com.getadhell.androidapp.blocker.ContentBlocker57;
 import com.getadhell.androidapp.utils.DeviceAdminInteractor;
 
-public class BlockedUrlSettingFragment extends Fragment {
+public class BlockedUrlSettingFragment extends LifecycleFragment {
     private static final String TAG = BlockedUrlSettingFragment.class.getCanonicalName();
     private ContentBlocker contentBlocker;
     private FragmentManager fragmentManager;
