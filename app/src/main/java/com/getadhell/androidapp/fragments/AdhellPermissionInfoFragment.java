@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,13 +28,14 @@ import java.util.List;
 public class AdhellPermissionInfoFragment extends LifecycleFragment {
     private static final String TAG = AdhellPermissionInfoFragment.class.getCanonicalName();
     private List<AdhellPermissionInfo> adhellPermissionInfos;
-
+    private AppCompatActivity parentActivity;
     private SharedAppPermissionViewModel sharedAppPermissionViewModel;
     private FragmentManager fragmentManager;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        parentActivity = (AppCompatActivity) getActivity();
         boolean isPermissionGranted = (this.getContext()
                 .checkCallingOrSelfPermission("android.permission.sec.MDM_APP_PERMISSION_MGMT")
                 == PackageManager.PERMISSION_GRANTED);
@@ -51,11 +53,15 @@ public class AdhellPermissionInfoFragment extends LifecycleFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // TODO: Check if premium
         getActivity().setTitle("App Permissions");
+        if (parentActivity.getSupportActionBar() != null) {
+            parentActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            parentActivity.getSupportActionBar().setHomeButtonEnabled(false);
+        }
         sharedAppPermissionViewModel = ViewModelProviders.of(getActivity()).get(SharedAppPermissionViewModel.class);
         fragmentManager = getActivity().getSupportFragmentManager();
         adhellPermissionInfos = AdhellPermissionInfo.loadPermissions();
         View view = inflater.inflate(R.layout.fragment_adhell_permission_info, container, false);
-        RecyclerView permissionInfoRecyclerView = (RecyclerView) view.findViewById(R.id.permissionInfoRecyclerView);
+        RecyclerView permissionInfoRecyclerView = view.findViewById(R.id.permissionInfoRecyclerView);
         AdhellPermissionInfoAdapter adhellPermissionInfoAdapter = new AdhellPermissionInfoAdapter(this.getContext(), adhellPermissionInfos);
         permissionInfoRecyclerView.setAdapter(adhellPermissionInfoAdapter);
         permissionInfoRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
