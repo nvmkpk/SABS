@@ -15,15 +15,13 @@ import java.util.List;
 import javax.inject.Inject;
 
 
-public class AppsListDBInitializer
-{
+public class AppsListDBInitializer {
+    private static final AppsListDBInitializer instance = new AppsListDBInitializer();
     @Nullable
     @Inject
     ApplicationPolicy appPolicy;
     @Inject
     AppDatabase appDatabase;
-
-    private static final AppsListDBInitializer instance = new AppsListDBInitializer();
 
     private AppsListDBInitializer() {
         App.get().getAppComponent().inject(this);
@@ -34,8 +32,7 @@ public class AppsListDBInitializer
         return instance;
     }
 
-    public void fillPackageDb(PackageManager packageManager)
-    {
+    public void fillPackageDb(PackageManager packageManager) {
         List<ApplicationInfo> applicationsInfo = packageManager.getInstalledApplications(PackageManager.GET_META_DATA);
         List<AppInfo> appsInfo = new ArrayList<>();
         long id = 0;
