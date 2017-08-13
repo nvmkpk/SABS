@@ -14,6 +14,7 @@ import com.getadhell.androidapp.fragments.BlockedUrlSettingFragment;
 import com.getadhell.androidapp.fragments.BlockerFragment;
 import com.getadhell.androidapp.fragments.PackageDisablerFragment;
 import com.getadhell.androidapp.service.BlockedDomainService;
+import com.getadhell.androidapp.utils.AdhellAppIntegrity;
 import com.getadhell.androidapp.utils.AppsListDBInitializer;
 import com.getadhell.androidapp.utils.DeviceAdminInteractor;
 import com.getadhell.androidapp.viewmodel.AdhellWhitelistAppsViewModel;
@@ -47,5 +48,7 @@ public interface AppComponent {
     void inject(AppsListDBInitializer appsListDBInitializer);
 
     void inject(BlockerFragment blockerFragment);
+
+    void inject(AdhellAppIntegrity adhellAppIntegrity);
 
 }

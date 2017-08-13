@@ -59,6 +59,9 @@ public interface AppInfoDao {
     @Query("SELECT * FROM AppInfo WHERE (appName LIKE :str OR packageName LIKE :str) ORDER BY disabled DESC, appName ASC")
     List<AppInfo> getAllAppsWithStrInNameDisabledOrder(String str);
 
+    @Query("SELECT * FROM AppInfo WHERE disabled = 1")
+    List<AppInfo> getDisabledApps();
+
     @Update
     void update(AppInfo appInfo);
 

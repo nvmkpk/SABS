@@ -12,6 +12,5 @@ public class Migration_18_19 extends Migration {
     @Override
     public void migrate(SupportSQLiteDatabase database) {
         database.execSQL("ALTER TABLE PolicyPackage ADD COLUMN description TEXT");
-
     }
 }

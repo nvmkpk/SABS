@@ -11,7 +11,6 @@ public class Migration_17_18 extends Migration {
 
     @Override
     public void migrate(SupportSQLiteDatabase database) {
-        database.execSQL("ALTER TABLE PolicyPackage ADD COLUMN active INTEGER DEFAULT 0");
-
+        database.execSQL("ALTER TABLE PolicyPackage ADD COLUMN active INTEGER DEFAULT 1");
     }
 }
