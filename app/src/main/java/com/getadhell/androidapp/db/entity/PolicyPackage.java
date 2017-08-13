@@ -22,6 +22,9 @@ public class PolicyPackage {
     @ColumnInfo(name = "name")
     public String name;
 
+    @ColumnInfo(name = "description")
+    public String description;
+
     @ColumnInfo(name = "active")
     public boolean active;
 
