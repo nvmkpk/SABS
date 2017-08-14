@@ -3,6 +3,7 @@ package com.getadhell.androidapp.db.entity;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
@@ -24,5 +25,14 @@ public class FirewallWhitelistedPackage {
 
     @ColumnInfo(name = "policyPackageId")
     public String policyPackageId;
+
+    public FirewallWhitelistedPackage() {
+    }
+
+    @Ignore
+    public FirewallWhitelistedPackage(String packageName, String policyPackageId) {
+        this.packageName = packageName;
+        this.policyPackageId = policyPackageId;
+    }
 
 }

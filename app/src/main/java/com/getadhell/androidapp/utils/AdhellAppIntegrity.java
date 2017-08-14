@@ -137,4 +137,20 @@ public class AdhellAppIntegrity {
         }
         appDatabase.appPermissionDao().insertAll(appPermissions);
     }
+
+    // TODO: add adblock whitelist packages
+    public void addDefaultAdblockWhitelist() {
+        // TODO: Is it right
+        List<FirewallWhitelistedPackage> firewallWhitelistedPackages = appDatabase.firewallWhitelistedPackageDao().getAll();
+        if (firewallWhitelistedPackages.size() > 0) {
+            Log.d(TAG, "User already added firewall whitelist packages. Assuming he/she knows how whitelist works. ");
+            return;
+        }
+        // TODO: Maybe check if app installed
+        firewallWhitelistedPackages = new ArrayList<>();
+        firewallWhitelistedPackages.add(new FirewallWhitelistedPackage("com.google.android.music", DEFAULT_POLICY_ID));
+        firewallWhitelistedPackages.add(new FirewallWhitelistedPackage("com.google.android.apps.fireball", DEFAULT_POLICY_ID));
+        firewallWhitelistedPackages.add(new FirewallWhitelistedPackage("com.nttdocomo.android.ipspeccollector2", DEFAULT_POLICY_ID));
+        appDatabase.firewallWhitelistedPackageDao().insertAll(firewallWhitelistedPackages);
+    }
 }
