@@ -24,9 +24,11 @@ import javax.inject.Inject;
 public class AdhellAppIntegrity {
     private final static String DEFAULT_POLICY_ID = "default-policy";
     private static final String TAG = AdhellAppIntegrity.class.getCanonicalName();
-
-    private static String DEFAULT_POLICY_CHECKED = "adhell_default_policy_checked";
-
+    private static final String DEFAULT_POLICY_CHECKED = "adhell_default_policy_created";
+    private static final String DISABLED_PACKAGES_MOVED = "adhell_disabled_packages_moved";
+    private static final String FIREWALL_WHITELISTED_PACKAGES_MOVED = "adhell_firewall_whitelisted_packages_moved";
+    private static final String MOVE_APP_PERMISSIONS = "adhell_app_permissions_moved";
+    private static final String DEFAULT_PACKAGES_FIREWALL_WHITELISTED = "adhell_default_packages_firewall_whitelisted";
 
     @Inject
     AppDatabase appDatabase;
@@ -42,7 +44,37 @@ public class AdhellAppIntegrity {
         App.get().getAppComponent().inject(this);
     }
 
-    public void checkDefaultPolicyExists() {
+    public void checkIntegrity() {
+        boolean defaultPolicyChecked = sharedPreferences.getBoolean(DEFAULT_POLICY_CHECKED, false);
+        if (!defaultPolicyChecked) {
+            checkDefaultPolicyExists();
+            sharedPreferences.edit().putBoolean(DEFAULT_POLICY_CHECKED, true).apply();
+        }
+        boolean disabledPackagesMoved = sharedPreferences.getBoolean(DISABLED_PACKAGES_MOVED, false);
+        if (!disabledPackagesMoved) {
+            copyDataFromAppInfoToDisabledPackage();
+            sharedPreferences.edit().putBoolean(DISABLED_PACKAGES_MOVED, true).apply();
+        }
+        boolean firewallWhitelistedPackagesMoved
+                = sharedPreferences.getBoolean(FIREWALL_WHITELISTED_PACKAGES_MOVED, false);
+        if (!firewallWhitelistedPackagesMoved) {
+            copyDataFromAppInfoToFirewallWhitelistedPackage();
+            sharedPreferences.edit().putBoolean(FIREWALL_WHITELISTED_PACKAGES_MOVED, true).apply();
+        }
+        boolean appPermissionsMoved = sharedPreferences.getBoolean(MOVE_APP_PERMISSIONS, false);
+        if (!appPermissionsMoved) {
+            moveAppPermissionsToAppPermissionTable();
+            sharedPreferences.edit().putBoolean(MOVE_APP_PERMISSIONS, true).apply();
+        }
+        boolean defaultPackagesFirewallWhitelisted
+                = sharedPreferences.getBoolean(DEFAULT_PACKAGES_FIREWALL_WHITELISTED, false);
+        if (!defaultPackagesFirewallWhitelisted) {
+            addDefaultAdblockWhitelist();
+            sharedPreferences.edit().putBoolean(DEFAULT_PACKAGES_FIREWALL_WHITELISTED, true).apply();
+        }
+    }
+
+    private void checkDefaultPolicyExists() {
         PolicyPackage policyPackage = appDatabase.policyPackageDao().getPolicyById(DEFAULT_POLICY_ID);
         if (policyPackage != null) {
             Log.d(TAG, "Default PolicyPackage exists");
@@ -59,7 +91,7 @@ public class AdhellAppIntegrity {
         Log.d(TAG, "Default PolicyPackage has been added");
     }
 
-    public void copyDataFromAppInfoToDisabledPackage() {
+    private void copyDataFromAppInfoToDisabledPackage() {
         List<DisabledPackage> disabledPackages = appDatabase.disabledPackageDao().getAll();
         if (disabledPackages.size() > 0) {
             Log.d(TAG, "DisabledPackages is not empty. No need to move data from AppInfo table");
@@ -81,7 +113,7 @@ public class AdhellAppIntegrity {
         appDatabase.disabledPackageDao().insertAll(disabledPackages);
     }
 
-    public void copyDataFromAppInfoToFirewallWhitelistedPackage() {
+    private void copyDataFromAppInfoToFirewallWhitelistedPackage() {
         List<FirewallWhitelistedPackage> firewallWhitelistedPackages
                 = appDatabase.firewallWhitelistedPackageDao().getAll();
         if (firewallWhitelistedPackages.size() > 0) {
@@ -104,7 +136,7 @@ public class AdhellAppIntegrity {
         appDatabase.firewallWhitelistedPackageDao().insertAll(firewallWhitelistedPackages);
     }
 
-    public void moveAppPermissionsToAppPermissionTable() {
+    private void moveAppPermissionsToAppPermissionTable() {
         if (applicationPermissionControlPolicy == null) {
             Log.w(TAG, "applicationPermissionControlPolicy is null");
             return;
@@ -138,16 +170,8 @@ public class AdhellAppIntegrity {
         appDatabase.appPermissionDao().insertAll(appPermissions);
     }
 
-    // TODO: add adblock whitelist packages
-    public void addDefaultAdblockWhitelist() {
-        // TODO: Is it right
-        List<FirewallWhitelistedPackage> firewallWhitelistedPackages = appDatabase.firewallWhitelistedPackageDao().getAll();
-        if (firewallWhitelistedPackages.size() > 0) {
-            Log.d(TAG, "User already added firewall whitelist packages. Assuming he/she knows how whitelist works. ");
-            return;
-        }
-        // TODO: Maybe check if app installed
-        firewallWhitelistedPackages = new ArrayList<>();
+    private void addDefaultAdblockWhitelist() {
+        List<FirewallWhitelistedPackage> firewallWhitelistedPackages = new ArrayList<>();
         firewallWhitelistedPackages.add(new FirewallWhitelistedPackage("com.google.android.music", DEFAULT_POLICY_ID));
         firewallWhitelistedPackages.add(new FirewallWhitelistedPackage("com.google.android.apps.fireball", DEFAULT_POLICY_ID));
         firewallWhitelistedPackages.add(new FirewallWhitelistedPackage("com.nttdocomo.android.ipspeccollector2", DEFAULT_POLICY_ID));
