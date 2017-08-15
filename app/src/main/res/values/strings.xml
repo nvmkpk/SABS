@@ -33,7 +33,8 @@
     </string>
     <string name="edit_email">Wrong email? Change it!</string>
     <string name="edit">Edit</string>
-    <string name="to_enable_adhell">To enable Adhell you need to activate admin mode for app.
+    <string name="to_enable_adhell">
+        This app uses the Device Administrator permission (android.permission.BIND_DEVICE_ADMIN). \nTo enable Adhell you need to activate admin mode for app.
         Adhell uses underlying Samsung instruments, and this instruments require Admin privilege.
     </string>
     <string name="turn_on_admin">Turn On Admin</string>
