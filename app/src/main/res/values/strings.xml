@@ -47,7 +47,7 @@
     </string>
     <string name="failed_to_activate_knox_message">Knox license activation failed
     </string>
-    <string name="activating_knox_license">"Activating… "</string>
+    <string name="activating_knox_license">Activating… </string>
     <string name="knox_license_activated">Activated</string>
     <string name="block_button_text_turn_off">Turn Off</string>
     <string name="block_button_text_turn_on">Turn On</string>
