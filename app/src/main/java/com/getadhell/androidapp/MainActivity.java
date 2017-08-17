@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+        BottomBar bottomBar = findViewById(R.id.bottomBar);
         bottomBar.setOnTabSelectListener(tabId -> {
             if (!mAdminInteractor.isActiveAdmin()) {
                 Log.d(TAG, "Admin not active");
