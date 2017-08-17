@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
@@ -41,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String ADHELL_STANDARD_PACKAGE = "http://getadhell.com/standard-package.txt";
     private static final String TAG = MainActivity.class.getCanonicalName();
     private static final String BACK_STACK_TAB_TAG = "tab_fragment";
-    private FragmentManager fragmentManager;
     protected DeviceAdminInteractor mAdminInteractor;
+    private FragmentManager fragmentManager;
     private AdhellNotSupportedDialogFragment adhellNotSupportedDialogFragment;
     private AdhellTurnOnDialogFragment adhellTurnOnDialogFragment;
     private NoInternetConnectionDialogFragment noInternetConnectionDialogFragment;
@@ -94,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         BottomBar bottomBar = findViewById(R.id.bottomBar);
+        bottomBar.setTabTitleTextAppearance(R.style.bottomBarTextView);
         bottomBar.setOnTabSelectListener(tabId -> {
             if (!mAdminInteractor.isActiveAdmin()) {
                 Log.d(TAG, "Admin not active");
@@ -173,6 +175,10 @@ public class MainActivity extends AppCompatActivity {
                 replacing = new BlockerFragment();
                 break;
             case R.id.packageDisablerTab:
+                replacing = new PackageDisablerFragment();
+                break;
+            case R.id.appSupportTab:
+                Toast.makeText(this, "", Toast.LENGTH_LONG).show();
                 replacing = new PackageDisablerFragment();
                 break;
             case R.id.appPermissionsTab:

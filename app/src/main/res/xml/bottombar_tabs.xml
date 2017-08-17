@@ -10,7 +10,11 @@
     <tab
         icon="@drawable/ic_lock_outline"
         id="@+id/appPermissionsTab"
-        title="Permissions"/>
+        title="@string/app_permissions_tab_title"/>
+    <tab
+        icon="@drawable/ic_assignment"
+        id="@+id/profilesTab"
+        title="@string/app_profiles_tab_title"/>
     <tab
         icon="@drawable/ic_account_balance"
         id="@+id/appSupportTab"

@@ -139,4 +139,6 @@
     <string name="sort_by_disabled">Показать сначала блокированные</string>
     <string name="app_list_sorted_by_disabled">Первыми отображаются блокированные приложения</string>
     <string name="subscribe_three_month">Подпишитесь за {{price}} на 3 месяца с 20% скидкой</string>
+    <string name="app_profiles_tab_title">Профили</string>
+    <string name="app_permissions_tab_title">Permissions</string>
 </resources>

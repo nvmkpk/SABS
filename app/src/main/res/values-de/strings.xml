@@ -108,4 +108,6 @@
     <string name="sort_by_disabled">Show disabled first</string>
     <string name="app_list_sorted_by_disabled">Disabled apps are shown first</string>
     <string name="subscribe_three_month">Subscribe for {{price}} per 3 month with 20% discount</string>
+    <string name="app_profiles_tab_title">Profiles</string>
+    <string name="app_permissions_tab_title">Permissions</string>
 </resources>
