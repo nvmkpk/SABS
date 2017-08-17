@@ -1,6 +1,5 @@
 package com.getadhell.androidapp.dagger.component;
 
-import com.getadhell.androidapp.MainActivity;
 import com.getadhell.androidapp.adapter.AdhellPermissionInAppsAdapter;
 import com.getadhell.androidapp.blocker.ContentBlocker20;
 import com.getadhell.androidapp.blocker.ContentBlocker56;
@@ -37,8 +36,6 @@ public interface AppComponent {
     void inject(PackageDisablerFragment packageDisablerFragment);
 
     void inject(AdhellWhitelistAppsViewModel adhellWhitelistAppsViewModel);
-
-    void inject(MainActivity mainActivity);
 
     void inject(SharedAppPermissionViewModel sharedAppPermissionViewModel);
 

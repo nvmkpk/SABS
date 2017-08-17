@@ -20,7 +20,6 @@ import com.crashlytics.android.answers.Answers;
 import com.getadhell.androidapp.blocker.ContentBlocker;
 import com.getadhell.androidapp.blocker.ContentBlocker56;
 import com.getadhell.androidapp.blocker.ContentBlocker57;
-import com.getadhell.androidapp.db.AppDatabase;
 import com.getadhell.androidapp.dialogfragment.AdhellNotSupportedDialogFragment;
 import com.getadhell.androidapp.dialogfragment.AdhellTurnOnDialogFragment;
 import com.getadhell.androidapp.dialogfragment.NoInternetConnectionDialogFragment;
@@ -36,8 +35,6 @@ import com.getadhell.androidapp.utils.DeviceAdminInteractor;
 import com.getadhell.androidapp.viewmodel.SharedBillingViewModel;
 import com.roughike.bottombar.BottomBar;
 
-import javax.inject.Inject;
-
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
@@ -46,8 +43,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String BACK_STACK_TAB_TAG = "tab_fragment";
     private static FragmentManager fragmentManager;
     protected DeviceAdminInteractor mAdminInteractor;
-    @Inject
-    AppDatabase appDatabase;
     private AdhellNotSupportedDialogFragment adhellNotSupportedDialogFragment;
     private AdhellTurnOnDialogFragment adhellTurnOnDialogFragment;
     private NoInternetConnectionDialogFragment noInternetConnectionDialogFragment;
@@ -78,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        App.get().getAppComponent().inject(this);
         Fabric.with(this, new Answers(), new Crashlytics());
 
         fragmentManager = getSupportFragmentManager();
