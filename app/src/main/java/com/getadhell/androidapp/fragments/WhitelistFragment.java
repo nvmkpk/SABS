@@ -42,9 +42,9 @@ public class WhitelistFragment extends LifecycleFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_white_list, container, false);
-        addWhitelistUrl = (Button) view.findViewById(R.id.addWhitelistUrl);
-        whiteUrlListView = (ListView) view.findViewById(R.id.urlList);
-        whitelistUrlEditText = (EditText) view.findViewById(R.id.whitelistUrlEditText);
+        addWhitelistUrl = view.findViewById(R.id.addWhitelistUrl);
+        whiteUrlListView = view.findViewById(R.id.urlList);
+        whitelistUrlEditText = view.findViewById(R.id.whitelistUrlEditText);
 
         appDatabase.whiteUrlDao().getAll().observe(this, whitelistUrls -> {
             whitelist.clear();

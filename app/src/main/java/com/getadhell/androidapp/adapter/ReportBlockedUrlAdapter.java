@@ -40,11 +40,11 @@ public class ReportBlockedUrlAdapter extends ArrayAdapter<ReportBlockedUrl> {
             return convertView;
         }
 
-        TextView blockedDomainIdTextView = (TextView) convertView.findViewById(R.id.blockedDomainIdTextView);
-        ImageView blockedDomainIconImageView = (ImageView) convertView.findViewById(R.id.blockedDomainIconImageView);
-        TextView blockedDomainAppNameTextView = (TextView) convertView.findViewById(R.id.blockedDomainAppNameTextView);
-        TextView blockedDomainTimeTextView = (TextView) convertView.findViewById(R.id.blockedDomainTimeTextView);
-        TextView blockedDomainUrlTextView = (TextView) convertView.findViewById(R.id.blockedDomainUrlTextView);
+        TextView blockedDomainIdTextView = convertView.findViewById(R.id.blockedDomainIdTextView);
+        ImageView blockedDomainIconImageView = convertView.findViewById(R.id.blockedDomainIconImageView);
+        TextView blockedDomainAppNameTextView = convertView.findViewById(R.id.blockedDomainAppNameTextView);
+        TextView blockedDomainTimeTextView = convertView.findViewById(R.id.blockedDomainTimeTextView);
+        TextView blockedDomainUrlTextView = convertView.findViewById(R.id.blockedDomainUrlTextView);
 
 
         String packageName = reportBlockedUrl.packageName;

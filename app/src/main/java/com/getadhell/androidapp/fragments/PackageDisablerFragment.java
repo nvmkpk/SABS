@@ -71,10 +71,10 @@ public class PackageDisablerFragment extends LifecycleFragment {
         View view = inflater.inflate(R.layout.fragment_package_disabler, container, false);
         context = getActivity().getApplicationContext();
         packageManager = getActivity().getPackageManager();
-        editText = (EditText) view.findViewById(R.id.disabledFilter);
+        editText = view.findViewById(R.id.disabledFilter);
         setHasOptionsMenu(true);
 
-        installedAppsView = (ListView) view.findViewById(R.id.installed_apps_list);
+        installedAppsView = view.findViewById(R.id.installed_apps_list);
         installedAppsView.setOnItemClickListener((AdapterView<?> adView, View v, int i, long l) -> {
             DisablerAppAdapter disablerAppAdapter = (DisablerAppAdapter) adView.getAdapter();
             final String name = disablerAppAdapter.getItem(i).packageName;

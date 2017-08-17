@@ -4,7 +4,6 @@ import com.getadhell.androidapp.MainActivity;
 import com.getadhell.androidapp.adapter.AdhellPermissionInAppsAdapter;
 import com.getadhell.androidapp.blocker.ContentBlocker20;
 import com.getadhell.androidapp.blocker.ContentBlocker56;
-import com.getadhell.androidapp.dagger.module.AdhellModule;
 import com.getadhell.androidapp.dagger.module.AdminModule;
 import com.getadhell.androidapp.dagger.module.AppModule;
 import com.getadhell.androidapp.dagger.module.EnterpriseModule;
@@ -23,7 +22,7 @@ import com.getadhell.androidapp.viewmodel.SharedAppPermissionViewModel;
 import dagger.Component;
 
 @AdhellApplicationScope
-@Component(modules = {AppModule.class, AdminModule.class, EnterpriseModule.class, AdhellModule.class, NetworkModule.class})
+@Component(modules = {AppModule.class, AdminModule.class, EnterpriseModule.class, NetworkModule.class})
 public interface AppComponent {
     void inject(DeviceAdminInteractor deviceAdminInteractor);
 
