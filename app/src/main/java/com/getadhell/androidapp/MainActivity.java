@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String ADHELL_STANDARD_PACKAGE = "http://getadhell.com/standard-package.txt";
     private static final String TAG = MainActivity.class.getCanonicalName();
     private static final String BACK_STACK_TAB_TAG = "tab_fragment";
-    private static FragmentManager fragmentManager;
+    private FragmentManager fragmentManager;
     protected DeviceAdminInteractor mAdminInteractor;
     private AdhellNotSupportedDialogFragment adhellNotSupportedDialogFragment;
     private AdhellTurnOnDialogFragment adhellTurnOnDialogFragment;
