@@ -14,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
@@ -30,6 +29,7 @@ import com.getadhell.androidapp.fragments.AppSupportFragment;
 import com.getadhell.androidapp.fragments.BlockerFragment;
 import com.getadhell.androidapp.fragments.OnlyPremiumFragment;
 import com.getadhell.androidapp.fragments.PackageDisablerFragment;
+import com.getadhell.androidapp.fragments.ProfilesFragment;
 import com.getadhell.androidapp.service.BlockedDomainService;
 import com.getadhell.androidapp.utils.AdhellAppIntegrity;
 import com.getadhell.androidapp.utils.DeviceAdminInteractor;
@@ -177,9 +177,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.packageDisablerTab:
                 replacing = new PackageDisablerFragment();
                 break;
-            case R.id.appSupportTab:
-                Toast.makeText(this, "", Toast.LENGTH_LONG).show();
-                replacing = new PackageDisablerFragment();
+            case R.id.profilesTab:
+                replacing = new ProfilesFragment();
                 break;
             case R.id.appPermissionsTab:
                 if (sharedBillingViewModel.billingModel.isPremiumLiveData.getValue()) {
