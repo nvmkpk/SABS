@@ -21,8 +21,6 @@ import com.getadhell.androidapp.blocker.ContentBlocker;
 import com.getadhell.androidapp.blocker.ContentBlocker56;
 import com.getadhell.androidapp.blocker.ContentBlocker57;
 import com.getadhell.androidapp.db.AppDatabase;
-import com.getadhell.androidapp.db.entity.BlockUrl;
-import com.getadhell.androidapp.db.entity.BlockUrlProvider;
 import com.getadhell.androidapp.dialogfragment.AdhellNotSupportedDialogFragment;
 import com.getadhell.androidapp.dialogfragment.AdhellTurnOnDialogFragment;
 import com.getadhell.androidapp.dialogfragment.NoInternetConnectionDialogFragment;
@@ -33,15 +31,10 @@ import com.getadhell.androidapp.fragments.BlockerFragment;
 import com.getadhell.androidapp.fragments.OnlyPremiumFragment;
 import com.getadhell.androidapp.fragments.PackageDisablerFragment;
 import com.getadhell.androidapp.service.BlockedDomainService;
-import com.getadhell.androidapp.utils.AppsListDBInitializer;
-import com.getadhell.androidapp.utils.BlockUrlUtils;
+import com.getadhell.androidapp.utils.AdhellAppIntegrity;
 import com.getadhell.androidapp.utils.DeviceAdminInteractor;
 import com.getadhell.androidapp.viewmodel.SharedBillingViewModel;
 import com.roughike.bottombar.BottomBar;
-
-import java.io.IOException;
-import java.util.Date;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -122,34 +115,8 @@ public class MainActivity extends AppCompatActivity {
 
         AsyncTask.execute(() -> {
 //        HeartbeatAlarmHelper.scheduleAlarm();
-            if (appDatabase.applicationInfoDao().getAll().size() == 0) {
-                AppsListDBInitializer.getInstance().fillPackageDb(getPackageManager());
-            }
-
-            // Check if standard ad provider is exist. if not add
-            BlockUrlProvider blockUrlProvider =
-                    appDatabase.blockUrlProviderDao().getByUrl(ADHELL_STANDARD_PACKAGE);
-            if (blockUrlProvider == null) {
-                blockUrlProvider = new BlockUrlProvider();
-                blockUrlProvider.url = ADHELL_STANDARD_PACKAGE;
-                blockUrlProvider.lastUpdated = new Date();
-                blockUrlProvider.deletable = false;
-                blockUrlProvider.selected = true;
-                long ids[] = appDatabase.blockUrlProviderDao().insertAll(blockUrlProvider);
-                blockUrlProvider.id = ids[0];
-                List<BlockUrl> blockUrls;
-                try {
-                    blockUrls = BlockUrlUtils.loadBlockUrls(blockUrlProvider);
-                    blockUrlProvider.count = blockUrls.size();
-                    Log.d(TAG, "Number of urls to insert: " + blockUrlProvider.count);
-                    // Save url provider
-                    appDatabase.blockUrlProviderDao().updateBlockUrlProviders(blockUrlProvider);
-                    // Save urls from providers
-                    appDatabase.blockUrlDao().insertAll(blockUrls);
-                } catch (IOException e) {
-                    Log.e(TAG, "Failed to download urls", e);
-                }
-            }
+            AdhellAppIntegrity adhellAppIntegrity = new AdhellAppIntegrity();
+            adhellAppIntegrity.check();
         });
         sharedBillingViewModel = ViewModelProviders.of(this).get(SharedBillingViewModel.class);
         sharedBillingViewModel.startBillingConnection();

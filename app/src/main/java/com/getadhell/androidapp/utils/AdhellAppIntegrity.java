@@ -3,6 +3,7 @@ package com.getadhell.androidapp.utils;
 import android.app.enterprise.AppPermissionControlInfo;
 import android.app.enterprise.ApplicationPermissionControlPolicy;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -10,10 +11,13 @@ import com.getadhell.androidapp.App;
 import com.getadhell.androidapp.db.AppDatabase;
 import com.getadhell.androidapp.db.entity.AppInfo;
 import com.getadhell.androidapp.db.entity.AppPermission;
+import com.getadhell.androidapp.db.entity.BlockUrl;
+import com.getadhell.androidapp.db.entity.BlockUrlProvider;
 import com.getadhell.androidapp.db.entity.DisabledPackage;
 import com.getadhell.androidapp.db.entity.FirewallWhitelistedPackage;
 import com.getadhell.androidapp.db.entity.PolicyPackage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,12 +33,18 @@ public class AdhellAppIntegrity {
     private static final String FIREWALL_WHITELISTED_PACKAGES_MOVED = "adhell_firewall_whitelisted_packages_moved";
     private static final String MOVE_APP_PERMISSIONS = "adhell_app_permissions_moved";
     private static final String DEFAULT_PACKAGES_FIREWALL_WHITELISTED = "adhell_default_packages_firewall_whitelisted";
+    private static final String CHECK_ADHELL_STANDARD_PACKAGE = "adhell_adhell_standard_package";
+    private static final String ADHELL_STANDARD_PACKAGE = "http://getadhell.com/standard-package.txt";
+    private static final String CHECK_PACKAGE_DB = "adhell_packages_filled_db";
 
     @Inject
     AppDatabase appDatabase;
 
     @Inject
     SharedPreferences sharedPreferences;
+
+    @Inject
+    PackageManager packageManager;
 
     @Nullable
     @Inject
@@ -44,7 +54,7 @@ public class AdhellAppIntegrity {
         App.get().getAppComponent().inject(this);
     }
 
-    public void checkIntegrity() {
+    public void check() {
         boolean defaultPolicyChecked = sharedPreferences.getBoolean(DEFAULT_POLICY_CHECKED, false);
         if (!defaultPolicyChecked) {
             checkDefaultPolicyExists();
@@ -71,6 +81,16 @@ public class AdhellAppIntegrity {
         if (!defaultPackagesFirewallWhitelisted) {
             addDefaultAdblockWhitelist();
             sharedPreferences.edit().putBoolean(DEFAULT_PACKAGES_FIREWALL_WHITELISTED, true).apply();
+        }
+        boolean adhellStandardPackageChecked = sharedPreferences.getBoolean(CHECK_ADHELL_STANDARD_PACKAGE, false);
+        if (!adhellStandardPackageChecked) {
+            checkAdhellStandardPackage();
+            sharedPreferences.edit().putBoolean(CHECK_ADHELL_STANDARD_PACKAGE, false).apply();
+        }
+        boolean packageDbFilled = sharedPreferences.getBoolean(CHECK_PACKAGE_DB, false);
+        if (!packageDbFilled) {
+            fillPackageDb();
+            sharedPreferences.edit().putBoolean(CHECK_PACKAGE_DB, true).apply();
         }
     }
 
@@ -176,5 +196,38 @@ public class AdhellAppIntegrity {
         firewallWhitelistedPackages.add(new FirewallWhitelistedPackage("com.google.android.apps.fireball", DEFAULT_POLICY_ID));
         firewallWhitelistedPackages.add(new FirewallWhitelistedPackage("com.nttdocomo.android.ipspeccollector2", DEFAULT_POLICY_ID));
         appDatabase.firewallWhitelistedPackageDao().insertAll(firewallWhitelistedPackages);
+    }
+
+    private void checkAdhellStandardPackage() {
+        BlockUrlProvider blockUrlProvider =
+                appDatabase.blockUrlProviderDao().getByUrl(ADHELL_STANDARD_PACKAGE);
+        if (blockUrlProvider == null) {
+            blockUrlProvider = new BlockUrlProvider();
+            blockUrlProvider.url = ADHELL_STANDARD_PACKAGE;
+            blockUrlProvider.lastUpdated = new Date();
+            blockUrlProvider.deletable = false;
+            blockUrlProvider.selected = true;
+            long ids[] = appDatabase.blockUrlProviderDao().insertAll(blockUrlProvider);
+            blockUrlProvider.id = ids[0];
+            List<BlockUrl> blockUrls;
+            try {
+                blockUrls = BlockUrlUtils.loadBlockUrls(blockUrlProvider);
+                blockUrlProvider.count = blockUrls.size();
+                Log.d(TAG, "Number of urls to insert: " + blockUrlProvider.count);
+                // Save url provider
+                appDatabase.blockUrlProviderDao().updateBlockUrlProviders(blockUrlProvider);
+                // Save urls from providers
+                appDatabase.blockUrlDao().insertAll(blockUrls);
+            } catch (IOException e) {
+                Log.e(TAG, "Failed to download urls", e);
+            }
+        }
+    }
+
+    private void fillPackageDb() {
+        if (appDatabase.applicationInfoDao().getAll().size() > 0) {
+            return;
+        }
+        AppsListDBInitializer.getInstance().fillPackageDb(packageManager);
     }
 }
