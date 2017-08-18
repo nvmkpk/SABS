@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -46,13 +47,15 @@ public class PackageDisablerFragment extends LifecycleFragment {
     ApplicationPolicy appPolicy;
     @Inject
     AppDatabase mDb;
+    @Inject
+    PackageManager packageManager;
     private ListView installedAppsView;
     private Context context;
-    private PackageManager packageManager;
     private List<AppInfo> packageList;
     private DisablerAppAdapter adapter;
     private EditText editText;
     private int sortState = SORTED_ALPHABETICALLY;
+    private AppCompatActivity parentActivity;
 
 
     public PackageDisablerFragment() {
@@ -62,15 +65,19 @@ public class PackageDisablerFragment extends LifecycleFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         App.get().getAppComponent().inject(this);
+        parentActivity = (AppCompatActivity) getActivity();
     }
 
     @SuppressLint("StaticFieldLeak")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getActivity().setTitle(getString(R.string.package_disabler_fragment_title));
+        if (parentActivity.getSupportActionBar() != null) {
+            parentActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            parentActivity.getSupportActionBar().setHomeButtonEnabled(false);
+        }
         View view = inflater.inflate(R.layout.fragment_package_disabler, container, false);
         context = getActivity().getApplicationContext();
-        packageManager = getActivity().getPackageManager();
         editText = view.findViewById(R.id.disabledFilter);
         setHasOptionsMenu(true);
 
@@ -229,26 +236,28 @@ public class PackageDisablerFragment extends LifecycleFragment {
             if (convertView == null) {
                 convertView = LayoutInflater.from(context).inflate(R.layout.item_disable_app_list_view, parent, false);
                 holder = new ViewHolder();
-                holder.nameH = (TextView) convertView.findViewById(R.id.appName);
-                holder.packageH = (TextView) convertView.findViewById(R.id.packName);
-                holder.switchH = (Switch) convertView.findViewById(R.id.switchDisable);
-                holder.imageH = (ImageView) convertView.findViewById(R.id.appIcon);
+                holder.nameH = convertView.findViewById(R.id.appName);
+                holder.packageH = convertView.findViewById(R.id.packName);
+                holder.switchH = convertView.findViewById(R.id.switchDisable);
+                holder.imageH = convertView.findViewById(R.id.appIcon);
                 convertView.setTag(holder);
-            } else holder = (ViewHolder) convertView.getTag();
-
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
             AppInfo appInfo = applicationInfoList.get(position);
             holder.nameH.setText(appInfo.appName);
             holder.packageH.setText(appInfo.packageName);
             holder.switchH.setChecked(!appInfo.disabled);
-            if (appInfo.system)
+            if (appInfo.system) {
                 convertView.findViewById(R.id.systemOrNot).setVisibility(View.VISIBLE);
-            else convertView.findViewById(R.id.systemOrNot).setVisibility(View.GONE);
+            } else {
+                convertView.findViewById(R.id.systemOrNot).setVisibility(View.GONE);
+            }
             try {
                 holder.imageH.setImageDrawable(packageManager.getApplicationIcon(appInfo.packageName));
             } catch (PackageManager.NameNotFoundException e) {
                 Log.e(TAG, "Failed to get ImageDrawable", e);
             }
-
             return convertView;
         }
     }

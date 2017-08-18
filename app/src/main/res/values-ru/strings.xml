@@ -140,5 +140,12 @@
     <string name="app_list_sorted_by_disabled">Первыми отображаются блокированные приложения</string>
     <string name="subscribe_three_month">Подпишитесь за {{price}} на 3 месяца с 20% скидкой</string>
     <string name="app_profiles_tab_title">Профили</string>
-    <string name="app_permissions_tab_title">Permissions</string>
+    <string name="app_permissions_tab_title">Разрешения</string>
+    <string name="profiles_explanation">
+        Теперь вы можете создавать разные профили под разные нужды. \n
+        В профиле вы можете управлять Firewall, Package Disabler и Permissions.
+        Если раньше у вас был всего одни профиль, то теперь вы можете создать несколько и включать или выключать их в зависимости от обстоятельств.
+        Например, можно создать профиль с названием "Bloatware", где вы выключите все нежелательные для вас приложения.
+        Создать профиль "Entertainment", где вы выключите приложения и сайты развлекательного характера и будете включать профиль когда вам нужно сосредоточиться.
+    </string>
 </resources>

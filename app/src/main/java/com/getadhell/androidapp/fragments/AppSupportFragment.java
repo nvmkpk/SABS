@@ -5,6 +5,7 @@ import android.arch.lifecycle.LifecycleFragment;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,17 +23,23 @@ public class AppSupportFragment extends LifecycleFragment {
     private Button subscriptionButton;
     private Button goThreeMonthPremium;
     private SharedBillingViewModel sharedBillingViewModel;
+    private AppCompatActivity parentActivity;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedBillingViewModel = ViewModelProviders.of(this).get(SharedBillingViewModel.class);
+        parentActivity = (AppCompatActivity) getActivity();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         getActivity().setTitle(getString(R.string.app_support_fragment_title));
+        if (parentActivity.getSupportActionBar() != null) {
+            parentActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            parentActivity.getSupportActionBar().setHomeButtonEnabled(false);
+        }
         View view = inflater.inflate(R.layout.fragment_app_support, container, false);
 
         supportDevelopmentTextView = view.findViewById(R.id.supportDevelopmentTextView);
