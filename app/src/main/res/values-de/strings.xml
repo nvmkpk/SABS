@@ -110,4 +110,16 @@
     <string name="subscribe_three_month">Subscribe for {{price}} per 3 month with 20% discount</string>
     <string name="app_profiles_tab_title">Profiles</string>
     <string name="app_permissions_tab_title">Permissions</string>
+    <string name="default_policy_name">Default Policy</string>
+    <string name="last_modified">Last modified: {{lastModified}}</string>
+    <string name="number_packages_disabled">{{numberOfDisabledPackages}} packages disabled</string>
+    <string name="number_of_hosts">{{numberOfHosts}} host</string>
+    <string name="custom_domains_blocked">{{numberOfDomainsBlockedByUser}} custom domains blocked
+    </string>
+    <string name="number_of_domains_whitelisted">{{numberOfWhitelistedDomains}} domains
+        whitelisted
+    </string>
+    <string name="number_of_permissions_restricted">{{numberOfRestrictedPermissions}} permissions
+        restricted
+    </string>
 </resources>

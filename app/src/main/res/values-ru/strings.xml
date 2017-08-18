@@ -148,4 +148,16 @@
         Например, можно создать профиль с названием "Bloatware", где вы выключите все нежелательные для вас приложения.
         Создать профиль "Entertainment", где вы выключите приложения и сайты развлекательного характера и будете включать профиль когда вам нужно сосредоточиться.
     </string>
+    <string name="default_policy_name">Default Policy</string>
+    <string name="last_modified">Last modified: {{lastModified}}</string>
+    <string name="number_packages_disabled">{{numberOfDisabledPackages}} packages disabled</string>
+    <string name="number_of_hosts">{{numberOfHosts}} host</string>
+    <string name="custom_domains_blocked">{{numberOfDomainsBlockedByUser}} custom domains blocked
+    </string>
+    <string name="number_of_domains_whitelisted">{{numberOfWhitelistedDomains}} domains
+        whitelisted
+    </string>
+    <string name="number_of_permissions_restricted">{{numberOfRestrictedPermissions}} permissions
+        restricted
+    </string>
 </resources>

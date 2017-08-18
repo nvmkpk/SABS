@@ -206,5 +206,17 @@
     </string>
     <string name="blog">Blog</string>
     <string name="only_for_premium_title">Only for Premium</string>
+    <string name="default_policy_name">Default Policy</string>
+    <string name="last_modified">Last modified: {{lastModified}}</string>
+    <string name="number_packages_disabled">{{numberOfDisabledPackages}} packages disabled</string>
+    <string name="number_of_hosts">{{numberOfHosts}} host packages</string>
+    <string name="custom_domains_blocked">{{numberOfDomainsBlockedByUser}} custom domains blocked
+    </string>
+    <string name="number_of_domains_whitelisted">{{numberOfWhitelistedDomains}} domains
+        whitelisted
+    </string>
+    <string name="number_of_permissions_restricted">{{numberOfRestrictedPermissions}} permissions
+        restricted
+    </string>
 
 </resources>

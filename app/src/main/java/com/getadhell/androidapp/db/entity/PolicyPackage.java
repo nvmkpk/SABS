@@ -2,12 +2,14 @@ package com.getadhell.androidapp.db.entity;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
 
 import com.getadhell.androidapp.db.DateConverter;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity(
         tableName = "PolicyPackage"
@@ -33,5 +35,20 @@ public class PolicyPackage {
 
     @ColumnInfo(name = "updatedAt")
     public Date updatedAt;
+
+    @Ignore
+    public List<DisabledPackage> disabledPackages;
+
+    @Ignore
+    public List<BlockUrlProvider> blockUrlProviders;
+
+    @Ignore
+    public List<UserBlockUrl> userBlockUrls;
+
+    @Ignore
+    public List<WhiteUrl> whiteUrls;
+
+    @Ignore
+    public List<AppPermission> appPermissions;
 
 }

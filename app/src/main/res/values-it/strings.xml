@@ -151,5 +151,17 @@
     <string name="subscribe_three_month">Abbonati al costo di {{price}} per 3 mesi col 20% di sconto</string>
     <string name="app_profiles_tab_title">Profili</string>
     <string name="app_permissions_tab_title">Permessi</string>
+    <string name="default_policy_name">Default Policy</string>
+    <string name="last_modified">Last modified: {{lastModified}}</string>
+    <string name="number_packages_disabled">{{numberOfDisabledPackages}} packages disabled</string>
+    <string name="number_of_hosts">{{numberOfHosts}} host</string>
+    <string name="custom_domains_blocked">{{numberOfDomainsBlockedByUser}} custom domains blocked
+    </string>
+    <string name="number_of_domains_whitelisted">{{numberOfWhitelistedDomains}} domains
+        whitelisted
+    </string>
+    <string name="number_of_permissions_restricted">{{numberOfRestrictedPermissions}} permissions
+        restricted
+    </string>
 
 </resources>
