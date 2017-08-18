@@ -18,7 +18,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/profileName"
+                android:id="@+id/profileNameTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -27,7 +27,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold"/>
             <Switch
-                android:id="@+id/profileToggle"
+                android:id="@+id/profileSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/profileName"
+                android:layout_below="@+id/profileNameTextView"
                 android:paddingTop="5dp"
                 android:text="@string/last_modified"
                 android:textStyle="italic"/>
