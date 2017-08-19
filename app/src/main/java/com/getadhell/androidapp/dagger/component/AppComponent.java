@@ -8,6 +8,7 @@ import com.getadhell.androidapp.dagger.module.AppModule;
 import com.getadhell.androidapp.dagger.module.EnterpriseModule;
 import com.getadhell.androidapp.dagger.module.NetworkModule;
 import com.getadhell.androidapp.dagger.scope.AdhellApplicationScope;
+import com.getadhell.androidapp.fragments.AdhellPermissionInAppsFragment;
 import com.getadhell.androidapp.fragments.BlockedUrlSettingFragment;
 import com.getadhell.androidapp.fragments.BlockerFragment;
 import com.getadhell.androidapp.fragments.PackageDisablerFragment;

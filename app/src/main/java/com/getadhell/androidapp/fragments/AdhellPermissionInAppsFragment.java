@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +18,11 @@ import com.getadhell.androidapp.adapter.AdhellPermissionInAppsAdapter;
 import com.getadhell.androidapp.db.entity.AppInfo;
 import com.getadhell.androidapp.viewmodel.SharedAppPermissionViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdhellPermissionInAppsFragment extends LifecycleFragment {
+    private static final String TAG = AdhellPermissionInAppsFragment.class.getCanonicalName();
     private RecyclerView permissionInAppsRecyclerView;
     private SharedAppPermissionViewModel sharedAppPermissionViewModel;
     private List<AppInfo> appInfos;

@@ -77,10 +77,11 @@ public class PackageDisablerFragment extends LifecycleFragment {
             parentActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             parentActivity.getSupportActionBar().setHomeButtonEnabled(false);
         }
+        setHasOptionsMenu(true);
         View view = inflater.inflate(R.layout.fragment_package_disabler, container, false);
         context = getActivity().getApplicationContext();
         editText = view.findViewById(R.id.disabledFilter);
-        setHasOptionsMenu(true);
+        editText.setOnClickListener(v -> editText.setCursorVisible(true));
 
         installedAppsView = view.findViewById(R.id.installed_apps_list);
         installedAppsView.setOnItemClickListener((AdapterView<?> adView, View v, int i, long l) -> {
@@ -125,6 +126,7 @@ public class PackageDisablerFragment extends LifecycleFragment {
         if (bxIntegration) {
             intent.removeExtra("bxIntegration");
             editText.setText("com.samsung.android.app.spage");
+            editText.requestFocus();
             editText.setCursorVisible(false);
         }
         return view;
