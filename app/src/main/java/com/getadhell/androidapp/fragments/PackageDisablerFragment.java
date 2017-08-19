@@ -106,7 +106,6 @@ public class PackageDisablerFragment extends LifecycleFragment {
         });
 
         loadApplicationsList(false);
-
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -126,7 +125,7 @@ public class PackageDisablerFragment extends LifecycleFragment {
         if (bxIntegration) {
             intent.removeExtra("bxIntegration");
             editText.setText("com.samsung.android.app.spage");
-            editText.requestFocus();
+            editText.setCursorVisible(false);
         }
         return view;
     }
