@@ -110,6 +110,38 @@
     <string name="subscribe_three_month">Subscribe for {{price}} per 3 month with 20% discount</string>
     <string name="app_profiles_tab_title">Profiles</string>
     <string name="app_permissions_tab_title">Permissions</string>
+    <string name="profiles_explanation">
+        Profiles. New Adhell feature. August 2017
+
+        \n\nWith this update you are able to create profiles for different needs.
+
+        \n\nWith profiles you can manage Firewall settings, Package Disabler and Permissions
+
+        \n\nBefore this release you had only one profile but now you can create as much as you want
+        and turn on\/off in different situations.
+
+        \n\nFor example, you could create \"Bloatware\" profile and disable all unwanted apps
+        forever.
+        \nCreate \"Entertainment\" profile add all entertainment apps\/websites and block them when
+        you need to concentrate on work.
+
+        \n\nBy default I have created \"Default Policy\" for everybody and moved all current
+        settings to it (hope it works as expected). You are not allowed to delete \"Default
+        Policy\".
+
+        \n\nProfiles feature is free of charge (but changing \"Permissions\" policies still only for
+        premium users).
+
+        \n\nYou may find overall UX and UI confusing. But after this release me and friend (who
+        is so kind to help) of mine will work on it to bring you better experience.
+
+        \n\nI want to thank all people who contributes to the project by providing feedback,
+        translating Adhell into other languages, discussing it on forums and suggesting new
+        features. I appreciate your valuable time. Thank you.
+
+        \n\nStay tuned. If everything goes as expected Adhell will have more features in the near
+        future.
+    </string>
     <string name="default_policy_name">Default Policy</string>
     <string name="last_modified">Last modified: {{lastModified}}</string>
     <string name="number_packages_disabled">{{numberOfDisabledPackages}} packages disabled</string>
@@ -122,4 +154,6 @@
     <string name="number_of_permissions_restricted">{{numberOfRestrictedPermissions}} permissions
         restricted
     </string>
+    <string name="blog">Blog</string>
+    <string name="only_for_premium_title">Only for Premium</string>
 </resources>
