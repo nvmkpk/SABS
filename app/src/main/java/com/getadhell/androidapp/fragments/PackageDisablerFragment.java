@@ -122,7 +122,7 @@ public class PackageDisablerFragment extends LifecycleFragment {
             }
         });
         Intent intent = parentActivity.getIntent();
-        boolean bxIntegration = intent.getBooleanExtra("bixbyMode", false);
+        boolean bxIntegration = intent.getBooleanExtra("bxIntegration", false);
         if (bxIntegration) {
             editText.setText("com.samsung.android.app.spage");
             editText.requestFocus();

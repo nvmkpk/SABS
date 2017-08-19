@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
             App.get().getApplicationContext().startService(i);
         }
         Intent intent = getIntent();
-        boolean bxIntegration = intent.getBooleanExtra("bixbyMode", false);
+        boolean bxIntegration = intent.getBooleanExtra("bxIntegration", false);
         if (bxIntegration) {
             bottomBar.selectTabWithId(R.id.packageDisablerTab);
         }
