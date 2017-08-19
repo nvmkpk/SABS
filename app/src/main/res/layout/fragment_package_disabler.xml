@@ -1,23 +1,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              tools:context="com.getadhell.androidapp.fragments.PackageDisablerFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.getadhell.androidapp.fragments.PackageDisablerFragment">
 
     <EditText
         android:id="@+id/disabledFilter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:imeOptions="actionSearch"
-        android:inputType="text"
+        android:inputType="textNoSuggestions|textVisiblePassword"
         android:lines="1"
-        android:singleLine="true"/>
+        android:singleLine="true" />
 
     <ListView
         android:id="@+id/installed_apps_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </ListView>
+        android:layout_height="match_parent" />
 
 </LinearLayout>
