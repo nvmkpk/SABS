@@ -36,6 +36,21 @@ public class PolicyPackage {
     @ColumnInfo(name = "updatedAt")
     public Date updatedAt;
 
+    @ColumnInfo(name = "numberOfDisabledPackages")
+    public int numberOfDisabledPackages;
+
+    @ColumnInfo(name = "numberOfHosts")
+    public int numberOfHosts;
+
+    @ColumnInfo(name = "numberOfUserBlockedDomains")
+    public int numberOfUserBlockedDomains;
+
+    @ColumnInfo(name = "numberOfUserWhitelistedDomains")
+    public int numberOfUserWhitelistedDomains;
+
+    @ColumnInfo(name = "numberOfChangedPermissions")
+    public int numberOfChangedPermissions;
+
     @Ignore
     public List<DisabledPackage> disabledPackages;
 
@@ -43,12 +58,12 @@ public class PolicyPackage {
     public List<BlockUrlProvider> blockUrlProviders;
 
     @Ignore
-    public List<UserBlockUrl> userBlockUrls;
+    public List<UserBlockUrl> userBlockedDomains;
 
     @Ignore
-    public List<WhiteUrl> whiteUrls;
+    public List<WhiteUrl> userWhitelistedDomains;
 
     @Ignore
     public List<AppPermission> appPermissions;
-
+    
 }

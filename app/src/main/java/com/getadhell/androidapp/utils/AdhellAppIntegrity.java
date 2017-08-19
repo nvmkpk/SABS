@@ -198,34 +198,35 @@ public class AdhellAppIntegrity {
         appDatabase.firewallWhitelistedPackageDao().insertAll(firewallWhitelistedPackages);
     }
 
-    private void checkAdhellStandardPackage() {
+    public void checkAdhellStandardPackage() {
         BlockUrlProvider blockUrlProvider =
                 appDatabase.blockUrlProviderDao().getByUrl(ADHELL_STANDARD_PACKAGE);
-        if (blockUrlProvider == null) {
-            blockUrlProvider = new BlockUrlProvider();
-            blockUrlProvider.url = ADHELL_STANDARD_PACKAGE;
-            blockUrlProvider.lastUpdated = new Date();
-            blockUrlProvider.deletable = false;
-            blockUrlProvider.selected = true;
-            blockUrlProvider.policyPackageId = DEFAULT_POLICY_ID;
-            long ids[] = appDatabase.blockUrlProviderDao().insertAll(blockUrlProvider);
-            blockUrlProvider.id = ids[0];
-            List<BlockUrl> blockUrls;
-            try {
-                blockUrls = BlockUrlUtils.loadBlockUrls(blockUrlProvider);
-                blockUrlProvider.count = blockUrls.size();
-                Log.d(TAG, "Number of urls to insert: " + blockUrlProvider.count);
-                // Save url provider
-                appDatabase.blockUrlProviderDao().updateBlockUrlProviders(blockUrlProvider);
-                // Save urls from providers
-                appDatabase.blockUrlDao().insertAll(blockUrls);
-            } catch (IOException e) {
-                Log.e(TAG, "Failed to download urls", e);
-            }
+        if (blockUrlProvider != null) {
+            return;
+        }
+        blockUrlProvider = new BlockUrlProvider();
+        blockUrlProvider.url = ADHELL_STANDARD_PACKAGE;
+        blockUrlProvider.lastUpdated = new Date();
+        blockUrlProvider.deletable = false;
+        blockUrlProvider.selected = true;
+        blockUrlProvider.policyPackageId = DEFAULT_POLICY_ID;
+        long ids[] = appDatabase.blockUrlProviderDao().insertAll(blockUrlProvider);
+        blockUrlProvider.id = ids[0];
+        List<BlockUrl> blockUrls;
+        try {
+            blockUrls = BlockUrlUtils.loadBlockUrls(blockUrlProvider);
+            blockUrlProvider.count = blockUrls.size();
+            Log.d(TAG, "Number of urls to insert: " + blockUrlProvider.count);
+            // Save url provider
+            appDatabase.blockUrlProviderDao().updateBlockUrlProviders(blockUrlProvider);
+            // Save urls from providers
+            appDatabase.blockUrlDao().insertAll(blockUrls);
+        } catch (IOException e) {
+            Log.e(TAG, "Failed to download urls", e);
         }
     }
 
-    private void fillPackageDb() {
+    public void fillPackageDb() {
         if (appDatabase.applicationInfoDao().getAll().size() > 0) {
             return;
         }

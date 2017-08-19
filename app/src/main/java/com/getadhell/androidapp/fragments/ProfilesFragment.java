@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,6 +18,7 @@ import com.getadhell.androidapp.R;
 public class ProfilesFragment extends LifecycleFragment {
     private FragmentManager fragmentManager;
     private AppCompatActivity parentActivity;
+    private RecyclerView recyclerView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,7 +36,10 @@ public class ProfilesFragment extends LifecycleFragment {
         }
         parentActivity.setTitle(getString(R.string.app_profiles_tab_title));
         setHasOptionsMenu(true);
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(R.layout.fragment_profiles, container, false);
+        recyclerView = view.findViewById(R.id.profilesRecyclerView);
+
+        return view;
     }
 
     @Override

@@ -40,25 +40,25 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
                 = mContext.getString(R.string.last_modified).replace("{{lastModified}}", dt.format(updatedAt));
         holder.lastModifiedTextView.setText(lastModifiedText);
         String numberOfDisabledPackagesText
-                = mContext.getString(R.string.number_packages_disabled).replace("{{numberOfDisabledPackages}}", "" + policyPackage.disabledPackages.size());
+                = mContext.getString(R.string.number_packages_disabled).replace("{{numberOfDisabledPackages}}", "" + policyPackage.numberOfDisabledPackages);
         holder.numberOfDisabledPackagesTextView.setText(numberOfDisabledPackagesText);
         String numberOfHostsText
                 = mContext.getString(R.string.number_of_hosts)
-                .replace("{{numberOfHosts}}", "" + policyPackage.blockUrlProviders.size());
+                .replace("{{numberOfHosts}}", "" + policyPackage.numberOfHosts);
         holder.numberOfHostsTextView.setText(numberOfHostsText);
 
         String numberOfUserBlockedDomainsText
                 = mContext.getString(R.string.custom_domains_blocked)
-                .replace("{{numberOfDomainsBlockedByUser}}", "" + policyPackage.userBlockUrls.size());
+                .replace("{{numberOfDomainsBlockedByUser}}", "" + policyPackage.numberOfUserBlockedDomains);
         holder.numberOfUserBlockedUrlsTextView.setText(numberOfUserBlockedDomainsText);
         String numberOfWhitelistedDomainsText
                 = mContext.getString(R.string.number_of_domains_whitelisted)
-                .replace("{{numberOfWhitelistedDomains}}", "" + policyPackage.whiteUrls.size());
+                .replace("{{numberOfWhitelistedDomains}}", "" + policyPackage.numberOfUserWhitelistedDomains);
         holder.numberOfUserWhitelistUrlsTextView.setText(numberOfWhitelistedDomainsText);
 
         String numberOfWhitelistedPermissionsText
                 = mContext.getString(R.string.number_of_permissions_restricted)
-                .replace("{{numberOfRestrictedPermissions}}", "" + policyPackage.disabledPackages.size());
+                .replace("{{numberOfRestrictedPermissions}}", "" + policyPackage.numberOfChangedPermissions);
         holder.numberOfRestrictedPermissions.setText(numberOfWhitelistedPermissionsText);
     }
 

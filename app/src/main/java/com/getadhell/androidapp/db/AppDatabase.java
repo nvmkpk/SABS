@@ -34,6 +34,7 @@ import com.getadhell.androidapp.db.migration.Migration_17_18;
 import com.getadhell.androidapp.db.migration.Migration_18_19;
 import com.getadhell.androidapp.db.migration.Migration_19_20;
 import com.getadhell.androidapp.db.migration.Migration_20_21;
+import com.getadhell.androidapp.db.migration.Migration_21_22;
 
 @Database(entities = {
         AppInfo.class,
@@ -46,7 +47,7 @@ import com.getadhell.androidapp.db.migration.Migration_20_21;
         ReportBlockedUrl.class,
         UserBlockUrl.class,
         WhiteUrl.class
-}, version = 21)
+}, version = 22)
 public abstract class AppDatabase extends RoomDatabase {
     private static final Migration MIGRATION_14_15 = new Migration_14_15(14, 15);
     private static final Migration MIGRATION_15_16 = new Migration_15_16(15, 16);
@@ -55,6 +56,7 @@ public abstract class AppDatabase extends RoomDatabase {
     private static final Migration MIGRATION_18_19 = new Migration_18_19(18, 19);
     private static final Migration MIGRATION_19_20 = new Migration_19_20(19, 20);
     private static final Migration MIGRATION_20_21 = new Migration_20_21(20, 21);
+    private static final Migration MIGRATION_21_22 = new Migration_21_22(21, 22);
     private static AppDatabase INSTANCE;
 
     public static AppDatabase getAppDatabase(Context context) {
@@ -69,6 +71,7 @@ public abstract class AppDatabase extends RoomDatabase {
                             .addMigrations(MIGRATION_18_19)
                             .addMigrations(MIGRATION_19_20)
                             .addMigrations(MIGRATION_20_21)
+                            .addMigrations(MIGRATION_21_22)
                             .build();
         }
         return INSTANCE;

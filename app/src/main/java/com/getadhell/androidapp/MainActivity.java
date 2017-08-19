@@ -112,7 +112,9 @@ public class MainActivity extends AppCompatActivity {
         AsyncTask.execute(() -> {
 //        HeartbeatAlarmHelper.scheduleAlarm();
             AdhellAppIntegrity adhellAppIntegrity = new AdhellAppIntegrity();
-            adhellAppIntegrity.check();
+//            adhellAppIntegrity.check();
+            adhellAppIntegrity.checkAdhellStandardPackage();
+            adhellAppIntegrity.fillPackageDb();
         });
         sharedBillingViewModel = ViewModelProviders.of(this).get(SharedBillingViewModel.class);
         sharedBillingViewModel.startBillingConnection();
