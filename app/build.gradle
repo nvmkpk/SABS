@@ -20,21 +20,17 @@ repositories {
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '25.0.3'
+    buildToolsVersion '26.0.1'
 
     defaultConfig {
         applicationId "com.getadhell.androidapp"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 71
-        versionName "1.7.1"
+        versionCode 72
+        versionName "1.7.2"
     }
     buildTypes {
         release {
-            lintOptions {
-                checkReleaseBuilds false
-                abortOnError false
-            }
 //            minifyEnabled true
 //            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
