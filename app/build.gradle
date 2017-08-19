@@ -30,10 +30,14 @@ android {
         versionName "1.7.1"
     }
     buildTypes {
-//        release {
+        release {
+            lintOptions {
+                checkReleaseBuilds false
+                abortOnError false
+            }
 //            minifyEnabled true
 //            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//        }
+        }
         buildTypes.each {
             it.buildConfigField 'String', 'ADHELL_TOKEN', AdhellToken
             it.buildConfigField 'String', 'ADHELL_KEY_URL', AdhellKeyUrl

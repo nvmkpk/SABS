@@ -100,7 +100,6 @@
     <string name="wait_removing_app_from_whitelist">"Even geduld, app verwijderen van de witte lijst"
     </string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hallo leeg fragment</string>
     <string name="support_app_development">Ondersteun ontwikkeling van deze app</string>
     <string name="help_developers_to_keep_up_development">Ondersteun de ontwikkeling van Adhell.
@@ -120,7 +119,7 @@
     <string name="already_premium">Reeds Premium</string>
     <string name="custom_url_provider_message">
         N.B. U kunt uw eigen hosts link toevoegen (b.v. https://adaway.org/hosts.txt).
-        U kunt maximaal 15 duizend Url's blokkeren.
+        U kunt maximaal 15 duizend Url\'s blokkeren.
         Adhell heeft al een erg compleet standaardpakket dus in de meeste gevallen hoeft u geen extra pakketten toe te voegen,
         Deze functie is experimenteel en alleen voor enthousiastelingen.
     </string>
