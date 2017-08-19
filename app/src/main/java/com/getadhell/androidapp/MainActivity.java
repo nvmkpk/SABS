@@ -29,7 +29,6 @@ import com.getadhell.androidapp.fragments.AppSupportFragment;
 import com.getadhell.androidapp.fragments.BlockerFragment;
 import com.getadhell.androidapp.fragments.OnlyPremiumFragment;
 import com.getadhell.androidapp.fragments.PackageDisablerFragment;
-import com.getadhell.androidapp.fragments.ProfilesFragment;
 import com.getadhell.androidapp.service.BlockedDomainService;
 import com.getadhell.androidapp.utils.AdhellAppIntegrity;
 import com.getadhell.androidapp.utils.DeviceAdminInteractor;
@@ -113,11 +112,18 @@ public class MainActivity extends AppCompatActivity {
 //        HeartbeatAlarmHelper.scheduleAlarm();
             AdhellAppIntegrity adhellAppIntegrity = new AdhellAppIntegrity();
 //            adhellAppIntegrity.check();
+            adhellAppIntegrity.checkDefaultPolicyExists();
             adhellAppIntegrity.checkAdhellStandardPackage();
             adhellAppIntegrity.fillPackageDb();
         });
+        // com.samsung.android.app.spage
         sharedBillingViewModel = ViewModelProviders.of(this).get(SharedBillingViewModel.class);
         sharedBillingViewModel.startBillingConnection();
+        Intent intent = getIntent();
+        boolean isBixbyMode = intent.getBooleanExtra("bixbyMode", false);
+        if (isBixbyMode) {
+            bottomBar.selectTabWithId(R.id.packageDisablerTab);
+        }
     }
 
     @Override
@@ -179,9 +185,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.packageDisablerTab:
                 replacing = new PackageDisablerFragment();
                 break;
-            case R.id.profilesTab:
-                replacing = new ProfilesFragment();
-                break;
+//            case R.id.profilesTab:
+//                replacing = new ProfilesFragment();
+//                break;
             case R.id.appPermissionsTab:
                 if (sharedBillingViewModel.billingModel.isPremiumLiveData.getValue()) {
                     replacing = new AdhellPermissionInfoFragment();
