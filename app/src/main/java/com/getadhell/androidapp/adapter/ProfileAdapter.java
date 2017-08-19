@@ -1,5 +1,6 @@
 package com.getadhell.androidapp.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +10,19 @@ import android.widget.TextView;
 import com.getadhell.androidapp.R;
 import com.getadhell.androidapp.db.entity.PolicyPackage;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileViewHolder> {
 
     private List<PolicyPackage> policyPackages;
+    private Context mContext;
+
+    public ProfileAdapter(Context context, List<PolicyPackage> policyPackages) {
+        this.mContext = context;
+        this.policyPackages = policyPackages;
+    }
 
     @Override
     public ProfileViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -22,12 +31,40 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
 
     @Override
     public void onBindViewHolder(ProfileViewHolder holder, int position) {
+        PolicyPackage policyPackage = policyPackages.get(position);
+        holder.profileNameTextView.setText(policyPackage.name);
+        holder.profileSwitch.setChecked(policyPackage.active);
+        Date updatedAt = policyPackage.updatedAt;
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        String lastModifiedText
+                = mContext.getString(R.string.last_modified).replace("{{lastModified}}", dt.format(updatedAt));
+        holder.lastModifiedTextView.setText(lastModifiedText);
+        String numberOfDisabledPackagesText
+                = mContext.getString(R.string.number_packages_disabled).replace("{{numberOfDisabledPackages}}", "" + policyPackage.disabledPackages.size());
+        holder.numberOfDisabledPackagesTextView.setText(numberOfDisabledPackagesText);
+        String numberOfHostsText
+                = mContext.getString(R.string.number_of_hosts)
+                .replace("{{numberOfHosts}}", "" + policyPackage.blockUrlProviders.size());
+        holder.numberOfHostsTextView.setText(numberOfHostsText);
 
+        String numberOfUserBlockedDomainsText
+                = mContext.getString(R.string.custom_domains_blocked)
+                .replace("{{numberOfDomainsBlockedByUser}}", "" + policyPackage.userBlockUrls.size());
+        holder.numberOfUserBlockedUrlsTextView.setText(numberOfUserBlockedDomainsText);
+        String numberOfWhitelistedDomainsText
+                = mContext.getString(R.string.number_of_domains_whitelisted)
+                .replace("{{numberOfWhitelistedDomains}}", "" + policyPackage.whiteUrls.size());
+        holder.numberOfUserWhitelistUrlsTextView.setText(numberOfWhitelistedDomainsText);
+
+        String numberOfWhitelistedPermissionsText
+                = mContext.getString(R.string.number_of_permissions_restricted)
+                .replace("{{numberOfRestrictedPermissions}}", "" + policyPackage.disabledPackages.size());
+        holder.numberOfRestrictedPermissions.setText(numberOfWhitelistedPermissionsText);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return policyPackages.size();
     }
 
     public class ProfileViewHolder extends RecyclerView.ViewHolder {
