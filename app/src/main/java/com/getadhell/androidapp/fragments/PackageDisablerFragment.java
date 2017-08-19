@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.enterprise.ApplicationPolicy;
 import android.arch.lifecycle.LifecycleFragment;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -120,7 +121,12 @@ public class PackageDisablerFragment extends LifecycleFragment {
                 loadApplicationsList(false);
             }
         });
-
+        Intent intent = parentActivity.getIntent();
+        boolean bxIntegration = intent.getBooleanExtra("bixbyMode", false);
+        if (bxIntegration) {
+            editText.setText("com.samsung.android.app.spage");
+            editText.requestFocus();
+        }
         return view;
     }
 

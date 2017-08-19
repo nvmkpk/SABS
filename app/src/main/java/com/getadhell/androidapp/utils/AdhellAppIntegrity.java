@@ -94,7 +94,7 @@ public class AdhellAppIntegrity {
         }
     }
 
-    private void checkDefaultPolicyExists() {
+    public void checkDefaultPolicyExists() {
         PolicyPackage policyPackage = appDatabase.policyPackageDao().getPolicyById(DEFAULT_POLICY_ID);
         if (policyPackage != null) {
             Log.d(TAG, "Default PolicyPackage exists");

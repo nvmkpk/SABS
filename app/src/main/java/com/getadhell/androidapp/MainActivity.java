@@ -29,7 +29,6 @@ import com.getadhell.androidapp.fragments.AppSupportFragment;
 import com.getadhell.androidapp.fragments.BlockerFragment;
 import com.getadhell.androidapp.fragments.OnlyPremiumFragment;
 import com.getadhell.androidapp.fragments.PackageDisablerFragment;
-import com.getadhell.androidapp.fragments.ProfilesFragment;
 import com.getadhell.androidapp.service.BlockedDomainService;
 import com.getadhell.androidapp.utils.AdhellAppIntegrity;
 import com.getadhell.androidapp.utils.DeviceAdminInteractor;
@@ -48,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private AdhellTurnOnDialogFragment adhellTurnOnDialogFragment;
     private NoInternetConnectionDialogFragment noInternetConnectionDialogFragment;
     private SharedBillingViewModel sharedBillingViewModel;
+    private BottomBar bottomBar;
 
     @Override
     public void onBackPressed() {
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        BottomBar bottomBar = findViewById(R.id.bottomBar);
+        bottomBar = findViewById(R.id.bottomBar);
         bottomBar.setTabTitleTextAppearance(R.style.bottomBarTextView);
         bottomBar.setOnTabSelectListener(tabId -> {
             if (!mAdminInteractor.isActiveAdmin()) {
@@ -113,9 +113,11 @@ public class MainActivity extends AppCompatActivity {
 //        HeartbeatAlarmHelper.scheduleAlarm();
             AdhellAppIntegrity adhellAppIntegrity = new AdhellAppIntegrity();
 //            adhellAppIntegrity.check();
+            adhellAppIntegrity.checkDefaultPolicyExists();
             adhellAppIntegrity.checkAdhellStandardPackage();
             adhellAppIntegrity.fillPackageDb();
         });
+        // com.samsung.android.app.spage
         sharedBillingViewModel = ViewModelProviders.of(this).get(SharedBillingViewModel.class);
         sharedBillingViewModel.startBillingConnection();
     }
@@ -161,6 +163,11 @@ public class MainActivity extends AppCompatActivity {
             i.putExtra("launchedFrom", "main-activity");
             App.get().getApplicationContext().startService(i);
         }
+        Intent intent = getIntent();
+        boolean bxIntegration = intent.getBooleanExtra("bixbyMode", false);
+        if (bxIntegration) {
+            bottomBar.selectTabWithId(R.id.packageDisablerTab);
+        }
     }
 
     @Override
@@ -179,9 +186,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.packageDisablerTab:
                 replacing = new PackageDisablerFragment();
                 break;
-            case R.id.profilesTab:
-                replacing = new ProfilesFragment();
-                break;
+//            case R.id.profilesTab:
+//                replacing = new ProfilesFragment();
+//                break;
             case R.id.appPermissionsTab:
                 if (sharedBillingViewModel.billingModel.isPremiumLiveData.getValue()) {
                     replacing = new AdhellPermissionInfoFragment();
