@@ -207,6 +207,7 @@ public class AdhellAppIntegrity {
             blockUrlProvider.lastUpdated = new Date();
             blockUrlProvider.deletable = false;
             blockUrlProvider.selected = true;
+            blockUrlProvider.policyPackageId = DEFAULT_POLICY_ID;
             long ids[] = appDatabase.blockUrlProviderDao().insertAll(blockUrlProvider);
             blockUrlProvider.id = ids[0];
             List<BlockUrl> blockUrls;
