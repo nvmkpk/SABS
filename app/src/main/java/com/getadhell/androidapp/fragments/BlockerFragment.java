@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -30,11 +31,9 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class BlockerFragment extends LifecycleFragment {
-
     private static final String TAG = BlockerFragment.class.getCanonicalName();
-
-    FragmentManager fragmentManager;
-
+    private FragmentManager fragmentManager;
+    private AppCompatActivity parentActivity;
     private CompositeDisposable disposable = new CompositeDisposable();
     private Button mPolicyChangeButton;
     private TextView isSupportedTextView;
@@ -87,6 +86,7 @@ public class BlockerFragment extends LifecycleFragment {
         super.onCreate(savedInstanceState);
         App.get().getAppComponent().inject(this);
         fragmentManager = getActivity().getSupportFragmentManager();
+        parentActivity = (AppCompatActivity) getActivity();
     }
 
     @Override
@@ -118,10 +118,15 @@ public class BlockerFragment extends LifecycleFragment {
         getActivity().setTitle(getString(R.string.blocker_fragment_title));
         View view = inflater.inflate(R.layout.fragment_blocker, container, false);
 
-        mPolicyChangeButton = (Button) view.findViewById(R.id.policyChangeButton);
-        isSupportedTextView = (TextView) view.findViewById(R.id.isSupportedTextView);
-        reportButton = (Button) view.findViewById(R.id.adhellReportsButton);
-        warningMessageTextView = (TextView) view.findViewById(R.id.warningMessageTextView);
+        if (parentActivity.getSupportActionBar() != null) {
+            parentActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            parentActivity.getSupportActionBar().setHomeButtonEnabled(false);
+        }
+
+        mPolicyChangeButton = view.findViewById(R.id.policyChangeButton);
+        isSupportedTextView = view.findViewById(R.id.isSupportedTextView);
+        reportButton = view.findViewById(R.id.adhellReportsButton);
+        warningMessageTextView = view.findViewById(R.id.warningMessageTextView);
         warningMessageTextView.setVisibility(View.GONE);
         contentBlocker = DeviceAdminInteractor.getInstance().getContentBlocker();
         if (!(contentBlocker instanceof ContentBlocker57

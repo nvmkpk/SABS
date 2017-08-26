@@ -138,7 +138,7 @@
     <string name="application_icon">Icona App</string>
     <string name="only_for_premium">Permessi App è una funzione riservata agli Utenti Premium.
         Questa funzione è disponibile solo per le applicazioni utente (non quelle di sistema).
-        Per adesso sono disponibili solo 5 permessi.
+        Puoi utilizzarlo per 7 giorni di prova.
     </string>
     <string name="subs_not_supported_text_view">Modalità di abbonamento non supportata. Per favore
         aggiorna i Google Play Services
@@ -148,6 +148,52 @@
     <string name="sort_by_install_time">Ordina per data</string>
     <string name="sort_by_disabled">Prima quelle Disattive</string>
     <string name="app_list_sorted_by_disabled">Le App disattivate sono mostrate prima</string>
-    <string name="subscribe_three_month">Subscribe for {{price}} per 3 month with 20% discount</string>
+    <string name="subscribe_three_month">Abbonati al costo di {{price}} per 3 mesi col 20% di sconto</string>
+    <string name="app_profiles_tab_title">Profili</string>
+    <string name="app_permissions_tab_title">Permessi</string>
+    <string name="profiles_explanation">
+        Profili: la nuova funzione di Adhell. Agosto 2017
+        
+        \n\nCon questo nuovo aggiornamento sarà possibile creare vari profili per diverse esigenze.
+
+        \n\nCon i Profili puoi gestire le regole del Firewall, le App Disabilitate ed i Permessi App
+
+        \n\nPrima di questo aggiornamento si aveva un solo profilo, ma adesso se ne possono creare
+        quanti ne volete per poi attivarli o disattivarli in base alle necessità.
+
+        \n\nPer esempio, si può creare il profilo \"Bloatware\" e disattivare tutte le app non desiderate.
+        
+        \nCreare il profilo \"Intrattenimento\" contenente tutte le app e i siti web del genere per poi
+        bloccarli tutti quando bisogna concentrarsi sul lavoro.
+
+        \n\nCome predefinito ho creato il profilo \"Default\" per tutti, in cui vi saranno tutte le 
+        impostazioni correnti (sperando funzioni come previsto). Non è possibile eliminare il profilo
+        \"Default\".
+
+        \n\nLa nuova funzione Profili è gratuita (Comunque cambiare i \"Permessi App\" è disponibile solo
+        per gli Utenti Premium).
+
+        \n\nSi potrebbe trovare l'interfaccia confusionaria. Ma dopo questa release io e i miei amici
+        (chi è così gentile da aiutare) vi lavoreremo per darvi la migliore esperienza possibile.
+
+        \n\nVoglio ringraziare tutte le persone che hanno contribuito al progetto fornendomi feedback,
+        traducendo Adhell in altre lingue, discutendone sui forum e dandomi idee per nuove funzionalità.
+        Apprezzo veramente il vostro prezioso tempo. Grazie.
+
+        \n\nState pronti. Se tutto va secondo i piani, Adhell avrà nuove funzionalità molto presto.
+    </string>
+    <string name="default_policy_name">Default</string>
+    <string name="last_modified">Ultima modifica: {{lastModified}}</string>
+    <string name="number_packages_disabled">{{numberOfDisabledPackages}} App Disabilitate</string>
+    <string name="number_of_hosts">{{numberOfHosts}} host</string>
+    <string name="custom_domains_blocked">{{numberOfDomainsBlockedByUser}} url personali bloccati
+    </string>
+    <string name="number_of_domains_whitelisted">{{numberOfWhitelistedDomains}} url personali esclusi
+    </string>
+    <string name="number_of_permissions_restricted">{{numberOfRestrictedPermissions}} permessi
+        limitati
+    </string>
+    <string name="blog">Blog</string>
+    <string name="only_for_premium_title">Solo per Utenti Premium</string>
 
 </resources>

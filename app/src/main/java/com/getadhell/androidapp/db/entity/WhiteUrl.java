@@ -2,6 +2,7 @@ package com.getadhell.androidapp.db.entity;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
@@ -13,7 +14,10 @@ import java.util.Date;
 
 @Entity(
         tableName = "WhiteUrl",
-        indices = {@Index(value = {"url"}, unique = true)}
+        indices = {@Index(value = {"url"}, unique = true)},
+        foreignKeys = @ForeignKey(entity = PolicyPackage.class,
+                parentColumns = "id",
+                childColumns = "policyPackageId")
 )
 @TypeConverters(DateConverter.class)
 public class WhiteUrl {
@@ -25,6 +29,9 @@ public class WhiteUrl {
     public String url;
 
     public Date insertedAt;
+
+    @ColumnInfo(name = "policyPackageId")
+    public String policyPackageId;
 
     @Ignore
     public WhiteUrl(String url) {

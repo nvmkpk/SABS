@@ -4,10 +4,12 @@ import android.annotation.SuppressLint;
 import android.app.enterprise.ApplicationPolicy;
 import android.arch.lifecycle.LifecycleFragment;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -46,13 +48,15 @@ public class PackageDisablerFragment extends LifecycleFragment {
     ApplicationPolicy appPolicy;
     @Inject
     AppDatabase mDb;
+    @Inject
+    PackageManager packageManager;
     private ListView installedAppsView;
     private Context context;
-    private PackageManager packageManager;
     private List<AppInfo> packageList;
     private DisablerAppAdapter adapter;
     private EditText editText;
     private int sortState = SORTED_ALPHABETICALLY;
+    private AppCompatActivity parentActivity;
 
 
     public PackageDisablerFragment() {
@@ -62,19 +66,24 @@ public class PackageDisablerFragment extends LifecycleFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         App.get().getAppComponent().inject(this);
+        parentActivity = (AppCompatActivity) getActivity();
     }
 
     @SuppressLint("StaticFieldLeak")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getActivity().setTitle(getString(R.string.package_disabler_fragment_title));
+        if (parentActivity.getSupportActionBar() != null) {
+            parentActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            parentActivity.getSupportActionBar().setHomeButtonEnabled(false);
+        }
+        setHasOptionsMenu(true);
         View view = inflater.inflate(R.layout.fragment_package_disabler, container, false);
         context = getActivity().getApplicationContext();
-        packageManager = getActivity().getPackageManager();
-        editText = (EditText) view.findViewById(R.id.disabledFilter);
-        setHasOptionsMenu(true);
+        editText = view.findViewById(R.id.disabledFilter);
+        editText.setOnClickListener(v -> editText.setCursorVisible(true));
 
-        installedAppsView = (ListView) view.findViewById(R.id.installed_apps_list);
+        installedAppsView = view.findViewById(R.id.installed_apps_list);
         installedAppsView.setOnItemClickListener((AdapterView<?> adView, View v, int i, long l) -> {
             DisablerAppAdapter disablerAppAdapter = (DisablerAppAdapter) adView.getAdapter();
             final String name = disablerAppAdapter.getItem(i).packageName;
@@ -98,7 +107,6 @@ public class PackageDisablerFragment extends LifecycleFragment {
         });
 
         loadApplicationsList(false);
-
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -113,7 +121,14 @@ public class PackageDisablerFragment extends LifecycleFragment {
                 loadApplicationsList(false);
             }
         });
-
+        Intent intent = parentActivity.getIntent();
+        boolean bxIntegration = intent.getBooleanExtra("bxIntegration", false);
+        if (bxIntegration) {
+            intent.removeExtra("bxIntegration");
+            editText.setText("com.samsung.android.app.spage");
+            editText.requestFocus();
+            editText.setCursorVisible(false);
+        }
         return view;
     }
 
@@ -229,26 +244,28 @@ public class PackageDisablerFragment extends LifecycleFragment {
             if (convertView == null) {
                 convertView = LayoutInflater.from(context).inflate(R.layout.item_disable_app_list_view, parent, false);
                 holder = new ViewHolder();
-                holder.nameH = (TextView) convertView.findViewById(R.id.appName);
-                holder.packageH = (TextView) convertView.findViewById(R.id.packName);
-                holder.switchH = (Switch) convertView.findViewById(R.id.switchDisable);
-                holder.imageH = (ImageView) convertView.findViewById(R.id.appIcon);
+                holder.nameH = convertView.findViewById(R.id.appName);
+                holder.packageH = convertView.findViewById(R.id.packName);
+                holder.switchH = convertView.findViewById(R.id.switchDisable);
+                holder.imageH = convertView.findViewById(R.id.appIcon);
                 convertView.setTag(holder);
-            } else holder = (ViewHolder) convertView.getTag();
-
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
             AppInfo appInfo = applicationInfoList.get(position);
             holder.nameH.setText(appInfo.appName);
             holder.packageH.setText(appInfo.packageName);
             holder.switchH.setChecked(!appInfo.disabled);
-            if (appInfo.system)
+            if (appInfo.system) {
                 convertView.findViewById(R.id.systemOrNot).setVisibility(View.VISIBLE);
-            else convertView.findViewById(R.id.systemOrNot).setVisibility(View.GONE);
+            } else {
+                convertView.findViewById(R.id.systemOrNot).setVisibility(View.GONE);
+            }
             try {
                 holder.imageH.setImageDrawable(packageManager.getApplicationIcon(appInfo.packageName));
             } catch (PackageManager.NameNotFoundException e) {
                 Log.e(TAG, "Failed to get ImageDrawable", e);
             }
-
             return convertView;
         }
     }

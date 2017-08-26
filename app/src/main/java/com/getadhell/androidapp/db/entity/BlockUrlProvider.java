@@ -2,6 +2,7 @@ package com.getadhell.androidapp.db.entity;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
@@ -10,7 +11,11 @@ import com.getadhell.androidapp.db.DateConverter;
 
 import java.util.Date;
 
-@Entity(tableName = "BlockUrlProviders", indices = {@Index(value = {"url"}, unique = true)})
+@Entity(tableName = "BlockUrlProviders",
+        indices = {@Index(value = {"url"}, unique = true)},
+        foreignKeys = @ForeignKey(entity = PolicyPackage.class,
+                parentColumns = "id",
+                childColumns = "policyPackageId"))
 @TypeConverters(DateConverter.class)
 public class BlockUrlProvider {
     @PrimaryKey(autoGenerate = true)
@@ -31,4 +36,7 @@ public class BlockUrlProvider {
 
     @ColumnInfo(name = "selected")
     public boolean selected;
+
+    @ColumnInfo(name = "policyPackageId")
+    public String policyPackageId;
 }

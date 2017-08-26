@@ -53,6 +53,7 @@ public class AdhellPermissionInAppsAdapter extends RecyclerView.Adapter<AdhellPe
             return;
         }
         Log.w(TAG, appPermissionControlInfos.toString());
+        Log.w(TAG, "Size of appPermissionControlInfos: " + appPermissionControlInfos.size());
         for (AppPermissionControlInfo appPermissionControlInfo : appPermissionControlInfos) {
             if (appPermissionControlInfo == null) {
                 continue;
@@ -60,6 +61,7 @@ public class AdhellPermissionInAppsAdapter extends RecyclerView.Adapter<AdhellPe
             if (appPermissionControlInfo.mapEntries == null || appPermissionControlInfo.mapEntries.size() == 0) {
                 continue;
             }
+            Log.w(TAG, appPermissionControlInfo.mapEntries.toString());
             restrictedPackageNames = appPermissionControlInfo.mapEntries.get(currentPermissionName);
         }
     }

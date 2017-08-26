@@ -4,6 +4,7 @@ import android.arch.lifecycle.LifecycleFragment;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,17 +20,23 @@ public class OnlyPremiumFragment extends LifecycleFragment {
     private TextView goPremiumTextView;
     private Button goPremiumButton;
     private Button goThreeMonthPremium;
+    private AppCompatActivity parentActivity;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().setTitle("Only for Premium");
+        parentActivity = (AppCompatActivity) getActivity();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+        if (parentActivity.getSupportActionBar() != null) {
+            parentActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            parentActivity.getSupportActionBar().setHomeButtonEnabled(false);
+        }
+        getActivity().setTitle(R.string.only_for_premium_title);
         View view = inflater.inflate(R.layout.fragment_only_premium, container, false);
         goPremiumTextView = view.findViewById(R.id.goPremiumTextView);
         goPremiumButton = view.findViewById(R.id.goPremiumButton);

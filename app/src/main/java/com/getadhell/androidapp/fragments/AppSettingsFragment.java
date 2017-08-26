@@ -1,13 +1,13 @@
 package com.getadhell.androidapp.fragments;
 
 import android.app.admin.DevicePolicyManager;
+import android.arch.lifecycle.LifecycleFragment;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -26,7 +26,7 @@ import com.getadhell.androidapp.dialogfragment.DnsChangeDialogFragment;
 import com.getadhell.androidapp.receiver.CustomDeviceAdminReceiver;
 import com.getadhell.androidapp.utils.DeviceAdminInteractor;
 
-public class AppSettingsFragment extends Fragment {
+public class AppSettingsFragment extends LifecycleFragment {
     private static final String TAG = AppSettingsFragment.class.getCanonicalName();
     private FragmentManager fragmentManager;
     private ContentBlocker contentBlocker;

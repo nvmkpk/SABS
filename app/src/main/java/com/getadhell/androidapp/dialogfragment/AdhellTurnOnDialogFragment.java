@@ -63,8 +63,8 @@ public class AdhellTurnOnDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_fragment_turn_on_adhell, container);
-        turnOnAdminButton = (Button) view.findViewById(R.id.turnOnAdminButton);
-        activateKnoxButton = (Button) view.findViewById(R.id.activateKnoxButton);
+        turnOnAdminButton = view.findViewById(R.id.turnOnAdminButton);
+        activateKnoxButton = view.findViewById(R.id.activateKnoxButton);
 
         turnOnAdminButton.setOnClickListener(v -> {
             deviceAdminInteractor.forceEnableAdmin(this.getActivity());

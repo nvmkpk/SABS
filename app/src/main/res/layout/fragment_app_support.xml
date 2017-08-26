@@ -12,10 +12,9 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
-        android:gravity="center_horizontal"
+        android:gravity="start"
         android:text="@string/help_developers_to_keep_up_development"
-        android:textColor="#000000"
-        android:textSize="@dimen/text_small_size" />
+        android:textColor="#000000" />
 
     <Button
         android:id="@+id/subscriptionButton"
@@ -31,7 +30,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/subscriptionButton"
-        android:layout_margin="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center_horizontal"
         android:text="@string/subscribe_three_month" />
 
 </RelativeLayout>
