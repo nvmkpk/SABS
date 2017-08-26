@@ -3,12 +3,14 @@ package com.fiendfyre.AdHell2.dialogfragment;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.fiendfyre.AdHell2.R;
+import com.fiendfyre.AdHell2.fragments.BlockerFragment;
 import com.fiendfyre.AdHell2.utils.DeviceAdminInteractor;
 
 import io.reactivex.Single;
@@ -38,6 +41,7 @@ public class AdhellTurnOnDialogFragment extends DialogFragment {
     private Button turnOnAdminButton;
     private Button activateKnoxButton;
     private CompositeDisposable disposable;
+    private FragmentManager fragmentManager;
 
     public AdhellTurnOnDialogFragment() {
         deviceAdminInteractor = DeviceAdminInteractor.getInstance();
@@ -69,6 +73,7 @@ public class AdhellTurnOnDialogFragment extends DialogFragment {
         turnOnAdminButton = view.findViewById(R.id.turnOnAdminButton);
         activateKnoxButton = view.findViewById(R.id.activateKnoxButton);
 
+        fragmentManager = getActivity().getSupportFragmentManager();
         turnOnAdminButton.setOnClickListener(v -> {
             deviceAdminInteractor.forceEnableAdmin(this.getActivity());
         });
@@ -86,7 +91,6 @@ public class AdhellTurnOnDialogFragment extends DialogFragment {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("knox_key", knoxKeyEditText.getText().toString());
                 editor.commit();
-                knoxKeyButton.setEnabled(false);
             }
         });
 
@@ -204,5 +208,14 @@ public class AdhellTurnOnDialogFragment extends DialogFragment {
         if (disposable != null && !disposable.isDisposed()) {
             disposable.dispose();
         }
+    }
+
+    @Override
+    public void onDismiss(final DialogInterface dialog){
+        super.onDismiss(dialog);
+        fragmentManager
+                .beginTransaction()
+                .replace(R.id.fragmentContainer, new BlockerFragment(), BlockerFragment.class.getCanonicalName())
+                .commit();
     }
 }
