@@ -102,7 +102,7 @@
         download_manager_reference_id
     </string>
 
-    <string name="blocker_fragment_title" translatable="false">Adhell</string>
+    <string name="blocker_fragment_title" translatable="false">Adhell 2</string>
     <string name="package_disabler_fragment_title">Package disabler</string>
     <string name="package_disabler_bottombar_title">Package disabler</string>
     <string name="app_support_fragment_title">App support</string>
@@ -123,12 +123,9 @@
     <string name="support_app_development">Support app development</string>
     <string name="help_developers_to_keep_up_development">
         Here you can support Adhell\'s development. \n
-        There is only one premium feature for now. \n
-        Though you can really help us develop the cool product by subscribing. \n
-        More pro features will be available in the near future. \n
-        \n
-        - We offer 7 days free trial \n
-        - You can cancel the subscription anytime from Adhell\'s Google Play Store page \n
+        I\'m a broke college student and there are no premium features anymore. \n
+        I\'m just doing this in my spare time. \n
+        Donations are completely unnecessary but greatly appreciated. \n
     </string>
     <string name="add_provider">Add Url Provider</string>
     <string name="adaway_hosts" translatable="false">https://adaway.org/hosts.txt</string>
