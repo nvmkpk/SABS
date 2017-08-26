@@ -47,7 +47,7 @@ public class BlockedDomainService extends IntentService {
         if (!deviceAdminInteractor.isContentBlockerSupported()) {
             return;
         }
-        if (!deviceAdminInteractor.isKnoxEnbaled()) {
+        if (!deviceAdminInteractor.isKnoxEnabled()) {
             return;
         }
         ContentBlocker contentBlocker = deviceAdminInteractor.getContentBlocker();

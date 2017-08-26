@@ -12,7 +12,7 @@ buildscript {
 }
 
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
+//apply plugin: 'io.fabric'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
@@ -23,7 +23,7 @@ android {
     buildToolsVersion '26.0.1'
 
     defaultConfig {
-        applicationId "com.getadhell.androidapp"
+        applicationId "com.getadhell.androidapp2"
         minSdkVersion 16
         targetSdkVersion 26
         versionCode 73
@@ -34,11 +34,11 @@ android {
 //            minifyEnabled true
 //            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        buildTypes.each {
-            it.buildConfigField 'String', 'ADHELL_TOKEN', AdhellToken
-            it.buildConfigField 'String', 'ADHELL_KEY_URL', AdhellKeyUrl
-            it.buildConfigField 'String', 'ADHELL_HEARTBEAT_URL', AdhellHeartbeatUrl
-        }
+        /*buildTypes.each {
+            it.buildConfigField 'String', 'ADHELL_TOKEN', '"WJMWLFEUDSAIWICHQZQGDDEZTXNRYOXKQRXONIKUMUBODQNVZRFCKHXGUENAAKZQUYOHJJEPMWODKTON"'
+            it.buildConfigField 'String', 'ADHELL_KEY_URL', '"https://backend.getadhell.com/knox-key-secret"'
+            it.buildConfigField 'String', 'ADHELL_HEARTBEAT_URL', '"https://backend.getadhell.com/adhell-heartbeat"'
+        }*/
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_8
             targetCompatibility JavaVersion.VERSION_1_8

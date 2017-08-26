@@ -15,8 +15,8 @@
         <!--icon="@drawable/ic_assignment"-->
         <!--id="@+id/profilesTab"-->
         <!--title="@string/app_profiles_tab_title"/>-->
-    <tab
+    <!--<tab
         icon="@drawable/ic_account_balance"
         id="@+id/appSupportTab"
-        title="@string/app_support_fragment_title"/>
+        title="@string/app_support_fragment_title"/>-->
 </tabs>

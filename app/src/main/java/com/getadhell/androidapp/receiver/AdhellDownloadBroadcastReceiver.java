@@ -38,7 +38,7 @@ public class AdhellDownloadBroadcastReceiver extends BroadcastReceiver {
         long savedReferenceId = sharedPref.getLong(context.getString(R.string.download_manager_reference_id), -2);
         if (referenceId == savedReferenceId) {
             DeviceAdminInteractor deviceAdminInteractor = DeviceAdminInteractor.getInstance();
-            if (deviceAdminInteractor.isKnoxEnbaled()) {
+            if (deviceAdminInteractor.isKnoxEnabled()) {
                 Log.i(TAG, "Knox enabled");
                 File fileDir = context.getExternalFilesDir(null);
                 if (fileDir == null || !fileDir.exists()) {

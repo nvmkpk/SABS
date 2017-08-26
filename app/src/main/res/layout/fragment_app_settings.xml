@@ -33,4 +33,20 @@
         android:layout_gravity="center_horizontal"
         android:text="@string/delete_app"/>
 
+    <EditText
+        android:id="@+id/knox_key_editText"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Knox Key"
+        android:layout_gravity="center_horizontal"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/submit_knox_key_button"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Submit Knox Key" />
+
 </LinearLayout>

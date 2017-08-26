@@ -1,6 +1,5 @@
 package com.getadhell.androidapp;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -15,8 +14,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.crashlytics.android.Crashlytics;
-import com.crashlytics.android.answers.Answers;
 import com.getadhell.androidapp.blocker.ContentBlocker;
 import com.getadhell.androidapp.blocker.ContentBlocker56;
 import com.getadhell.androidapp.blocker.ContentBlocker57;
@@ -27,15 +24,12 @@ import com.getadhell.androidapp.fragments.AdhellNotSupportedFragment;
 import com.getadhell.androidapp.fragments.AdhellPermissionInfoFragment;
 import com.getadhell.androidapp.fragments.AppSupportFragment;
 import com.getadhell.androidapp.fragments.BlockerFragment;
-import com.getadhell.androidapp.fragments.OnlyPremiumFragment;
 import com.getadhell.androidapp.fragments.PackageDisablerFragment;
 import com.getadhell.androidapp.service.BlockedDomainService;
 import com.getadhell.androidapp.utils.AdhellAppIntegrity;
 import com.getadhell.androidapp.utils.DeviceAdminInteractor;
 import com.getadhell.androidapp.viewmodel.SharedBillingViewModel;
 import com.roughike.bottombar.BottomBar;
-
-import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
     public static final String ADHELL_STANDARD_PACKAGE = "http://getadhell.com/standard-package.txt";
@@ -74,7 +68,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Fabric.with(this, new Answers(), new Crashlytics());
+        //App.get().getAppComponent().inject(this);
+//        Fabric.with(this, new Answers(), new Crashlytics());
+        //Fabric.with(this, new Answers(), new Crashlytics());
 
         fragmentManager = getSupportFragmentManager();
         mAdminInteractor = DeviceAdminInteractor.getInstance();
@@ -102,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            if (!mAdminInteractor.isKnoxEnbaled()) {
+            if (!mAdminInteractor.isKnoxEnabled()) {
                 Log.d(TAG, "Knox disabled");
                 return;
             }
@@ -117,9 +113,11 @@ public class MainActivity extends AppCompatActivity {
             adhellAppIntegrity.checkAdhellStandardPackage();
             adhellAppIntegrity.fillPackageDb();
         });
+        //sharedBillingViewModel = ViewModelProviders.of(this).get(SharedBillingViewModel.class);
+        //sharedBillingViewModel.startBillingConnection();
         // com.samsung.android.app.spage
-        sharedBillingViewModel = ViewModelProviders.of(this).get(SharedBillingViewModel.class);
-        sharedBillingViewModel.startBillingConnection();
+        //sharedBillingViewModel = ViewModelProviders.of(this).get(SharedBillingViewModel.class);
+        //sharedBillingViewModel.startBillingConnection();
     }
 
     @Override
@@ -149,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        if (!mAdminInteractor.isKnoxEnbaled()) {
+        if (!mAdminInteractor.isKnoxEnabled()) {
             Log.d(TAG, "Knox disabled");
             return;
         }
@@ -190,11 +188,12 @@ public class MainActivity extends AppCompatActivity {
 //                replacing = new ProfilesFragment();
 //                break;
             case R.id.appPermissionsTab:
-                if (sharedBillingViewModel.billingModel.isPremiumLiveData.getValue()) {
+                /*if (sharedBillingViewModel.billingModel.isPremiumLiveData.getValue()) {
                     replacing = new AdhellPermissionInfoFragment();
                 } else {
                     replacing = new OnlyPremiumFragment();
-                }
+                }*/
+                replacing = new AdhellPermissionInfoFragment();
                 break;
             default:
                 replacing = new AppSupportFragment();
@@ -222,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        if (!mAdminInteractor.isKnoxEnbaled()) {
+        if (!mAdminInteractor.isKnoxEnabled()) {
             Log.d(TAG, "Knox disabled");
             Log.d(TAG, "Checking if internet connection exists");
             ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);

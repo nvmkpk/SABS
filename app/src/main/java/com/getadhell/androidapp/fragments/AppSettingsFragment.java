@@ -5,11 +5,13 @@ import android.arch.lifecycle.LifecycleFragment;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -17,7 +19,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
+import com.getadhell.androidapp.BuildConfig;
 import com.getadhell.androidapp.R;
 import com.getadhell.androidapp.blocker.ContentBlocker;
 import com.getadhell.androidapp.blocker.ContentBlocker56;
@@ -87,7 +91,9 @@ public class AppSettingsFragment extends LifecycleFragment {
                     DevicePolicyManager dpm = (DevicePolicyManager) mContext.getSystemService(Context.DEVICE_POLICY_SERVICE);
                     dpm.removeActiveAdmin(devAdminReceiver);
                     Intent intent = new Intent(Intent.ACTION_DELETE);
-                    intent.setData(Uri.parse("package:com.getadhell.androidapp"));
+                    //Todo: Make delete function dynamic
+                    String packageName = "package:" + BuildConfig.APPLICATION_ID;
+                    intent.setData(Uri.parse(packageName));
                     startActivity(intent);
                 })
                 .setNegativeButton(android.R.string.no, null).show());
@@ -104,6 +110,21 @@ public class AppSettingsFragment extends LifecycleFragment {
             changeDnsButton.setVisibility(View.GONE);
         }
 
+        EditText knoxKeyEditText = (EditText)view.findViewById(R.id.knox_key_editText);
+        Button knoxKeyButton = (Button)view.findViewById(R.id.submit_knox_key_button);
+        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        String knoxKey = sharedPreferences.getString("knox_key", null);
+        if (knoxKey!=null) {
+            knoxKeyEditText.setText(knoxKey);
+        }
+        knoxKeyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("knox_key", knoxKeyEditText.getText().toString());
+                editor.commit();
+            }
+        });
 
         return view;
     }

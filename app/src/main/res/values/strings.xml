@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Adhell</string>
+    <string name="app_name" translatable="false">Adhell 2</string>
     <string name="wait">Wait…</string>
     <string name="Reports">Reports</string>
     <string name="about">App for Samsung smartphones that blocks ads and trackers in Chrome. Website

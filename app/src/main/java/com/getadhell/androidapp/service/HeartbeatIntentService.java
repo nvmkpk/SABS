@@ -129,7 +129,7 @@ public class HeartbeatIntentService extends IntentService {
 //        makeHearbeatRequest();
     }
 
-    private void makeHearbeatRequest() {
+    /*private void makeHearbeatRequest() {
         AndroidDeviceForm androidDeviceForm = new AndroidDeviceForm();
         androidDeviceForm.adhellIntVersion = BuildConfig.VERSION_CODE;
         androidDeviceForm.deviceManufacturer = android.os.Build.MANUFACTURER;
@@ -156,5 +156,5 @@ public class HeartbeatIntentService extends IntentService {
         } catch (IOException e) {
             Log.e(TAG, "Failed heartbeat request", e);
         }
-    }
+    }*/
 }

@@ -28,6 +28,7 @@ public class App extends Application {
                 .build();
     }
 
+
     public AppComponent getAppComponent() {
         return appComponent;
     }

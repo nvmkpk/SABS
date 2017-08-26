@@ -19,6 +19,22 @@
         android:layout_marginBottom="5dp"
         android:text="@string/turn_on_admin" />
 
+    <EditText
+        android:id="@+id/knox_key_editText"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:ems="10"
+        android:hint="Knox Key"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/submit_knox_key_button"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Submit Knox Key" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,4 +48,5 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="5dp"
         android:text="@string/activate_knox" />
+
 </LinearLayout>

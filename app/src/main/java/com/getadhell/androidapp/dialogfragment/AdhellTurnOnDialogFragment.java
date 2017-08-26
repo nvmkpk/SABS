@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.getadhell.androidapp.R;
@@ -42,7 +44,8 @@ public class AdhellTurnOnDialogFragment extends DialogFragment {
         knoxKeyObservable = Single.create(emmiter -> {
             String knoxKey;
             try {
-                knoxKey = deviceAdminInteractor.getKnoxKey();
+                SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+                knoxKey = deviceAdminInteractor.getKnoxKey(sharedPreferences);
                 emmiter.onSuccess(knoxKey);
             } catch (Throwable e) {
                 emmiter.onError(e);
@@ -70,6 +73,22 @@ public class AdhellTurnOnDialogFragment extends DialogFragment {
             deviceAdminInteractor.forceEnableAdmin(this.getActivity());
         });
 
+        EditText knoxKeyEditText = (EditText)view.findViewById(R.id.knox_key_editText);
+        Button knoxKeyButton = (Button)view.findViewById(R.id.submit_knox_key_button);
+        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        String knoxKey = sharedPreferences.getString("knox_key", null);
+        if (knoxKey!=null) {
+            knoxKeyEditText.setText(knoxKey);
+        }
+        knoxKeyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("knox_key", knoxKeyEditText.getText().toString());
+                editor.commit();
+                knoxKeyButton.setEnabled(false);
+            }
+        });
 
         // TODO: Implement on error
         activateKnoxButton.setOnClickListener(v -> {
@@ -114,7 +133,7 @@ public class AdhellTurnOnDialogFragment extends DialogFragment {
             @Override
             public void onReceive(Context context, Intent intent) {
                 DeviceAdminInteractor deviceAdminInteractor = DeviceAdminInteractor.getInstance();
-                if (deviceAdminInteractor.isKnoxEnbaled()) {
+                if (deviceAdminInteractor.isKnoxEnabled()) {
                     Toast.makeText(context, "License activated", Toast.LENGTH_LONG).show();
                     dismiss();
                     allowActivateKnox(false);
@@ -143,7 +162,7 @@ public class AdhellTurnOnDialogFragment extends DialogFragment {
             allowTurnOnAdmin(true);
             turnOnAdminButton.setText("Enable Admin");
         }
-        if (deviceAdminInteractor.isKnoxEnbaled()) {
+        if (deviceAdminInteractor.isKnoxEnabled()) {
             activateKnoxButton.setText("License activated");
             allowActivateKnox(false);
         } else {
@@ -155,7 +174,7 @@ public class AdhellTurnOnDialogFragment extends DialogFragment {
                 allowActivateKnox(true);
             }
         }
-        if (deviceAdminInteractor.isActiveAdmin() && deviceAdminInteractor.isKnoxEnbaled()) {
+        if (deviceAdminInteractor.isActiveAdmin() && deviceAdminInteractor.isKnoxEnabled()) {
             dismiss();
         }
     }

@@ -8,6 +8,7 @@ import android.app.enterprise.license.EnterpriseLicenseManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.annotation.Nullable;
@@ -127,42 +128,15 @@ public class DeviceAdminInteractor {
     /**
      * Check if KNOX enabled
      */
-    public boolean isKnoxEnbaled() {
+    public boolean isKnoxEnabled() {
         return (mContext.checkCallingOrSelfPermission("android.permission.sec.MDM_FIREWALL")
                 == PackageManager.PERMISSION_GRANTED)
                 && (mContext.checkCallingOrSelfPermission("android.permission.sec.MDM_APP_MGMT")
                 == PackageManager.PERMISSION_GRANTED);
     }
 
-    public String getKnoxKey() {
-        RequestBody formBody = new FormBody.Builder()
-                .add("adhellToken", BuildConfig.ADHELL_TOKEN)
-                .build();
-        Request request = new Request.Builder()
-                .url(BuildConfig.ADHELL_KEY_URL)
-                .post(formBody)
-                .build();
-        try {
-            Response response = okHttpClient.newCall(request).execute();
-            if (response.code() != 200) {
-                return null;
-            }
-            String responseBody = response.body().string();
-            CustomResponse customResponse = gson.fromJson(responseBody, CustomResponse.class);
-            if (customResponse.data != null) {
-                return customResponse.data.toString();
-            }
-            return null;
-        } catch (InterruptedIOException e) {
-            Log.e(TAG, "Problem with getting Knox Key from adhell server", e);
-            return null;
-        } catch (IOException e) {
-            Log.e(TAG, "Problem with getting Knox Key from adhell server", e);
-            return null;
-        } catch (Throwable e) {
-            Log.e(TAG, "Problem with getting Knox Key from adhell server", e);
-            return null;
-        }
+    public String getKnoxKey(SharedPreferences sharedPreferences) {
+        return sharedPreferences.getString("knox_key", null);
     }
 
     public boolean installApk(String pathToApk) {
