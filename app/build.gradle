@@ -34,11 +34,6 @@ android {
 //            minifyEnabled true
 //            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        /*buildTypes.each {
-            it.buildConfigField 'String', 'ADHELL_TOKEN', '"WJMWLFEUDSAIWICHQZQGDDEZTXNRYOXKQRXONIKUMUBODQNVZRFCKHXGUENAAKZQUYOHJJEPMWODKTON"'
-            it.buildConfigField 'String', 'ADHELL_KEY_URL', '"https://backend.getadhell.com/knox-key-secret"'
-            it.buildConfigField 'String', 'ADHELL_HEARTBEAT_URL', '"https://backend.getadhell.com/adhell-heartbeat"'
-        }*/
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_8
             targetCompatibility JavaVersion.VERSION_1_8
