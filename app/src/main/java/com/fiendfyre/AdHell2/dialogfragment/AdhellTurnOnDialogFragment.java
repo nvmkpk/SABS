@@ -91,6 +91,8 @@ public class AdhellTurnOnDialogFragment extends DialogFragment {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("knox_key", knoxKeyEditText.getText().toString());
                 editor.commit();
+                Toast.makeText(getContext(), "Key Submitted", Toast.LENGTH_SHORT).show();
+                knoxKeyButton.setText("Key Submitted");
             }
         });
 
