@@ -1,3 +1,5 @@
+## Now Available via XDA here: https://forum.xda-developers.com/galaxy-s8/themes/adhell-2-rootless-ad-blocking-t3663559
+
 # Adhell no-root system adblock (no VPN)
 Open-source ads and trackers blocker for Samsung devices
 
