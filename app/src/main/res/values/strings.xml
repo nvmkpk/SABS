@@ -159,13 +159,20 @@
         that App Permissions work only with non-system apps (apps that you have installed manually).
         We offer 7 days free trial.
     </string>
-    <string name="subs_not_supported_text_view">Subscription mode are not supported. Please update
+    <string name="subs_not_supported_text_view">Subscription mode is not supported. Please update
         Google Play Services
     </string>
     <string name="billing_not_supported">Not Supported</string>
-    <string name="sort_by_alphabet">Sort alphabetically</string>
-    <string name="sort_by_install_time">Sort by install time</string>
-    <string name="sort_by_disabled">Show disabled first</string>
+    <string name="sort_by_alphabet">Sort Alphabetically</string>
+    <string name="sort_by_install_time">Sort by Install Time</string>
+    <string name="sort_by_disabled">Show Disabled First</string>
+    <string name="disabler_import_storage">Import from Storage</string>
+    <string name="disabler_export_storage">Export to Storage</string>
+    <string name="disabler_enable_all">Enable All Apps</string>
+    <string name="imported_from_storage">Importing disabled apps from storage</string>
+    <string name="exported_to_storage">Disabled apps exported to adhell_packages.txt</string>
+    <string name="enabled_all_disabled">Enabling all disabled apps</string>
+    <string name="adhell_export_file" translatable="false">adhell_packages.txt</string>
     <string name="app_list_sorted_by_disabled">Disabled apps are shown first</string>
     <string name="app_profiles_tab_title">Profiles</string>
     <string name="app_permissions_tab_title">Permissions</string>
