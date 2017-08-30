@@ -194,9 +194,8 @@ public class PackageDisablerFragment extends LifecycleFragment {
                     while ((line = reader.readLine()) != null) {
                         try {
                             AppInfo appInfo = mDb.applicationInfoDao().getByPackageName(line);
-                            appInfo.disabled = !appInfo.disabled;
-                            if (appInfo.disabled) appPolicy.setDisableApplication(line);
-                            else appPolicy.setEnableApplication(line);
+                            appInfo.disabled = true;
+                            appPolicy.setDisableApplication(line);
                             mDb.applicationInfoDao().insert(appInfo);
                         }
                         catch (Exception e) {
