@@ -120,13 +120,11 @@
         So this function may work unstable. Sorry "
     </string>
     <string name="add_provider">Add Url Provider</string>
-    <string name="help_developers_to_keep_up_development">Support Adhell development.</string>
-    <string name="show_custom_providers">" There is no Pro features for now,"</string>
+    <string name="show_custom_providers">Mostrar proveedores personalizados</string>
     <string name="delete_url">" but you could really help us to develop cool product by
         subscribing."
     </string>
-    <string name="update_all_providers">" There will be pro features as well in near future)"
-    </string>
+    <string name="update_all_providers">Actualizar todos los proveedores</string>
     <string name="app_list_sorted_by_date">" You can cancel subscription anytime on Adhell Google
         Play page"
     </string>

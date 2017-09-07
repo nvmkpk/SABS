@@ -106,12 +106,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="support_app_development">Encourager le développement de l\'application</string>
-    <string name="help_developers_to_keep_up_development">Encourager le développement d\'Adhell.
-        Il n\'y a qu\'une seule fonctionnalité premium pour l\'instant,
-        Mais vous pourriez vraiment nous aider à développer un produit cool en souscrivant.
-        Il y aura plus de fonctionnalités premium dans un avenir proche.
-        Vous pouvez annuler l\'abonnement à tout moment sur la page Adhell Google Play
-    </string>
     <string name="add_provider">Ajouter un fournisseur d\'URL</string>
     <string name="show_custom_providers">Afficher les fournisseurs personnalisés</string>
     <string name="delete_url">Supprimer l\'URL</string>

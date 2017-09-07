@@ -185,6 +185,8 @@ public class DeviceAdminInteractor {
                     return ContentBlocker57.getInstance();
                 case ENTERPRISE_SDK_VERSION_5_8:
                     return ContentBlocker57.getInstance();
+                case ENTERPRISE_SDK_VERSION_5_9:
+                    return  ContentBlocker57.getInstance();
                 default:
                     return ContentBlocker57.getInstance();
             }
@@ -226,6 +228,7 @@ public class DeviceAdminInteractor {
             case ENTERPRISE_SDK_VERSION_5_7:
             case ENTERPRISE_SDK_VERSION_5_7_1:
             case ENTERPRISE_SDK_VERSION_5_8:
+            case ENTERPRISE_SDK_VERSION_5_9:
                 return true;
             default:
                 return false;

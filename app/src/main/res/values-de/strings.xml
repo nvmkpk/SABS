@@ -50,7 +50,6 @@
     <string name="enable_blocker">Inhaltsblocker aktivieren</string>
     <string name="failed_to_activate_knox_message">Die Aktivierung der Knox-Lizenz ist fehlgeschlagen.</string>
     <string name="hello_blank_fragment">Hallo leeres Fragment</string>
-    <string name="help_developers_to_keep_up_development">"Unterstützen Sie die Entwicklung von Adhell. Derzeit gibt es noch keine Pro-Funktionen, aber Sie können uns schon jetzt durch ein Abonnement helfen, ein cooles Produkt zu entwickeln. In naher Zukunft wird es auch Pro-Funktionen geben. Sie können das Abonnement jederzeit auf der Adhell Google Play Seite abbrechen. "</string>
     <string name="isPolicyEnabled">isPolicyEnabled</string>
     <string name="isSupported">Abwarten</string>
     <string name="knox">Zum Blockieren von Werbung verwendet Adhell ​​die Samsung Firewall. Um diese Funktion zu nutzen, aktivieren Sie bitte die Samsung Lizenz. Dies ist kostenlos.</string>

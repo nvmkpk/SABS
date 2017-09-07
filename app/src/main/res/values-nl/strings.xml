@@ -102,12 +102,6 @@
 
     <string name="hello_blank_fragment">Hallo leeg fragment</string>
     <string name="support_app_development">Ondersteun ontwikkeling van deze app</string>
-    <string name="help_developers_to_keep_up_development">Ondersteun de ontwikkeling van Adhell.
-        Er is nu nog maar een Premium functie,
-        maar u kunt ons helpen om meer functies toe te voegen door u te abonneren.
-        Er zullen spoedig meer Pro functies toegevoegd worden.
-        U kunt uw abonnement altijd stopzetten op de Adhell Google Play pagina.
-    </string>
     <string name="add_provider">Url provider toevoegen</string>
     <string name="show_custom_providers">Toon eigen providers</string>
     <string name="delete_url">Verwijder Url</string>

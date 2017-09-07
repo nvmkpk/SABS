@@ -121,7 +121,7 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="support_app_development">Support app development</string>
-    <string name="help_developers_to_keep_up_development">
+    <string name="help_developers_to_keep_up_development" translatable="false">
         Here you can support Adhell\'s development. \n
         I\'m a broke college student and there are no premium features anymore. \n
         I\'m just doing this in my spare time. \n
