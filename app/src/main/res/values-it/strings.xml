@@ -109,12 +109,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Ciao! Frammento vuoto</string>
     <string name="support_app_development">Supporta lo sviluppo dell\'App</string>
-    <string name="help_developers_to_keep_up_development">Supporta lo sviluppo di Adhell.
-        Non ci sono funzioni Pro per adesso,
-        ma puoi realmente aiutarci a sviluppare bei prodotti abbonandoti.
-        Probabilmente ci saranno funzioni Pro nell\'immediato futuro)
-        Puoi annullare l\'abbonamento quando vuoi dalla pagina di AdHell del Play Store
-    </string>
     <string name="add_provider">Aggiungi File Host</string>
     <string name="show_custom_providers">Aggiungi Link file Host</string>
     <string name="delete_url">Elimina Link</string>

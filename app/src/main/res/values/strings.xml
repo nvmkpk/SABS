@@ -166,12 +166,12 @@
     <string name="sort_by_alphabet">Sort Alphabetically</string>
     <string name="sort_by_install_time">Sort by Install Time</string>
     <string name="sort_by_disabled">Show Disabled First</string>
-    <string name="disabler_import_storage">Import from Storage</string>
-    <string name="disabler_export_storage">Export to Storage</string>
-    <string name="disabler_enable_all">Enable All Apps</string>
-    <string name="imported_from_storage">Importing disabled apps from storage</string>
-    <string name="exported_to_storage">Disabled apps exported to adhell_packages.txt</string>
-    <string name="enabled_all_disabled">Enabling all disabled apps</string>
+    <string name="disabler_import_storage" translatable="false">Import from Storage</string>
+    <string name="disabler_export_storage" translatable="false">Export to Storage</string>
+    <string name="disabler_enable_all" translatable="false">Enable All Apps</string>
+    <string name="imported_from_storage" translatable="false">Importing disabled apps from storage</string>
+    <string name="exported_to_storage" translatable="false">Disabled apps exported to adhell_packages.txt</string>
+    <string name="enabled_all_disabled" translatable="false">Enabling all disabled apps</string>
     <string name="adhell_export_file" translatable="false">adhell_packages.txt</string>
     <string name="app_list_sorted_by_disabled">Disabled apps are shown first</string>
     <string name="app_profiles_tab_title">Profiles</string>
