@@ -157,7 +157,7 @@ public class DeviceAdminInteractor {
         try {
             switch (enterpriseDeviceManager.getEnterpriseSdkVer()) {
                 case ENTERPRISE_SDK_VERSION_NONE:
-                    return null;
+                    return ContentBlocker57.getInstance();
                 case ENTERPRISE_SDK_VERSION_2:
                 case ENTERPRISE_SDK_VERSION_2_1:
                 case ENTERPRISE_SDK_VERSION_2_2:
@@ -231,7 +231,7 @@ public class DeviceAdminInteractor {
             case ENTERPRISE_SDK_VERSION_5_9:
                 return true;
             default:
-                return false;
+                return true;
         }
     }
 

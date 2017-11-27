@@ -17,6 +17,6 @@ public class BlockedDomainAlarmReceiver extends BroadcastReceiver {
         Log.d(TAG, "Received from alarmManager");
         Intent i = new Intent(context, BlockedDomainService.class);
         i.putExtra("launchedFrom", "alarm-receiver");
-        context.startService(i);
+        //context.startService(i);
     }
 }

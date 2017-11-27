@@ -20,10 +20,9 @@ repositories {
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '26.0.1'
 
     defaultConfig {
-        applicationId "com.fiendfyre.AdHell2"
+        applicationId "com.fiendfyre.AdHell278978"
         minSdkVersion 16
         targetSdkVersion 26
         versionCode 2
