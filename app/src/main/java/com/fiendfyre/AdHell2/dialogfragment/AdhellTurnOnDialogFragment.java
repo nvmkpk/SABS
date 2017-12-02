@@ -148,6 +148,9 @@ public class AdhellTurnOnDialogFragment extends DialogFragment {
                 } else {
                     Toast.makeText(context, "License activation failed. Try again", Toast.LENGTH_LONG).show();
                     Log.w(TAG, "License activation failed");
+                    activateKnoxButton.setEnabled(true); // Allow the user to try again
+                    activateKnoxButton.setText("Activate License"); // Allow the user to try again
+                    allowActivateKnox(true);  // Allow the user to try again
                 }
             }
         };
