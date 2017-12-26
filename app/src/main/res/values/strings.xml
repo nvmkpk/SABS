@@ -222,5 +222,8 @@
     <string name="number_of_permissions_restricted">{{numberOfRestrictedPermissions}} permissions
         restricted
     </string>
+    <string name="icon_image">Icon Image</string>
+    <string name="app_name_hint">App name</string>
+    <string name="url">url</string>
 
 </resources>

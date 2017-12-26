@@ -10,7 +10,8 @@
         android:layout_margin="10dp"
         android:clickable="false"
         android:focusable="false"
-        android:focusableInTouchMode="false"/>
+        android:focusableInTouchMode="false"
+        android:contentDescription="@string/icon_image"/>
     <Switch
         android:id="@+id/switchDisable"
         android:layout_width="wrap_content"

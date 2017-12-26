@@ -12,7 +12,8 @@
         android:imeOptions="actionSearch"
         android:inputType="textNoSuggestions|textVisiblePassword"
         android:lines="1"
-        android:singleLine="true" />
+        android:singleLine="true"
+        android:hint="@string/app_name_hint"/>
 
     <ListView
         android:id="@+id/installed_apps_list"

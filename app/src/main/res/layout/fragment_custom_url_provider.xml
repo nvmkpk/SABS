@@ -23,7 +23,8 @@
         android:layout_toLeftOf="@+id/addBlockUrlProviderButton"
         android:layout_toStartOf="@+id/addBlockUrlProviderButton"
         android:inputType="textUri"
-        android:singleLine="true" />
+        android:singleLine="true"
+        android:hint="@string/url"/>
 
     <Button
         android:id="@+id/addBlockUrlProviderButton"
