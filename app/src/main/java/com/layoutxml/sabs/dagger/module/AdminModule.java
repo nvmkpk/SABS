@@ -7,9 +7,12 @@ import android.content.Context;
 import com.layoutxml.sabs.dagger.scope.AdhellApplicationScope;
 import com.layoutxml.sabs.receiver.CustomDeviceAdminReceiver;
 
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 
+@Singleton
 @Module(includes = {AppModule.class})
 public class AdminModule {
     @Provides

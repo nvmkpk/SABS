@@ -5,6 +5,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
+import android.support.annotation.NonNull;
 
 import com.layoutxml.sabs.db.DateConverter;
 
@@ -18,6 +19,7 @@ import java.util.List;
 public class PolicyPackage {
 
     @PrimaryKey
+    @NonNull
     @ColumnInfo(name = "id")
     public String id;
 

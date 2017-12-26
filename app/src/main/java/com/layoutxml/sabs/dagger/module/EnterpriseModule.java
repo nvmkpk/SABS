@@ -12,11 +12,14 @@ import android.util.Log;
 import com.layoutxml.sabs.dagger.scope.AdhellApplicationScope;
 import com.sec.enterprise.firewall.Firewall;
 
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 
 import static android.app.enterprise.EnterpriseDeviceManager.ENTERPRISE_POLICY_SERVICE;
 
+@Singleton
 @Module(includes = {AppModule.class})
 public class EnterpriseModule {
     private static final String TAG = EnterpriseModule.class.getCanonicalName();
