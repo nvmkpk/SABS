@@ -79,7 +79,6 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-core:2.8.9'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.8.9'
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.8.9'
-    compile 'com.roughike:bottom-bar:2.3.1'
     compile 'com.android.billingclient:billing:dp-1'
 
     compile "android.arch.lifecycle:runtime:1.0.0"

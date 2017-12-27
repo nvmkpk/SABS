@@ -30,8 +30,6 @@ import com.layoutxml.sabs.fragments.PackageDisablerFragment;
 import com.layoutxml.sabs.service.BlockedDomainService;
 import com.layoutxml.sabs.utils.AdhellAppIntegrity;
 import com.layoutxml.sabs.utils.DeviceAdminInteractor;
-import com.layoutxml.sabs.viewmodel.SharedBillingViewModel;
-import com.roughike.bottombar.BottomBar;
 
 public class MainActivity extends AppCompatActivity {
     public static final String ADHELL_STANDARD_PACKAGE = "http://getadhell.com/standard-package.txt";
@@ -42,8 +40,6 @@ public class MainActivity extends AppCompatActivity {
     private AdhellNotSupportedDialogFragment adhellNotSupportedDialogFragment;
     private AdhellTurnOnDialogFragment adhellTurnOnDialogFragment;
     private NoInternetConnectionDialogFragment noInternetConnectionDialogFragment;
-    private SharedBillingViewModel sharedBillingViewModel;
-//    private BottomBar bottomBar;
     BottomNavigationView bottomNavigationView;
 
 
@@ -73,10 +69,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //App.get().getAppComponent().inject(this);
-//        Fabric.with(this, new Answers(), new Crashlytics());
-        //Fabric.with(this, new Answers(), new Crashlytics());
-
         fragmentManager = getSupportFragmentManager();
         mAdminInteractor = DeviceAdminInteractor.getInstance();
         adhellNotSupportedDialogFragment = AdhellNotSupportedDialogFragment.newInstance("App not supported");
@@ -95,22 +87,13 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-//        bottomBar = findViewById(R.id.bottomBar);
-//        bottomBar.setTabTitleTextAppearance(R.style.bottomBarTextView);
-//        bottomBar.setOnTabSelectListener(tabId -> {
-//            if (!mAdminInteractor.isActiveAdmin()) {
-//                Log.d(TAG, "Admin not active");
-//                return;
-//            }
-//
-//            if (!mAdminInteractor.isKnoxEnabled()) {
-//                Log.d(TAG, "Knox disabled");
-//                return;
-//            }
-//            onTabSelected(tabId);
-//        });
-
         bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.blockerTab);
+        Fragment defaultFragment = new BlockerFragment();
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, defaultFragment)
+                .addToBackStack(BACK_STACK_TAB_TAG)
+                .commit();
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -132,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                                 .replace(R.id.fragmentContainer, replacing)
                                 .addToBackStack(BACK_STACK_TAB_TAG)
                                 .commit();
-                        return false;
+                        return true;
                     }
                 });
 
@@ -144,11 +127,6 @@ public class MainActivity extends AppCompatActivity {
             adhellAppIntegrity.checkAdhellStandardPackage();
             adhellAppIntegrity.fillPackageDb();
         });
-        //sharedBillingViewModel = ViewModelProviders.of(this).get(SharedBillingViewModel.class);
-        //sharedBillingViewModel.startBillingConnection();
-        // com.samsung.android.app.spage
-        //sharedBillingViewModel = ViewModelProviders.of(this).get(SharedBillingViewModel.class);
-        //sharedBillingViewModel.startBillingConnection();
     }
 
     @Override
@@ -192,48 +170,12 @@ public class MainActivity extends AppCompatActivity {
             i.putExtra("launchedFrom", "main-activity");
             App.get().getApplicationContext().startService(i);
         }
-        Intent intent = getIntent();
-//        boolean bxIntegration = intent.getBooleanExtra("bxIntegration", false);
-//        if (bxIntegration) {
-//            bottomBar.selectTabWithId(R.id.packageDisablerTab);
-//        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "Destroying activity");
-    }
-
-    private void onTabSelected(int tabId) {
-        fragmentManager.popBackStack(BACK_STACK_TAB_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        Fragment replacing;
-        switch (tabId) {
-            case R.id.blockerTab:
-                replacing = new BlockerFragment();
-                break;
-            case R.id.packageDisablerTab:
-                replacing = new PackageDisablerFragment();
-                break;
-//            case R.id.profilesTab:
-//                replacing = new ProfilesFragment();
-//                break;
-            case R.id.appPermissionsTab:
-                /*if (sharedBillingViewModel.billingModel.isPremiumLiveData.getValue()) {
-                    replacing = new AdhellPermissionInfoFragment();
-                } else {
-                    replacing = new OnlyPremiumFragment();
-                }*/
-                replacing = new AdhellPermissionInfoFragment();
-                break;
-            default:
-                replacing = new PackageDisablerFragment();
-        }
-
-        fragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainer, replacing)
-                .addToBackStack(BACK_STACK_TAB_TAG)
-                .commit();
     }
 
 

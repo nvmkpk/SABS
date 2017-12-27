@@ -16,14 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_navigation"
-        android:layout_margin="10dp"/>
-
-    <!--<com.roughike.bottombar.BottomBar-->
-        <!--android:id="@+id/bottomBar"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="50dp"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--app:bb_tabXmlResource="@xml/bottombar_tabs"/>-->
+        android:layout_margin="0dp"/>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
