@@ -3,7 +3,6 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/actionAdhellBlog"
-        android:icon="@drawable/ic_question_answer"
         android:orderInCategory="100"
         android:title="@string/blog"
         app:showAsAction="always"/>

@@ -1,10 +1,10 @@
 <tabs>
     <tab
-        icon="@drawable/ic_pan_tool"
+        icon="@drawable/ic_block"
         id="@+id/blockerTab"
         title="@string/blocker_fragment_title"/>
     <tab
-        icon="@drawable/ic_report"
+        icon="@drawable/ic_apps"
         id="@+id/packageDisablerTab"
         title="@string/package_disabler_bottombar_title"/>
     <tab

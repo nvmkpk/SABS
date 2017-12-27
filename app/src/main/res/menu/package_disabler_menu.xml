@@ -3,13 +3,13 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_pack_dis_reload"
-        android:icon="@drawable/reload"
+        android:icon="@drawable/ic_refresh"
         android:orderInCategory="100"
         android:title="Reload"
         app:showAsAction="always"/>
     <item
         android:id="@+id/action_pack_dis_sort"
-        android:icon="@drawable/sort"
+        android:icon="@drawable/ic_sort"
         android:orderInCategory="100"
         android:title="Sort"
         app:showAsAction="always">
@@ -21,7 +21,7 @@
     </item>
     <item
         android:id="@+id/action_overflow"
-        android:icon="@drawable/overflow"
+        android:icon="@drawable/ic_more_vert"
         android:orderInCategory="100"
         android:title="Overflow"
         app:showAsAction="always">
