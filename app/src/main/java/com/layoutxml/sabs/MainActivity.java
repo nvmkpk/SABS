@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
                 replacing = new AdhellPermissionInfoFragment();
                 break;
             default:
-                replacing = new AppSupportFragment();
+                replacing = new PackageDisablerFragment();
         }
 
         fragmentManager.beginTransaction()

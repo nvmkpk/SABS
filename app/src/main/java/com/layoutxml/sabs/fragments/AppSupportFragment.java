@@ -42,7 +42,7 @@ public class AppSupportFragment extends LifecycleFragment {
         donateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent donateIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.paypal.me/MilanParikh"));
+                Intent donateIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("google.com"));
                 startActivity(donateIntent);
             }
         });
