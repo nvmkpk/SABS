@@ -6,6 +6,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -41,7 +43,10 @@ public class MainActivity extends AppCompatActivity {
     private AdhellTurnOnDialogFragment adhellTurnOnDialogFragment;
     private NoInternetConnectionDialogFragment noInternetConnectionDialogFragment;
     private SharedBillingViewModel sharedBillingViewModel;
-    private BottomBar bottomBar;
+//    private BottomBar bottomBar;
+    BottomNavigationView bottomNavigationView;
+
+
 
     @Override
     public void onBackPressed() {
@@ -90,20 +95,46 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        bottomBar = findViewById(R.id.bottomBar);
-        bottomBar.setTabTitleTextAppearance(R.style.bottomBarTextView);
-        bottomBar.setOnTabSelectListener(tabId -> {
-            if (!mAdminInteractor.isActiveAdmin()) {
-                Log.d(TAG, "Admin not active");
-                return;
-            }
+//        bottomBar = findViewById(R.id.bottomBar);
+//        bottomBar.setTabTitleTextAppearance(R.style.bottomBarTextView);
+//        bottomBar.setOnTabSelectListener(tabId -> {
+//            if (!mAdminInteractor.isActiveAdmin()) {
+//                Log.d(TAG, "Admin not active");
+//                return;
+//            }
+//
+//            if (!mAdminInteractor.isKnoxEnabled()) {
+//                Log.d(TAG, "Knox disabled");
+//                return;
+//            }
+//            onTabSelected(tabId);
+//        });
 
-            if (!mAdminInteractor.isKnoxEnabled()) {
-                Log.d(TAG, "Knox disabled");
-                return;
-            }
-            onTabSelected(tabId);
-        });
+        bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    Fragment replacing;
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.blockerTab:
+                                replacing = new BlockerFragment();
+                                break;
+                            case R.id.packageDisablerTab:
+                                replacing = new PackageDisablerFragment();
+                                break;
+                            case R.id.appPermissionsTab:
+                                replacing = new AdhellPermissionInfoFragment();
+                                break;
+                        }
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.fragmentContainer, replacing)
+                                .addToBackStack(BACK_STACK_TAB_TAG)
+                                .commit();
+                        return false;
+                    }
+                });
 
         AsyncTask.execute(() -> {
 //        HeartbeatAlarmHelper.scheduleAlarm();
@@ -162,10 +193,10 @@ public class MainActivity extends AppCompatActivity {
             App.get().getApplicationContext().startService(i);
         }
         Intent intent = getIntent();
-        boolean bxIntegration = intent.getBooleanExtra("bxIntegration", false);
-        if (bxIntegration) {
-            bottomBar.selectTabWithId(R.id.packageDisablerTab);
-        }
+//        boolean bxIntegration = intent.getBooleanExtra("bxIntegration", false);
+//        if (bxIntegration) {
+//            bottomBar.selectTabWithId(R.id.packageDisablerTab);
+//        }
     }
 
     @Override
@@ -204,6 +235,7 @@ public class MainActivity extends AppCompatActivity {
                 .addToBackStack(BACK_STACK_TAB_TAG)
                 .commit();
     }
+
 
     public void showDialog() {
         if (!(DeviceAdminInteractor.isSamsung() && mAdminInteractor.isKnoxSupported())) {
