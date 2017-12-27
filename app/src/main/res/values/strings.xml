@@ -82,9 +82,6 @@
     <string name="google_dns_2" translatable="false">8.8.4.4</string>
     <string name="set_dns_button_text">Set DNS</string>
     <string name="cancel_text">Cancel</string>
-    <string name="note_that_adhell_must_be_enabled">Use it only if you know what DNS for and what
-        benefits or problems editing could cause. Note that Adhell must be enabled.
-    </string>
     <string name="restore_defaults">Restore Defaults</string>
     <string name="zero_dns" translatable="false">0.0.0.0</string>
     <string name="example_com" translatable="false">example.com</string>
@@ -102,10 +99,10 @@
         download_manager_reference_id
     </string>
 
-    <string name="blocker_fragment_title" translatable="false">Adhell 2</string>
+    <string name="blocker_fragment_title" translatable="false">Blocker</string>
     <string name="package_disabler_fragment_title">Package disabler</string>
-    <string name="package_disabler_bottombar_title">Package disabler</string>
-    <string name="app_support_fragment_title">App support</string>
+    <string name="package_disabler_bottombar_title">Disabler</string>
+    <string name="app_support_fragment_title">Donate</string>
     <string name="to_be_done">This feature is under development</string>
     <string name="last_day_blocked">"Last 24 hours blocked: "</string>
     <string name="loading_saved_dns">Loading saved dns addresses</string>

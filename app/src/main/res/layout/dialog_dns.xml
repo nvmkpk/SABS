@@ -1,64 +1,89 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/dnsChangetextView"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_small_size"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/set_dns_button_text"
         android:textColor="#000000"
-        android:text="@string/note_that_adhell_must_be_enabled" />
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/dns_address_1"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/dnsChangetextView"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="20dp"
         android:digits="0123456789."
         android:hint="@string/dns_1_address"
         android:inputType="number|numberDecimal"
-        android:text="@string/zero_dns">
+        android:text="@string/zero_dns"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/dnsChangetextView"
+        app:layout_constraintTop_toBottomOf="@+id/dnsChangetextView">
 
-        <requestFocus />
+        <requestFocus
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </EditText>
 
     <EditText
         android:id="@+id/dns_address_2"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/dns_address_1"
+        android:layout_marginTop="8dp"
         android:digits="0123456789."
         android:hint="@string/dns_2_address"
         android:inputType="number|numberDecimal"
-        android:text="@string/zero_dns" />
-
-    <LinearLayout
-        android:id="@+id/linear_layout_storing_two_buttons_in_dns_dialog"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/dns_address_2"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/changeDnsOkButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/set_dns_button_text" />
-        <Button
-            android:id="@+id/changeDnsCancelButton"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="@string/cancel_text" />
-    </LinearLayout>
+        android:text="@string/zero_dns"
+        app:layout_constraintEnd_toEndOf="@+id/dns_address_1"
+        app:layout_constraintStart_toStartOf="@+id/dns_address_1"
+        app:layout_constraintTop_toBottomOf="@+id/dns_address_1" />
 
     <Button
         android:id="@+id/restoreDefaultDnsButton"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linear_layout_storing_two_buttons_in_dns_dialog"
-        android:text="@string/restore_defaults" />
-</RelativeLayout>
+        android:layout_marginTop="8dp"
+        android:text="@string/restore_defaults"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button"
+        app:layout_constraintStart_toStartOf="@+id/dns_address_2"
+        app:layout_constraintTop_toBottomOf="@+id/dns_address_2" />
+
+
+    <Button
+        android:id="@+id/changeDnsOkButton"
+        style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:text="@string/set_dns_button_text"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/changeDnsCancelButton" />
+
+    <Button
+        android:id="@+id/changeDnsCancelButton"
+        style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/cancel_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/changeDnsOkButton"
+        app:layout_constraintTop_toBottomOf="@+id/restoreDefaultDnsButton" />
+
+
+</android.support.constraint.ConstraintLayout>
