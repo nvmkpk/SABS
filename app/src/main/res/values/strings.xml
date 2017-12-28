@@ -21,8 +21,7 @@
     <string name="android_version_not_supported">This Android version not supported</string>
     <string name="please_wait">Please wait… Enabling Adhell</string>
     <string name="wait_deleting">Please wait… Disabling Adhell</string>
-    <string name="adhell_not_supported">Adhell does not supported on your device yet.
-    </string>
+    <string name="adhell_not_supported">App isn\'t supported on your device. If your device is not rooted and made by Samsung, report this to developer.</string>
     <string name="yes_notify_me">Yes! Notify Me!</string>
     <string name="no_thanks">No, Thanks!</string>
     <string name="thank_you_we_will_notify_you">We will notify you right after add your
@@ -33,19 +32,13 @@
     </string>
     <string name="edit_email">Wrong email? Change it!</string>
     <string name="edit">Edit</string>
-    <string name="to_enable_adhell">
-        This app uses the Device Administrator permission (android.permission.BIND_DEVICE_ADMIN).
-        \nTo enable Adhell you need to activate admin mode for app.
-        Adhell uses underlying Samsung instruments, and these instruments require Admin privilege.
-    </string>
+    <string name="to_enable_adhell">SABS needs to be set as device administrator to use Samsung\'s KNOX SDK. App is open source so can you review code yourself. Below you will need to insert your KNOX license key. If you don\'t have it, get it here: https://github.com/LayoutXML/SABS/blob/master/README.md</string>
     <string name="turn_on_admin">Turn On Admin</string>
     <string name="knox">To block ads Adhell uses Samsung Firewall, to use it please activate Samsung
         license. It is free.
     </string>
     <string name="activate_knox">Activate Knox</string>
-    <string name="no_internet_connection">It seems that your device is not connected to the
-        internet
-    </string>
+    <string name="no_internet_connection">No internet connection. Please turn on Wi-Fi or mobile data and restart the app.</string>
     <string name="failed_to_activate_knox_message">Knox license activation failed
     </string>
     <string name="activating_knox_license">Activating…</string>
@@ -222,5 +215,6 @@
     <string name="icon_image">Icon Image</string>
     <string name="app_name_hint">App name</string>
     <string name="url">url</string>
+    <string name="turn_on_dialog_title">Activate app</string>
 
 </resources>
