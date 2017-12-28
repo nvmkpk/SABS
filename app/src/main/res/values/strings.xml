@@ -32,8 +32,8 @@
     </string>
     <string name="edit_email">Wrong email? Change it!</string>
     <string name="edit">Edit</string>
-    <string name="to_enable_adhell">SABS needs to be set as device administrator to use Samsung\'s KNOX SDK. App is open source so can you review code yourself. Below you will need to insert your KNOX license key. If you don\'t have it, get it here: https://github.com/LayoutXML/SABS/blob/master/README.md</string>
-    <string name="turn_on_admin">Turn On Admin</string>
+    <string name="to_enable_adhell">Insert your KNOX license key below. If you don\'t have it, get it here:\nhttps://github.com/LayoutXML/SABS/blob/master/README.md</string>
+    <string name="turn_on_admin">Activate</string>
     <string name="knox">To block ads Adhell uses Samsung Firewall, to use it please activate Samsung
         license. It is free.
     </string>
@@ -190,17 +190,17 @@
     <string name="skip">SKIP</string>
     <string name="start">GOT IT</string>
 
-    <string name="slide_1_title">Hello Food!</string>
-    <string name="slide_1_desc">The easiest way to order food from your favourite restaurant!</string>
+    <string name="slide_1_title">Welcome!</string>
+    <string name="slide_1_desc">Simple adblocker for Samsung will let you block ads, websites, permissions and more! \nMost imporantly - it\'s <b>free</b> and <b>open source</b>.</string>
 
-    <string name="slide_2_title">Movie Tickets</string>
-    <string name="slide_2_desc">Book movie tickets for your family and friends!</string>
+    <string name="slide_2_title">Grant permissions</string>
+    <string name="slide_2_desc">All features of this app require Samsung\'s KNOX tools. To use them, we need administative permissions. \nYou will be soon asked to grant them.</string>
 
-    <string name="slide_3_title">Great Discounts</string>
-    <string name="slide_3_desc">Best discounts on every single service we offer!</string>
+    <string name="slide_3_title">Get your free license key</string>
+    <string name="slide_3_desc">…</string>
 
-    <string name="slide_4_title">World Travel</string>
-    <string name="slide_4_desc">Book tickets of any transportation and travel the world!</string>
+    <string name="slide_4_title">…</string>
+    <string name="slide_4_desc">…</string>
 
     <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
     <string name="play_again">Play Again</string>

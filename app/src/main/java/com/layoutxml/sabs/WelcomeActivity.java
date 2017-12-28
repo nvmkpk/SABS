@@ -1,5 +1,6 @@
 package com.layoutxml.sabs;
 
+import android.app.admin.DevicePolicyManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -17,6 +18,12 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.view.LayoutInflater;
+
+import com.layoutxml.sabs.dialogfragment.AdhellNotSupportedDialogFragment;
+import com.layoutxml.sabs.dialogfragment.AdhellTurnOnDialogFragment;
+import com.layoutxml.sabs.dialogfragment.NoInternetConnectionDialogFragment;
+import com.layoutxml.sabs.utils.DeviceAdminInteractor;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -27,6 +34,11 @@ public class WelcomeActivity extends AppCompatActivity {
     private int[] layouts;
     private Button btnSkip, btnNext;
     private PrefManager prefManager;
+    private Button turnOnAdminButton;
+    private DeviceAdminInteractor deviceAdminInteractor;
+    private AdhellTurnOnDialogFragment adhellTurnOnDialogFragment;
+    private NoInternetConnectionDialogFragment noInternetConnectionDialogFragment;
+    private AdhellNotSupportedDialogFragment adhellNotSupportedDialogFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +63,7 @@ public class WelcomeActivity extends AppCompatActivity {
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
         btnSkip = (Button) findViewById(R.id.btn_skip);
         btnNext = (Button) findViewById(R.id.btn_next);
+        turnOnAdminButton = findViewById(R.id.turnOnAdminButton);
 
 
         // layouts of all welcome sliders
@@ -71,25 +84,17 @@ public class WelcomeActivity extends AppCompatActivity {
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
-        btnSkip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                launchHomeScreen();
-            }
-        });
+        btnSkip.setOnClickListener(v -> launchHomeScreen());
 
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // checking for last page
-                // if last page home screen will be launched
-                int current = getItem(+1);
-                if (current < layouts.length) {
-                    // move to next screen
-                    viewPager.setCurrentItem(current);
-                } else {
-                    launchHomeScreen();
-                }
+        btnNext.setOnClickListener(v -> {
+            // checking for last page
+            // if last page home screen will be launched
+            int current = getItem(+1);
+            if (current < layouts.length) {
+                // move to next screen
+                viewPager.setCurrentItem(current);
+            } else {
+                launchHomeScreen();
             }
         });
     }
@@ -164,6 +169,7 @@ public class WelcomeActivity extends AppCompatActivity {
             window.setStatusBarColor(Color.TRANSPARENT);
         }
     }
+
 
     /**
      * View pager adapter

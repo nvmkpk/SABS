@@ -94,7 +94,7 @@ public class DeviceAdminInteractor {
     }
 
     /**
-     * Force user to enadle administrator
+     * Force user to enable administrator
      */
     public void forceEnableAdmin(Context context) {
         Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
