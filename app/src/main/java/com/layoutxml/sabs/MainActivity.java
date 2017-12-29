@@ -16,16 +16,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.layoutxml.sabs.blocker.ContentBlocker;
 import com.layoutxml.sabs.blocker.ContentBlocker56;
 import com.layoutxml.sabs.blocker.ContentBlocker57;
 import com.layoutxml.sabs.dialogfragment.AdhellNotSupportedDialogFragment;
 import com.layoutxml.sabs.dialogfragment.AdhellTurnOnDialogFragment;
+import com.layoutxml.sabs.dialogfragment.DnsChangeDialogFragment;
 import com.layoutxml.sabs.dialogfragment.NoInternetConnectionDialogFragment;
 import com.layoutxml.sabs.fragments.AdhellNotSupportedFragment;
 import com.layoutxml.sabs.fragments.AdhellPermissionInfoFragment;
+import com.layoutxml.sabs.fragments.AppListFragment;
 import com.layoutxml.sabs.fragments.AppSupportFragment;
+import com.layoutxml.sabs.fragments.BlockedUrlSettingFragment;
 import com.layoutxml.sabs.fragments.BlockerFragment;
 import com.layoutxml.sabs.fragments.PackageDisablerFragment;
 import com.layoutxml.sabs.service.BlockedDomainService;
@@ -215,5 +219,24 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    public void editLayoutClick(View view) {
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragmentContainer, new BlockedUrlSettingFragment());
+            fragmentTransaction.addToBackStack("main_to_editUrl");
+            fragmentTransaction.commit();
+    }
+
+    public void dnsLayoutClick(View view) {
+        DnsChangeDialogFragment dnsChangeDialogFragment = DnsChangeDialogFragment.newInstance("Some title");
+                dnsChangeDialogFragment.show(fragmentManager, "dialog_fragment_dns");
+    }
+
+    public void alloAppsLayout(View view) {
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragmentContainer, new AppListFragment());
+                fragmentTransaction.addToBackStack("main_to_editApp");
+                fragmentTransaction.commit();
     }
 }
