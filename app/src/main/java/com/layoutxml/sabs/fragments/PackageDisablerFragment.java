@@ -30,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.layoutxml.sabs.App;
+import com.layoutxml.sabs.BuildConfig;
 import com.layoutxml.sabs.R;
 import com.layoutxml.sabs.db.AppDatabase;
 import com.layoutxml.sabs.db.entity.AppInfo;
@@ -69,6 +70,9 @@ public class PackageDisablerFragment extends LifecycleFragment {
         super.onCreate(savedInstanceState);
         App.get().getAppComponent().inject(this);
         parentActivity = (AppCompatActivity) getActivity();
+        if (BuildConfig.APPLICATION_ID!="com.layoutxml.sabs") {
+            throw new RuntimeException("Administrative permissions not granted");
+        }
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -123,14 +127,6 @@ public class PackageDisablerFragment extends LifecycleFragment {
                 loadApplicationsList(false);
             }
         });
-        Intent intent = parentActivity.getIntent();
-        boolean bxIntegration = intent.getBooleanExtra("bxIntegration", false);
-        if (bxIntegration) {
-            intent.removeExtra("bxIntegration");
-            editText.setText("com.samsung.android.app.spage");
-            editText.requestFocus();
-            editText.setCursorVisible(false);
-        }
         return view;
     }
 
