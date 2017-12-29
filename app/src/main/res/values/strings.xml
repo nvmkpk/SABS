@@ -169,7 +169,7 @@
     <string name="app_permissions_tab_title">Permissions</string>
     <string name="profiles_explanation"> </string>
     <string name="blog">Blog</string>
-    <string name="only_for_premium_title">Only for Premium</string>
+    <string name="only_for_premium_title">About</string>
     <string name="default_policy_name">Default Policy</string>
     <string name="last_modified">Last modified: {{lastModified}}</string>
     <string name="number_packages_disabled">{{numberOfDisabledPackages}} packages disabled</string>
@@ -210,4 +210,11 @@
     <string name="change_dns_menu_small">Set DNS Adress 1 and DNS Adress 2</string>
     <string name="allow_apps_menu_small">Turn off blocking in apps where you want to see ads</string>
     <string name="info_settings_menu">About</string>
+    <string name="author">Author: LayoutXML</string>
+    <string name="reddit">Reddit: <u><b>u/LayoutXML</b></u> (press to send feedback)</string>
+    <string name="github">Github: https://github.com/LayoutXML/SABS</string>
+    <string name="error_version">Error reading version number and version code</string>
+    <string name="knox_key">Knox Key</string>
+    <string name="submit_knox_key">Submit Knox Key</string>
+    <string name="copy_knox_key">Copy Knox key</string>
 </resources>

@@ -1,9 +1,13 @@
 package com.layoutxml.sabs;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,7 +15,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -28,9 +31,9 @@ import com.layoutxml.sabs.dialogfragment.NoInternetConnectionDialogFragment;
 import com.layoutxml.sabs.fragments.AdhellNotSupportedFragment;
 import com.layoutxml.sabs.fragments.AdhellPermissionInfoFragment;
 import com.layoutxml.sabs.fragments.AppListFragment;
-import com.layoutxml.sabs.fragments.AppSupportFragment;
 import com.layoutxml.sabs.fragments.BlockedUrlSettingFragment;
 import com.layoutxml.sabs.fragments.BlockerFragment;
+import com.layoutxml.sabs.fragments.OnlyPremiumFragment;
 import com.layoutxml.sabs.fragments.PackageDisablerFragment;
 import com.layoutxml.sabs.service.BlockedDomainService;
 import com.layoutxml.sabs.utils.AdhellAppIntegrity;
@@ -238,5 +241,30 @@ public class MainActivity extends AppCompatActivity {
                 fragmentTransaction.replace(R.id.fragmentContainer, new AppListFragment());
                 fragmentTransaction.addToBackStack("main_to_editApp");
                 fragmentTransaction.commit();
+    }
+
+    public void aboutLayoutClick(View view) {
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentContainer, new OnlyPremiumFragment());
+        fragmentTransaction.addToBackStack("main_to_about");
+        fragmentTransaction.commit();
+    }
+
+    public void redditURL(View view) {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.reddit.com/user/LayoutXML"));
+        startActivity(browserIntent);
+    }
+
+    public void githubURL(View view) {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/LayoutXML/SABS"));
+        startActivity(browserIntent);
+    }
+
+    public void copyknoxkey(View view) {
+        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+        String knoxKey = sharedPreferences.getString("knox_key", "key not inserted");
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText("key", knoxKey);
+        clipboard.setPrimaryClip(clip);
     }
 }
