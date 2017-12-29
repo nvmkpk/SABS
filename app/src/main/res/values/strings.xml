@@ -98,7 +98,7 @@
     <string name="package_disabler_bottombar_title">Disabler</string>
     <string name="app_support_fragment_title">Donate</string>
     <string name="to_be_done">This feature is under development</string>
-    <string name="last_day_blocked">"Last 24 hours blocked: "</string>
+    <string name="last_day_blocked">"Blocked in the last 24 hours: "</string>
     <string name="loading_saved_dns">Loading saved dns addresses</string>
     <string name="check_input_dns">Check your input data</string>
     <string name="enable_adhell_for_dns">Adhell Must be enabled</string>
