@@ -2,10 +2,10 @@ package com.layoutxml.sabs.blocker;
 
 public interface ContentBlocker {
 
-    public boolean enableBlocker();
+    boolean enableBlocker();
 
-    public boolean disableBlocker();
+    boolean disableBlocker();
 
-    public boolean isEnabled();
+    boolean isEnabled();
 
 }

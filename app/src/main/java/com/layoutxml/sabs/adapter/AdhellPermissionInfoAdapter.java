@@ -47,8 +47,8 @@ public class AdhellPermissionInfoAdapter extends RecyclerView.Adapter<AdhellPerm
 
         ViewHolder(View itemView) {
             super(itemView);
-            permissionLabelTextView = (TextView) itemView.findViewById(R.id.permissionLabelTextView);
-            permissionNameTextView = (TextView) itemView.findViewById(R.id.permissionNameTextView);
+            permissionLabelTextView = itemView.findViewById(R.id.permissionLabelTextView);
+            permissionNameTextView = itemView.findViewById(R.id.permissionNameTextView);
         }
     }
 }

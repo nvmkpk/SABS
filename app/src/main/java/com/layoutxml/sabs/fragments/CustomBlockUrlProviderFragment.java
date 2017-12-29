@@ -50,10 +50,10 @@ public class CustomBlockUrlProviderFragment extends LifecycleFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_custom_url_provider, container, false);
-        blockUrlProviderEditText = (EditText) view.findViewById(R.id.blockUrlProviderEditText);
-        addBlockUrlProviderButton = (Button) view.findViewById(R.id.addBlockUrlProviderButton);
-        blockListView = (ListView) view.findViewById(R.id.blockUrlProviderListView);
-        Button updateBlockUrlProvidersButton = (Button) view.findViewById(R.id.updateBlockUrlProvidersButton);
+        blockUrlProviderEditText = view.findViewById(R.id.blockUrlProviderEditText);
+        addBlockUrlProviderButton = view.findViewById(R.id.addBlockUrlProviderButton);
+        blockListView = view.findViewById(R.id.blockUrlProviderListView);
+        Button updateBlockUrlProvidersButton = view.findViewById(R.id.updateBlockUrlProvidersButton);
         updateBlockUrlProvidersButton.setOnClickListener(v -> {
             // TODO: getAll all
             // TODO: then loop and delete and update

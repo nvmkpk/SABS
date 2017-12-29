@@ -32,7 +32,7 @@ public class BlockedUrlSettingFragment extends LifecycleFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_blocked_url_settings, container, false);
-        Button seeStandardPackageButton = (Button) view.findViewById(R.id.seeStandardPackageButton);
+        Button seeStandardPackageButton = view.findViewById(R.id.seeStandardPackageButton);
         seeStandardPackageButton.setOnClickListener(v -> {
             Log.d(TAG, "Edit button click in Fragment1");
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -41,14 +41,14 @@ public class BlockedUrlSettingFragment extends LifecycleFragment {
             fragmentTransaction.commit();
         });
 
-        Button addCustomBlockedUrl = (Button) view.findViewById(R.id.addCustomBlockedUrl);
+        Button addCustomBlockedUrl = view.findViewById(R.id.addCustomBlockedUrl);
         addCustomBlockedUrl.setOnClickListener(v -> {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragmentContainer, new BlockCustomUrlFragment());
             fragmentTransaction.addToBackStack("manage_url_to_add_custom");
             fragmentTransaction.commit();
         });
-        Button showCustomUrlProvidersFragmentButton = (Button) view.findViewById(R.id.showCustomUrlProvidersFragmentButton);
+        Button showCustomUrlProvidersFragmentButton = view.findViewById(R.id.showCustomUrlProvidersFragmentButton);
         if (contentBlocker instanceof ContentBlocker57) {
             showCustomUrlProvidersFragmentButton.setOnClickListener(v -> {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

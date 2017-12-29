@@ -39,11 +39,11 @@ public class BlockUrlProviderAdapter extends ArrayAdapter<BlockUrlProvider> {
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_block_url_provider, parent, false);
         }
-        TextView blockUrlProviderTextView = (TextView) convertView.findViewById(R.id.blockUrlProviderTextView);
-        TextView blockUrlCountTextView = (TextView) convertView.findViewById(R.id.blockUrlCountTextView);
-        CheckBox urlProviderCheckBox = (CheckBox) convertView.findViewById(R.id.urlProviderCheckBox);
-        ImageView deleteUrlImageView = (ImageView) convertView.findViewById(R.id.deleteUrlProviderImageView);
-        TextView lastUpdatedTextView = (TextView) convertView.findViewById(R.id.lastUpdatedTextView);
+        TextView blockUrlProviderTextView = convertView.findViewById(R.id.blockUrlProviderTextView);
+        TextView blockUrlCountTextView = convertView.findViewById(R.id.blockUrlCountTextView);
+        CheckBox urlProviderCheckBox = convertView.findViewById(R.id.urlProviderCheckBox);
+        ImageView deleteUrlImageView = convertView.findViewById(R.id.deleteUrlProviderImageView);
+        TextView lastUpdatedTextView = convertView.findViewById(R.id.lastUpdatedTextView);
         urlProviderCheckBox.setTag(position);
         deleteUrlImageView.setTag(position);
         if (blockUrlProvider != null) {

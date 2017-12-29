@@ -113,10 +113,10 @@ public class AdhellPermissionInAppsAdapter extends RecyclerView.Adapter<AdhellPe
 
         ViewHolder(View itemView) {
             super(itemView);
-            appIconImageView = (ImageView) itemView.findViewById(R.id.appIconImageView);
-            appNameTextView = (TextView) itemView.findViewById(R.id.appNameTextView);
-            appPackageNameTextView = (TextView) itemView.findViewById(R.id.appPackageNameTextView);
-            appPermissionSwitch = (Switch) itemView.findViewById(R.id.appPermissionSwitch);
+            appIconImageView = itemView.findViewById(R.id.appIconImageView);
+            appNameTextView = itemView.findViewById(R.id.appNameTextView);
+            appPackageNameTextView = itemView.findViewById(R.id.appPackageNameTextView);
+            appPermissionSwitch = itemView.findViewById(R.id.appPermissionSwitch);
             itemView.setOnClickListener(this);
         }
 

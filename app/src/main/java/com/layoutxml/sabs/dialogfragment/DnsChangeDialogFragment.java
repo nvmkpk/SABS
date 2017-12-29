@@ -47,8 +47,8 @@ public class DnsChangeDialogFragment extends DialogFragment {
     @Override
     public void onViewCreated(View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mDns1EditText = (EditText) view.findViewById(R.id.dns_address_1);
-        mDns2EditText = (EditText) view.findViewById(R.id.dns_address_2);
+        mDns1EditText = view.findViewById(R.id.dns_address_1);
+        mDns2EditText = view.findViewById(R.id.dns_address_2);
         final SharedPreferences sharedPreferences = view.getContext().getSharedPreferences("dnsAddresses", Context.MODE_PRIVATE);
         if (sharedPreferences.contains("dns1") && sharedPreferences.contains("dns2")) {
             Toast.makeText(view.getContext(), getString(R.string.loading_saved_dns), Toast.LENGTH_SHORT).show();
@@ -56,9 +56,9 @@ public class DnsChangeDialogFragment extends DialogFragment {
             mDns2EditText.setText(sharedPreferences.getString("dns2", "0.0.0.0"));
         }
 
-        mSetDnsButton = (Button) view.findViewById(R.id.changeDnsOkButton);
-        mCancelButton = (Button) view.findViewById(R.id.changeDnsCancelButton);
-        restoreDefaultDnsButton = (Button) view.findViewById(R.id.restoreDefaultDnsButton);
+        mSetDnsButton = view.findViewById(R.id.changeDnsOkButton);
+        mCancelButton = view.findViewById(R.id.changeDnsCancelButton);
+        restoreDefaultDnsButton = view.findViewById(R.id.restoreDefaultDnsButton);
 
         mDns1EditText.requestFocus();
         getDialog().getWindow().setSoftInputMode(

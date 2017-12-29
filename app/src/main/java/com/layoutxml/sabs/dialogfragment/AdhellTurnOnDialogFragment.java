@@ -78,8 +78,8 @@ public class AdhellTurnOnDialogFragment extends DialogFragment {
             deviceAdminInteractor.forceEnableAdmin(this.getActivity());
         });
 
-        EditText knoxKeyEditText = (EditText)view.findViewById(R.id.knox_key_editText);
-        Button knoxKeyButton = (Button)view.findViewById(R.id.submit_knox_key_button);
+        EditText knoxKeyEditText = view.findViewById(R.id.knox_key_editText);
+        Button knoxKeyButton = view.findViewById(R.id.submit_knox_key_button);
         SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
         String knoxKey = sharedPreferences.getString("knox_key", null);
         if (knoxKey!=null) {

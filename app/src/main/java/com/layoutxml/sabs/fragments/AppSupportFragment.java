@@ -38,7 +38,7 @@ public class AppSupportFragment extends LifecycleFragment {
 
         supportDevelopmentTextView = view.findViewById(R.id.supportDevelopmentTextView);
 
-        Button donateButton = (Button)view.findViewById(R.id.paypal_donate_button);
+        Button donateButton = view.findViewById(R.id.paypal_donate_button);
         donateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -41,7 +41,7 @@ public class BlockCustomUrlFragment extends LifecycleFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_manual_url_block, container, false);
-        ListView listView = (ListView) view.findViewById(R.id.customUrlsListView);
+        ListView listView = view.findViewById(R.id.customUrlsListView);
         appDatabase.userBlockUrlDao()
                 .getAll()
                 .observe(this, userBlockUrls -> {
@@ -61,8 +61,8 @@ public class BlockCustomUrlFragment extends LifecycleFragment {
             Toast.makeText(context, "Url removed", Toast.LENGTH_SHORT).show();
         });
 
-        final EditText addBlockedUrlEditText = (EditText) view.findViewById(R.id.addBlockedUrlEditText);
-        Button addCustomBlockedUrlButton = (Button) view.findViewById(R.id.addCustomBlockedUrlButton);
+        final EditText addBlockedUrlEditText = view.findViewById(R.id.addBlockedUrlEditText);
+        Button addCustomBlockedUrlButton = view.findViewById(R.id.addCustomBlockedUrlButton);
         addCustomBlockedUrlButton.setOnClickListener(v -> {
             String urlToAdd = addBlockedUrlEditText.getText().toString().trim().toLowerCase();
             if (!Patterns.WEB_URL.matcher(urlToAdd).matches()) {

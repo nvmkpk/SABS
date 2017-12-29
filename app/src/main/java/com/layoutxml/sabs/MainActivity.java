@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.blockerTab);
         Fragment defaultFragment = new BlockerFragment();
         fragmentManager.beginTransaction()

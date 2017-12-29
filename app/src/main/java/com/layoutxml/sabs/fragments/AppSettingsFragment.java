@@ -65,7 +65,7 @@ public class AppSettingsFragment extends LifecycleFragment {
 
         }
 
-        Button deleteAppButton = (Button) view.findViewById(R.id.deleteApp);
+        Button deleteAppButton = view.findViewById(R.id.deleteApp);
         deleteAppButton.setOnClickListener(v -> new AlertDialog.Builder(v.getContext())
                 .setTitle(getString(R.string.delete_app_dialog_title))
                 .setMessage(getString(R.string.delete_app_dialog_text))
@@ -94,8 +94,8 @@ public class AppSettingsFragment extends LifecycleFragment {
             seperator3.setVisibility(View.GONE);
         }
 
-        EditText knoxKeyEditText = (EditText)view.findViewById(R.id.knox_key_editText);
-        Button knoxKeyButton = (Button)view.findViewById(R.id.submit_knox_key_button);
+        EditText knoxKeyEditText = view.findViewById(R.id.knox_key_editText);
+        Button knoxKeyButton = view.findViewById(R.id.submit_knox_key_button);
         SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
         String knoxKey = sharedPreferences.getString("knox_key", null);
         if (knoxKey!=null) {
