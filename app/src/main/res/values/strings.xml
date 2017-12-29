@@ -48,14 +48,14 @@
     <string name="block_button_text_turn_on">Turn On</string>
     <string name="block_button_text_enabling">Enabling…</string>
     <string name="block_button_text_disabling">Disabling…</string>
-    <string name="edit_block_list">Edit Blocked URL\'s</string>
+    <string name="edit_block_list">Manage blocked URLs</string>
     <string name="whitelist">Show Whitelist</string>
     <string name="blocklist">Show Blocklist</string>
     <string name="back_to_main">Back to Main</string>
     <string name="editAlert">After editing the whitelist return to main Adhell screen
         and toggle "Turn off", then tap "Turn on" to apply the changes!
     </string>
-    <string name="allow_apps">Manage Adblocked Apps</string>
+    <string name="allow_apps">Manage blocking in apps</string>
     <string name="delete_app">Uninstall SABS</string>
     <string name="delete_app_dialog_title">Delete app</string>
     <string name="delete_app_dialog_text">Do you really want to turn off and delete SABS?</string>
@@ -206,4 +206,8 @@
 
     <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
     <string name="play_again">Play Again</string>
+    <string name="settings_edit_url_small">Add, remove websites, subscribe to providers</string>
+    <string name="change_dns_menu_small">Set DNS Adress 1 and DNS Adress 2</string>
+    <string name="allow_apps_menu_small">Turn off blocking in apps where you want to see ads</string>
+    <string name="info_settings_menu">About</string>
 </resources>
