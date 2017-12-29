@@ -55,30 +55,16 @@ public class AppSettingsFragment extends LifecycleFragment {
             e.printStackTrace();
         }
 
-        //Button editButton = (Button) view.findViewById(R.id.editUrls);
-//        editButton.setOnClickListener(v ->
-//        {
-//            Log.d(TAG, "Edit button click in Fragment1");
-//            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//            fragmentTransaction.replace(R.id.fragmentContainer, new BlockedUrlSettingFragment());
-//            fragmentTransaction.addToBackStack("main_to_editUrl");
-//            fragmentTransaction.commit();
-//        });
+        View layout;
+        View seperator3;
+        layout = view.findViewById(R.id.allowAppsLayout);
+        seperator3 = view.findViewById(R.id.seperator3);
+        if (!(contentBlocker instanceof ContentBlocker56 || contentBlocker instanceof ContentBlocker57)) { //without !, should be in else
+            layout.setVisibility(View.GONE);
+            seperator3.setVisibility(View.GONE);
 
-//        Button appButton = (Button) view.findViewById(R.id.allowApps);
-//        if (contentBlocker instanceof ContentBlocker56 || contentBlocker instanceof ContentBlocker57) {
-//            appButton.setOnClickListener(v ->
-//            {
-//                Log.d(TAG, "Allow Apps button click in Fragment1");
-//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                fragmentTransaction.replace(R.id.fragmentContainer, new AppListFragment());
-//                fragmentTransaction.addToBackStack("main_to_editApp");
-//                fragmentTransaction.commit();
-//            });
-//        } else {
-//            appButton.setVisibility(View.GONE);
-//        }
-//
+        }
+
         Button deleteAppButton = (Button) view.findViewById(R.id.deleteApp);
         deleteAppButton.setOnClickListener(v -> new AlertDialog.Builder(v.getContext())
                 .setTitle(getString(R.string.delete_app_dialog_title))
@@ -97,34 +83,32 @@ public class AppSettingsFragment extends LifecycleFragment {
                     startActivity(intent);
                 })
                 .setNegativeButton(android.R.string.no, null).show());
-//
-//        Button changeDnsButton = (Button) view.findViewById(R.id.changeDnsButton);
-//        if (contentBlocker instanceof ContentBlocker57) {
-//            changeDnsButton.setOnClickListener(v ->
-//            {
-//                Log.d(TAG, "Show dns change dialog");
-//                DnsChangeDialogFragment dnsChangeDialogFragment = DnsChangeDialogFragment.newInstance("Some title");
-//                dnsChangeDialogFragment.show(fragmentManager, "dialog_fragment_dns");
-//            });
-//        } else {
-//            changeDnsButton.setVisibility(View.GONE);
-//        }
-//
-//        EditText knoxKeyEditText = (EditText)view.findViewById(R.id.knox_key_editText);
-//        Button knoxKeyButton = (Button)view.findViewById(R.id.submit_knox_key_button);
-//        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
-//        String knoxKey = sharedPreferences.getString("knox_key", null);
-//        if (knoxKey!=null) {
-//            knoxKeyEditText.setText(knoxKey);
-//        }
-//        knoxKeyButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                SharedPreferences.Editor editor = sharedPreferences.edit();
-//                editor.putString("knox_key", knoxKeyEditText.getText().toString());
-//                editor.commit();
-//            }
-//        });
+
+
+        View layout2;
+        View seperator2;
+        layout2 = view.findViewById(R.id.dnsLayout);
+        seperator3 = view.findViewById(R.id.seperator2);
+        if (!(contentBlocker instanceof ContentBlocker57)) {
+            layout2.setVisibility(View.GONE);
+            seperator3.setVisibility(View.GONE);
+        }
+
+        EditText knoxKeyEditText = (EditText)view.findViewById(R.id.knox_key_editText);
+        Button knoxKeyButton = (Button)view.findViewById(R.id.submit_knox_key_button);
+        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        String knoxKey = sharedPreferences.getString("knox_key", null);
+        if (knoxKey!=null) {
+            knoxKeyEditText.setText(knoxKey);
+        }
+        knoxKeyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("knox_key", knoxKeyEditText.getText().toString());
+                editor.commit();
+            }
+        });
 
         return view;
     }
