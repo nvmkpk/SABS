@@ -31,7 +31,6 @@
         android:autoLink="web"
         android:singleLine="false"
         android:text="@string/to_enable_adhell"
-        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/turn_on_dialog_Title" />

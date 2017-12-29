@@ -32,7 +32,8 @@
     </string>
     <string name="edit_email">Wrong email? Change it!</string>
     <string name="edit">Edit</string>
-    <string name="to_enable_adhell">Insert your KNOX license key below. If you don\'t have it, get it here:\nhttps://github.com/LayoutXML/SABS/blob/master/README.md</string>
+    <string name="to_enable_adhell">1. Press activate.
+        \n2. Paste your Knox standard SDK enterprise key below. If you don\'t have it, sign in here - https://seap.samsung.com/enrollment, and get your <b>Enterprise</b> key here - https://seap.samsung.com/license-keys. It should not start with letters KLM.</string>
     <string name="turn_on_admin">Activate</string>
     <string name="knox">To block ads Adhell uses Samsung Firewall, to use it please activate Samsung
         license. It is free.
@@ -197,10 +198,11 @@
     <string name="slide_2_desc">All features of this app require Samsung\'s KNOX tools. To use them, we need administative permissions. \nYou will be soon asked to grant them.</string>
 
     <string name="slide_3_title">Get your free license key</string>
-    <string name="slide_3_desc">…</string>
+    <string name="slide_3_desc">If you don\'t have your KNOX key already, go to https://seap.samsung.com/enrollment and sign in with your Samsung account. After that go to https://seap.samsung.com/license-keys and generate a Knox Standard SDK <b>Enterprice</b> license key. Key alias can be whatever you want. Copy that key, you will need to paste it soon. If your key starts with letters KML, you got the wrong key. Do all these steps above again.</string>
 
-    <string name="slide_4_title">…</string>
-    <string name="slide_4_desc">…</string>
+    <string name="slide_4_title">You are ready!</string>
+    <string name="slide_4_desc">In some screens there are settings button (1), in others - refresh, sort and options (2).
+    \nThere are three main functions of the app - adblocker (3), app disabler (4) and permissions manager (5). You can switch between those in the bottom of the screen.</string>
 
     <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
     <string name="play_again">Play Again</string>
