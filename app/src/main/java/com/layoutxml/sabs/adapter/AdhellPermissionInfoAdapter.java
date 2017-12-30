@@ -32,7 +32,7 @@ public class AdhellPermissionInfoAdapter extends RecyclerView.Adapter<AdhellPerm
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         AdhellPermissionInfo adhellPermissionInfo = mAdhellPermissionInfos.get(position);
-        holder.permissionLabelTextView.setText(adhellPermissionInfo.label);
+        holder.permissionLabelTextView.setText(String.valueOf(position+1) + ". " + adhellPermissionInfo.label);
         holder.permissionNameTextView.setText(adhellPermissionInfo.name);
     }
 
