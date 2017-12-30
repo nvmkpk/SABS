@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.layoutxml.sabs.R;
 import com.layoutxml.sabs.blocker.ContentBlocker;
@@ -32,30 +33,30 @@ public class BlockedUrlSettingFragment extends LifecycleFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_blocked_url_settings, container, false);
-        Button seeStandardPackageButton = view.findViewById(R.id.seeStandardPackageButton);
-        seeStandardPackageButton.setOnClickListener(v -> {
-            Log.d(TAG, "Edit button click in Fragment1");
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragmentContainer, new WhitelistFragment());
-            fragmentTransaction.addToBackStack("manage_url_to_manage_standard");
-            fragmentTransaction.commit();
-        });
+//        TextView seeStandardPackageButton = view.findViewById(R.id.seeStandardPackageButton);
+//        seeStandardPackageButton.setOnClickListener(v -> {
+//            Log.d(TAG, "Edit button click in Fragment1");
+//            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//            fragmentTransaction.replace(R.id.fragmentContainer, new WhitelistFragment());
+//            fragmentTransaction.addToBackStack("manage_url_to_manage_standard");
+//            fragmentTransaction.commit();
+//        });
 
-        Button addCustomBlockedUrl = view.findViewById(R.id.addCustomBlockedUrl);
-        addCustomBlockedUrl.setOnClickListener(v -> {
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragmentContainer, new BlockCustomUrlFragment());
-            fragmentTransaction.addToBackStack("manage_url_to_add_custom");
-            fragmentTransaction.commit();
-        });
-        Button showCustomUrlProvidersFragmentButton = view.findViewById(R.id.showCustomUrlProvidersFragmentButton);
+//        TextView addCustomBlockedUrl = view.findViewById(R.id.addCustomBlockedUrl);
+//        addCustomBlockedUrl.setOnClickListener(v -> {
+//            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//            fragmentTransaction.replace(R.id.fragmentContainer, new BlockCustomUrlFragment());
+//            fragmentTransaction.addToBackStack("manage_url_to_add_custom");
+//            fragmentTransaction.commit();
+//        });
+        TextView showCustomUrlProvidersFragmentButton = view.findViewById(R.id.showCustomUrlProvidersFragmentButton);
         if (contentBlocker instanceof ContentBlocker57) {
-            showCustomUrlProvidersFragmentButton.setOnClickListener(v -> {
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragmentContainer, new CustomBlockUrlProviderFragment());
-                fragmentTransaction.addToBackStack("manage_custom_url_providers");
-                fragmentTransaction.commit();
-            });
+//            showCustomUrlProvidersFragmentButton.setOnClickListener(v -> {
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                fragmentTransaction.replace(R.id.fragmentContainer, new CustomBlockUrlProviderFragment());
+//                fragmentTransaction.addToBackStack("manage_custom_url_providers");
+//                fragmentTransaction.commit();
+//            });
         } else {
             showCustomUrlProvidersFragmentButton.setVisibility(View.GONE);
         }

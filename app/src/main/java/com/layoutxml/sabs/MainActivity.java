@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.layoutxml.sabs.blocker.ContentBlocker;
 import com.layoutxml.sabs.blocker.ContentBlocker56;
@@ -31,10 +32,13 @@ import com.layoutxml.sabs.dialogfragment.NoInternetConnectionDialogFragment;
 import com.layoutxml.sabs.fragments.AdhellNotSupportedFragment;
 import com.layoutxml.sabs.fragments.AdhellPermissionInfoFragment;
 import com.layoutxml.sabs.fragments.AppListFragment;
+import com.layoutxml.sabs.fragments.BlockCustomUrlFragment;
 import com.layoutxml.sabs.fragments.BlockedUrlSettingFragment;
 import com.layoutxml.sabs.fragments.BlockerFragment;
+import com.layoutxml.sabs.fragments.CustomBlockUrlProviderFragment;
 import com.layoutxml.sabs.fragments.OnlyPremiumFragment;
 import com.layoutxml.sabs.fragments.PackageDisablerFragment;
+import com.layoutxml.sabs.fragments.WhitelistFragment;
 import com.layoutxml.sabs.service.BlockedDomainService;
 import com.layoutxml.sabs.utils.AdhellAppIntegrity;
 import com.layoutxml.sabs.utils.DeviceAdminInteractor;
@@ -266,5 +270,25 @@ public class MainActivity extends AppCompatActivity {
         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText("key", knoxKey);
         clipboard.setPrimaryClip(clip);
+    }
+
+    public void whitelistLayout(View view) {
+       Log.d(TAG, "Edit button click in Fragment1");
+       FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+       fragmentTransaction.replace(R.id.fragmentContainer, new WhitelistFragment());
+       fragmentTransaction.addToBackStack("manage_url_to_manage_standard");
+       fragmentTransaction.commit();
+    }
+
+    public void blacklistLayout(View view) {FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentContainer, new BlockCustomUrlFragment());
+        fragmentTransaction.addToBackStack("manage_url_to_add_custom");
+        fragmentTransaction.commit();
+    }
+
+    public void subscribeLayout(View view) {FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentContainer, new CustomBlockUrlProviderFragment());
+        fragmentTransaction.addToBackStack("manage_custom_url_providers");
+        fragmentTransaction.commit();
     }
 }

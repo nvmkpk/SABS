@@ -80,9 +80,9 @@
     <string name="zero_dns" translatable="false">0.0.0.0</string>
     <string name="example_com" translatable="false">example.com</string>
     <string name="block">Block</string>
-    <string name="manage_standard_url_package">Manage Standard Url Package</string>
+    <string name="manage_standard_url_package">Whitelist URLs</string>
     <string name="whitelist_ad_url">Whitelist Ad URLs</string>
-    <string name="block_custom_urls">Block Custom Urls</string>
+    <string name="block_custom_urls">Blacklist URLs</string>
     <string name="to_take_effect_turn_off_turn_on_adhell_after_editing_list">
         To take effect Turn off -> Turn on Adhell after editing list.
     </string>
@@ -121,7 +121,7 @@
     <string name="add_provider">Add Url Provider</string>
     <string name="adaway_hosts" translatable="false">https://adaway.org/hosts.txt</string>
     <string name="_2597" translatable="false">2597</string>
-    <string name="show_custom_providers">Show Custom Providers</string>
+    <string name="show_custom_providers">Subscribe to providers</string>
     <string name="delete_url">Delete Url</string>
     <string name="update_all_providers">Update All Providers</string>
     <string name="_2017_06_30_16_00_00" translatable="false">2017-06-30 16:00:00</string>
@@ -213,4 +213,8 @@
     <string name="knox_key">Knox Key</string>
     <string name="submit_knox_key">Submit Knox Key</string>
     <string name="copy_knox_key">Copy Knox key</string>
+    <string name="standard_package_name">Standard package</string>
+    <string name="whitelist_settings_small">Unblock websites if you can\'t use them</string>
+    <string name="blacklist_settings_small">Block websites that serve ads</string>
+    <string name="subscribe_settings_small">Add hosts links with ad serving domains</string>
 </resources>

@@ -8,10 +8,13 @@
     android:paddingTop="8dp">
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/editLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editLayout"
-        android:onClick="editLayoutClick">
+        android:onClick="editLayoutClick"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/imageView"
