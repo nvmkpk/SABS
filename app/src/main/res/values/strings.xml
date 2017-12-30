@@ -207,8 +207,8 @@
     <string name="allow_apps_menu_small">Turn off blocking in apps where you want to see ads</string>
     <string name="info_settings_menu">About</string>
     <string name="author">Author: LayoutXML</string>
-    <string name="reddit">Reddit: <u><b>u/LayoutXML</b></u> (press to send feedback)</string>
-    <string name="github">Github: https://github.com/LayoutXML/SABS</string>
+    <string name="reddit">Reddit: <u><b>u/LayoutXML</b></u></string>
+    <string name="github"><u><b>github.com/LayoutXML/SABS</b></u></string>
     <string name="error_version">Error reading version number and version code</string>
     <string name="knox_key">Knox Key</string>
     <string name="submit_knox_key">Submit Knox Key</string>
@@ -217,4 +217,9 @@
     <string name="whitelist_settings_small">Unblock websites if you can\'t use them</string>
     <string name="blacklist_settings_small">Block websites that serve ads</string>
     <string name="subscribe_settings_small">Add hosts links with ad serving domains</string>
+    <string name="summary">Summary</string>
+    <string name="summary_small">Simple Ad Blocker for Samsung (SABS) is an adblocker with extra functionality that is maintained by LayoutXML. It is based on Adhell open source project.</string>
+    <string name="version">Version</string>
+    <string name="send_feedback">Send feedback</string>
+    <string name="source_code_github">Source code (Github)</string>
 </resources>
