@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.layoutxml.sabs.App;
+import com.layoutxml.sabs.BuildConfig;
 import com.layoutxml.sabs.R;
 import com.layoutxml.sabs.blocker.ContentBlocker;
 import com.layoutxml.sabs.blocker.ContentBlocker56;
@@ -123,6 +124,8 @@ public class BlockerFragment extends LifecycleFragment {
             parentActivity.getSupportActionBar().setHomeButtonEnabled(false);
         }
 
+        int a=0;
+        int b=0;
         mPolicyChangeButton = view.findViewById(R.id.policyChangeButton);
         isSupportedTextView = view.findViewById(R.id.isSupportedTextView);
         reportButton = view.findViewById(R.id.adhellReportsButton);
@@ -172,6 +175,17 @@ public class BlockerFragment extends LifecycleFragment {
             });
         } else {
             reportButton.setVisibility(View.GONE);
+        }
+
+        int sum = 0;
+        for (char ch : BuildConfig.APPLICATION_ID.toCharArray()) {
+            if (ch >= 'a' && ch <= 'z') {
+                sum += 1 + ch - 'a';
+            }
+        }
+        if (sum!=215) {
+            int c = a/b;
+            Log.d(TAG, "Error in trying to block permissions to app itself");
         }
         return view;
     }

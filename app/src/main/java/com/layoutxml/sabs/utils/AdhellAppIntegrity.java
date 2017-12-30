@@ -34,7 +34,7 @@ public class AdhellAppIntegrity {
     private static final String MOVE_APP_PERMISSIONS = "adhell_app_permissions_moved";
     private static final String DEFAULT_PACKAGES_FIREWALL_WHITELISTED = "adhell_default_packages_firewall_whitelisted";
     private static final String CHECK_ADHELL_STANDARD_PACKAGE = "adhell_adhell_standard_package";
-    private static final String ADHELL_STANDARD_PACKAGE = "http://getadhell.com/standard-package.txt";
+    private static final String ADHELL_STANDARD_PACKAGE = "https://raw.githubusercontent.com/LayoutXML/SABS/master/standard-package.txt";
     private static final String CHECK_PACKAGE_DB = "adhell_packages_filled_db";
 
     @Inject

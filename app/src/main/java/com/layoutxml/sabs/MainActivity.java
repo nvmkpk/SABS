@@ -40,7 +40,7 @@ import com.layoutxml.sabs.utils.AdhellAppIntegrity;
 import com.layoutxml.sabs.utils.DeviceAdminInteractor;
 
 public class MainActivity extends AppCompatActivity {
-    public static final String ADHELL_STANDARD_PACKAGE = "http://getadhell.com/standard-package.txt";
+    public static final String ADHELL_STANDARD_PACKAGE = "https://raw.githubusercontent.com/LayoutXML/SABS/master/standard-package.txt";
     private static final String TAG = MainActivity.class.getCanonicalName();
     private static final String BACK_STACK_TAB_TAG = "tab_fragment";
     protected DeviceAdminInteractor mAdminInteractor;

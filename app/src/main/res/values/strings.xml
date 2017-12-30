@@ -1,26 +1,26 @@
 <resources>
     <string name="app_name" translatable="false">SABS</string>
-    <string name="wait">Wait…</string>
-    <string name="Reports">Reports</string>
+    <string name="wait">Loading…</string>
+    <string name="Reports">Recent activity</string>
     <string name="about">App for Samsung smartphones that blocks ads and trackers in Chrome. Website
         loading increases up to 100%!
     </string>
-    <string name="isSupported">Wait</string>
+    <string name="isSupported">Loading…</string>
     <string name="only_samsung">Only Samsung</string>
     <string name="phone_not_supported">This device not supported FOR NOW</string>
 
     <string name="preference_policy">policy-preference</string>
     <string name="isPolicyEnabled">isPolicyEnabled</string>
-    <string name="block_enabled">Adhell enabled. You are safe now</string>
-    <string name="block_disabled">Adhell disabled</string>
+    <string name="block_enabled">SABS is on.</string>
+    <string name="block_disabled">SABS is off.</string>
     <string name="enable_blocker">Enable content blocker</string>
     <string name="disable_blocker">Disable Adhell</string>
     <string name="works_whit_samsung">This device not supported. Works with Samsung only, at least
         for now
     </string>
     <string name="android_version_not_supported">This Android version not supported</string>
-    <string name="please_wait">Please wait… Enabling Adhell</string>
-    <string name="wait_deleting">Please wait… Disabling Adhell</string>
+    <string name="please_wait">Enabling SABS. Don\'t leave. If this takes more than a minute, restart the app.</string>
+    <string name="wait_deleting">Disabling SABS. Don\'t leave. If this takes more than a minute, restart the app.</string>
     <string name="adhell_not_supported">App isn\'t supported on your device. If your device is not rooted and made by Samsung, report this to developer.</string>
     <string name="yes_notify_me">Yes! Notify Me!</string>
     <string name="no_thanks">No, Thanks!</string>
@@ -134,15 +134,11 @@
     <string name="already_premium">Already Premium</string>
     <string name="custom_url_provider_message">
         Note. You can add your own hosts link (e.g. https://adaway.org/hosts.txt).
-        You can block up to 15 000 urls.
-        Adhell already has decent standard package so in general you does not need to add additional
+        SABS already has decent standard package so in general you does not need to add additional
         packages.
-        This feature is experimental for now and only for enthusiasts.
     </string>
     <string name="ads_example_com" translatable="false">ads.example.com</string>
-    <string name="your_device_running_old_knox_version">
-        Your device running old version of Knox. So this function may work unstable. Sorry
-    </string>
+    <string name="your_device_running_old_knox_version">Your device is running an old version of KNOX. Upgrade your device or perform an update. Otherwise, you may experience crashes on certain functions.</string>
     <string name="valid_subs">Your subscription is valid</string>
     <string name="adblock_whitelist">Adblocked Apps</string>
     <string name="application_icon">App Icon</string>
