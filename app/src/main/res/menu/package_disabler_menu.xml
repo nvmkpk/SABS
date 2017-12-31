@@ -20,7 +20,6 @@
         </menu>
     </item>
     <item
-        android:id="@+id/action_overflow"
         android:icon="@drawable/ic_more_vert"
         android:orderInCategory="100"
         android:title="Overflow"
