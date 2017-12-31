@@ -74,7 +74,7 @@ public class DnsChangeDialogFragment extends DialogFragment {
             }
             ContentBlocker57 contentBlocker57 = (ContentBlocker57) DeviceAdminInteractor.getInstance().getContentBlocker();
             if (contentBlocker57 != null && !contentBlocker57.isEnabled()) {
-                Toast.makeText(v.getContext(), getString(R.string.enable_adhell_for_dns), Toast.LENGTH_LONG).show();
+                Toast.makeText(v.getContext(), getString(R.string.enable_app_for_dns), Toast.LENGTH_LONG).show();
             }
             contentBlocker57.setDns(dns1, dns2);
             Toast.makeText(v.getContext(), getString(R.string.changed_dns), Toast.LENGTH_LONG).show();

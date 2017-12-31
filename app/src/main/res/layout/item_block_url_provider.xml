@@ -15,7 +15,7 @@
         android:focusable="false"
         android:lines="1"
         android:singleLine="true"
-        android:text="@string/adaway_hosts"
+        android:text="@string/error_reading_url"
         android:textColor="#000000"
         android:textSize="15sp" />
 
@@ -29,7 +29,7 @@
         android:layout_marginRight="5dp"
         android:lines="1"
         android:singleLine="true"
-        android:text="@string/_2597" />
+        android:text="@string/error_reading_number" />
 
     <CheckBox
         android:id="@+id/urlProviderCheckBox"
@@ -69,6 +69,6 @@
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:text="@string/_2017_06_30_16_00_00" />
+        android:text="@string/error_reading_date" />
 
 </RelativeLayout>

@@ -148,10 +148,10 @@ public class BlockerFragment extends LifecycleFragment {
             mPolicyChangeButton.setEnabled(false);
             if (!contentBlocker.isEnabled()) {
                 mPolicyChangeButton.setText(R.string.block_button_text_enabling);
-                isSupportedTextView.setText(getString(R.string.please_wait));
+                isSupportedTextView.setText(getString(R.string.enabling_sabs));
             } else {
                 mPolicyChangeButton.setText(R.string.block_button_text_disabling);
-                isSupportedTextView.setText(getString(R.string.wait_deleting));
+                isSupportedTextView.setText(getString(R.string.disabling_sabs));
                 reportButton.setVisibility(View.GONE);
             }
             Disposable subscribe = toggleAdhellSwitchObservable

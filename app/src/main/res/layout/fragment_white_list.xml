@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:text="@string/editAlert"
+        android:text="@string/whitelistInfo"
         android:textColor="#000000"
         android:textSize="@dimen/text_mizerable_size"/>
 
@@ -19,17 +19,16 @@
         android:layout_below="@+id/editAlert"
         android:layout_margin="5dp"
         android:ems="10"
-        android:hint="@string/ads_example_com"
+        android:hint="@string/example_com"
         android:inputType="textUri"/>
     <Button
         android:id="@+id/addWhitelistUrl"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_below="@+id/editAlert"
         android:layout_margin="5dp"
-        android:text="@string/whitelist_ad_url"/>
+        android:text="@string/allow"/>
 
     <ListView
         android:id="@+id/urlList"

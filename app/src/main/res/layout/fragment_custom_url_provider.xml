@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:scrollbars="vertical"
-        android:text="@string/custom_url_provider_message"
+        android:text="@string/subscribeInfo"
         android:textColor="#000"
         android:ellipsize="none"
         android:scrollHorizontally="false"
