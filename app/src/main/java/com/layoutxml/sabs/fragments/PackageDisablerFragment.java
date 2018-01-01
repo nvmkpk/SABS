@@ -6,6 +6,7 @@ import android.arch.lifecycle.LifecycleFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -358,10 +359,14 @@ public class PackageDisablerFragment extends LifecycleFragment {
             holder.nameH.setText(appInfo.appName);
             holder.packageH.setText(appInfo.packageName);
             holder.switchH.setChecked(!appInfo.disabled);
-            if (appInfo.system) {
-                convertView.findViewById(R.id.systemOrNot).setVisibility(View.VISIBLE);
-            } else {
-                convertView.findViewById(R.id.systemOrNot).setVisibility(View.GONE);
+            if (!appInfo.system) {
+                TextView SystemOrNotHereICome = convertView.findViewById(R.id.systemOrNot);
+                SystemOrNotHereICome.setText(R.string.system_not);
+                SystemOrNotHereICome.setTextColor(Color.parseColor("#4CAF50"));
+            } else
+            {
+                TextView SystemOrNotHereICome = convertView.findViewById(R.id.systemOrNot);
+                SystemOrNotHereICome.setTextColor(Color.RED);
             }
             try {
                 holder.imageH.setImageDrawable(packageManager.getApplicationIcon(appInfo.packageName));

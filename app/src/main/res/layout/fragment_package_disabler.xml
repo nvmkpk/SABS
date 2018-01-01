@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/app_name_hint"
         android:imeOptions="actionSearch"
-        android:inputType="textNoSuggestions|textVisiblePassword"
+        android:inputType="text"
         android:lines="1"
         android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,7 +20,7 @@
 
     <ListView
         android:id="@+id/installed_apps_list"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

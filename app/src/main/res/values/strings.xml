@@ -129,4 +129,6 @@
     <string name="source_code_github">Source code (Github)</string>
     <string name="licenses">Licenses</string>
     <string name="licenses_small">Press to see all licenses</string>
+    <string name="system">System app</string>
+    <string name="system_not">User app</string>
 </resources>

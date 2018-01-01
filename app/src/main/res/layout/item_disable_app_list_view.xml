@@ -1,73 +1,75 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="88dp">
 
     <ImageView
         android:id="@+id/appIcon"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_alignParentLeft="true"
         android:layout_margin="10dp"
+        android:layout_marginTop="16dp"
         android:clickable="false"
+        android:contentDescription="@string/icon_image"
         android:focusable="false"
         android:focusableInTouchMode="false"
-        android:contentDescription="@string/icon_image"/>
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Switch
         android:id="@+id/switchDisable"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_margin="10dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
         android:clickable="false"
         android:focusable="false"
-        android:focusableInTouchMode="false"/>
+        android:focusableInTouchMode="false"
+        android:textAlignment="viewEnd"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/appName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_toLeftOf="@id/switchDisable"
-        android:layout_toRightOf="@id/appIcon"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:clickable="false"
         android:focusable="false"
         android:focusableInTouchMode="false"
-        android:textColor="#000000"
-        android:textSize="15sp"
-        android:textStyle="bold"/>
+        android:textAppearance="@android:style/TextAppearance.Material.Menu"
+        app:layout_constraintStart_toEndOf="@+id/appIcon"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/systemOrNot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/appName"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_toLeftOf="@id/switchDisable"
-        android:layout_toRightOf="@id/appIcon"
+        android:layout_marginStart="16dp"
         android:clickable="false"
         android:focusable="false"
         android:focusableInTouchMode="false"
-        android:text="System"
-        android:textColor="#000000"
-        android:textSize="12sp"
-        android:textStyle="italic"/>
+        android:text="@string/system"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        app:layout_constraintStart_toEndOf="@+id/appIcon"
+        app:layout_constraintTop_toBottomOf="@+id/appName" />
+
     <TextView
         android:id="@+id/packName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/systemOrNot"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_toLeftOf="@id/switchDisable"
-        android:layout_toRightOf="@id/appIcon"
+        android:layout_marginStart="16dp"
         android:clickable="false"
         android:ellipsize="end"
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:lines="1"
-        android:textColor="#000000"
-        android:textSize="15sp"/>
-</RelativeLayout>
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        app:layout_constraintStart_toEndOf="@+id/appIcon"
+        app:layout_constraintTop_toBottomOf="@+id/systemOrNot" />
+</android.support.constraint.ConstraintLayout>
