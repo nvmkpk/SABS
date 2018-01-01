@@ -21,14 +21,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import com.github.javiersantos.appupdater.AppUpdater;
-import com.github.javiersantos.appupdater.AppUpdaterUtils;
-import com.github.javiersantos.appupdater.enums.AppUpdaterError;
-import com.github.javiersantos.appupdater.enums.Display;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
-import com.github.javiersantos.appupdater.objects.Update;
 import com.layoutxml.sabs.blocker.ContentBlocker;
 import com.layoutxml.sabs.blocker.ContentBlocker56;
 import com.layoutxml.sabs.blocker.ContentBlocker57;
@@ -43,7 +38,7 @@ import com.layoutxml.sabs.fragments.BlockCustomUrlFragment;
 import com.layoutxml.sabs.fragments.BlockedUrlSettingFragment;
 import com.layoutxml.sabs.fragments.BlockerFragment;
 import com.layoutxml.sabs.fragments.CustomBlockUrlProviderFragment;
-import com.layoutxml.sabs.fragments.OnlyPremiumFragment;
+import com.layoutxml.sabs.fragments.AboutFragment;
 import com.layoutxml.sabs.fragments.PackageDisablerFragment;
 import com.layoutxml.sabs.fragments.WhitelistFragment;
 import com.layoutxml.sabs.service.BlockedDomainService;
@@ -264,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void aboutLayoutClick(View view) {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentContainer, new OnlyPremiumFragment());
+        fragmentTransaction.replace(R.id.fragmentContainer, new AboutFragment());
         fragmentTransaction.addToBackStack("main_to_about");
         fragmentTransaction.commit();
     }

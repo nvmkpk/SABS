@@ -1,13 +1,11 @@
 package com.layoutxml.sabs.fragments;
 
 import android.arch.lifecycle.LifecycleFragment;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +15,8 @@ import android.widget.TextView;
 
 import com.layoutxml.sabs.BuildConfig;
 import com.layoutxml.sabs.R;
-import com.layoutxml.sabs.viewmodel.SharedBillingViewModel;
 
-public class OnlyPremiumFragment extends LifecycleFragment {
+public class AboutFragment extends LifecycleFragment {
     private AppCompatActivity parentActivity;
 
     @Override
@@ -36,7 +33,7 @@ public class OnlyPremiumFragment extends LifecycleFragment {
         //Reused onlypremiumfragment for about fragment because I have no idea how to create new fragments. Simple way of creating java class didnt't work so I guess fragments have to be declared somewhere. But where?
 
         getActivity().setTitle(R.string.about_title);
-        View view = inflater.inflate(R.layout.fragment_only_premium, container, false);
+        View view = inflater.inflate(R.layout.fragment_about, container, false);
 
         TextView versionname = view.findViewById(R.id.version);
         int versionCode = BuildConfig.VERSION_CODE;
