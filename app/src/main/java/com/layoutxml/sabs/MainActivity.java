@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -22,6 +23,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.github.javiersantos.appupdater.AppUpdater;
+import com.github.javiersantos.appupdater.AppUpdaterUtils;
+import com.github.javiersantos.appupdater.enums.AppUpdaterError;
+import com.github.javiersantos.appupdater.enums.Display;
+import com.github.javiersantos.appupdater.enums.UpdateFrom;
+import com.github.javiersantos.appupdater.objects.Update;
 import com.layoutxml.sabs.blocker.ContentBlocker;
 import com.layoutxml.sabs.blocker.ContentBlocker56;
 import com.layoutxml.sabs.blocker.ContentBlocker57;
@@ -132,6 +139,12 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     }
                 });
+
+        new AppUpdater(this)
+                .setTitleOnUpdateAvailable("Update available!")
+                .setUpdateFrom(UpdateFrom.GITHUB)
+                .setGitHubUserAndRepo("LayoutXML", "SABS")
+                .start();
 
         AsyncTask.execute(() -> {
 //        HeartbeatAlarmHelper.scheduleAlarm();
@@ -290,5 +303,16 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.fragmentContainer, new CustomBlockUrlProviderFragment());
         fragmentTransaction.addToBackStack("manage_custom_url_providers");
         fragmentTransaction.commit();
+    }
+
+    public void forceCheckVersion(View view) {
+        new AppUpdater(this)
+                .setTitleOnUpdateAvailable("Update available!")
+                .showAppUpdated(true)
+                .setUpdateFrom(UpdateFrom.GITHUB)
+                .setGitHubUserAndRepo("LayoutXML", "SABS")
+                .start();
+        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Checking for updates...", Snackbar.LENGTH_SHORT);
+        snackbar.show();
     }
 }
