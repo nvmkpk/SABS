@@ -49,6 +49,8 @@ import com.layoutxml.sabs.fragments.WhitelistFragment;
 import com.layoutxml.sabs.service.BlockedDomainService;
 import com.layoutxml.sabs.utils.AdhellAppIntegrity;
 import com.layoutxml.sabs.utils.DeviceAdminInteractor;
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
+
 
 public class MainActivity extends AppCompatActivity {
     public static final String ADHELL_STANDARD_PACKAGE = "https://raw.githubusercontent.com/LayoutXML/SABS/master/standard-package.txt";
@@ -314,5 +316,10 @@ public class MainActivity extends AppCompatActivity {
                 .start();
         Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Checking for updates...", Snackbar.LENGTH_SHORT);
         snackbar.show();
+    }
+
+    public void viewLicenses(View view) {
+        Intent intent = new Intent(this, OssLicensesMenuActivity.class);
+        startActivity(intent);
     }
 }
