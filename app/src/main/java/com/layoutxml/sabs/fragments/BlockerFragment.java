@@ -3,6 +3,7 @@ package com.layoutxml.sabs.fragments;
 import android.arch.lifecycle.LifecycleFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -149,9 +150,11 @@ public class BlockerFragment extends LifecycleFragment {
             if (!contentBlocker.isEnabled()) {
                 mPolicyChangeButton.setText(R.string.block_button_text_enabling);
                 isSupportedTextView.setText(getString(R.string.enabling_sabs));
+                Snackbar.make(getActivity().findViewById(android.R.id.content), getString(R.string.enabling_sabs), Snackbar.LENGTH_SHORT).show();
             } else {
                 mPolicyChangeButton.setText(R.string.block_button_text_disabling);
                 isSupportedTextView.setText(getString(R.string.disabling_sabs));
+                Snackbar.make(getActivity().findViewById(android.R.id.content), getString(R.string.disabling_sabs), Snackbar.LENGTH_SHORT).show();
                 reportButton.setVisibility(View.GONE);
             }
             Disposable subscribe = toggleAdhellSwitchObservable

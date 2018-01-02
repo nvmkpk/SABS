@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -107,8 +108,16 @@ public class PackageDisablerFragment extends LifecycleFragment {
                 protected Boolean doInBackground(Void... o) {
                     AppInfo appInfo = mDb.applicationInfoDao().getByPackageName(name);
                     appInfo.disabled = !appInfo.disabled;
-                    if (appInfo.disabled) appPolicy.setDisableApplication(name);
-                    else appPolicy.setEnableApplication(name);
+                    if (appInfo.disabled)
+                    {
+                        appPolicy.setDisableApplication(name);
+                        Snackbar.make(getActivity().findViewById(android.R.id.content), "Disabled " + name, Snackbar.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        appPolicy.setEnableApplication(name);
+                        Snackbar.make(getActivity().findViewById(android.R.id.content), "Enabled " + name, Snackbar.LENGTH_SHORT).show();
+                    }
                     mDb.applicationInfoDao().insert(appInfo);
                     disablerAppAdapter.applicationInfoList.set(i, appInfo);
                     return appInfo.disabled;
@@ -268,6 +277,7 @@ public class PackageDisablerFragment extends LifecycleFragment {
                 for (AppInfo app : disabledAppList) {
                     app.disabled = false;
                     appPolicy.setEnableApplication(app.packageName);
+                    Snackbar.make(getActivity().findViewById(android.R.id.content), "Enabled " + app.packageName, Snackbar.LENGTH_SHORT).show();
                     mDb.applicationInfoDao().insert(app);
                 }
 
