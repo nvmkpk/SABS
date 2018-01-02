@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.github.javiersantos.appupdater.AppUpdater;
+import com.github.javiersantos.appupdater.enums.Display;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.layoutxml.sabs.blocker.ContentBlocker;
 import com.layoutxml.sabs.blocker.ContentBlocker56;
@@ -240,6 +241,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void editLayoutClick(View view) {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
             fragmentTransaction.replace(R.id.fragmentContainer, new BlockedUrlSettingFragment());
             fragmentTransaction.addToBackStack("main_to_editUrl");
             fragmentTransaction.commit();
@@ -252,13 +254,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void alloAppsLayout(View view) {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragmentContainer, new AppListFragment());
-                fragmentTransaction.addToBackStack("main_to_editApp");
-                fragmentTransaction.commit();
+        fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+        fragmentTransaction.replace(R.id.fragmentContainer, new AppListFragment());
+        fragmentTransaction.addToBackStack("main_to_editApp");
+        fragmentTransaction.commit();
     }
 
     public void aboutLayoutClick(View view) {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
         fragmentTransaction.replace(R.id.fragmentContainer, new AboutFragment());
         fragmentTransaction.addToBackStack("main_to_about");
         fragmentTransaction.commit();
@@ -285,18 +289,23 @@ public class MainActivity extends AppCompatActivity {
     public void whitelistLayout(View view) {
        Log.d(TAG, "Edit button click in Fragment1");
        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
        fragmentTransaction.replace(R.id.fragmentContainer, new WhitelistFragment());
        fragmentTransaction.addToBackStack("manage_url_to_manage_standard");
        fragmentTransaction.commit();
     }
 
-    public void blacklistLayout(View view) {FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+    public void blacklistLayout(View view) {
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
         fragmentTransaction.replace(R.id.fragmentContainer, new BlockCustomUrlFragment());
         fragmentTransaction.addToBackStack("manage_url_to_add_custom");
         fragmentTransaction.commit();
     }
 
-    public void subscribeLayout(View view) {FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+    public void subscribeLayout(View view) {
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
         fragmentTransaction.replace(R.id.fragmentContainer, new CustomBlockUrlProviderFragment());
         fragmentTransaction.addToBackStack("manage_custom_url_providers");
         fragmentTransaction.commit();
@@ -306,6 +315,7 @@ public class MainActivity extends AppCompatActivity {
         new AppUpdater(this)
                 .setTitleOnUpdateAvailable("Update available!")
                 .showAppUpdated(true)
+                .setDisplay(Display.SNACKBAR)
                 .setUpdateFrom(UpdateFrom.GITHUB)
                 .setGitHubUserAndRepo("LayoutXML", "SABS")
                 .start();
