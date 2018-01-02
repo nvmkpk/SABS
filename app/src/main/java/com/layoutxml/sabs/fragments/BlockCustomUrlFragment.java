@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.layoutxml.sabs.MainActivity;
 import com.layoutxml.sabs.R;
 import com.layoutxml.sabs.db.AppDatabase;
 import com.layoutxml.sabs.db.entity.UserBlockUrl;
@@ -42,6 +43,9 @@ public class BlockCustomUrlFragment extends LifecycleFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_manual_url_block, container, false);
         ListView listView = view.findViewById(R.id.customUrlsListView);
+
+        ((MainActivity)getActivity()).hideBottomBar();
+
         appDatabase.userBlockUrlDao()
                 .getAll()
                 .observe(this, userBlockUrls -> {

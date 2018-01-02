@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.layoutxml.sabs.BuildConfig;
+import com.layoutxml.sabs.MainActivity;
 import com.layoutxml.sabs.R;
 import com.layoutxml.sabs.blocker.ContentBlocker;
 import com.layoutxml.sabs.blocker.ContentBlocker56;
@@ -54,6 +55,8 @@ public class AppSettingsFragment extends LifecycleFragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        ((MainActivity)getActivity()).hideBottomBar();
 
         View layout;
         View seperator3;

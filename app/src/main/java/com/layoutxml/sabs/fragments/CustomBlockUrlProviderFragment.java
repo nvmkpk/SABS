@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.layoutxml.sabs.App;
+import com.layoutxml.sabs.MainActivity;
 import com.layoutxml.sabs.R;
 import com.layoutxml.sabs.adapter.BlockUrlProviderAdapter;
 import com.layoutxml.sabs.db.AppDatabase;
@@ -54,6 +55,9 @@ public class CustomBlockUrlProviderFragment extends LifecycleFragment {
         addBlockUrlProviderButton = view.findViewById(R.id.addBlockUrlProviderButton);
         blockListView = view.findViewById(R.id.blockUrlProviderListView);
         Button updateBlockUrlProvidersButton = view.findViewById(R.id.updateBlockUrlProvidersButton);
+
+        ((MainActivity)getActivity()).hideBottomBar();
+
         updateBlockUrlProvidersButton.setOnClickListener(v -> {
             // TODO: getAll all
             // TODO: then loop and delete and update

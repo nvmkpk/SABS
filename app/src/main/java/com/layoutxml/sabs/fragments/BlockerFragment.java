@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.layoutxml.sabs.App;
 import com.layoutxml.sabs.BuildConfig;
+import com.layoutxml.sabs.MainActivity;
 import com.layoutxml.sabs.R;
 import com.layoutxml.sabs.blocker.ContentBlocker;
 import com.layoutxml.sabs.blocker.ContentBlocker56;
@@ -119,6 +120,8 @@ public class BlockerFragment extends LifecycleFragment {
                              Bundle savedInstanceState) {
         getActivity().setTitle(getString(R.string.blocker_fragment_title));
         View view = inflater.inflate(R.layout.fragment_blocker, container, false);
+
+        ((MainActivity)getActivity()).showBottomBar();
 
         if (parentActivity.getSupportActionBar() != null) {
             parentActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);

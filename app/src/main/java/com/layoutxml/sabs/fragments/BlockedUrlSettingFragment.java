@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.layoutxml.sabs.MainActivity;
 import com.layoutxml.sabs.R;
 import com.layoutxml.sabs.blocker.ContentBlocker;
 import com.layoutxml.sabs.blocker.ContentBlocker57;
@@ -34,6 +35,9 @@ public class BlockedUrlSettingFragment extends LifecycleFragment {
         if (contentBlocker instanceof ContentBlocker57) {} else {
             showCustomUrlProvidersFragmentButton.setVisibility(View.GONE);
         }
+
+        ((MainActivity)getActivity()).hideBottomBar();
+
         return view;
     }
 }

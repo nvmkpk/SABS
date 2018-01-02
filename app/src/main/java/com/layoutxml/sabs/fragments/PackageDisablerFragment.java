@@ -36,6 +36,7 @@ import android.widget.Toast;
 
 import com.layoutxml.sabs.App;
 import com.layoutxml.sabs.BuildConfig;
+import com.layoutxml.sabs.MainActivity;
 import com.layoutxml.sabs.R;
 import com.layoutxml.sabs.db.AppDatabase;
 import com.layoutxml.sabs.db.entity.AppInfo;
@@ -98,6 +99,8 @@ public class PackageDisablerFragment extends LifecycleFragment {
         editText.setOnClickListener(v -> editText.setCursorVisible(true));
         swipeToRefresh = view.findViewById(R.id.swipeToRefresh);
         swipeToRefresh.setOnRefreshListener(getSwipeRefreshListener());
+
+        ((MainActivity)getActivity()).showBottomBar();
 
         installedAppsView = view.findViewById(R.id.installed_apps_list);
         installedAppsView.setOnItemClickListener((AdapterView<?> adView, View v, int i, long l) -> {

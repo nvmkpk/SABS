@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.layoutxml.sabs.MainActivity;
 import com.layoutxml.sabs.R;
 import com.layoutxml.sabs.adapter.AdhellPermissionInAppsAdapter;
 import com.layoutxml.sabs.db.entity.AppInfo;
@@ -39,6 +40,9 @@ public class AdhellPermissionInAppsFragment extends LifecycleFragment {
             parentActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             parentActivity.getSupportActionBar().setHomeButtonEnabled(true);
         }
+
+        ((MainActivity)getActivity()).hideBottomBar();
+
         sharedAppPermissionViewModel = ViewModelProviders.of(getActivity()).get(SharedAppPermissionViewModel.class);
         View view = inflater.inflate(R.layout.fragment_permission_in_apps, container, false);
         permissionInAppsRecyclerView = view.findViewById(R.id.permissionInAppsRecyclerView);

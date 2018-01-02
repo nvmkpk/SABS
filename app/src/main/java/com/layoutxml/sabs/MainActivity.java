@@ -326,4 +326,12 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, OssLicensesMenuActivity.class);
         startActivity(intent);
     }
+
+    public void hideBottomBar() {
+        bottomNavigationView.setVisibility(View.GONE);
+    }
+
+    public void showBottomBar() {
+        bottomNavigationView.setVisibility(View.VISIBLE);
+    }
 }

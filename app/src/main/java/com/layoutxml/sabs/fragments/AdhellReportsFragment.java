@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.layoutxml.sabs.MainActivity;
 import com.layoutxml.sabs.R;
 import com.layoutxml.sabs.adapter.ReportBlockedUrlAdapter;
 import com.layoutxml.sabs.viewmodel.AdhellReportViewModel;
@@ -36,6 +37,8 @@ public class AdhellReportsFragment extends LifecycleFragment {
             parentActivity.getSupportActionBar().setHomeButtonEnabled(true);
         }
         View view = inflater.inflate(R.layout.fragment_adhell_reports, container, false);
+
+        ((MainActivity)getActivity()).hideBottomBar();
 
         lastDayBlockedTextView = view.findViewById(R.id.lastDayBlockedTextView);
         blockedDomainsListView = view.findViewById(R.id.blockedDomainsListView);

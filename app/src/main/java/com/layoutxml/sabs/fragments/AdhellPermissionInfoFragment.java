@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.layoutxml.sabs.MainActivity;
 import com.layoutxml.sabs.R;
 import com.layoutxml.sabs.adapter.AdhellPermissionInfoAdapter;
 import com.layoutxml.sabs.adapter.ItemClickSupport;
@@ -59,6 +60,9 @@ public class AdhellPermissionInfoFragment extends LifecycleFragment {
             parentActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             parentActivity.getSupportActionBar().setHomeButtonEnabled(false);
         }
+
+        ((MainActivity)getActivity()).showBottomBar();
+
         sharedAppPermissionViewModel = ViewModelProviders.of(getActivity()).get(SharedAppPermissionViewModel.class);
         fragmentManager = getActivity().getSupportFragmentManager();
         adhellPermissionInfos = AdhellPermissionInfo.loadPermissions();

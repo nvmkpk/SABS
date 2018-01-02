@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.layoutxml.sabs.MainActivity;
 import com.layoutxml.sabs.R;
 import com.layoutxml.sabs.db.AppDatabase;
 import com.layoutxml.sabs.db.entity.WhiteUrl;
@@ -45,6 +46,8 @@ public class WhitelistFragment extends LifecycleFragment {
         addWhitelistUrl = view.findViewById(R.id.addWhitelistUrl);
         whiteUrlListView = view.findViewById(R.id.urlList);
         whitelistUrlEditText = view.findViewById(R.id.whitelistUrlEditText);
+
+        ((MainActivity)getActivity()).hideBottomBar();
 
         appDatabase.whiteUrlDao().getAll().observe(this, whitelistUrls -> {
             whitelist.clear();

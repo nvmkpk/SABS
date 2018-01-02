@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.layoutxml.sabs.BuildConfig;
+import com.layoutxml.sabs.MainActivity;
 import com.layoutxml.sabs.R;
 
 public class AboutFragment extends LifecycleFragment {
@@ -34,6 +35,8 @@ public class AboutFragment extends LifecycleFragment {
 
         getActivity().setTitle(R.string.about_title);
         View view = inflater.inflate(R.layout.fragment_about, container, false);
+
+        ((MainActivity)getActivity()).hideBottomBar();
 
         TextView versionname = view.findViewById(R.id.version);
         int versionCode = BuildConfig.VERSION_CODE;

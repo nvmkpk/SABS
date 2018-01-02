@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.layoutxml.sabs.MainActivity;
 import com.layoutxml.sabs.R;
 import com.layoutxml.sabs.adapter.AppWhitelistAdapter;
 import com.layoutxml.sabs.db.entity.AppInfo;
@@ -31,6 +32,8 @@ public class AppListFragment extends LifecycleFragment {
         View view = inflater.inflate(R.layout.fragment_app_list, container, false);
         appListView = view.findViewById(R.id.appList);
         adblockEnabledAppSearchEditText = view.findViewById(R.id.adblockEnabledAppSearchEditText);
+
+        ((MainActivity)getActivity()).hideBottomBar();
 
         adblockEnabledAppSearchEditText.addTextChangedListener(new TextWatcher() {
             @Override
