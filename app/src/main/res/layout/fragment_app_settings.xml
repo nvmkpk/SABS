@@ -22,7 +22,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
-            android:onClick="editLayoutClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -34,7 +33,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
-            android:onClick="editLayoutClick"
             android:text="@string/edit_blocked_url_list"
             android:textAppearance="@android:style/TextAppearance.Material.Menu"
             app:layout_constraintEnd_toEndOf="parent"
@@ -80,8 +78,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_dns"
-            android:onClick="dnsLayoutClick" />
+            app:srcCompat="@drawable/ic_dns"/>
 
         <TextView
             android:id="@+id/changeDnsButton"
@@ -89,7 +86,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            android:onClick="dnsLayoutClick"
             android:text="@string/change_dns_button"
             android:textAppearance="@android:style/TextAppearance.Material.Menu"
             app:layout_constraintEnd_toEndOf="parent"
@@ -134,8 +130,7 @@
             android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:onClick="alloAppsLayout"/>
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:id="@+id/allowApps"
@@ -143,7 +138,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            android:onClick="alloAppsLayout"
             android:text="@string/edit_blocked_apps_list"
             android:textAppearance="@android:style/TextAppearance.Material.Menu"
             app:layout_constraintEnd_toEndOf="parent"
@@ -239,8 +233,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_info"
-            android:onClick="aboutLayoutClick" />
+            app:srcCompat="@drawable/ic_info"/>
 
         <TextView
             android:id="@+id/info"
@@ -252,14 +245,13 @@
             android:textAppearance="@android:style/TextAppearance.Material.Menu"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView5"
-            app:layout_constraintTop_toTopOf="parent"
-            android:onClick="aboutLayoutClick" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="Version, author, source code"
+            android:text="@string/about_settings_small"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/info"
             app:layout_constraintTop_toBottomOf="@+id/info"

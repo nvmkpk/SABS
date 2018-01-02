@@ -17,14 +17,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/appIconImageView"
-        android:text="@string/app_name"/>
+        android:text="@string/app_name_error"/>
     <TextView
         android:id="@+id/appPackageNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/appNameTextView"
         android:layout_toEndOf="@+id/appIconImageView"
-        android:text="com.android.some"/>
+        android:text="@string/app_name_error"/>
     <Switch
         android:id="@+id/appPermissionSwitch"
         android:layout_width="wrap_content"

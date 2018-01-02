@@ -18,7 +18,6 @@
 
         <ImageView
             android:id="@+id/imageView9"
-            android:onClick="whitelistLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -34,7 +33,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
-            android:onClick="whitelistLayout"
             android:text="@string/allow_custom_urls"
             android:textColor="@android:color/black"
             android:textSize="16sp"
@@ -43,7 +41,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:onClick="whitelistLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -75,7 +72,6 @@
 
         <ImageView
             android:id="@+id/imageView10"
-            android:onClick="blacklistLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -87,7 +83,6 @@
 
         <TextView
             android:id="@+id/addCustomBlockedUrl"
-            android:onClick="blacklistLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -100,7 +95,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:onClick="blacklistLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
