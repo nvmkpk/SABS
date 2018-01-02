@@ -10,8 +10,10 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -63,6 +65,8 @@ public class PackageDisablerFragment extends LifecycleFragment {
     private int sortState = SORTED_ALPHABETICALLY;
     private AppCompatActivity parentActivity;
     private FragmentManager fragmentManager;
+    private SwipeRefreshLayout swipeToRefresh;
+    private Handler mHandler = new Handler();
 
 
     public PackageDisablerFragment() {
@@ -91,6 +95,8 @@ public class PackageDisablerFragment extends LifecycleFragment {
         context = getActivity().getApplicationContext();
         editText = view.findViewById(R.id.disabledFilter);
         editText.setOnClickListener(v -> editText.setCursorVisible(true));
+        swipeToRefresh = view.findViewById(R.id.swipeToRefresh);
+        swipeToRefresh.setOnRefreshListener(getSwipeRefreshListener());
 
         installedAppsView = view.findViewById(R.id.installed_apps_list);
         installedAppsView.setOnItemClickListener((AdapterView<?> adView, View v, int i, long l) -> {
@@ -160,10 +166,6 @@ public class PackageDisablerFragment extends LifecycleFragment {
                 sortState = SORTED_DISABLED;
                 Toast.makeText(context, getString(R.string.app_list_sorted_by_disabled), Toast.LENGTH_SHORT).show();
                 loadApplicationsList(false);
-                break;
-            case R.id.action_pack_dis_reload:
-                editText.setText("");
-                loadApplicationsList(true);
                 break;
             case R.id.disabler_import_storage:
                 Toast.makeText(context, getString(R.string.imported_from_storage), Toast.LENGTH_SHORT).show();
@@ -385,5 +387,23 @@ public class PackageDisablerFragment extends LifecycleFragment {
             }
             return convertView;
         }
+    }
+
+    protected SwipeRefreshLayout.OnRefreshListener getSwipeRefreshListener(){
+
+        return new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                editText.setText("");
+                loadApplicationsList(true);
+                mHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        if (swipeToRefresh != null) {
+                            swipeToRefresh.setRefreshing(false);
+                        }
+                    }
+                }, 1000);
+            }
+        };
     }
 }
