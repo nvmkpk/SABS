@@ -5,13 +5,13 @@
         android:id="@+id/action_pack_dis_reload"
         android:icon="@drawable/ic_refresh"
         android:orderInCategory="100"
-        android:title="Reload"
+        android:title="@string/reload"
         app:showAsAction="always"/>
     <item
         android:id="@+id/action_pack_dis_sort"
         android:icon="@drawable/ic_sort"
         android:orderInCategory="100"
-        android:title="Sort"
+        android:title="@string/sort"
         app:showAsAction="always">
         <menu>
             <item android:title="@string/sort_by_alphabet" android:id="@+id/sort_alphabetically_item"/>
@@ -22,7 +22,7 @@
     <item
         android:icon="@drawable/ic_more_vert"
         android:orderInCategory="100"
-        android:title="Overflow"
+        android:title="@string/options"
         app:showAsAction="always">
         <menu>
             <item
@@ -34,6 +34,9 @@
             <item
                 android:id="@+id/disabler_enable_all"
                 android:title="@string/disabler_enable_all" />
+            <item
+                android:id="@+id/settings_in_options"
+                android:title="@string/settings" />
         </menu>
     </item>
 </menu>

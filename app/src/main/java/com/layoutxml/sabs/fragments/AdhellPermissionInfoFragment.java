@@ -13,6 +13,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -81,6 +84,28 @@ public class AdhellPermissionInfoFragment extends LifecycleFragment {
                     fragmentTransaction.commit();
                 }
         );
+        setHasOptionsMenu(true);
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.permissions_manager_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_app_settings:
+                Log.d(TAG, "App setting action clicked");
+                fragmentManager
+                        .beginTransaction()
+                        .replace(R.id.fragmentContainer, new AppSettingsFragment(), AppSettingsFragment.class.getCanonicalName())
+                        .addToBackStack(AppSettingsFragment.class.getCanonicalName())
+                        .commit();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

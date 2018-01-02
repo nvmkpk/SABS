@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -61,6 +62,7 @@ public class PackageDisablerFragment extends LifecycleFragment {
     private EditText editText;
     private int sortState = SORTED_ALPHABETICALLY;
     private AppCompatActivity parentActivity;
+    private FragmentManager fragmentManager;
 
 
     public PackageDisablerFragment() {
@@ -174,6 +176,14 @@ public class PackageDisablerFragment extends LifecycleFragment {
             case R.id.disabler_enable_all:
                 Toast.makeText(context, getString(R.string.enabled_all_disabled), Toast.LENGTH_SHORT).show();
                 enableAllPackages();
+                break;
+            case R.id.settings_in_options:
+                fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager
+                        .beginTransaction()
+                        .replace(R.id.fragmentContainer, new AppSettingsFragment(), AppSettingsFragment.class.getCanonicalName())
+                        .addToBackStack(AppSettingsFragment.class.getCanonicalName())
+                        .commit();
         }
         return super.onOptionsItemSelected(item);
     }
