@@ -132,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                         fragmentManager.beginTransaction()
                                 .replace(R.id.fragmentContainer, replacing)
-                                .addToBackStack(BACK_STACK_TAB_TAG)
                                 .commit();
                         return true;
                     }
