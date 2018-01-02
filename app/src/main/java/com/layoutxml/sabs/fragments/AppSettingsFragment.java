@@ -47,6 +47,7 @@ public class AppSettingsFragment extends LifecycleFragment {
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_app_settings, container, false);
+        getActivity().setTitle(R.string.settings);
         mContext = this.getActivity().getApplicationContext();
         contentBlocker = DeviceAdminInteractor.getInstance().getContentBlocker();
         try {

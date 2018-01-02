@@ -28,7 +28,7 @@ public class AppListFragment extends LifecycleFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        this.getActivity().setTitle(R.string.adblock_whitelist);
+        this.getActivity().setTitle(R.string.edit_blocked_url_list);
         View view = inflater.inflate(R.layout.fragment_app_list, container, false);
         appListView = view.findViewById(R.id.appList);
         adblockEnabledAppSearchEditText = view.findViewById(R.id.adblockEnabledAppSearchEditText);

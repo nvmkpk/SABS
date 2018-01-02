@@ -43,6 +43,7 @@ public class WhitelistFragment extends LifecycleFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_white_list, container, false);
+        getActivity().setTitle(R.string.allow_custom_urls);
         addWhitelistUrl = view.findViewById(R.id.addWhitelistUrl);
         whiteUrlListView = view.findViewById(R.id.urlList);
         whitelistUrlEditText = view.findViewById(R.id.whitelistUrlEditText);

@@ -43,7 +43,7 @@ public class BlockCustomUrlFragment extends LifecycleFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_manual_url_block, container, false);
         ListView listView = view.findViewById(R.id.customUrlsListView);
-
+        getActivity().setTitle(R.string.block_custom_urls);
         ((MainActivity)getActivity()).hideBottomBar();
 
         appDatabase.userBlockUrlDao()

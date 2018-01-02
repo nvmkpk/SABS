@@ -31,6 +31,7 @@ public class BlockedUrlSettingFragment extends LifecycleFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_blocked_url_settings, container, false);
+        getActivity().setTitle(R.string.settings);
         TextView showCustomUrlProvidersFragmentButton = view.findViewById(R.id.showCustomUrlProvidersFragmentButton);
         if (contentBlocker instanceof ContentBlocker57) {} else {
             showCustomUrlProvidersFragmentButton.setVisibility(View.GONE);

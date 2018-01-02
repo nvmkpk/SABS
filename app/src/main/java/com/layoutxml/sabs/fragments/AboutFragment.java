@@ -30,9 +30,6 @@ public class AboutFragment extends LifecycleFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-
-        //Reused onlypremiumfragment for about fragment because I have no idea how to create new fragments. Simple way of creating java class didnt't work so I guess fragments have to be declared somewhere. But where?
-
         getActivity().setTitle(R.string.about_title);
         View view = inflater.inflate(R.layout.fragment_about, container, false);
 

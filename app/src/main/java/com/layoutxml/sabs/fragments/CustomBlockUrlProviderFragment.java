@@ -51,6 +51,7 @@ public class CustomBlockUrlProviderFragment extends LifecycleFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_custom_url_provider, container, false);
+        getActivity().setTitle(R.string.subscribe_to_providers);
         blockUrlProviderEditText = view.findViewById(R.id.blockUrlProviderEditText);
         addBlockUrlProviderButton = view.findViewById(R.id.addBlockUrlProviderButton);
         blockListView = view.findViewById(R.id.blockUrlProviderListView);
