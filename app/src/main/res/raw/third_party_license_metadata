@@ -12,7 +12,7 @@
 530:46 rxandroid
 578:46 rxjava2
 626:46 rxjava
-1106:46 runtime
+1154:46 runtime
 722:46 support-core-utils
 770:46 animated-vector-drawable
 818:46 support-core-ui
@@ -21,8 +21,8 @@
 962:46 support-compat
 1058:46 dagger
 70638:46 common
-1250:46 db-framework
-1298:46 db
+1298:46 db-framework
+1346:46 db
 1394:46 support-annotations
 1442:1558 RE2
 3002:1732 Protobuf Nano
