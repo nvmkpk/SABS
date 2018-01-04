@@ -109,9 +109,15 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.blockerTab);
         Fragment defaultFragment = new BlockerFragment();
+        Fragment second = new PackageDisablerFragment();
         fragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainer, defaultFragment)
                 .addToBackStack(BACK_STACK_TAB_TAG)
+                .commit();
+
+        fragmentManager.beginTransaction()
+                .add(R.id.fragmentContainer, second)
+                .hide(second)
                 .commit();
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
