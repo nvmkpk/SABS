@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -99,6 +100,11 @@ public class AppSettingsFragment extends LifecycleFragment {
             seperator3.setVisibility(View.GONE);
         }
 
+        Fragment second = new AppListFragment();
+        fragmentManager.beginTransaction()
+                .add(R.id.fragmentContainer, second)
+                .hide(second)
+                .commit();
 
         return view;
     }
