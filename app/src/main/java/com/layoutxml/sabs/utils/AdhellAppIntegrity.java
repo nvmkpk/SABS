@@ -193,8 +193,8 @@ public class AdhellAppIntegrity {
     private void addDefaultAdblockWhitelist() {
         List<FirewallWhitelistedPackage> firewallWhitelistedPackages = new ArrayList<>();
         firewallWhitelistedPackages.add(new FirewallWhitelistedPackage("com.google.android.music", DEFAULT_POLICY_ID));
-        firewallWhitelistedPackages.add(new FirewallWhitelistedPackage("com.google.android.apps.fireball", DEFAULT_POLICY_ID));
-        firewallWhitelistedPackages.add(new FirewallWhitelistedPackage("com.nttdocomo.android.ipspeccollector2", DEFAULT_POLICY_ID));
+        firewallWhitelistedPackages.add(new FirewallWhitelistedPackage("com.google.android.apps.fireball", DEFAULT_POLICY_ID)); //allo
+        firewallWhitelistedPackages.add(new FirewallWhitelistedPackage("com.google.android.apps.tachyon", DEFAULT_POLICY_ID)); //duo
         appDatabase.firewallWhitelistedPackageDao().insertAll(firewallWhitelistedPackages);
     }
 
