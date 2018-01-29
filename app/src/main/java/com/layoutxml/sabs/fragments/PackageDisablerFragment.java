@@ -391,6 +391,7 @@ public class PackageDisablerFragment extends LifecycleFragment {
             } else
             {
                 TextView SystemOrNotHereICome = convertView.findViewById(R.id.systemOrNot);
+                SystemOrNotHereICome.setText(R.string.system);
                 SystemOrNotHereICome.setTextColor(Color.RED);
             }
             try {
