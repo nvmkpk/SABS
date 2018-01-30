@@ -135,4 +135,5 @@
     <string name="reload">Reload</string>
     <string name="sort">Sort</string>
     <string name="options">Options</string>
+    <string name="steps_to_enable_reminder_error_KLM">Paste your Knox standard SDK Enterprise key below.  It should not start with letters KLM.</string>
 </resources>
