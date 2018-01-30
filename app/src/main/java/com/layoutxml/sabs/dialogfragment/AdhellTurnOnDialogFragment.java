@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -17,11 +18,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.layoutxml.sabs.R;
 import com.layoutxml.sabs.fragments.BlockerFragment;
 import com.layoutxml.sabs.utils.DeviceAdminInteractor;
+
+import org.w3c.dom.Text;
+
+import java.util.Objects;
 
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -42,6 +48,7 @@ public class AdhellTurnOnDialogFragment extends DialogFragment {
     private Button activateKnoxButton;
     private CompositeDisposable disposable;
     private FragmentManager fragmentManager;
+    private TextView textView;
 
     public AdhellTurnOnDialogFragment() {
         deviceAdminInteractor = DeviceAdminInteractor.getInstance();
@@ -85,15 +92,19 @@ public class AdhellTurnOnDialogFragment extends DialogFragment {
         if (knoxKey!=null) {
             knoxKeyEditText.setText(knoxKey);
         }
-        knoxKeyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("knox_key", knoxKeyEditText.getText().toString());
-                editor.commit();
-                Toast.makeText(getContext(), "Key Submitted", Toast.LENGTH_SHORT).show();
-                knoxKeyButton.setText("Key Submitted");
+        knoxKeyButton.setOnClickListener(view1 -> {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("knox_key", knoxKeyEditText.getText().toString());
+            String firstthree = knoxKeyEditText.getText().toString().substring(0, 3);
+            if (Objects.equals(firstthree, "KLM"))
+            {
+                textView = view.findViewById(R.id.textView);
+                textView.setText(R.string.steps_to_enable_reminder_error_KLM);
+                textView.setTextColor(Color.RED);
             }
+            editor.commit();
+            Toast.makeText(getContext(), "Key Submitted", Toast.LENGTH_SHORT).show();
+            knoxKeyButton.setText("Key Submitted");
         });
 
         // TODO: Implement on error
