@@ -65,7 +65,7 @@ public class ReportBlockedUrlAdapter extends ArrayAdapter<ReportBlockedUrl> {
         String applicationName = (String) (ai != null ? packageManager.getApplicationLabel(ai) : "(unknown)");
 
 
-        blockedDomainIdTextView.setText(reportBlockedUrl.id + "");
+        blockedDomainIdTextView.setText(position+1 + "");
         if (icon != null) {
             blockedDomainIconImageView.setImageDrawable(icon);
         }
