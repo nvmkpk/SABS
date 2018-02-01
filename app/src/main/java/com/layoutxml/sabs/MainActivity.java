@@ -31,6 +31,7 @@ import com.layoutxml.sabs.blocker.ContentBlocker57;
 import com.layoutxml.sabs.dialogfragment.AdhellNotSupportedDialogFragment;
 import com.layoutxml.sabs.dialogfragment.AdhellTurnOnDialogFragment;
 import com.layoutxml.sabs.dialogfragment.DnsChangeDialogFragment;
+import com.layoutxml.sabs.dialogfragment.LockDialogFragment;
 import com.layoutxml.sabs.dialogfragment.NoInternetConnectionDialogFragment;
 import com.layoutxml.sabs.fragments.AdhellNotSupportedFragment;
 import com.layoutxml.sabs.fragments.AdhellPermissionInfoFragment;
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private AdhellNotSupportedDialogFragment adhellNotSupportedDialogFragment;
     private AdhellTurnOnDialogFragment adhellTurnOnDialogFragment;
     private NoInternetConnectionDialogFragment noInternetConnectionDialogFragment;
+    private LockDialogFragment lockDialogFragment;
     BottomNavigationView bottomNavigationView;
 
 
@@ -105,6 +107,10 @@ public class MainActivity extends AppCompatActivity {
         if (!mAdminInteractor.isContentBlockerSupported()) {
             return;
         }
+
+        lockDialogFragment = LockDialogFragment.newInstance("Lock");
+        lockDialogFragment.show(fragmentManager, "dialog_fragment_lock");
+        lockDialogFragment.setCancelable(false);
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.blockerTab);

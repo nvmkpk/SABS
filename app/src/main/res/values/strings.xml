@@ -136,4 +136,8 @@
     <string name="sort">Sort</string>
     <string name="options">Options</string>
     <string name="steps_to_enable_reminder_error_KLM">Paste your Knox standard SDK Enterprise key below.  It should not start with letters KLM.</string>
+    <string name="lock_dialog_Title">Warning</string>
+    <string name="lock_dialog_body">Some actions may make your system unstable. To revert any changes done, select \"Uninstall SABS\" in <b>app settings!</b> Otherwise, changes to the system will stay intact. This screen is shown so that you wouldn\'t accidentally press anything.</string>
+    <string name="ok">ok</string>
+    <string name="exit">exit</string>
 </resources>
