@@ -16,7 +16,8 @@
         android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:drawableStart="@drawable/ic_search" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeToRefresh"
