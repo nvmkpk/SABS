@@ -6,7 +6,11 @@ import android.arch.lifecycle.LifecycleFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -41,6 +45,9 @@ import com.layoutxml.sabs.R;
 import com.layoutxml.sabs.db.AppDatabase;
 import com.layoutxml.sabs.db.entity.AppInfo;
 import com.layoutxml.sabs.utils.AppsListDBInitializer;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Request;
+import com.squareup.picasso.RequestHandler;
 
 import java.util.List;
 import java.io.*;
@@ -345,10 +352,15 @@ public class PackageDisablerFragment extends LifecycleFragment {
     }
 
     private class DisablerAppAdapter extends BaseAdapter {
-        public List<AppInfo> applicationInfoList;
-
-        public DisablerAppAdapter(List<AppInfo> appInfoList) {
+        // field variable
+        private Picasso mPicasso;
+        List<AppInfo> applicationInfoList;
+        DisablerAppAdapter(List<AppInfo> appInfoList) {
             applicationInfoList = appInfoList;
+            // in constructor
+            Picasso.Builder builder = new Picasso.Builder(context);
+            builder.addRequestHandler(new AppIconRequestHandler(context));
+            mPicasso = builder.build();
         }
 
         @Override
@@ -394,12 +406,40 @@ public class PackageDisablerFragment extends LifecycleFragment {
                 SystemOrNotHereICome.setText(R.string.system);
                 SystemOrNotHereICome.setTextColor(Color.RED);
             }
-            try {
-                holder.imageH.setImageDrawable(packageManager.getApplicationIcon(appInfo.packageName));
-            } catch (PackageManager.NameNotFoundException e) {
-                Log.e(TAG, "Failed to get ImageDrawable", e);
-            }
+            mPicasso.load(AppIconRequestHandler.getUri(appInfo.packageName)).into(holder.imageH);
             return convertView;
+        }
+    }
+
+    public static class AppIconRequestHandler extends RequestHandler {
+        /** Uri scheme for app icons */
+        static final String SCHEME_APP_ICON = "app-icon";
+        private PackageManager mPackageManager;
+        AppIconRequestHandler(Context context) {
+            mPackageManager = context.getPackageManager();
+        }
+        /**
+         * Create an Uri that can be handled by this RequestHandler based on the package name
+         */
+        static Uri getUri(String packageName) {
+            return Uri.fromParts(SCHEME_APP_ICON, packageName, null);
+        }
+        @Override
+        public boolean canHandleRequest(Request data) {
+            // only handle Uris matching our scheme
+            return (SCHEME_APP_ICON.equals(data.uri.getScheme()));
+        }
+        @Override
+        public Result load(Request request, int networkPolicy) throws IOException {
+            String packageName = request.uri.getSchemeSpecificPart();
+            Drawable drawable;
+            try {
+                drawable = mPackageManager.getApplicationIcon(packageName);
+            } catch (PackageManager.NameNotFoundException ignored) {
+                return null;
+            }
+            Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+            return new Result(bitmap, Picasso.LoadedFrom.DISK);
         }
     }
 
