@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         if (count <= 1) {
             finish();
         } else {
-            fragmentManager.popBackStackImmediate();
+            fragmentManager.popBackStack();
         }
     }
 

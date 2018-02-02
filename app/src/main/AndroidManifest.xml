@@ -34,8 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:name="com.layoutxml.sabs.MainActivity"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>

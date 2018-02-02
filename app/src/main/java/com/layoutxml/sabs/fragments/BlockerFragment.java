@@ -1,6 +1,7 @@
 package com.layoutxml.sabs.fragments;
 
 import android.arch.lifecycle.LifecycleFragment;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -153,11 +154,9 @@ public class BlockerFragment extends LifecycleFragment {
             if (!contentBlocker.isEnabled()) {
                 mPolicyChangeButton.setText(R.string.block_button_text_enabling);
                 isSupportedTextView.setText(getString(R.string.enabling_sabs));
-                Snackbar.make(getActivity().findViewById(android.R.id.content), getString(R.string.enabling_sabs), Snackbar.LENGTH_SHORT).show();
             } else {
                 mPolicyChangeButton.setText(R.string.block_button_text_disabling);
                 isSupportedTextView.setText(getString(R.string.disabling_sabs));
-                Snackbar.make(getActivity().findViewById(android.R.id.content), getString(R.string.disabling_sabs), Snackbar.LENGTH_SHORT).show();
                 reportButton.setVisibility(View.GONE);
             }
             Disposable subscribe = toggleAdhellSwitchObservable
@@ -201,9 +200,17 @@ public class BlockerFragment extends LifecycleFragment {
         if (contentBlocker.isEnabled()) {
             mPolicyChangeButton.setText(R.string.block_button_text_turn_off);
             isSupportedTextView.setText(R.string.block_enabled);
+            Snackbar mySnackbar = Snackbar.make(getActivity().findViewById(android.R.id.content), getString(R.string.block_enabled), Snackbar.LENGTH_SHORT);
+            mySnackbar.setAction(R.string.block_button_text_turn_off, new mPolicyChangeButtonPress());
+            mySnackbar.setActionTextColor(Color.YELLOW).show();
+            mySnackbar.show();
         } else {
             mPolicyChangeButton.setText(R.string.block_button_text_turn_on);
             isSupportedTextView.setText(R.string.block_disabled);
+            Snackbar mySnackbar = Snackbar.make(getActivity().findViewById(android.R.id.content), getString(R.string.block_disabled), Snackbar.LENGTH_SHORT);
+            mySnackbar.setAction(R.string.block_button_text_turn_on, new mPolicyChangeButtonPress());
+            mySnackbar.setActionTextColor(Color.YELLOW).show();
+            mySnackbar.show();
         }
         Log.d(TAG, "Leaving onPostExecute() method");
         if (contentBlocker.isEnabled()
@@ -219,6 +226,13 @@ public class BlockerFragment extends LifecycleFragment {
         }
         if (!contentBlocker.isEnabled()) {
             reportButton.setVisibility(View.GONE);
+        }
+    }
+
+    private class mPolicyChangeButtonPress implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            mPolicyChangeButton.performClick();
         }
     }
 }

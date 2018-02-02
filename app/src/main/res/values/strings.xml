@@ -5,8 +5,8 @@
     <string name="isSupported">Loading…</string>
     <string name="block_enabled">SABS is on.</string>
     <string name="block_disabled">SABS is off.</string>
-    <string name="enabling_sabs">Enabling SABS. Don\'t leave. If this takes more than a minute, restart the app.</string>
-    <string name="disabling_sabs">Disabling SABS. Don\'t leave. If this takes more than a minute, restart the app.</string>
+    <string name="enabling_sabs">Enabling SABS.</string>
+    <string name="disabling_sabs">Disabling SABS.</string>
     <string name="app_not_supported">App isn\'t supported on your device. If your device is not rooted and made by Samsung, report this to developer.</string>
     <string name="steps_to_enable_reminder">1. Press activate.
         \n2. Paste your Knox standard SDK enterprise key below. If you don\'t have it, sign in here - https://seap.samsung.com/enrollment, and get your <b>Enterprise</b> key here - https://seap.samsung.com/license-keys. It should not start with letters KLM.</string>
