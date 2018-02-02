@@ -77,7 +77,7 @@
     <string name="disabler_export_storage">Export to Storage</string>
     <string name="disabler_enable_all">Enable All Apps</string>
     <string name="imported_from_storage">Importing disabled apps from storage</string>
-    <string name="exported_to_storage">Disabled apps exported to adhell_packages.txt</string>
+    <string name="exported_to_storage">Disabled apps exported to sabs.txt</string>
     <string name="enabled_all_disabled">Enabling all disabled apps</string>
     <string name="app_list_sorted_by_disabled">Disabled apps are shown first</string>
     <string name="app_profiles_tab_title">Profiles</string>
@@ -87,7 +87,7 @@
     <string name="about_title">About</string>
     <string name="icon_image">Icon Image</string>
     <string name="app_name_error">Error reading app name</string>
-    <string name="app_name_hint">App name</string>
+    <string name="app_name_hint">Search</string>
     <string name="url">url</string>
     <string name="turn_on_dialog_title">Activate app</string>
     <string name="next">NEXT</string>
@@ -140,4 +140,5 @@
     <string name="lock_dialog_body">Some actions may make your system unstable. To prevert any changes done, select \"Uninstall SABS\" in <b>app settings!</b> Otherwise, changes to the system will stay intact. This screen is shown so that you wouldn\'t change anything while your phone is in your pocket.</string>
     <string name="ok">ok</string>
     <string name="exit">exit</string>
+    <string name="undo">UNDO</string>
 </resources>

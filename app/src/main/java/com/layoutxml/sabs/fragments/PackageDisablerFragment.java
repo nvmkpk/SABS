@@ -214,7 +214,7 @@ public class PackageDisablerFragment extends LifecycleFragment {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... o) {
-                File file = new File(Environment.getExternalStorageDirectory(), "adhell_packages.txt");
+                File file = new File(Environment.getExternalStorageDirectory(), "sabs.txt");
 
                 try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
                     String line;
@@ -251,7 +251,7 @@ public class PackageDisablerFragment extends LifecycleFragment {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... o) {
-                File file = new File(Environment.getExternalStorageDirectory(), "adhell_packages.txt");
+                File file = new File(Environment.getExternalStorageDirectory(), "sabs.txt");
                 List<AppInfo> disabledAppList = mDb.applicationInfoDao().getDisabledApps();
 
                 try {
