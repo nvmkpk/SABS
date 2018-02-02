@@ -23,6 +23,8 @@
         android:theme="@style/AppTheme">
         <meta-data android:name="android.max_aspect" android:value="2.1" />
         <activity
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
             android:name="com.layoutxml.sabs.WelcomeActivity"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
@@ -32,6 +34,8 @@
             </intent-filter>
         </activity>
         <activity
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
             android:name="com.layoutxml.sabs.MainActivity"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
@@ -39,9 +43,13 @@
             </intent-filter>
         </activity>
         <activity
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
             android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
         <activity
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
             android:name="com.google.android.gms.oss.licenses.OssLicensesActivity"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
 
