@@ -16,6 +16,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -31,7 +32,6 @@ import com.layoutxml.sabs.blocker.ContentBlocker57;
 import com.layoutxml.sabs.dialogfragment.AdhellNotSupportedDialogFragment;
 import com.layoutxml.sabs.dialogfragment.AdhellTurnOnDialogFragment;
 import com.layoutxml.sabs.dialogfragment.DnsChangeDialogFragment;
-import com.layoutxml.sabs.dialogfragment.LockDialogFragment;
 import com.layoutxml.sabs.dialogfragment.NoInternetConnectionDialogFragment;
 import com.layoutxml.sabs.fragments.AdhellNotSupportedFragment;
 import com.layoutxml.sabs.fragments.AdhellPermissionInfoFragment;
@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
     private AdhellNotSupportedDialogFragment adhellNotSupportedDialogFragment;
     private AdhellTurnOnDialogFragment adhellTurnOnDialogFragment;
     private NoInternetConnectionDialogFragment noInternetConnectionDialogFragment;
-    private LockDialogFragment lockDialogFragment;
     BottomNavigationView bottomNavigationView;
 
 
@@ -108,9 +107,20 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        lockDialogFragment = LockDialogFragment.newInstance("Lock");
-        lockDialogFragment.show(fragmentManager, "dialog_fragment_lock");
-        lockDialogFragment.setCancelable(false);
+        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+        alertDialog.setTitle(R.string.lock_dialog_Title);
+        alertDialog.setMessage(getString(R.string.lock_dialog_body));
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                (dialog, which) -> dialog.dismiss());
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "EXIT",
+                (dialog, which) -> {
+                    Intent intent = new Intent(Intent.ACTION_MAIN);
+                    intent.addCategory(Intent.CATEGORY_HOME);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                });
+        alertDialog.setCanceledOnTouchOutside(false);
+        alertDialog.show();
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.blockerTab);
