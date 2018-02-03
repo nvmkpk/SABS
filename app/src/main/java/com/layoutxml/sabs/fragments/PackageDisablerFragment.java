@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.enterprise.ApplicationPolicy;
 import android.arch.lifecycle.LifecycleFragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -19,8 +20,10 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -51,6 +54,7 @@ import com.squareup.picasso.RequestHandler;
 
 import java.util.List;
 import java.io.*;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -76,6 +80,9 @@ public class PackageDisablerFragment extends LifecycleFragment {
     private FragmentManager fragmentManager;
     private SwipeRefreshLayout swipeToRefresh;
     private Handler mHandler = new Handler();
+    private String filename;
+    private static final Character[] ReservedCharacters = {'\\','/',':','*','?','"','<','>','|'};
+    private Integer count;
 
 
     public PackageDisablerFragment() {
@@ -187,8 +194,37 @@ public class PackageDisablerFragment extends LifecycleFragment {
                 loadApplicationsList(false);
                 break;
             case R.id.disabler_import_storage:
-                Toast.makeText(context, getString(R.string.imported_from_storage), Toast.LENGTH_SHORT).show();
-                importList();
+                //Toast.makeText(context, getString(R.string.imported_from_storage), Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Choose file name");
+                builder.setMessage("Choose a file name of your package list. File must not have any of these characters: |\\?*<\":>/' and must end with \".txt\"");
+                // Set up the input
+                final EditText input = new EditText(getContext());
+                // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                builder.setView(input);
+                // Set up the buttons
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        filename = input.getText().toString();
+                        for (Character ReservedCharacter : ReservedCharacters) {
+                            filename = filename.replace(ReservedCharacter.toString(), "");
+                        }
+                        filename = filename.replace(".txt","");
+                        if (Objects.equals(filename, ""))
+                            Snackbar.make(getActivity().findViewById(android.R.id.content), "Empty file name. 0 packages blocked", Snackbar.LENGTH_LONG).show();
+                        else
+                            importList(filename);
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
                 break;
             case R.id.disabler_export_storage:
                 Toast.makeText(context, getString(R.string.exported_to_storage), Toast.LENGTH_SHORT).show();
@@ -210,31 +246,33 @@ public class PackageDisablerFragment extends LifecycleFragment {
     }
 
     @SuppressLint("StaticFieldLeak")
-    private void importList() {
+    private void importList(String filename) {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... o) {
-                File file = new File(Environment.getExternalStorageDirectory(), "sabs.txt");
-
+                File file = new File(Environment.getExternalStorageDirectory(), filename+".txt");
+                count=0;
                 try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
                     String line;
-
                     while ((line = reader.readLine()) != null) {
                         try {
+                            count++;
                             AppInfo appInfo = mDb.applicationInfoDao().getByPackageName(line);
                             appInfo.disabled = true;
+                            assert appPolicy != null;
                             appPolicy.setDisableApplication(line);
                             mDb.applicationInfoDao().insert(appInfo);
                         }
                         catch (Exception e) {
                             // Ignore any potential errors
+                            count--;
                         }
                     }
                 }
                 catch (IOException e) {
                     Log.e("Exception", "File write failed: " + e.toString());
                 }
-
+                Snackbar.make(getActivity().findViewById(android.R.id.content), "Disabled " + count + " packages", Snackbar.LENGTH_LONG).show();
                 return null;
             }
 
