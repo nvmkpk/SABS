@@ -227,8 +227,37 @@ public class PackageDisablerFragment extends LifecycleFragment {
                 builder.show();
                 break;
             case R.id.disabler_export_storage:
-                Toast.makeText(context, getString(R.string.exported_to_storage), Toast.LENGTH_SHORT).show();
-                exportList();
+                //Toast.makeText(context, getString(R.string.exported_to_storage), Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
+                builder1.setTitle("Choose file name");
+                builder1.setMessage("Choose a file name of your package list. File must not have any of these characters: |\\?*<\":>/' and must end with \".txt\"");
+                // Set up the input
+                final EditText input1 = new EditText(getContext());
+                // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                input1.setInputType(InputType.TYPE_CLASS_TEXT);
+                builder1.setView(input1);
+                // Set up the buttons
+                builder1.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        filename = input1.getText().toString();
+                        for (Character ReservedCharacter : ReservedCharacters) {
+                            filename = filename.replace(ReservedCharacter.toString(), "");
+                        }
+                        filename = filename.replace(".txt","");
+                        if (Objects.equals(filename, ""))
+                            Snackbar.make(getActivity().findViewById(android.R.id.content), "Empty file name. 0 packages blocked", Snackbar.LENGTH_LONG).show();
+                        else
+                            exportList(filename);
+                    }
+                });
+                builder1.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder1.show();
                 break;
             case R.id.disabler_enable_all:
                 Toast.makeText(context, getString(R.string.enabled_all_disabled), Toast.LENGTH_SHORT).show();
@@ -285,23 +314,21 @@ public class PackageDisablerFragment extends LifecycleFragment {
     }
 
     @SuppressLint("StaticFieldLeak")
-    private void exportList() {
+    private void exportList(String filename) {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... o) {
-                File file = new File(Environment.getExternalStorageDirectory(), "sabs.txt");
+                File file = new File(Environment.getExternalStorageDirectory(), filename+".txt");
+                count=0;
                 List<AppInfo> disabledAppList = mDb.applicationInfoDao().getDisabledApps();
-
                 try {
                     FileOutputStream stream = new FileOutputStream(file);
                     OutputStreamWriter writer = new OutputStreamWriter(stream);
-
                     writer.write("");
-
                     for (AppInfo app : disabledAppList) {
-                        writer.append(app.packageName + "\n");
+                        count++;
+                        writer.append(app.packageName).append("\n");
                     }
-
                     writer.close();
                     stream.flush();
                     stream.close();
@@ -309,7 +336,7 @@ public class PackageDisablerFragment extends LifecycleFragment {
                 catch (IOException e) {
                     Log.e("Exception", "File write failed: " + e.toString());
                 }
-
+                Snackbar.make(getActivity().findViewById(android.R.id.content), "Exported " + count + " packages", Snackbar.LENGTH_LONG).show();
                 return null;
             }
         }.execute();
@@ -324,6 +351,7 @@ public class PackageDisablerFragment extends LifecycleFragment {
 
                 for (AppInfo app : disabledAppList) {
                     app.disabled = false;
+                    assert appPolicy != null;
                     appPolicy.setEnableApplication(app.packageName);
                     Snackbar.make(getActivity().findViewById(android.R.id.content), "Enabled " + app.packageName, Snackbar.LENGTH_SHORT).show();
                     mDb.applicationInfoDao().insert(app);
