@@ -1,14 +1,16 @@
 # Simple AdBlocker for Samsung (SABS)
-![Logo](https://imgur.com/fNCaCMl.png "SABS")
+[![Logo](https://imgur.com/fNCaCMl.png "SABS")](https://github.com/LayoutXML/SABS/releases)
 
 [![forthebadge](http://forthebadge.com/images/badges/gluten-free.svg)](http://forthebadge.com)
 [![forthebadge](http://forthebadge.com/images/badges/powered-by-electricity.svg)](http://forthebadge.com)
 
+[Download](https://github.com/LayoutXML/SABS/releases)
+
 SABS is a system-wide, rootless AdBlocker, package disabler, permission manager and more. It works by using Samsung's KNOX SDK, therefore only works on Samsung devices. Because of a sheer amount of Samsung phones, all with different Android and KNOX versions, screen sizes and other specifications, SABS only focuses on Galaxy S8, S8+ and Note 8 devices with latest Android version. What makes SABS stand out from other adblockers is that it can make reversable system level changes because of the Samsung's KNOX tools, and doesn't run in the background. With it, you can easily block url domains, disable system apps that you can't in settings, remove permissions from apps that you can't usually control.
 
-![Screenshot1](https://imgur.com/OyYfMtZ.png)
-![Screenshot2](https://imgur.com/FaO7yyE.png)
-![Screenshot3](https://imgur.com/eOLQqV3.png)
+[![Screenshot1](https://imgur.com/OyYfMtZ.png)](https://github.com/LayoutXML/SABS/releases)
+[![Screenshot2](https://imgur.com/FaO7yyE.png)](https://github.com/LayoutXML/SABS/releases)
+[![Screenshot3](https://imgur.com/eOLQqV3.png)](https://github.com/LayoutXML/SABS/releases)
 
 ## Table of contents
 * [Setup](https://github.com/LayoutXML/SABS#setup)
@@ -51,7 +53,7 @@ For me to get a production license key means creating a company, becoming a Sams
 SABS only works for some Samsung devices. If you use a Galaxy S8, S8+ or Note 8, you don't need to worry. If you are using a different Samsung device, try and see it yourself.
 
 ### Where does it block ads? Only browser or all apps?
-SABS blocks ads in many apps including browsers. If you still see some ads, you can send a message to the developer on Reddit with a list of apps where ads are not blocked.
+SABS blocks ads in many apps including browsers. If you still see some ads, you can send a message to the developer on [Reddit](reddit.com/u/LayoutXML) with a list of apps where ads are not blocked.
 
 ### Where is the "hosts" file with blocked domains?
 It's on the Github page. File is named standard-package.txt. You can add your own sources like [Adaway](https://adaway.org/hosts.txt) in app settings. Source file must only have url domains, 127.0.0.1s and comments in lines starting with #. Standard package is updated independently to app version.
