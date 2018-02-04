@@ -97,15 +97,22 @@
     <string name="slide_1_title">Welcome!</string>
     <string name="slide_1_desc">Simple adblocker for Samsung will let you block ads, websites, permissions and more! \nMost imporantly - it\'s <b>free</b> and <b>open source</b>.</string>
 
-    <string name="slide_2_title">Grant permissions</string>
-    <string name="slide_2_desc">All features of this app require Samsung\'s KNOX tools. To use them, we need administative permissions. \nYou will be soon asked to grant them.</string>
+    <string name="slide_2_title">KNOX Tools</string>
+    <string name="slide_2_desc">SABS uses Samsung\'s KNOX tools to block ads system-wide without running in background! KNOX SDK requires administrative permissions and you will be asked to grant them soon.</string>
 
     <string name="slide_3_title">Get your free license key</string>
-    <string name="slide_3_desc">If you don\'t have your KNOX key already, go to https://seap.samsung.com/enrollment and sign in with your Samsung account. After that go to https://seap.samsung.com/license-keys and generate a Knox Standard SDK <b>Enterprice</b> license key. Key alias can be whatever you want. Copy that key, you will need to paste it soon. If your key starts with letters KML, you got the wrong key. Do all these steps above again.</string>
+    <string name="slide_3_desc">You need to generate a license key first. Go to https://seap.samsung.com/enrollment and sign in with your Samsung account. Then go to https://seap.samsung.com/license-keys/create#section-knox-standard-sdk and generate a key as shown in the picture.
+\n1. Go to \“Legacy SDKs\”
+\n2. Go to \”Knox Standard SDK\”
+\n3. Select \”Enterprise\”
+\n4. Write any word
+\n5. Press generate
+\n Copy your key and be ready to paste it.
+</string>
 
     <string name="slide_4_title">You are ready!</string>
-    <string name="slide_4_desc">In some screens there are settings button (1), in others - refresh, sort and options (2).
-    \nThere are three main functions of the app - adblocker (3), app disabler (4) and permissions manager (5). You can switch between those in the bottom of the screen.</string>
+    <string name="slide_4_desc">Remember - if license activation fails a couple of times, uninstall and reinstall the app.
+    \nIf you think that SABS isn\'t blocking any ads - check in recent activity. If you\'re right - turn off all adblockers (SABS, Adhell, Disconnect etc), turn on blocking in SABS and wait a minute. Then, if you want you can activate all your other apps as well.</string>
 
     <string name="settings_edit_url_small">Add, remove websites, subscribe to providers</string>
     <string name="change_dns_menu_small">Set DNS Address 1 and DNS Address 2</string>
