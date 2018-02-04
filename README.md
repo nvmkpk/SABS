@@ -1,10 +1,14 @@
 # Simple AdBlocker for Samsung (SABS)
 ![Logo](https://imgur.com/fNCaCMl.png "SABS")
 
-SABS is a system-wide, rootless AdBlocker, package disabler, permission manager and more. It works by using Samsung's KNOX SDK, therefore only works on Samsung devices. Because of a sheer amount of Samsung phones, all with different Android and KNOX versions, different screen sizes and other specifications, SABS only focuses on Galaxy S8, S8+ and Note 8 devices with latest Android operating system versions installed. What makes SABS stand out from other adblockers is that it can make reversable system level changes because of the Samsung's KNOX tools, and doesn't run in the background. With it, you can easily block url domains, disable system apps that you can't in settings, remove permissions from apps that you can't usually control.
-
 [![forthebadge](http://forthebadge.com/images/badges/gluten-free.svg)](http://forthebadge.com)
 [![forthebadge](http://forthebadge.com/images/badges/powered-by-electricity.svg)](http://forthebadge.com)
+
+SABS is a system-wide, rootless AdBlocker, package disabler, permission manager and more. It works by using Samsung's KNOX SDK, therefore only works on Samsung devices. Because of a sheer amount of Samsung phones, all with different Android and KNOX versions, screen sizes and other specifications, SABS only focuses on Galaxy S8, S8+ and Note 8 devices with latest Android version. What makes SABS stand out from other adblockers is that it can make reversable system level changes because of the Samsung's KNOX tools, and doesn't run in the background. With it, you can easily block url domains, disable system apps that you can't in settings, remove permissions from apps that you can't usually control.
+
+![Screenshot1](https://imgur.com/OyYfMtZ.png)
+![Screenshot2](https://imgur.com/FaO7yyE.png)
+![Screenshot3](https://imgur.com/eOLQqV3.png)
 
 ## Table of contents
 * [Setup](https://github.com/LayoutXML/SABS#setup)
@@ -53,7 +57,7 @@ SABS blocks ads in many apps including browsers. If you still see some ads, you 
 It's on the Github page. File is named standard-package.txt. You can add your own sources like [Adaway](https://adaway.org/hosts.txt) in app settings. Source file must only have url domains, 127.0.0.1s and comments in lines starting with #. Standard package is updated independently to app version.
 
 ### Can I use it with Disconnect Pro?
-It is not recommended as both SABS and Disconnect Pro use Samsung's Firewall. SABS has all the features or Disconnect Pro and more.
+It is not recommended as both SABS and Disconnect Pro use Samsung's Firewall. SABS has all the features of Disconnect Pro and more.
 
 ### Does it drain battery?
 No, not at all. SABS might even improve your battery as apps cannot constantly communicate with ad and tracker domains. SABS doesn't run in background because it doesn't need to.
