@@ -12,15 +12,18 @@ import com.layoutxml.sabs.db.entity.BlockUrl;
 import com.layoutxml.sabs.db.entity.BlockUrlProvider;
 import com.layoutxml.sabs.db.entity.UserBlockUrl;
 import com.layoutxml.sabs.db.entity.WhiteUrl;
+import com.layoutxml.sabs.utils.BlockUrlPatternsMatch;
 import com.sec.enterprise.AppIdentity;
 import com.sec.enterprise.firewall.DomainFilterRule;
 import com.sec.enterprise.firewall.Firewall;
 import com.sec.enterprise.firewall.FirewallResponse;
+import com.sec.enterprise.firewall.FirewallRule;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Arrays;
 
 import javax.inject.Inject;
 
@@ -58,31 +61,6 @@ public class ContentBlocker56 implements ContentBlocker {
         if (isEnabled()) {
             disableBlocker();
         }
-        BlockUrlProvider standardBlockUrlProvider =
-                appDatabase.blockUrlProviderDao().getByUrl(MainActivity.ADHELL_STANDARD_PACKAGE);
-        List<BlockUrl> standardList = appDatabase.blockUrlDao().getUrlsByProviderId(standardBlockUrlProvider.id);
-
-        Set<BlockUrl> finalBlockList = new HashSet<>();
-        finalBlockList.addAll(standardList);
-        List<BlockUrlProvider> blockUrlProviders = appDatabase.blockUrlProviderDao().getBlockUrlProviderBySelectedFlag(1);
-
-        for (BlockUrlProvider blockUrlProvider : blockUrlProviders) {
-            if (blockUrlProvider.url.equals(MainActivity.ADHELL_STANDARD_PACKAGE)) {
-                continue;
-            }
-            Log.i(TAG, "Included url provider: " + blockUrlProvider.url);
-            List<BlockUrl> blockUrls = appDatabase.blockUrlDao().getUrlsByProviderId(blockUrlProvider.id);
-            if (finalBlockList.size() + blockUrls.size() <= this.urlBlockLimit - 100) {
-                finalBlockList.addAll(blockUrls);
-            } else {
-                int remain = this.urlBlockLimit - finalBlockList.size();
-                if (remain < blockUrls.size()) {
-                    blockUrls = blockUrls.subList(0, remain);
-                }
-                finalBlockList.addAll(blockUrls);
-                break;
-            }
-        }
         List<WhiteUrl> whiteUrls = appDatabase.whiteUrlDao().getAll2();
 
         List<String> whiteUrlsString = new ArrayList<>();
@@ -91,60 +69,86 @@ public class ContentBlocker56 implements ContentBlocker {
         }
 
         List<String> denyList = new ArrayList<>();
-        for (BlockUrl blockUrl : finalBlockList) {
-            if (Patterns.WEB_URL.matcher(blockUrl.url).matches()) {
-                if (whiteUrlsString.contains(blockUrl.url)) {
+        List<BlockUrlProvider> blockUrlProviders = appDatabase.blockUrlProviderDao().getBlockUrlProviderBySelectedFlag(1);
+        for (BlockUrlProvider blockUrlProvider : blockUrlProviders) {
+            List<BlockUrl> blockUrls = appDatabase.blockUrlDao().getUrlsByProviderId(blockUrlProvider.id);
+
+        for (BlockUrl blockUrl : blockUrls) {
+            if (whiteUrlsString.contains(blockUrl.url)) {
+                continue;
+            }
+            if (denyList.size() > urlBlockLimit) {
+                break;
+            }
+            if (blockUrl.url.contains("*")) {
+                boolean validWildcard = BlockUrlPatternsMatch.wildcardValid(blockUrl.url);
+                if (!validWildcard) {
                     continue;
                 }
-                denyList.add("*" + blockUrl.url + "*");
+                denyList.add(blockUrl.url);
+            } else {
+                blockUrl.url = blockUrl.url.replaceAll("^(www)([0-9]{0,3})?(\\.)", "");
+                boolean validDomain = BlockUrlPatternsMatch.domainValid(blockUrl.url);
+                if (!validDomain) {
+                    continue;
+                }
+                denyList.add("*" + blockUrl.url);
+            }
             }
         }
 
         List<UserBlockUrl> userBlockUrls = appDatabase.userBlockUrlDao().getAll2();
 
         if (userBlockUrls != null && userBlockUrls.size() > 0) {
-            Log.i(TAG, "UserBlockUrls size: " + userBlockUrls.size());
             for (UserBlockUrl userBlockUrl : userBlockUrls) {
                 if (Patterns.WEB_URL.matcher(userBlockUrl.url).matches()) {
-                    denyList.add("*" + userBlockUrl.url + "*");
-                    Log.i(TAG, "UserBlockUrl: " + userBlockUrl.url);
+                    final String urlReady = "*" + userBlockUrl.url + "*";
+                    denyList.add(urlReady);
                 }
             }
-        } else {
-            Log.i(TAG, "UserBlockUrls is empty.");
         }
-
-        Log.d(TAG, "Number of block list: " + denyList.size());
-        List<String> allowList = new ArrayList<>();
+        if (denyList.size() > urlBlockLimit) {
+            denyList = denyList.subList(0, urlBlockLimit);
+        }
         List<DomainFilterRule> rules = new ArrayList<>();
         AppIdentity appIdentity = new AppIdentity("*", null);
-        rules.add(new DomainFilterRule(appIdentity, denyList, allowList));
+        rules.add(new DomainFilterRule(appIdentity, denyList, new ArrayList<>()));
         List<String> superAllow = new ArrayList<>();
         superAllow.add("*");
         List<AppInfo> appInfos = appDatabase.applicationInfoDao().getWhitelistedApps();
-        Log.d(TAG, "Whitelisted apps size: " + appInfos.size());
         for (AppInfo app : appInfos) {
-            Log.d(TAG, app.packageName);
             rules.add(new DomainFilterRule(new AppIdentity(app.packageName, null), new ArrayList<>(), superAllow));
         }
+        try {
+            int numRules = 2;
+            FirewallRule[] portRules = new FirewallRule[2];
+            portRules[0] = new FirewallRule(FirewallRule.RuleType.DENY, Firewall.AddressType.IPV4);
+            portRules[0].setIpAddress("*");
+            portRules[0].setPortNumber("53");
+            portRules[1] = new FirewallRule(FirewallRule.RuleType.DENY, Firewall.AddressType.IPV6);
+            portRules[1].setIpAddress("*");
+            portRules[1].setPortNumber("53");
+            FirewallResponse[] response = mFirewall.addRules(portRules);
+        }
+        catch (SecurityException ex)
+        {
+            return false;
+        }
+
         try {
             FirewallResponse[] response = mFirewall.addDomainFilterRules(rules);
             if (!mFirewall.isFirewallEnabled()) {
                 mFirewall.enableFirewall(true);
             }
             if (!mFirewall.isDomainFilterReportEnabled()) {
-                Log.d(TAG, "Enabling filewall report");
                 mFirewall.enableDomainFilterReport(true);
             }
             if (FirewallResponse.Result.SUCCESS == response[0].getResult()) {
-                Log.i(TAG, "Adhell enabled " + response[0].getMessage());
                 return true;
             } else {
-                Log.i(TAG, "Adhell enabling failed " + response[0].getMessage());
                 return false;
             }
         } catch (SecurityException ex) {
-            Log.e(TAG, "Adhell enabling failed", ex);
             return false;
         }
     }
@@ -153,8 +157,8 @@ public class ContentBlocker56 implements ContentBlocker {
     public boolean disableBlocker() {
         FirewallResponse[] response;
         try {
+            response = mFirewall.clearRules(Firewall.FIREWALL_ALL_RULES);
             response = mFirewall.removeDomainFilterRules(DomainFilterRule.CLEAR_ALL);
-            Log.i(TAG, "disableBlocker " + response[0].getMessage());
             if (mFirewall.isFirewallEnabled()) {
                 mFirewall.enableFirewall(false);
             }
@@ -162,7 +166,6 @@ public class ContentBlocker56 implements ContentBlocker {
                 mFirewall.enableDomainFilterReport(false);
             }
         } catch (SecurityException ex) {
-            Log.e(TAG, "Failed to removeDomainFilterRules", ex);
             return false;
         }
         return true;
