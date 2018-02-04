@@ -32,7 +32,7 @@ SABS is a system-wide, rootless AdBlocker, package disabler, permission manager 
 Steps 4-8 are demonstrated in [the picture here](https://i.imgur.com/LTAdkpW.png).
 
 ## Issues
-* Sometimes license is not activated. Make sure you have the key that **does not** start with letters "KLM".
+* Sometimes license is not activated. Make sure you have the key that **does not** start with letters "KLM". If after multiple tries and app restarts you still receive a license activation error, reinstall the app.
 * Sometimes adblocker stops working but other parts of the app continues to work if more than one adblocker is in use. If it happens to you, turn off blocking in all apps that use KNOX SDK such as Adhell, Disconnect pro etc, and SABS. Turn on blocking in SABS again. Wait a couple of minutes before concluding that adblocking doesn't work again (it takes some time to block all domains).
 * Ads are not blocked in Youtube and Chrome. Youtube serves its ads from the same domain as videos so there's no way of blocking them. Chrome recently had some changes in how it works but luckily you can fix it [as explained here](https://www.xda-developers.com/fix-dns-ad-blocker-chrome/).
 * Some apps that need internet or websites might work incorrecly if their domain is blocked. Whitelist them in settings. It is recommended to whitelist Google Music, Allo and Duo apps.
