@@ -107,7 +107,7 @@
 \n3. Select \”Enterprise\”
 \n4. Write any word
 \n5. Press generate
-\n Copy your key and be ready to paste it.
+\n Copy your key and be ready to paste it. If your key starts with letters \"KLM\" - you have generated the wrong key.
 </string>
 
     <string name="slide_4_title">You are ready!</string>

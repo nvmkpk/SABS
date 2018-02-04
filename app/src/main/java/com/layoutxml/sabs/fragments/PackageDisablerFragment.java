@@ -93,9 +93,6 @@ public class PackageDisablerFragment extends LifecycleFragment {
         super.onCreate(savedInstanceState);
         App.get().getAppComponent().inject(this);
         parentActivity = (AppCompatActivity) getActivity();
-        if (BuildConfig.APPLICATION_ID!="com.layoutxml.sabs") {
-            throw new RuntimeException("Administrative permissions not granted");
-        }
     }
 
     @SuppressLint("StaticFieldLeak")

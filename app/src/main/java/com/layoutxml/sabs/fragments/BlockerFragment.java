@@ -181,17 +181,6 @@ public class BlockerFragment extends LifecycleFragment {
         } else {
             reportButton.setVisibility(View.GONE);
         }
-
-        int sum = 0;
-        for (char ch : BuildConfig.APPLICATION_ID.toCharArray()) {
-            if (ch >= 'a' && ch <= 'z') {
-                sum += 1 + ch - 'a';
-            }
-        }
-        if (sum!=215) {
-            int c = a/b;
-            Log.d(TAG, "Error in trying to block permissions to app itself");
-        }
         return view;
     }
 
