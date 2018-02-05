@@ -84,7 +84,7 @@ public class AppSettingsFragment extends LifecycleFragment {
                     dpm.removeActiveAdmin(devAdminReceiver);
                     Intent intent = new Intent(Intent.ACTION_DELETE);
                     //Todo: Make delete function dynamic
-                    String packageName = "package:" + BuildConfig.APPLICATION_ID;
+                    String packageName = "package:" + getContext().getPackageName();
                     intent.setData(Uri.parse(packageName));
                     startActivity(intent);
                 })
