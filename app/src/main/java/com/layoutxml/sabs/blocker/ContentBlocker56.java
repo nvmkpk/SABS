@@ -1,5 +1,7 @@
 package com.layoutxml.sabs.blocker;
 
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.util.Patterns;
@@ -12,6 +14,7 @@ import com.layoutxml.sabs.db.entity.BlockUrl;
 import com.layoutxml.sabs.db.entity.BlockUrlProvider;
 import com.layoutxml.sabs.db.entity.UserBlockUrl;
 import com.layoutxml.sabs.db.entity.WhiteUrl;
+import com.layoutxml.sabs.fragments.BlockerFragment;
 import com.layoutxml.sabs.utils.BlockUrlPatternsMatch;
 import com.sec.enterprise.AppIdentity;
 import com.sec.enterprise.firewall.DomainFilterRule;
@@ -126,15 +129,17 @@ public class ContentBlocker56 implements ContentBlocker {
             rules.add(new DomainFilterRule(new AppIdentity(app.packageName, null), new ArrayList<>(), superAllow));
         }
         try {
-            int numRules = 2;
-            FirewallRule[] portRules = new FirewallRule[2];
-            portRules[0] = new FirewallRule(FirewallRule.RuleType.DENY, Firewall.AddressType.IPV4);
-            portRules[0].setIpAddress("*");
-            portRules[0].setPortNumber("53");
-            portRules[1] = new FirewallRule(FirewallRule.RuleType.DENY, Firewall.AddressType.IPV6);
-            portRules[1].setIpAddress("*");
-            portRules[1].setPortNumber("53");
-            FirewallResponse[] response = mFirewall.addRules(portRules);
+            /* Doesn't work on Android Wear
+                int numRules = 2;
+                FirewallRule[] portRules = new FirewallRule[2];
+                portRules[0] = new FirewallRule(FirewallRule.RuleType.DENY, Firewall.AddressType.IPV4);
+                portRules[0].setIpAddress("*");
+                portRules[0].setPortNumber("53");
+                portRules[1] = new FirewallRule(FirewallRule.RuleType.DENY, Firewall.AddressType.IPV6);
+                portRules[1].setIpAddress("*");
+                portRules[1].setPortNumber("53");
+                FirewallResponse[] response = mFirewall.addRules(portRules);
+            */
         }
         catch (SecurityException ex)
         {

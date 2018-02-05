@@ -39,8 +39,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/author"
@@ -49,9 +48,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:text="@string/author"
-        android:textAppearance="@android:style/TextAppearance.Material.Menu"
-        app:layout_constraintStart_toEndOf="@+id/imageView7"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        android:textAppearance="@android:style/TextAppearance.Material.Menu" />
 
     <TextView
         android:id="@+id/reddit"
@@ -62,7 +59,6 @@
         android:onClick="redditURL"
         android:text="@string/reddit"
         android:textAppearance="@android:style/TextAppearance.Material.Menu"
-        app:layout_constraintStart_toEndOf="@+id/imageView7"
         app:layout_constraintTop_toBottomOf="@+id/author" />
 
     <TextView
@@ -75,7 +71,6 @@
         android:onClick="githubURL"
         android:text="@string/github"
         android:textAppearance="@android:style/TextAppearance.Material.Menu"
-        app:layout_constraintStart_toEndOf="@+id/imageView8"
         app:layout_constraintTop_toBottomOf="@+id/reddit" />
 
     <View
@@ -85,8 +80,7 @@
         android:layout_marginTop="8dp"
         android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/version"
