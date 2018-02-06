@@ -148,4 +148,6 @@
     <string name="ok">ok</string>
     <string name="exit">exit</string>
     <string name="undo">UNDO</string>
+    <string name="package_name">Package name</string>
+    <string name="error_packagename">Unable to get package name</string>
 </resources>

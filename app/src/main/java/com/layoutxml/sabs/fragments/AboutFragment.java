@@ -40,6 +40,10 @@ public class AboutFragment extends LifecycleFragment {
         String versionName = BuildConfig.VERSION_NAME;
         versionname.setText("Version : " + versionName + " (internal code: " + versionCode + ")");
 
+        TextView packagename = view.findViewById(R.id.packagename);
+        String packageName = BuildConfig.VERSION_NAME;
+        packagename.setText(getContext().getPackageName().toString());
+
         EditText knoxKeyEditText = view.findViewById(R.id.knox_key_editText);
         Button knoxKeyButton = view.findViewById(R.id.submit_knox_key_button);
         SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
