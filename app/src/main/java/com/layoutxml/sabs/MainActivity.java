@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.github.javiersantos.appupdater.AppUpdater;
 import com.github.javiersantos.appupdater.enums.Display;
@@ -356,5 +357,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void showBottomBar() {
         bottomNavigationView.setVisibility(View.VISIBLE);
+    }
+
+    public void copyPackageID(View view) {
+        String packageName = getPackageName();
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText("packagename", packageName);
+        assert clipboard != null;
+        clipboard.setPrimaryClip(clip);
     }
 }

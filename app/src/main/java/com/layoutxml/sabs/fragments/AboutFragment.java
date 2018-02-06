@@ -41,8 +41,7 @@ public class AboutFragment extends LifecycleFragment {
         versionname.setText("Version : " + versionName + " (internal code: " + versionCode + ")");
 
         TextView packagename = view.findViewById(R.id.packagename);
-        String packageName = BuildConfig.VERSION_NAME;
-        packagename.setText(getContext().getPackageName().toString());
+        packagename.setText(getContext().getPackageName());
 
         EditText knoxKeyEditText = view.findViewById(R.id.knox_key_editText);
         Button knoxKeyButton = view.findViewById(R.id.submit_knox_key_button);
