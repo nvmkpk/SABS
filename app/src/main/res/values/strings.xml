@@ -95,7 +95,8 @@
     <string name="start">GOT IT</string>
 
     <string name="slide_1_title">Welcome!</string>
-    <string name="slide_1_desc">Simple adblocker for Samsung will let you block ads, websites, permissions and more! \nMost imporantly - it\'s <b>free</b> and <b>open source</b>.</string>
+    <string name="slide_1_desc">Simple adblocker for Samsung will let you block ads, websites, permissions and more! \nMost imporantly - it\'s <b>free</b> and <b>open source</b>.
+    \n\nFor SABS to work you need to either change the package name in Manifest file or compile app with changes package name yourself. Check out how to do it here: https://github.com/LayoutXML/SABS#setup</string>
 
     <string name="slide_2_title">KNOX Tools</string>
     <string name="slide_2_desc">SABS uses Samsung\'s KNOX tools to block ads system-wide without running in background! KNOX SDK requires administrative permissions and you will be asked to grant them soon.</string>
