@@ -24,6 +24,7 @@ import com.layoutxml.sabs.MainActivity;
 import com.layoutxml.sabs.R;
 import com.layoutxml.sabs.adapter.AdhellPermissionInfoAdapter;
 import com.layoutxml.sabs.adapter.ItemClickSupport;
+import com.layoutxml.sabs.dialogfragment.AdhellTurnOnDialogFragment;
 import com.layoutxml.sabs.model.AdhellPermissionInfo;
 import com.layoutxml.sabs.viewmodel.SharedAppPermissionViewModel;
 
@@ -35,6 +36,7 @@ public class AdhellPermissionInfoFragment extends LifecycleFragment {
     private AppCompatActivity parentActivity;
     private SharedAppPermissionViewModel sharedAppPermissionViewModel;
     private FragmentManager fragmentManager;
+    private AdhellTurnOnDialogFragment adhellTurnOnDialogFragment;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,7 +50,8 @@ public class AdhellPermissionInfoFragment extends LifecycleFragment {
         } else {
             Log.w(TAG, "Permission for application permission policy is not granted");
             Toast.makeText(this.getContext(), "You need to re-enable admin to make this work", Toast.LENGTH_LONG).show();
-            // TODO: if not show re-enable dialog
+            adhellTurnOnDialogFragment = AdhellTurnOnDialogFragment.newInstance("Adhell Turn On");
+            adhellTurnOnDialogFragment.setCancelable(false);
         }
     }
 
