@@ -40,6 +40,7 @@ import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v7.widget.SearchView;
 
 import com.layoutxml.sabs.App;
 import com.layoutxml.sabs.BuildConfig;
@@ -74,7 +75,7 @@ public class PackageDisablerFragment extends LifecycleFragment {
     private Context context;
     private List<AppInfo> packageList;
     private DisablerAppAdapter adapter;
-    private EditText editText;
+    //private EditText editText;
     private int sortState = SORTED_ALPHABETICALLY;
     private AppCompatActivity parentActivity;
     private FragmentManager fragmentManager;
@@ -83,6 +84,7 @@ public class PackageDisablerFragment extends LifecycleFragment {
     private String filename;
     private static final Character[] ReservedCharacters = {'\\','/',':','*','?','"','<','>','|'};
     private Integer count;
+    private String searchtext;
 
 
     public PackageDisablerFragment() {
@@ -106,8 +108,8 @@ public class PackageDisablerFragment extends LifecycleFragment {
         setHasOptionsMenu(true);
         View view = inflater.inflate(R.layout.fragment_package_disabler, container, false);
         context = getActivity().getApplicationContext();
-        editText = view.findViewById(R.id.disabledFilter);
-        editText.setOnClickListener(v -> editText.setCursorVisible(true));
+        //editText = view.findViewById(R.id.disabledFilter);
+        //editText.setOnClickListener(v -> editText.setCursorVisible(true));
         swipeToRefresh = view.findViewById(R.id.swipeToRefresh);
         swipeToRefresh.setOnRefreshListener(getSwipeRefreshListener());
 
@@ -144,8 +146,8 @@ public class PackageDisablerFragment extends LifecycleFragment {
             }.execute();
         });
 
-        loadApplicationsList(false);
-        editText.addTextChangedListener(new TextWatcher() {
+        loadApplicationsList(false, "");
+        /*editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -156,9 +158,9 @@ public class PackageDisablerFragment extends LifecycleFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                loadApplicationsList(false);
+                loadApplicationsList(false, "");
             }
-        });
+        });*/
         return view;
     }
 
@@ -166,6 +168,28 @@ public class PackageDisablerFragment extends LifecycleFragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.package_disabler_menu, menu);
+
+        MenuItem myActionMenuItem = menu.findItem( R.id.action_search);
+        SearchView searchView = (SearchView) myActionMenuItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                //Toast.makeText(context, query, Toast.LENGTH_SHORT).show();
+                /*if(!searchView.isIconified()) {
+                    searchView.setIconified(true);
+                }
+                myActionMenuItem.collapseActionView();*/
+                //searchtext = query;
+                loadApplicationsList(false, query);
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String s) {
+                //Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
+                loadApplicationsList(false, s);
+                return false;
+            }
+        });
     }
 
     @Override
@@ -177,18 +201,18 @@ public class PackageDisablerFragment extends LifecycleFragment {
                 if (sortState == SORTED_ALPHABETICALLY) break;
                 sortState = SORTED_ALPHABETICALLY;
                 Toast.makeText(context, getString(R.string.app_list_sorted_by_alphabet), Toast.LENGTH_SHORT).show();
-                loadApplicationsList(false);
+                loadApplicationsList(false, "");
                 break;
             case R.id.sort_by_time_item:
                 if (sortState == SORTED_INSTALL_TIME) break;
                 sortState = SORTED_INSTALL_TIME;
                 Toast.makeText(context, getString(R.string.app_list_sorted_by_date), Toast.LENGTH_SHORT).show();
-                loadApplicationsList(false);
+                loadApplicationsList(false, "");
                 break;
             case R.id.sort_disabled_item:
                 sortState = SORTED_DISABLED;
                 Toast.makeText(context, getString(R.string.app_list_sorted_by_disabled), Toast.LENGTH_SHORT).show();
-                loadApplicationsList(false);
+                loadApplicationsList(false, "");
                 break;
             case R.id.disabler_import_storage:
                 //Toast.makeText(context, getString(R.string.imported_from_storage), Toast.LENGTH_SHORT).show();
@@ -318,7 +342,7 @@ public class PackageDisablerFragment extends LifecycleFragment {
             @Override
             protected void onPostExecute(Void o) {
                 super.onPostExecute(o);
-                loadApplicationsList(true);
+                loadApplicationsList(true, "");
             }
         }.execute();
     }
@@ -373,23 +397,24 @@ public class PackageDisablerFragment extends LifecycleFragment {
             @Override
             protected void onPostExecute(Void o) {
                 super.onPostExecute(o);
-                loadApplicationsList(true);
+                loadApplicationsList(true, "");
             }
         }.execute();
     }
 
     @SuppressLint("StaticFieldLeak")
-    private void loadApplicationsList(boolean clear) {
+    private void loadApplicationsList(boolean clear, String text) {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... o) {
                 if (clear) mDb.applicationInfoDao().deleteAll();
                 else {
-                    packageList = getListFromDb();
+                    packageList = getListFromDb(text);
+                    assert packageList != null;
                     if (packageList.size() != 0) return null;
                 }
                 AppsListDBInitializer.getInstance().fillPackageDb(packageManager);
-                packageList = getListFromDb();
+                packageList = getListFromDb(text);
                 return null;
             }
 
@@ -403,8 +428,8 @@ public class PackageDisablerFragment extends LifecycleFragment {
         }.execute();
     }
 
-    private List<AppInfo> getListFromDb() {
-        String filterText = '%' + editText.getText().toString() + '%';
+    private List<AppInfo> getListFromDb(String text) {
+        String filterText = '%' + text + '%';
         switch (sortState) {
             case SORTED_ALPHABETICALLY:
                 if (filterText.length() == 0) return mDb.applicationInfoDao().getAll();
@@ -524,15 +549,15 @@ public class PackageDisablerFragment extends LifecycleFragment {
         return new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                editText.setText("");
-                loadApplicationsList(true);
+                //editText.setText("");
+                loadApplicationsList(true, "");
                 mHandler.postDelayed(new Runnable() {
                     public void run() {
                         if (swipeToRefresh != null) {
                             swipeToRefresh.setRefreshing(false);
                         }
                     }
-                }, 1000);
+                }, 5000);
             }
         };
     }

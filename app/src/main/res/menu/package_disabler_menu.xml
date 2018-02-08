@@ -2,15 +2,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_action_search"
+        app:showAsAction="always|collapseActionView"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        android:title="@string/app_name_hint"/>
+    <item
         android:id="@+id/action_pack_dis_sort"
         android:icon="@drawable/ic_sort"
         android:orderInCategory="100"
         android:title="@string/sort"
         app:showAsAction="always">
         <menu>
-            <item android:title="@string/sort_by_alphabet" android:id="@+id/sort_alphabetically_item"/>
-            <item android:title="@string/sort_by_install_time" android:id="@+id/sort_by_time_item"/>
-            <item android:title="@string/sort_by_disabled" android:id="@+id/sort_disabled_item"/>
+            <item
+                android:id="@+id/sort_alphabetically_item"
+                android:title="@string/sort_by_alphabet" />
+            <item
+                android:id="@+id/sort_by_time_item"
+                android:title="@string/sort_by_install_time" />
+            <item
+                android:id="@+id/sort_disabled_item"
+                android:title="@string/sort_by_disabled" />
         </menu>
     </item>
     <item
