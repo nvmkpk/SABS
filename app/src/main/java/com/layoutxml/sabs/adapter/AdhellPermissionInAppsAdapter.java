@@ -34,7 +34,7 @@ public class AdhellPermissionInAppsAdapter extends RecyclerView.Adapter<AdhellPe
     @Nullable
     @Inject
     ApplicationPermissionControlPolicy mAppControlPolicy;
-    Set<String> restrictedPackageNames;
+    private Set<String> restrictedPackageNames;
     private List<AppInfo> appInfos;
 
 
@@ -45,6 +45,7 @@ public class AdhellPermissionInAppsAdapter extends RecyclerView.Adapter<AdhellPe
     }
 
     public void updateRestrictedPackages() {
+        assert mAppControlPolicy != null;
         List<AppPermissionControlInfo> appPermissionControlInfos = mAppControlPolicy.getPackagesFromPermissionBlackList();
         if (appPermissionControlInfos == null
                 || appPermissionControlInfos.size() == 0
@@ -78,7 +79,6 @@ public class AdhellPermissionInAppsAdapter extends RecyclerView.Adapter<AdhellPe
     public void onBindViewHolder(ViewHolder holder, int position) {
         AppInfo appInfo = appInfos.get(position);
         holder.appNameTextView.setText(appInfo.appName);
-        holder.appPackageNameTextView.setText(appInfo.packageName);
         Drawable icon = null;
         try {
             icon = mPackageManager.getApplicationIcon(appInfo.packageName);
@@ -108,14 +108,12 @@ public class AdhellPermissionInAppsAdapter extends RecyclerView.Adapter<AdhellPe
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView appIconImageView;
         TextView appNameTextView;
-        TextView appPackageNameTextView;
         Switch appPermissionSwitch;
 
         ViewHolder(View itemView) {
             super(itemView);
             appIconImageView = itemView.findViewById(R.id.appIconImageView);
             appNameTextView = itemView.findViewById(R.id.appNameTextView);
-            appPackageNameTextView = itemView.findViewById(R.id.appPackageNameTextView);
             appPermissionSwitch = itemView.findViewById(R.id.appPermissionSwitch);
             itemView.setOnClickListener(this);
         }
