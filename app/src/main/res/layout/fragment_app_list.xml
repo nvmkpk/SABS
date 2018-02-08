@@ -9,7 +9,6 @@
         android:id="@+id/adblockEnabledAppSearchEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:drawableStart="@drawable/ic_search"
         android:hint="@string/app_name_hint"
         android:imeOptions="actionSearch"
@@ -20,11 +19,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.v7.widget.ListViewCompat
+    <ListView
         android:id="@+id/appList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
         android:divider="?attr/dividerHorizontal"
         android:dividerHeight="1dp"
         android:scrollbars="vertical"
@@ -33,5 +31,5 @@
         app:layout_constraintStart_toStartOf="@+id/adblockEnabledAppSearchEditText"
         app:layout_constraintTop_toBottomOf="@+id/adblockEnabledAppSearchEditText">
 
-    </android.support.v7.widget.ListViewCompat>
+    </ListView>
 </android.support.constraint.ConstraintLayout>
