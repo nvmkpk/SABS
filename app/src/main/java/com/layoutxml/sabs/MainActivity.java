@@ -168,7 +168,6 @@ public class MainActivity extends AppCompatActivity {
                 .start();
 
         AsyncTask.execute(() -> {
-//        HeartbeatAlarmHelper.scheduleAlarm();
             AdhellAppIntegrity adhellAppIntegrity = new AdhellAppIntegrity();
             adhellAppIntegrity.check();
             adhellAppIntegrity.checkDefaultPolicyExists();

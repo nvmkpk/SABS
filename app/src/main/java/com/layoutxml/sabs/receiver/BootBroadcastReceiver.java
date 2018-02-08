@@ -19,6 +19,5 @@ public class BootBroadcastReceiver extends WakefulBroadcastReceiver {
                 || contentBlocker instanceof ContentBlocker57)) {
             BlockedDomainAlarmHelper.scheduleAlarm();
         }
-//        HeartbeatAlarmHelper.scheduleAlarm();
     }
 }
