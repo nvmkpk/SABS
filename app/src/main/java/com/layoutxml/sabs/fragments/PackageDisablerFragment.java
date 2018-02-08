@@ -256,6 +256,19 @@ public class PackageDisablerFragment extends LifecycleFragment {
                 });
                 builder1.show();
                 break;
+            case R.id.disabler_share:
+                filename = "SABS";
+                exportList(filename);
+                Intent intentShareFile = new Intent(Intent.ACTION_SEND);
+                File fileWithinMyDir = new File(Environment.getExternalStorageDirectory().toString() + "/"  + filename + ".txt");
+                if(fileWithinMyDir.exists()) {
+                    intentShareFile.setType("text/*");
+                    intentShareFile.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://"+fileWithinMyDir.getAbsolutePath()));
+                    intentShareFile.putExtra(Intent.EXTRA_SUBJECT, "SABS.txt");
+                    intentShareFile.putExtra(Intent.EXTRA_TEXT, "SABS.txt");
+                    startActivity(Intent.createChooser(intentShareFile, "Share File"));
+                }
+                break;
             case R.id.disabler_enable_all:
                 Toast.makeText(context, getString(R.string.enabled_all_disabled), Toast.LENGTH_SHORT).show();
                 enableAllPackages();

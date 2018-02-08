@@ -73,8 +73,8 @@
     <string name="sort_by_alphabet">Sort Alphabetically</string>
     <string name="sort_by_install_time">Sort by Install Date</string>
     <string name="sort_by_disabled">Show Disabled First</string>
-    <string name="disabler_import_storage">Import from Storage</string>
-    <string name="disabler_export_storage">Export to Storage</string>
+    <string name="disabler_import_storage">Import disabled app list</string>
+    <string name="disabler_export_storage">Export disabled app lis</string>
     <string name="disabler_enable_all">Enable All Apps</string>
     <string name="imported_from_storage">Importing disabled apps from storage</string>
     <string name="exported_to_storage">Disabled apps exported to sabs.txt</string>
@@ -151,4 +151,5 @@
     <string name="undo">UNDO</string>
     <string name="package_name">Copy package name</string>
     <string name="error_packagename">Unable to get package name</string>
+    <string name="disabler_share">Share disabled app list</string>
 </resources>
