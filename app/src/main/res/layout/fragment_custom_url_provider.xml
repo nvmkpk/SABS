@@ -1,54 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/relativeLayout3">
 
     <TextView
         android:id="@+id/customUrlProviderExpTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:scrollbars="vertical"
-        android:text="@string/subscribeInfo"
-        android:textColor="#000"
+        android:layout_marginTop="8dp"
         android:ellipsize="none"
         android:scrollHorizontally="false"
-        android:textSize="12sp"/>
+        android:scrollbars="vertical"
+        android:text="@string/subscribeInfo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/blockUrlProviderEditText"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/customUrlProviderExpTextView"
-        android:layout_toLeftOf="@+id/addBlockUrlProviderButton"
-        android:layout_toStartOf="@+id/addBlockUrlProviderButton"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:hint="@string/url"
         android:inputType="textUri"
         android:singleLine="true"
-        android:hint="@string/url"/>
+        app:layout_constraintEnd_toStartOf="@+id/addBlockUrlProviderButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customUrlProviderExpTextView" />
 
     <Button
         android:id="@+id/addBlockUrlProviderButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/customUrlProviderExpTextView"
-        android:text="@string/add_provider" />
+        android:layout_marginTop="8dp"
+        android:text="@string/add_provider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customUrlProviderExpTextView" />
 
     <Button
         android:id="@+id/updateBlockUrlProvidersButton"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/addBlockUrlProviderButton"
-        android:text="@string/update_all_providers" />
+        android:layout_marginTop="8dp"
+        android:text="@string/update_all_providers"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/blockUrlProviderEditText" />
 
     <ListView
         android:id="@+id/blockUrlProviderListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/updateBlockUrlProvidersButton">
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/updateBlockUrlProvidersButton">
 
     </ListView>
 
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

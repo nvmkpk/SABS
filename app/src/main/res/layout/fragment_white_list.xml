@@ -1,43 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+                android:layout_height="match_parent"
+    android:id="@+id/relativeLayout2">
 
     <TextView
         android:id="@+id/editAlert"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_marginTop="8dp"
         android:text="@string/whitelistInfo"
-        android:textColor="#000000"
-        android:textSize="@dimen/text_mizerable_size"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/whitelistUrlEditText"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editAlert"
-        android:layout_margin="5dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/example_com"
-        android:inputType="textUri"/>
+        android:inputType="textUri"
+        app:layout_constraintEnd_toStartOf="@+id/addWhitelistUrl"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editAlert" />
+
     <Button
         android:id="@+id/addWhitelistUrl"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/editAlert"
         android:layout_margin="5dp"
-        android:text="@string/allow"/>
+        android:layout_marginTop="8dp"
+        android:text="@string/allow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editAlert" />
 
     <ListView
         android:id="@+id/urlList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/whitelistUrlEditText"
-        android:layout_margin="5dp"
-        android:scrollbars="vertical">
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/whitelistUrlEditText">
 
     </ListView>
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

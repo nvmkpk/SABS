@@ -19,7 +19,7 @@
     <string name="block_button_text_enabling">Enabling…</string>
     <string name="block_button_text_disabling">Disabling…</string>
     <string name="edit_blocked_url_list">Manage blocked URLs</string>
-    <string name="whitelistInfo">After editing the whitelist return to main screen and toggle "Turn off", then tap "Turn on" to apply the changes!</string>
+    <string name="whitelistInfo">Consider whitelisting the app first. KNOX firewall prefers blocking over allowing websites. Enter a valid url only. Press on the url to remove it. After whitelisting urls, turn blocking off and on.</string>
     <string name="edit_blocked_apps_list">Manage blocking in apps</string>
     <string name="delete_app">Uninstall SABS</string>
     <string name="delete_app_dialog_title">Delete app</string>
@@ -37,7 +37,7 @@
     <string name="allow_custom_urls">Whitelist URLs</string>
     <string name="allow">Allow</string>
     <string name="block_custom_urls">Blacklist URLs</string>
-    <string name="blacklistInfo">To take effect Turn off -> Turn on blocking after editing list.</string>
+    <string name="blacklistInfo">Enter a valid url only. Press on the url to remove it. After blacklisting urls, turn blocking off and on.</string>
     <string name="download_manager_sharedPrefs" translatable="false">download_manager_sharedPrefs</string>
     <string name="download_manager_reference_id" translatable="false">download_manager_reference_id</string>
     <string name="blocker_fragment_title">Blocker</string>
@@ -54,7 +54,7 @@
         Well, I\'m not even in the college yet.
         \nWould be nice to have a spare dollar in the future.
     </string>
-    <string name="add_provider">Add Url Provider</string>
+    <string name="add_provider">Add</string>
     <string name="error_reading_url">Error reading url</string>
     <string name="error_reading_number">Error reading number</string>
     <string name="subscribe_to_providers">Subscribe to providers</string>
@@ -65,7 +65,7 @@
     <string name="app_list_sorted_by_alphabet">Sorted alphabetically</string>
     <string name="subscribe">Subscribe for {{price}} per month</string>
     <string name="subscribe_three_month">Subscribe for {{price}} per 3 month with 20% discount</string>
-    <string name="subscribeInfo">You can add your own hosts link (e.g. https://adaway.org/hosts.txt). SABS already has a decent standard package so in general you don\'t need to add additional packages.</string>
+    <string name="subscribeInfo">You can add more domain (host) list urls. It must only include domains and comments in lines starting with #. Other lines may break SABS. After adding an url, updating a file or (un)checking a box, turn blocking off and on.</string>
     <string name="ads_example_com" translatable="false">example.com</string>
     <string name="your_device_running_old_knox_version">Your device is running an old version of KNOX. Upgrade your device or perform an update. Otherwise, you may experience crashes on certain functions.</string>
     <string name="adblock_whitelist">Adblocked Apps</string>
