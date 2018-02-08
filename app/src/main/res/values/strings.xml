@@ -152,4 +152,5 @@
     <string name="package_name">Copy package name</string>
     <string name="error_packagename">Unable to get package name</string>
     <string name="disabler_share">Share disabled app list</string>
+    <string name="logo">Logo</string>
 </resources>

@@ -21,6 +21,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:contentDescription="@string/edit_blocked_url_list"
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -74,6 +75,7 @@
         android:onClick="dnsLayoutClick">
 
         <ImageView
+            android:contentDescription="@string/change_dns_button"
             android:id="@+id/imageView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -126,6 +128,7 @@
         android:id="@+id/allowAppsLayout">
 
         <ImageView
+            android:contentDescription="@string/edit_blocked_apps_list"
             android:id="@+id/imageView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -177,6 +180,7 @@
         android:id="@+id/deleteAppLayout">
 
         <ImageView
+            android:contentDescription="@string/delete_app"
             android:id="@+id/imageView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -229,6 +233,7 @@
         android:onClick="aboutLayoutClick">
 
         <ImageView
+            android:contentDescription="@string/info_settings_menu"
             android:id="@+id/imageView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
