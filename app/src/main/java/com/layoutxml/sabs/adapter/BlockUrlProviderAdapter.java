@@ -66,6 +66,7 @@ public class BlockUrlProviderAdapter extends ArrayAdapter<BlockUrlProvider> {
         urlProviderCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             int position2 = (Integer) buttonView.getTag();
             BlockUrlProvider blockUrlProvider2 = getItem(position2);
+            urlProviderCheckBox.setChecked(isChecked);
             if (blockUrlProvider2 != null) {
                 blockUrlProvider2.selected = isChecked;
                 Maybe.fromCallable(() -> {
