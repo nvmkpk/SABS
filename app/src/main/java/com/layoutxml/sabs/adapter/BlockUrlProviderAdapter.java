@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.layoutxml.sabs.App;
 import com.layoutxml.sabs.MainActivity;
@@ -63,10 +64,10 @@ public class BlockUrlProviderAdapter extends ArrayAdapter<BlockUrlProvider> {
             }
 
         }
-        urlProviderCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        urlProviderCheckBox.setOnClickListener((buttonView) -> {
+            boolean isChecked = urlProviderCheckBox.isChecked();
             int position2 = (Integer) buttonView.getTag();
             BlockUrlProvider blockUrlProvider2 = getItem(position2);
-            urlProviderCheckBox.setChecked(isChecked);
             if (blockUrlProvider2 != null) {
                 blockUrlProvider2.selected = isChecked;
                 Maybe.fromCallable(() -> {
