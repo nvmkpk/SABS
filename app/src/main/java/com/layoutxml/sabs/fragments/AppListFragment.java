@@ -3,6 +3,7 @@ package com.layoutxml.sabs.fragments;
 import android.arch.lifecycle.LifecycleFragment;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -18,22 +19,22 @@ import com.layoutxml.sabs.adapter.AppWhitelistAdapter;
 import com.layoutxml.sabs.db.entity.AppInfo;
 import com.layoutxml.sabs.viewmodel.AdhellWhitelistAppsViewModel;
 
+import java.util.Objects;
+
 
 public class AppListFragment extends LifecycleFragment {
     private static final String TAG = AppListFragment.class.getCanonicalName();
     private ListView appListView;
     private AppWhitelistAdapter appWhitelistAdapter;
-    private EditText adblockEnabledAppSearchEditText;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        this.getActivity().setTitle(R.string.edit_blocked_url_list);
         View view = inflater.inflate(R.layout.fragment_app_list, container, false);
         appListView = view.findViewById(R.id.appList);
-        adblockEnabledAppSearchEditText = view.findViewById(R.id.adblockEnabledAppSearchEditText);
+        EditText adblockEnabledAppSearchEditText = view.findViewById(R.id.adblockEnabledAppSearchEditText);
 
-        ((MainActivity)getActivity()).hideBottomBar();
+        ((MainActivity) Objects.requireNonNull(getActivity())).hideBottomBar();
 
         adblockEnabledAppSearchEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -59,7 +60,8 @@ public class AppListFragment extends LifecycleFragment {
         AdhellWhitelistAppsViewModel adhellWhitelistAppsViewModel = ViewModelProviders.of(getActivity()).get(AdhellWhitelistAppsViewModel.class);
         adhellWhitelistAppsViewModel.getSortedAppInfo().observe(this, appInfos -> {
             if (appWhitelistAdapter == null) {
-                appWhitelistAdapter = new AppWhitelistAdapter(this.getContext(), appInfos);
+                assert appInfos != null;
+                appWhitelistAdapter = new AppWhitelistAdapter(Objects.requireNonNull(this.getContext()), appInfos);
                 appListView.setAdapter(appWhitelistAdapter);
             } else {
                 appWhitelistAdapter.notifyDataSetChanged();

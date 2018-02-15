@@ -3,6 +3,7 @@ package com.layoutxml.sabs.fragments;
 import android.arch.lifecycle.LifecycleFragment;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
@@ -27,6 +28,8 @@ import com.layoutxml.sabs.blocker.ContentBlocker56;
 import com.layoutxml.sabs.blocker.ContentBlocker57;
 import com.layoutxml.sabs.utils.BlockedDomainAlarmHelper;
 import com.layoutxml.sabs.utils.DeviceAdminInteractor;
+
+import java.util.Objects;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -76,7 +79,6 @@ public class BlockerFragment extends LifecycleFragment {
             emitter.onComplete();
         }
     });
-    private TextView warningMessageTextView;
     private Button reportButton;
 
     @Override
@@ -89,7 +91,7 @@ public class BlockerFragment extends LifecycleFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         App.get().getAppComponent().inject(this);
-        fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentManager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
         parentActivity = (AppCompatActivity) getActivity();
     }
 
@@ -117,9 +119,9 @@ public class BlockerFragment extends LifecycleFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        getActivity().setTitle(getString(R.string.blocker_fragment_title));
+        Objects.requireNonNull(getActivity()).setTitle(getString(R.string.blocker_fragment_title));
         View view = inflater.inflate(R.layout.fragment_blocker, container, false);
 
         ((MainActivity)getActivity()).showBottomBar();
@@ -134,7 +136,7 @@ public class BlockerFragment extends LifecycleFragment {
         mPolicyChangeButton = view.findViewById(R.id.policyChangeButton);
         isSupportedTextView = view.findViewById(R.id.isSupportedTextView);
         reportButton = view.findViewById(R.id.adhellReportsButton);
-        warningMessageTextView = view.findViewById(R.id.warningMessageTextView);
+        TextView warningMessageTextView = view.findViewById(R.id.warningMessageTextView);
         warningMessageTextView.setVisibility(View.GONE);
         contentBlocker = DeviceAdminInteractor.getInstance().getContentBlocker();
         if (!(contentBlocker instanceof ContentBlocker57

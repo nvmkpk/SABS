@@ -51,6 +51,8 @@ import com.layoutxml.sabs.utils.AdhellAppIntegrity;
 import com.layoutxml.sabs.utils.DeviceAdminInteractor;
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
 
+import java.util.Objects;
+
 
 public class MainActivity extends AppCompatActivity {
     public static final String ADHELL_STANDARD_PACKAGE = "https://raw.githubusercontent.com/LayoutXML/SABS/master/standard-package.txt";
@@ -134,14 +136,15 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.blockerTab);
         Fragment defaultFragment = new BlockerFragment();
         Fragment second = new PackageDisablerFragment();
-        fragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainer, defaultFragment)
-                .addToBackStack(BACK_STACK_TAB_TAG)
-                .commit();
 
         fragmentManager.beginTransaction()
                 .add(R.id.fragmentContainer, second)
                 .hide(second)
+                .commit();
+
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, defaultFragment)
+                .addToBackStack(BACK_STACK_TAB_TAG)
                 .commit();
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
@@ -287,6 +290,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.fragmentContainer, new AppListFragment());
         fragmentTransaction.addToBackStack("main_to_editApp");
         fragmentTransaction.commit();
+        Objects.requireNonNull(MainActivity.this).setTitle(R.string.edit_blocked_apps_list);
     }
 
     public void aboutLayoutClick(View view) {
