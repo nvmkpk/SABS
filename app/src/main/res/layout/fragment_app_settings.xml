@@ -208,7 +208,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="Turn off blocking and uninstall app."
+            android:text="@string/delete_app_desc"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/deleteApp"
             app:layout_constraintTop_toBottomOf="@+id/deleteApp" />
@@ -225,11 +225,68 @@
 
     <android.support.constraint.ConstraintLayout
         android:background="?selectableItemBackground"
+        android:id="@+id/miscellaneous"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/seperator4"
+        android:onClick="miscSettings">
+
+        <ImageView
+            android:contentDescription="@string/info_settings_menu"
+            android:id="@+id/imageView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_settings_settings"/>
+
+        <TextView
+            android:id="@+id/info1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/miscellaneous"
+            android:textAppearance="@android:style/TextAppearance.Material.Menu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView6"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="@string/miscellaneousDesc"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/info1"
+            app:layout_constraintTop_toBottomOf="@+id/info1"
+            android:onClick="miscSettings" />
+    </android.support.constraint.ConstraintLayout>
+
+
+    <View
+        android:id="@+id/seperator5"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/miscellaneous" />
+
+
+    <android.support.constraint.ConstraintLayout
+        android:background="?selectableItemBackground"
+        android:id="@+id/aboutLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/seperator5"
         android:onClick="aboutLayoutClick">
 
         <ImageView

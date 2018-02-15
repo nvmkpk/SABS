@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 
 import com.layoutxml.sabs.BuildConfig;
 import com.layoutxml.sabs.MainActivity;
@@ -31,6 +32,8 @@ import com.layoutxml.sabs.blocker.ContentBlocker57;
 import com.layoutxml.sabs.dialogfragment.DnsChangeDialogFragment;
 import com.layoutxml.sabs.receiver.CustomDeviceAdminReceiver;
 import com.layoutxml.sabs.utils.DeviceAdminInteractor;
+
+import java.util.Objects;
 
 public class AppSettingsFragment extends LifecycleFragment {
     private static final String TAG = AppSettingsFragment.class.getCanonicalName();
@@ -81,10 +84,11 @@ public class AppSettingsFragment extends LifecycleFragment {
                     contentBlocker.disableBlocker();
                     ComponentName devAdminReceiver = new ComponentName(mContext, CustomDeviceAdminReceiver.class);
                     DevicePolicyManager dpm = (DevicePolicyManager) mContext.getSystemService(Context.DEVICE_POLICY_SERVICE);
+                    assert dpm != null;
                     dpm.removeActiveAdmin(devAdminReceiver);
                     Intent intent = new Intent(Intent.ACTION_DELETE);
                     //Todo: Make delete function dynamic
-                    String packageName = "package:" + getContext().getPackageName();
+                    String packageName = "package:" + Objects.requireNonNull(getContext()).getPackageName();
                     intent.setData(Uri.parse(packageName));
                     startActivity(intent);
                 })
@@ -94,7 +98,7 @@ public class AppSettingsFragment extends LifecycleFragment {
         View layout2;
         View seperator2;
         layout2 = view.findViewById(R.id.dnsLayout);
-        seperator3 = view.findViewById(R.id.seperator2);
+        seperator2 = view.findViewById(R.id.seperator2);
         if (!(contentBlocker instanceof ContentBlocker57)) {
             layout2.setVisibility(View.GONE);
             seperator3.setVisibility(View.GONE);

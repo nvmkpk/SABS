@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.layoutxml.sabs.BuildConfig;
@@ -20,7 +21,7 @@ import com.layoutxml.sabs.R;
 
 import java.util.Objects;
 
-public class AboutFragment extends LifecycleFragment {
+public class MiscSettingsFragment extends LifecycleFragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,29 +33,22 @@ public class AboutFragment extends LifecycleFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        Objects.requireNonNull(getActivity()).setTitle(R.string.about_title);
-        View view = inflater.inflate(R.layout.fragment_about, container, false);
+        Objects.requireNonNull(getActivity()).setTitle(R.string.misc_settings);
+        View view = inflater.inflate(R.layout.fragment_misc_settings, container, false);
 
         ((MainActivity)getActivity()).hideBottomBar();
 
-        TextView versionname = view.findViewById(R.id.version);
-        int versionCode = BuildConfig.VERSION_CODE;
-        String versionName = BuildConfig.VERSION_NAME;
-        versionname.setText("Version : " + versionName + " (internal code: " + versionCode + ")");
-
-        TextView packagename = view.findViewById(R.id.packagename);
-        packagename.setText(Objects.requireNonNull(getContext()).getPackageName());
-
-        EditText knoxKeyEditText = view.findViewById(R.id.knox_key_editText);
-        Button knoxKeyButton = view.findViewById(R.id.submit_knox_key_button);
+        Switch showDialogSwitch = view.findViewById(R.id.showDialogSwitch);
+        View MiscShowWarning = view.findViewById(R.id.MiscShowWarning);
         SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
-        String knoxKey = sharedPreferences.getString("knox_key", null);
-        if (knoxKey!=null) {
-            knoxKeyEditText.setText(knoxKey);
-        }
-        knoxKeyButton.setOnClickListener(view1 -> {
+        Boolean showDialog = sharedPreferences.getBoolean("showDialog", true);
+        showDialogSwitch.setChecked(showDialog);
+
+        MiscShowWarning.setOnClickListener(v -> {
+            boolean isChecked = !showDialogSwitch.isChecked();
+            showDialogSwitch.setChecked(isChecked);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("knox_key", knoxKeyEditText.getText().toString());
+            editor.putBoolean("showDialog", isChecked);
             editor.apply();
         });
 

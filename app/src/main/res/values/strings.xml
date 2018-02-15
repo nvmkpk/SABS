@@ -146,11 +146,17 @@
     <string name="steps_to_enable_reminder_error_KLM">Paste your Knox standard SDK Enterprise key below.  It should not start with letters KLM.</string>
     <string name="lock_dialog_Title">Warning</string>
     <string name="lock_dialog_body">Some actions may make your system unstable. To prevert any changes done, select \"Uninstall SABS\" in <b>app settings!</b> Otherwise, changes to the system will stay intact. This screen is shown so that you wouldn\'t change anything while your phone is in your pocket.</string>
-    <string name="ok">ok</string>
+    <string name="ok">OK</string>
     <string name="exit">exit</string>
     <string name="undo">UNDO</string>
     <string name="package_name">Copy package name</string>
     <string name="error_packagename">Unable to get package name</string>
     <string name="disabler_share">Share disabled app list</string>
     <string name="logo">Logo</string>
+    <string name="miscellaneous">Miscellaneous</string>
+    <string name="miscellaneousDesc">Other settings that didn\'t fit any category</string>
+    <string name="delete_app_desc">Turn off blocking and uninstall app.</string>
+    <string name="misc_settings">Miscellaneous</string>
+    <string name="show_warning">Show warning</string>
+    <string name="show_warning_desc">Show warning on app start-up to prevent accidental presses while phone is in the pocket</string>
 </resources>

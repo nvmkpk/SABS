@@ -50,7 +50,7 @@ public class AppWhitelistAdapter extends ArrayAdapter<AppInfo> {
 
     @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_app_list_view, parent, false);
         }

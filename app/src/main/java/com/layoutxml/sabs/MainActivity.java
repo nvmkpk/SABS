@@ -43,6 +43,7 @@ import com.layoutxml.sabs.fragments.BlockedUrlSettingFragment;
 import com.layoutxml.sabs.fragments.BlockerFragment;
 import com.layoutxml.sabs.fragments.CustomBlockUrlProviderFragment;
 import com.layoutxml.sabs.fragments.AboutFragment;
+import com.layoutxml.sabs.fragments.MiscSettingsFragment;
 import com.layoutxml.sabs.fragments.PackageDisablerFragment;
 import com.layoutxml.sabs.fragments.WhitelistFragment;
 import com.layoutxml.sabs.service.BlockedDomainService;
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -109,20 +110,25 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-        alertDialog.setTitle(R.string.lock_dialog_Title);
-        alertDialog.setMessage(getString(R.string.lock_dialog_body));
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
-                (dialog, which) -> dialog.dismiss());
-        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "EXIT",
-                (dialog, which) -> {
-                    Intent intent = new Intent(Intent.ACTION_MAIN);
-                    intent.addCategory(Intent.CATEGORY_HOME);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                });
-        alertDialog.setCanceledOnTouchOutside(false);
-        alertDialog.show();
+        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+        Boolean showDialog = sharedPreferences.getBoolean("showDialog", true);
+        if (showDialog)
+        {
+            AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+            alertDialog.setTitle(R.string.lock_dialog_Title);
+            alertDialog.setMessage(getString(R.string.lock_dialog_body));
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                    (dialog, which) -> dialog.dismiss());
+            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "EXIT",
+                    (dialog, which) -> {
+                        Intent intent = new Intent(Intent.ACTION_MAIN);
+                        intent.addCategory(Intent.CATEGORY_HOME);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    });
+            alertDialog.setCanceledOnTouchOutside(false);
+            alertDialog.show();
+        }
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.blockerTab);
@@ -246,6 +252,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "Knox disabled");
             Log.d(TAG, "Checking if internet connection exists");
             ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+            assert cm != null;
             NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
             boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
             Log.d(TAG, "Is internet connection exists: " + isConnected);
@@ -305,6 +312,7 @@ public class MainActivity extends AppCompatActivity {
         String knoxKey = sharedPreferences.getString("knox_key", "key not inserted");
         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText("key", knoxKey);
+        assert clipboard != null;
         clipboard.setPrimaryClip(clip);
     }
 
@@ -364,5 +372,13 @@ public class MainActivity extends AppCompatActivity {
         ClipData clip = ClipData.newPlainText("packagename", packageName);
         assert clipboard != null;
         clipboard.setPrimaryClip(clip);
+    }
+
+    public void miscSettings(View view) {
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+        fragmentTransaction.replace(R.id.fragmentContainer, new MiscSettingsFragment());
+        fragmentTransaction.addToBackStack("misc_settings");
+        fragmentTransaction.commit();
     }
 }
