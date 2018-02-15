@@ -39,7 +39,7 @@ public class ContentBlocker57 implements ContentBlocker {
 
     @Override
     public boolean enableBlocker() {
-        contentBlocker56.setUrlBlockLimit(15_000);
+        //contentBlocker56.setUrlBlockLimit(15_000);
         if (contentBlocker56.enableBlocker()) {
             SharedPreferences sharedPreferences = App.get().getApplicationContext().getSharedPreferences("dnsAddresses", Context.MODE_PRIVATE);
             if (sharedPreferences.contains("dns1") && sharedPreferences.contains("dns2")) {
@@ -73,6 +73,7 @@ public class ContentBlocker57 implements ContentBlocker {
         domainFilterRule.setDns2(dns2);
         List<DomainFilterRule> rules = new ArrayList<>();
         rules.add(domainFilterRule);
+        assert contentBlocker56.mFirewall != null;
         contentBlocker56.mFirewall.addDomainFilterRules(rules);
         Log.d(TAG, "DNS1: " + domainFilterRule.getDns1());
         Log.d(TAG, "DNS2: " + domainFilterRule.getDns2());
