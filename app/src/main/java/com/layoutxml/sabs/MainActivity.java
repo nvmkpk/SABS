@@ -90,9 +90,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(R.style.MainAppTheme);
+        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+        Boolean blackTheme = sharedPreferences.getBoolean("blackTheme", false);
+        if (blackTheme)
+            setTheme(R.style.BlackAppTheme);
+        else
+            setTheme(R.style.MainAppTheme);
+
         setContentView(R.layout.activity_main);
-        setTheme(R.style.MainAppTheme);
 
         fragmentManager = getSupportFragmentManager();
         mAdminInteractor = DeviceAdminInteractor.getInstance();
@@ -112,24 +117,41 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-        Boolean showDialog = sharedPreferences.getBoolean("showDialog", true);
+        Boolean showDialog = sharedPreferences.getBoolean("showDialog", false);
         if (showDialog)
         {
-            AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-            alertDialog.setTitle(R.string.lock_dialog_Title);
-            alertDialog.setMessage(getString(R.string.lock_dialog_body));
-            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
-                    (dialog, which) -> dialog.dismiss());
-            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "EXIT",
-                    (dialog, which) -> {
-                        Intent intent = new Intent(Intent.ACTION_MAIN);
-                        intent.addCategory(Intent.CATEGORY_HOME);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                    });
-            alertDialog.setCanceledOnTouchOutside(false);
-            alertDialog.show();
+            if (blackTheme) {
+                AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this, R.style.BlackAppThemeDialog).create();
+                alertDialog.setTitle(R.string.lock_dialog_Title);
+                alertDialog.setMessage(getString(R.string.lock_dialog_body));
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                        (dialog, which) -> dialog.dismiss());
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "EXIT",
+                        (dialog, which) -> {
+                            Intent intent = new Intent(Intent.ACTION_MAIN);
+                            intent.addCategory(Intent.CATEGORY_HOME);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        });
+                alertDialog.setCanceledOnTouchOutside(false);
+                alertDialog.show();
+            } else
+            {
+                AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this, R.style.MainAppThemeDialog).create();
+                alertDialog.setTitle(R.string.lock_dialog_Title);
+                alertDialog.setMessage(getString(R.string.lock_dialog_body));
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                        (dialog, which) -> dialog.dismiss());
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "EXIT",
+                        (dialog, which) -> {
+                            Intent intent = new Intent(Intent.ACTION_MAIN);
+                            intent.addCategory(Intent.CATEGORY_HOME);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        });
+                alertDialog.setCanceledOnTouchOutside(false);
+                alertDialog.show();
+            }
         }
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);

@@ -9,6 +9,7 @@
         android:id="@+id/adblockEnabledAppSearchEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="?colorAccent"
         android:drawableStart="@drawable/ic_search"
         android:hint="@string/app_name_hint"
         android:imeOptions="actionSearch"

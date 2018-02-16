@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?colorPrimary"
     android:minWidth="350dp">
 
     <TextView
@@ -11,9 +12,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:text="@string/set_dns_button_text"
         android:fontFamily="sans-serif-medium"
-        android:textColor="#000000"
+        android:text="@string/set_dns_button_text"
+        android:textColor="?colorAccent"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
         android:layout_marginTop="20dp"
+        android:backgroundTint="?colorAccent"
         android:digits="0123456789."
         android:hint="@string/dns_1_address"
         android:inputType="number|numberDecimal"
@@ -42,6 +44,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:backgroundTint="?colorAccent"
         android:digits="0123456789."
         android:hint="@string/dns_2_address"
         android:inputType="number|numberDecimal"
@@ -57,6 +60,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/restore_defaults"
         android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button"
+        android:textColor="#000000"
         app:layout_constraintStart_toStartOf="@+id/dns_address_2"
         app:layout_constraintTop_toBottomOf="@+id/dns_address_2" />
 

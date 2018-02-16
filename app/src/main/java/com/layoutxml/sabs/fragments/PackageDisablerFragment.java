@@ -6,6 +6,7 @@ import android.arch.lifecycle.LifecycleFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -115,6 +116,7 @@ public class PackageDisablerFragment extends LifecycleFragment {
 
         ((MainActivity)getActivity()).showBottomBar();
 
+        installedAppsView = view.findViewById(R.id.installed_apps_list);
         installedAppsView = view.findViewById(R.id.installed_apps_list);
         installedAppsView.setOnItemClickListener((AdapterView<?> adView, View v, int i, long l) -> {
             DisablerAppAdapter disablerAppAdapter = (DisablerAppAdapter) adView.getAdapter();
@@ -506,6 +508,15 @@ public class PackageDisablerFragment extends LifecycleFragment {
                 TextView SystemOrNotHereICome = convertView.findViewById(R.id.systemOrNot);
                 SystemOrNotHereICome.setText(R.string.system);
                 SystemOrNotHereICome.setTextColor(Color.RED);
+            }
+            SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+            Boolean blackTheme = sharedPreferences.getBoolean("blackTheme", false);
+            TextView name = convertView.findViewById(R.id.appName);
+            TextView packagename = convertView.findViewById(R.id.packName);
+            if (blackTheme)
+            {
+                holder.nameH.setTextColor(Color.parseColor("#FFFFFF"));
+                holder.packageH.setTextColor(Color.parseColor("#808080"));
             }
             mPicasso.load(AppIconRequestHandler.getUri(appInfo.packageName)).into(holder.imageH);
             return convertView;

@@ -76,7 +76,11 @@ public class AppSettingsFragment extends LifecycleFragment {
 
         View layout3;
         layout3 = view.findViewById(R.id.deleteAppLayout);
-        layout3.setOnClickListener(v -> new AlertDialog.Builder(v.getContext())
+        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        Boolean blackTheme = sharedPreferences.getBoolean("blackTheme", false);
+        if (blackTheme)
+        {
+                layout3.setOnClickListener(v -> new AlertDialog.Builder(v.getContext(), R.style.BlackAppThemeDialog)
                 .setTitle(getString(R.string.delete_app_dialog_title))
                 .setMessage(getString(R.string.delete_app_dialog_text))
                 .setIcon(android.R.drawable.ic_dialog_alert)
@@ -94,6 +98,29 @@ public class AppSettingsFragment extends LifecycleFragment {
                     startActivity(intent);
                 })
                 .setNegativeButton(android.R.string.no, null).show());
+
+        } else
+        {
+            layout3.setOnClickListener(v -> new AlertDialog.Builder(v.getContext(), R.style.MainAppThemeDialog)
+                    .setTitle(getString(R.string.delete_app_dialog_title))
+                    .setMessage(getString(R.string.delete_app_dialog_text))
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setPositiveButton(android.R.string.yes, (dialog, whichButton) ->
+                    {
+                        contentBlocker.disableBlocker();
+                        ComponentName devAdminReceiver = new ComponentName(mContext, CustomDeviceAdminReceiver.class);
+                        DevicePolicyManager dpm = (DevicePolicyManager) mContext.getSystemService(Context.DEVICE_POLICY_SERVICE);
+                        assert dpm != null;
+                        dpm.removeActiveAdmin(devAdminReceiver);
+                        Intent intent = new Intent(Intent.ACTION_DELETE);
+                        //Todo: Make delete function dynamic
+                        String packageName = "package:" + Objects.requireNonNull(getContext()).getPackageName();
+                        intent.setData(Uri.parse(packageName));
+                        startActivity(intent);
+                    })
+                    .setNegativeButton(android.R.string.no, null).show());
+        }
+
 
 
         View layout2;

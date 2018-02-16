@@ -38,6 +38,7 @@
             android:layout_marginBottom="16dp"
             android:text="@string/summary_small"
             android:textAppearance="@android:style/TextAppearance.Material.Small"
+            android:textColor="#808080"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView14" />
@@ -70,6 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:text="@string/error_version"
+            android:textColor="#808080"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView16" />
@@ -101,6 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:text="@string/error_packagename"
+            android:textColor="#808080"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView19" />
@@ -133,6 +136,7 @@
             android:layout_marginBottom="16dp"
             android:text="@string/reddit"
             android:textAppearance="@android:style/TextAppearance.Material.Small"
+            android:textColor="#808080"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView17" />
@@ -165,6 +169,7 @@
             android:layout_marginBottom="16dp"
             android:text="@string/github"
             android:textAppearance="@android:style/TextAppearance.Material.Small"
+            android:textColor="#808080"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView18" />
@@ -196,6 +201,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:text="@string/licenses_small"
+            android:textColor="#808080"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -209,6 +215,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/submit_knox_key"
+        android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline2" />
@@ -241,6 +248,7 @@
         android:layout_marginStart="8dp"
         android:onClick="copyknoxkey"
         android:text="@string/copy_knox_key"
+        android:textColor="#000000"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/submit_knox_key_button" />

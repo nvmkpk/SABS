@@ -24,10 +24,10 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"
-        app:itemBackground="@color/colorPrimary"
-        app:itemIconTint="@color/colorAccent"
-        app:itemTextColor="@color/colorAccent"
+        android:background="?colorPrimary"
+        app:itemBackground="?colorPrimary"
+        app:itemIconTint="?colorAccent"
+        app:itemTextColor="?colorAccent"
         app:menu="@menu/bottom_navigation_main" />
 
 </RelativeLayout>

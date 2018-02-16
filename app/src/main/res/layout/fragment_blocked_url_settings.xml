@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
+            android:tint="?colorAccent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -34,8 +35,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:text="@string/allow_custom_urls"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
+            android:textAppearance="@android:style/TextAppearance.Material.Menu"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView9"
             app:layout_constraintTop_toTopOf="parent" />
@@ -46,6 +46,7 @@
             android:layout_marginBottom="16dp"
             android:text="@string/whitelist_settings_small"
             android:textAppearance="@android:style/TextAppearance.Material.Small"
+            android:textColor="#808080"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/seeStandardPackageButton"
             app:layout_constraintTop_toBottomOf="@+id/seeStandardPackageButton" />
@@ -76,6 +77,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
+            android:tint="?colorAccent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -88,8 +90,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:text="@string/block_custom_urls"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
+            android:textAppearance="@android:style/TextAppearance.Material.Menu"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView10"
             app:layout_constraintTop_toTopOf="parent" />
@@ -99,6 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:text="@string/blacklist_settings_small"
+            android:textColor="#808080"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/addCustomBlockedUrl"
             app:layout_constraintTop_toBottomOf="@+id/addCustomBlockedUrl" />
@@ -130,8 +132,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:text="@string/subscribe_to_providers"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
+            android:textAppearance="@android:style/TextAppearance.Material.Menu"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView11"
             app:layout_constraintTop_toTopOf="parent" />
@@ -142,6 +143,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
+            android:tint="?colorAccent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -152,6 +154,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:text="@string/subscribe_settings_small"
+            android:textColor="#808080"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/showCustomUrlProvidersFragmentButton"
             app:layout_constraintTop_toBottomOf="@+id/showCustomUrlProvidersFragmentButton" />

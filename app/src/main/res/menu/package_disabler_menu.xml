@@ -3,13 +3,13 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_search"
-        android:icon="@drawable/ic_action_search"
+        android:icon="?attr/ic_action_search"
         app:showAsAction="always|collapseActionView"
         app:actionViewClass="android.support.v7.widget.SearchView"
         android:title="@string/app_name_hint"/>
     <item
         android:id="@+id/action_pack_dis_sort"
-        android:icon="@drawable/ic_sort"
+        android:icon="?ic_sort"
         android:orderInCategory="100"
         android:title="@string/sort"
         app:showAsAction="always">
@@ -26,7 +26,7 @@
         </menu>
     </item>
     <item
-        android:icon="@drawable/ic_more_vert"
+        android:icon="?ic_more_vert"
         android:orderInCategory="100"
         android:title="@string/options"
         app:showAsAction="ifRoom">
