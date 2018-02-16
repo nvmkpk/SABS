@@ -16,6 +16,7 @@
 *esomniture.com
 *fastclick.net
 *focalink.com
+*.googlezip.net
 *hitbox.com
 *hyperbanner.net
 *imrworldwide.com
