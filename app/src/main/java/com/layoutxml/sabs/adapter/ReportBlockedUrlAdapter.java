@@ -40,7 +40,6 @@ public class ReportBlockedUrlAdapter extends ArrayAdapter<ReportBlockedUrl> {
             return convertView;
         }
 
-        TextView blockedDomainIdTextView = convertView.findViewById(R.id.blockedDomainIdTextView);
         ImageView blockedDomainIconImageView = convertView.findViewById(R.id.blockedDomainIconImageView);
         TextView blockedDomainAppNameTextView = convertView.findViewById(R.id.blockedDomainAppNameTextView);
         TextView blockedDomainTimeTextView = convertView.findViewById(R.id.blockedDomainTimeTextView);
@@ -65,11 +64,10 @@ public class ReportBlockedUrlAdapter extends ArrayAdapter<ReportBlockedUrl> {
         String applicationName = (String) (ai != null ? packageManager.getApplicationLabel(ai) : "(unknown)");
 
 
-        blockedDomainIdTextView.setText(position+1 + "");
         if (icon != null) {
             blockedDomainIconImageView.setImageDrawable(icon);
         }
-        blockedDomainAppNameTextView.setText(applicationName);
+        blockedDomainAppNameTextView.setText(position+1 + ". " + applicationName);
         blockedDomainTimeTextView.setText(new SimpleDateFormat("HH:mm:ss").format(reportBlockedUrl.blockDate));
         blockedDomainUrlTextView.setText(reportBlockedUrl.url);
 
