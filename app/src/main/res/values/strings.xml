@@ -19,7 +19,7 @@
     <string name="block_button_text_enabling">Enabling…</string>
     <string name="block_button_text_disabling">Disabling…</string>
     <string name="edit_blocked_url_list">Manage blocked URLs</string>
-    <string name="whitelistInfo">Consider whitelisting the app first. KNOX firewall prefers blocking over allowing websites. Enter a valid url only. Press on the url to remove it. After whitelisting urls, turn blocking off and on.</string>
+    <string name="whitelistInfo">Consider whitelisting the app first. You can\'t whitelist wildcards. Enter a valid url only. Press on the url to remove it. After whitelisting urls, turn blocking off and on.</string>
     <string name="edit_blocked_apps_list">Manage blocking in apps</string>
     <string name="delete_app">Uninstall SABS</string>
     <string name="delete_app_dialog_title">Delete app</string>

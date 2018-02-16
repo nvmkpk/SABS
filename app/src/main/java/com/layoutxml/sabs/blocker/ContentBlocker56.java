@@ -45,7 +45,6 @@ public class ContentBlocker56 implements ContentBlocker {
     Firewall mFirewall;
     @Inject
     AppDatabase appDatabase;
-    private int urlBlockLimit = 2700;
 
     private ContentBlocker56() {
         App.get().getAppComponent().inject(this);
@@ -86,9 +85,6 @@ public class ContentBlocker56 implements ContentBlocker {
             if (whiteUrlsString.contains(blockUrl.url)) {
                 continue;
             }
-            if (denyList.size() > urlBlockLimit) {
-                break;
-            }
             if (blockUrl.url.contains("*")) {
                 boolean validWildcard = BlockUrlPatternsMatch.wildcardValid(blockUrl.url);
                 if (!validWildcard) {
@@ -115,9 +111,6 @@ public class ContentBlocker56 implements ContentBlocker {
                     denyList.add(urlReady);
                 }
             }
-        }
-        if (denyList.size() > urlBlockLimit) {
-            denyList = denyList.subList(0, urlBlockLimit);
         }
         List<DomainFilterRule> rules = new ArrayList<>();
         AppIdentity appIdentity = new AppIdentity("*", null);
@@ -185,10 +178,6 @@ public class ContentBlocker56 implements ContentBlocker {
     @Override
     public boolean isEnabled() {
         return mFirewall.isFirewallEnabled();
-    }
-
-    public void setUrlBlockLimit(int urlBlockLimit) {
-        this.urlBlockLimit = urlBlockLimit;
     }
 
 }
