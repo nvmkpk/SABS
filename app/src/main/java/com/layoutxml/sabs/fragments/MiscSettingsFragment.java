@@ -25,6 +25,8 @@ import com.layoutxml.sabs.R;
 
 import java.util.Objects;
 
+import static com.layoutxml.sabs.Global.BlockPort53;
+
 public class MiscSettingsFragment extends LifecycleFragment {
 
     @Override
@@ -44,13 +46,18 @@ public class MiscSettingsFragment extends LifecycleFragment {
 
         Switch showDialogSwitch = view.findViewById(R.id.showDialogSwitch);
         Switch blackThemeSwitch = view.findViewById(R.id.blackThemeSwitch);
+        Switch blockPortSwitch = view.findViewById(R.id.blockPortSwitch);
         View MiscShowWarning = view.findViewById(R.id.MiscShowWarning);
         View MiscBlackTheme = view.findViewById(R.id.MiscBlackTheme);
+        View MiscBlockPort = view.findViewById(R.id.MiscBlockPort);
         SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
         Boolean showDialog = sharedPreferences.getBoolean("showDialog", false);
         Boolean blackTheme = sharedPreferences.getBoolean("blackTheme", false);
+        Boolean blockPort = sharedPreferences.getBoolean("blockPort53", false);
         showDialogSwitch.setChecked(showDialog);
         blackThemeSwitch.setChecked(blackTheme);
+        blockPortSwitch.setChecked(blockPort);
+
 
         MiscShowWarning.setOnClickListener(v -> {
             boolean isChecked = !showDialogSwitch.isChecked();
@@ -78,6 +85,15 @@ public class MiscSettingsFragment extends LifecycleFragment {
                     System.exit(0);
                 }
             }, 500);
+        });
+
+        MiscBlockPort.setOnClickListener(v -> {
+            boolean isChecked = !blockPortSwitch.isChecked();
+            blockPortSwitch.setChecked(isChecked);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("blockPort53", isChecked);
+            editor.apply();
+            BlockPort53=isChecked;
         });
 
         return view;

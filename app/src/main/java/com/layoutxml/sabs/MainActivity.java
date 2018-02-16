@@ -53,6 +53,8 @@ import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
 
 import java.util.Objects;
 
+import static com.layoutxml.sabs.Global.BlockPort53;
+
 
 public class MainActivity extends AppCompatActivity {
     public static final String ADHELL_STANDARD_PACKAGE = "https://raw.githubusercontent.com/LayoutXML/SABS/master/standard-package.txt";
@@ -92,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         Boolean blackTheme = sharedPreferences.getBoolean("blackTheme", false);
+        BlockPort53= sharedPreferences.getBoolean("blockPort53", false);
         if (blackTheme)
             setTheme(R.style.BlackAppTheme);
         else

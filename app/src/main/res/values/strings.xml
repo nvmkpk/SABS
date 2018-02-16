@@ -161,4 +161,6 @@
     <string name="show_warning_desc">Show warning on app start-up to prevent accidental presses while phone is in the pocket</string>
     <string name="use_black_theme">Use black theme</string>
     <string name="use_black_theme_desc">Set the theme to amoled black and restart the app</string>
+    <string name="block_port_53">Block Port 53</string>
+    <string name="block_port_53_desc">Block Port 53 to be able to block ads on Chrome. Might break other functions such as Play Store on Android Wear. After changing value, disable and enable blocking</string>
 </resources>
