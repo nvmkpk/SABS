@@ -9,8 +9,8 @@
 SABS is a system-wide, rootless AdBlocker, package disabler, permission manager and more. It works by using Samsung's KNOX SDK, therefore only works on Samsung devices. Because of a sheer amount of Samsung phones, all with different Android and KNOX versions, screen sizes and other specifications, SABS only focuses on Galaxy S8, S8+ and Note 8 devices with latest Android version. What makes SABS stand out from other adblockers is that it can make reversable system level changes because of the Samsung's KNOX tools, and doesn't run in the background. With it, you can easily block url domains, disable system apps that you can't in settings, remove permissions from apps that you can't usually control.
 
 [![Screenshot1](https://imgur.com/OyYfMtZ.png)](https://github.com/LayoutXML/SABS/releases)
-[![Screenshot2](https://imgur.com/FaO7yyE.png)](https://github.com/LayoutXML/SABS/releases)
-[![Screenshot3](https://imgur.com/eOLQqV3.png)](https://github.com/LayoutXML/SABS/releases)
+[![Screenshot2](https://imgur.com/EZPirSP.png)](https://github.com/LayoutXML/SABS/releases)
+[![Screenshot3](https://i.imgur.com/4X3o9CR.png)](https://github.com/LayoutXML/SABS/releases)
 
 ## Table of contents
 * [Setup](https://github.com/LayoutXML/SABS#setup)
