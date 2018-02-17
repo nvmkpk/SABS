@@ -343,6 +343,8 @@ public class MainActivity extends AppCompatActivity {
         ClipData clip = ClipData.newPlainText("key", knoxKey);
         assert clipboard != null;
         clipboard.setPrimaryClip(clip);
+        Snackbar mySnackbar = Snackbar.make(findViewById(android.R.id.content), "Copied "+knoxKey, Snackbar.LENGTH_SHORT);
+        mySnackbar.show();
     }
 
     public void whitelistLayout(View view) {
@@ -401,6 +403,8 @@ public class MainActivity extends AppCompatActivity {
         ClipData clip = ClipData.newPlainText("packagename", packageName);
         assert clipboard != null;
         clipboard.setPrimaryClip(clip);
+        Snackbar mySnackbar = Snackbar.make(findViewById(android.R.id.content), "Copied "+packageName, Snackbar.LENGTH_SHORT);
+        mySnackbar.show();
     }
 
     public void miscSettings(View view) {
