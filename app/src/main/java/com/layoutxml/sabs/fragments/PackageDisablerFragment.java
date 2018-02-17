@@ -511,8 +511,6 @@ public class PackageDisablerFragment extends LifecycleFragment {
             }
             SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
             Boolean blackTheme = sharedPreferences.getBoolean("blackTheme", false);
-            TextView name = convertView.findViewById(R.id.appName);
-            TextView packagename = convertView.findViewById(R.id.packName);
             if (blackTheme)
             {
                 holder.nameH.setTextColor(Color.parseColor("#FFFFFF"));
@@ -551,7 +549,7 @@ public class PackageDisablerFragment extends LifecycleFragment {
                 return null;
             }
             Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-            return new Result(bitmap, Picasso.LoadedFrom.DISK);
+            return new Result(bitmap, Picasso.LoadedFrom.MEMORY);
         }
     }
 
