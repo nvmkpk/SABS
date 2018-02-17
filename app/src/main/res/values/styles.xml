@@ -8,6 +8,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:colorEdgeEffect">@color/colorAccent</item>
+        <item name="android:windowDisablePreview">true</item>
     </style>
 
     <style name="MainAppTheme" parent="Theme.AppCompat.Light">
@@ -22,6 +23,7 @@
         <item name="ic_action_search">@drawable/ic_action_search</item>
         <item name="ic_more_vert">@drawable/ic_more_vert</item>
         <item name="ic_sort">@drawable/ic_sort</item>
+        <item name="android:windowDisablePreview">true</item>
     </style>
 
     <style name="MainAppThemeDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
@@ -36,6 +38,7 @@
         <item name="ic_action_search">@drawable/ic_action_search</item>
         <item name="ic_more_vert">@drawable/ic_more_vert</item>
         <item name="ic_sort">@drawable/ic_sort</item>
+        <item name="android:windowDisablePreview">true</item>
     </style>
 
     <style name="BlackAppTheme" parent="ThemeOverlay.AppCompat">
@@ -59,6 +62,7 @@
         <item name="android:colorForeground">@color/colorPrimary</item>
         <item name="android:textColorHint">@color/grey</item>
         <item name="android:itemBackground">@color/colorAccent</item>
+        <item name="android:windowDisablePreview">true</item>
     </style>
 
     <style name="BlackAppThemeDialog" parent="ThemeOverlay.AppCompat.Dialog.Alert">
@@ -80,5 +84,6 @@
         <item name="ic_sort">@drawable/ic_sort_dark</item>
         <item name="colorSwitchThumbNormal">@color/colorPrimary</item>
         <item name="android:colorForeground">@color/colorPrimary</item>
+        <item name="android:windowDisablePreview">true</item>
     </style>
 </resources>
