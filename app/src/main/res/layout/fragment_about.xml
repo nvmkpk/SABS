@@ -12,11 +12,10 @@
     android:paddingTop="8dp">
 
     <android.support.constraint.ConstraintLayout
-        android:background="?selectableItemBackground"
+        android:id="@+id/Constraint1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:id="@+id/Constraint1"
+        android:background="?selectableItemBackground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
