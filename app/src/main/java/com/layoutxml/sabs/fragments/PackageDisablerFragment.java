@@ -196,6 +196,8 @@ public class PackageDisablerFragment extends LifecycleFragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        Boolean blackTheme = sharedPreferences.getBoolean("blackTheme", false);
         switch (item.getItemId()) {
             case R.id.action_pack_dis_sort:
                 break;
@@ -217,70 +219,126 @@ public class PackageDisablerFragment extends LifecycleFragment {
                 loadApplicationsList(false, "");
                 break;
             case R.id.disabler_import_storage:
-                //Toast.makeText(context, getString(R.string.imported_from_storage), Toast.LENGTH_SHORT).show();
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle("Choose file name");
-                builder.setMessage("Choose a file name of your package list. File must not have any of these characters: |\\?*<\":>/' and must end with \".txt\"");
-                // Set up the input
-                final EditText input = new EditText(getContext());
-                // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-                input.setInputType(InputType.TYPE_CLASS_TEXT);
-                builder.setView(input);
-                // Set up the buttons
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        filename = input.getText().toString();
-                        for (Character ReservedCharacter : ReservedCharacters) {
-                            filename = filename.replace(ReservedCharacter.toString(), "");
+                if(blackTheme)
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.BlackAppThemeDialog);
+                    builder.setTitle("Choose file name");
+                    builder.setMessage("Choose a file name of your package list. File must not have any of these characters: |\\?*<\":>/' and must end with \".txt\"");
+                    final EditText input = new EditText(getContext());
+                    input.setInputType(InputType.TYPE_CLASS_TEXT);
+                    builder.setView(input);
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            filename = input.getText().toString();
+                            for (Character ReservedCharacter : ReservedCharacters) {
+                                filename = filename.replace(ReservedCharacter.toString(), "");
+                            }
+                            filename = filename.replace(".txt","");
+                            if (Objects.equals(filename, ""))
+                                Snackbar.make(getActivity().findViewById(android.R.id.content), "Empty file name. 0 packages blocked", Snackbar.LENGTH_LONG).show();
+                            else
+                                importList(filename);
                         }
-                        filename = filename.replace(".txt","");
-                        if (Objects.equals(filename, ""))
-                            Snackbar.make(getActivity().findViewById(android.R.id.content), "Empty file name. 0 packages blocked", Snackbar.LENGTH_LONG).show();
-                        else
-                            importList(filename);
-                    }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                builder.show();
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    builder.show();
+                } else
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.MainAppThemeDialog);
+                    builder.setTitle("Choose file name");
+                    builder.setMessage("Choose a file name of your package list. File must not have any of these characters: |\\?*<\":>/' and must end with \".txt\"");
+                    final EditText input = new EditText(getContext());
+                    input.setInputType(InputType.TYPE_CLASS_TEXT);
+                    builder.setView(input);
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            filename = input.getText().toString();
+                            for (Character ReservedCharacter : ReservedCharacters) {
+                                filename = filename.replace(ReservedCharacter.toString(), "");
+                            }
+                            filename = filename.replace(".txt","");
+                            if (Objects.equals(filename, ""))
+                                Snackbar.make(getActivity().findViewById(android.R.id.content), "Empty file name. 0 packages blocked", Snackbar.LENGTH_LONG).show();
+                            else
+                                importList(filename);
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    builder.show();
+                }
                 break;
             case R.id.disabler_export_storage:
-                //Toast.makeText(context, getString(R.string.exported_to_storage), Toast.LENGTH_SHORT).show();
-                AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
-                builder1.setTitle("Choose file name");
-                builder1.setMessage("Choose a file name of your package list. File must not have any of these characters: |\\?*<\":>/' and must end with \".txt\"");
-                // Set up the input
-                final EditText input1 = new EditText(getContext());
-                // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-                input1.setInputType(InputType.TYPE_CLASS_TEXT);
-                builder1.setView(input1);
-                // Set up the buttons
-                builder1.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        filename = input1.getText().toString();
-                        for (Character ReservedCharacter : ReservedCharacters) {
-                            filename = filename.replace(ReservedCharacter.toString(), "");
+                if (blackTheme)
+                {AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext(), R.style.BlackAppThemeDialog);
+                    builder1.setTitle("Choose file name");
+                    builder1.setMessage("Choose a file name of your package list. File must not have any of these characters: |\\?*<\":>/' and must end with \".txt\"");
+                    final EditText input1 = new EditText(getContext());
+                    input1.setInputType(InputType.TYPE_CLASS_TEXT);
+                    builder1.setView(input1);
+                    builder1.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            filename = input1.getText().toString();
+                            for (Character ReservedCharacter : ReservedCharacters) {
+                                filename = filename.replace(ReservedCharacter.toString(), "");
+                            }
+                            filename = filename.replace(".txt","");
+                            if (Objects.equals(filename, ""))
+                                Snackbar.make(getActivity().findViewById(android.R.id.content), "Empty file name. 0 packages blocked", Snackbar.LENGTH_LONG).show();
+                            else
+                                exportList(filename);
                         }
-                        filename = filename.replace(".txt","");
-                        if (Objects.equals(filename, ""))
-                            Snackbar.make(getActivity().findViewById(android.R.id.content), "Empty file name. 0 packages blocked", Snackbar.LENGTH_LONG).show();
-                        else
-                            exportList(filename);
-                    }
-                });
-                builder1.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                builder1.show();
+                    });
+                    builder1.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    builder1.show();
+                } else
+                {
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext(), R.style.MainAppThemeDialog);
+                    builder1.setTitle("Choose file name");
+                    builder1.setMessage("Choose a file name of your package list. File must not have any of these characters: |\\?*<\":>/' and must end with \".txt\"");
+                    final EditText input1 = new EditText(getContext());
+                    input1.setInputType(InputType.TYPE_CLASS_TEXT);
+                    builder1.setView(input1);
+                    builder1.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            filename = input1.getText().toString();
+                            for (Character ReservedCharacter : ReservedCharacters) {
+                                filename = filename.replace(ReservedCharacter.toString(), "");
+                            }
+                            filename = filename.replace(".txt","");
+                            if (Objects.equals(filename, ""))
+                                Snackbar.make(getActivity().findViewById(android.R.id.content), "Empty file name. 0 packages blocked", Snackbar.LENGTH_LONG).show();
+                            else
+                                exportList(filename);
+                        }
+                    });
+                    builder1.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    builder1.show();
+                }
+
                 break;
             case R.id.disabler_share:
                 filename = "SABS";
