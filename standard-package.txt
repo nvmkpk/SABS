@@ -7412,7 +7412,6 @@ s.tcimg.com
 s.thebrighttag.com
 s.visilabs.com
 s.visilabs.net
-s.youtube.com
 s0b.bluestreak.com
 s1.adform.net
 s1.buysellads.com
