@@ -135,7 +135,7 @@ No, not at all. SABS might even improve your battery as apps cannot constantly c
 No. SABS might not even work if you are rooted.
 
 ## Feedback
-I'm eagerly waiting for your feedback on [Reddit](reddit.com/u/LayoutXML), on the [Issue tracker](https://github.com/LayoutXML/SABS/issues) and on [XDA-developers](https://forum.xda-developers.com/member.php?u=6183103). Message me with your suggestions, bug reports and list of apps where ads are not blocked. Please limit the feedback on issue tracker to issues only.
+I'm eagerly waiting for your feedback on [Reddit](reddit.com/u/LayoutXML), on the [Issue tracker](https://github.com/LayoutXML/SABS/issues) and on [XDA-developers](https://forum.xda-developers.com/android/apps-games/app-sabs-simple-adblocker-samsung-t3751722). Message me with your suggestions, bug reports and list of apps where ads are not blocked. Please limit the feedback on issue tracker to issues only.
 
 ## Contribute
 I welcome any help. Translations are not my priority at the moment and could wait at least for beta releases.
