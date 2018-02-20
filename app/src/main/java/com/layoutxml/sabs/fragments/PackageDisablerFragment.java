@@ -607,7 +607,7 @@ public class PackageDisablerFragment extends LifecycleFragment {
                 return null;
             }
             Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-            return new Result(bitmap, Picasso.LoadedFrom.MEMORY);
+            return new Result(bitmap, Picasso.LoadedFrom.DISK);
         }
     }
 

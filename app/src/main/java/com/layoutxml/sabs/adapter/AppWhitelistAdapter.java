@@ -108,7 +108,7 @@ public class AppWhitelistAdapter extends ArrayAdapter<AppInfo> {
                 return null;
             }
             Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-            return new Result(bitmap, Picasso.LoadedFrom.MEMORY);
+            return new Result(bitmap, Picasso.LoadedFrom.DISK);
         }
     }
 
