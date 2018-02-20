@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         Boolean blackTheme = sharedPreferences.getBoolean("blackTheme", false);
-        BlockPort53= sharedPreferences.getBoolean("blockPort53", false);
+        BlockPort53= sharedPreferences.getBoolean("blockPort53", true);
         if (blackTheme)
             setTheme(R.style.BlackAppTheme);
         else

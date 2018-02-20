@@ -162,5 +162,5 @@
     <string name="use_black_theme">Use black theme</string>
     <string name="use_black_theme_desc">Set the theme to amoled black and restart the app</string>
     <string name="block_port_53">Block Port 53</string>
-    <string name="block_port_53_desc">Block Port 53 to be able to block ads on Chrome. Might break other functions such as Play Store on Android Wear. After changing value, disable and enable blocking</string>
+    <string name="block_port_53_desc">Block Port 53 on Chrome (Stable, Canary, Beta, Dev) so that ads were blocked on these apps. After changing value, turn blocking off and on</string>
 </resources>

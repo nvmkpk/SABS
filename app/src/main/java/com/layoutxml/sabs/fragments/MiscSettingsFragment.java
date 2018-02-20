@@ -53,7 +53,7 @@ public class MiscSettingsFragment extends LifecycleFragment {
         SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
         Boolean showDialog = sharedPreferences.getBoolean("showDialog", false);
         Boolean blackTheme = sharedPreferences.getBoolean("blackTheme", false);
-        Boolean blockPort = sharedPreferences.getBoolean("blockPort53", false);
+        Boolean blockPort = sharedPreferences.getBoolean("blockPort53", true);
         showDialogSwitch.setChecked(showDialog);
         blackThemeSwitch.setChecked(blackTheme);
         blockPortSwitch.setChecked(blockPort);

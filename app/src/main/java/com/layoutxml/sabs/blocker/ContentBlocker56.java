@@ -128,12 +128,17 @@ public class ContentBlocker56 implements ContentBlocker {
             {
                 Log.d(TAG, "BLOCKING PORT 53");
                 FirewallRule[] portRules = new FirewallRule[2];
-                portRules[0] = new FirewallRule(FirewallRule.RuleType.DENY, Firewall.AddressType.IPV4);
-                portRules[0].setIpAddress("*");
-                portRules[0].setPortNumber("53");
-                portRules[1] = new FirewallRule(FirewallRule.RuleType.DENY, Firewall.AddressType.IPV6);
-                portRules[1].setIpAddress("*");
-                portRules[1].setPortNumber("53");
+                List<String> Port53Apps = new ArrayList<String>(Arrays.asList("com.android.chrome","com.chrome.beta", "com.chrome.dev", "com.chrome.canary"));
+                for (String app : Port53Apps) {
+                    portRules[0] = new FirewallRule(FirewallRule.RuleType.DENY, Firewall.AddressType.IPV4);
+                    portRules[0].setIpAddress("*");
+                    portRules[0].setPortNumber("53");
+                    portRules[0].setApplication(new AppIdentity(app, null));
+                    portRules[1] = new FirewallRule(FirewallRule.RuleType.DENY, Firewall.AddressType.IPV6);
+                    portRules[1].setIpAddress("*");
+                    portRules[1].setPortNumber("53");
+                    portRules[1].setApplication(new AppIdentity(app, null));
+                }
                 FirewallResponse[] response = mFirewall.addRules(portRules);
             }
         }
