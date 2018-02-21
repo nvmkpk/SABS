@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ import com.layoutxml.sabs.R;
 import java.util.Objects;
 
 import static com.layoutxml.sabs.Global.BlockPort53;
+import static com.layoutxml.sabs.Global.BlockPortAll;
 
 public class MiscSettingsFragment extends LifecycleFragment {
 
@@ -47,16 +49,32 @@ public class MiscSettingsFragment extends LifecycleFragment {
         Switch showDialogSwitch = view.findViewById(R.id.showDialogSwitch);
         Switch blackThemeSwitch = view.findViewById(R.id.blackThemeSwitch);
         Switch blockPortSwitch = view.findViewById(R.id.blockPortSwitch);
+        CheckBox blockPortAllBox = view.findViewById(R.id.blockAllBox);
+        TextView blockPortAllText = view.findViewById(R.id.textView21);
         View MiscShowWarning = view.findViewById(R.id.MiscShowWarning);
         View MiscBlackTheme = view.findViewById(R.id.MiscBlackTheme);
         View MiscBlockPort = view.findViewById(R.id.MiscBlockPort);
+        View MiscBlockAll = view.findViewById(R.id.MiscBlockAll);
         SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
         Boolean showDialog = sharedPreferences.getBoolean("showDialog", false);
         Boolean blackTheme = sharedPreferences.getBoolean("blackTheme", false);
         Boolean blockPort = sharedPreferences.getBoolean("blockPort53", true);
+        Boolean blockPortAll = sharedPreferences.getBoolean("blockPortAll", false);
         showDialogSwitch.setChecked(showDialog);
         blackThemeSwitch.setChecked(blackTheme);
         blockPortSwitch.setChecked(blockPort);
+        blockPortAllBox.setChecked(blockPortAll);
+        blockPortAllBox.setEnabled(blockPort);
+        if (blockPort)
+        {
+            blockPortAllText.setAlpha(1F);
+            blockPortAllBox.setAlpha(1F);
+        }
+        else
+        {
+            blockPortAllBox.setAlpha(.5F);
+            blockPortAllText.setAlpha(.5F);
+        }
 
 
         MiscShowWarning.setOnClickListener(v -> {
@@ -90,10 +108,34 @@ public class MiscSettingsFragment extends LifecycleFragment {
         MiscBlockPort.setOnClickListener(v -> {
             boolean isChecked = !blockPortSwitch.isChecked();
             blockPortSwitch.setChecked(isChecked);
+            blockPortAllBox.setEnabled(isChecked);
+            if (isChecked)
+            {
+                blockPortAllText.setAlpha(1F);
+                blockPortAllBox.setAlpha(1F);
+            }
+            else
+            {
+                blockPortAllBox.setAlpha(.5F);
+                blockPortAllText.setAlpha(.5F);
+            }
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean("blockPort53", isChecked);
             editor.apply();
             BlockPort53=isChecked;
+        });
+
+        MiscBlockAll.setOnClickListener(v -> {
+            boolean isChecked = !blockPortAllBox.isChecked();
+            boolean isAllowed = blockPortSwitch.isChecked();
+            if (isAllowed)
+            {
+                blockPortAllBox.setChecked(isChecked);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("blockPortAll", isChecked);
+                editor.apply();
+                BlockPortAll=isChecked;
+            }
         });
 
         return view;
